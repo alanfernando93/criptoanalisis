@@ -18,5 +18,18 @@
   ],
   "profile": {
     "name": "typicode"
-  }
+  },
+  "news":[
+    {
+      "id":1,
+      "titulo":"",
+      "contenido":"",
+      "fuentes":"",
+      "conjeturas-precio":"",
+      "conjeturas-monedas":"",
+      "fecha_creacion":"",
+      "likes":"",
+      "monedas":""
+    }
+  ]
 }
