@@ -26,8 +26,12 @@
   .control-item {
     display: block;
 
-    form {
+    .input-group {
       height: 100%;
+
+      button {
+        line-height: 0.8em;
+      }
     }
   }
 
