@@ -124,6 +124,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
   {
+    title: 'News',
+    icon: 'nb-layout-sidebar-right',
+    children: [
+      {
+        title: 'List News',
+        link: '/pages/news/list',
+      },
+    ],
+  },
+  {
     title: 'Tables',
     icon: 'nb-tables',
     children: [

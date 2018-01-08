@@ -1,0 +1,25 @@
+<nb-card>
+  <nb-card-header>
+    List News
+  </nb-card-header>
+
+  <nb-card-body>
+    <div class="list-group">
+      <a [routerLink]="['/pages/news/view',new.id]" class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let new of news">
+        <div class="row">
+          <div class="col-md-10">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{{new.name}}</h5>
+              <small>{{new.email}}</small>
+            </div>
+            <p class="text-indent">{{new.body}}</p>
+            <small>paragraph footer</small>
+          </div>
+          <div class="col-md-2">
+            <img src="https://2j9zen46cyp13k47i01s551m-wpengine.netdna-ssl.com/wp-content/uploads/2017/01/crear-pagina-web-profesional.jpg" class="img-thumbnail" alt="">
+          </div>
+        </div>
+      </a>
+    </div>
+  </nb-card-body>
+</nb-card>
