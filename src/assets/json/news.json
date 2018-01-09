@@ -6,7 +6,14 @@
       "author": "typicode"
     },
     {
-      "id": 2
+      "id": 2,
+      "title": "jajajaja",
+      "author": "pppp"
+    },
+    {
+      "id": 4,
+      "title": "html",
+      "author": "yo"
     }
   ],
   "comments": [
@@ -19,8 +26,63 @@
   "profile": {
     "name": "typicode"
   },
-  "news":[
-    {
+ "news":[
+  {
+    "id": 1,
+    "titulo": "id labore ex et quam laborum",
+    "contenido": "laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium",
+    "fuentes": "https://es.wikipedia.org/wiki/Pera",
+    "moneda": "etherium",
+    "like": 7,
+    "conjeturaOtraMoneda": "Conjeturas de otras monedas",
+    "confeturaPrecio": "Conjeturas de precio",
+    "createdAt": "2017-12-20 19:37:50"
+  },
+  {
+    "id": 2,
+    "titulo": "quo vero reiciendis velit similique earum",
+    "email": "Jayne_Kuhic@sydney.com",
+    "contenido": "est natus enim nihil est dolore omnis voluptatem numquam\net omnis occaecati quod ullam at\nvoluptatem error expedita pariatur\nnihil sint nostrum voluptatem reiciendis et",
+    "fuentes": "https://es.wikipedia.org/wiki/Pera",
+    "moneda": "etherium",
+    "like": 9,
+    "conjeturaOtraMoneda": "Conjeturas de otras monedas",
+    "confeturaPrecio": "Conjeturas de precio",
+    "createdAt": "2017-12-20 19:37:50"
+  },
+  {
+    "id": 3,
+    "name": "odio adipisci rerum aut animi",
+    "body": "quia molestiae reprehenderit quasi aspernatur\naut expedita occaecati aliquam eveniet laudantium\nomnis quibusdam delectus saepe quia accusamus maiores nam est\ncum et ducimus et vero voluptates excepturi deleniti ratione",
+    "fuentes": "https://es.wikipedia.org/wiki/Pera",
+    "moneda": "etherium",
+    "like": 10,
+    "conjeturaOtraMoneda": "Conjeturas de otras monedas",
+    "confeturaPrecio": "Conjeturas de precio",
+    "createdAt": "2017-12-20 19:37:50"
+  },
+  {
+    "id": 4,
+    "name": "alias odio sit",
+    "body": "non et atque\noccaecati deserunt quas accusantium unde odit nobis qui voluptatem\nquia voluptas consequuntur itaque dolor\net qui rerum deleniti ut occaecati",
+    "fuentes": "https://es.wikipedia.org/wiki/Pera",
+    "moneda": "etherium",
+    "like": 47,
+    "conjeturaOtraMoneda": "Conjeturas de otras monedas",
+    "confeturaPrecio": "Conjeturas de precio",
+    "createdAt": "2017-12-20 19:37:50"
+  },
+  {
+    "id": 5,
+    "name": "vero eaque aliquid doloribus et culpa",
+    "body": "harum non quasi et ratione\ntempore iure ex voluptates in ratione\nharum architecto fugit inventore cupiditate\nvoluptates magni quo et",
+    "fuentes": "https://es.wikipedia.org/wiki/Pera",
+    "moneda": "etherium",
+    "like": 25,
+    "conjeturaOtraMoneda": "Conjeturas de otras monedas",
+    "confeturaPrecio": "Conjeturas de precio",
+    "createdAt": "2017-12-20 19:37:50"
+  },{
       "id":6,
       "titulo":"Cambio de la modena bitcoin",
       "contenido":"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts",
