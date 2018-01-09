@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { ActivatedRoute, Params } from '@angular/router'; 
+import { ActivatedRoute, Params } from '@angular/router';
 
 
 @Component({
@@ -20,9 +20,9 @@ export class ViewComponent {
       this.route.params.subscribe((param)=>{
         this.id = param['idNew'];
         console.log(this.id);
-      
+
       })
-       this.http.get('http://jsonplaceholder.typicode.com/comments/'+ this.id).subscribe(
+       this.http.get('http://192.168.1.8:3000/news/'+ this.id).subscribe(
          (resp:Response)=>{
            this.news = JSON.parse(resp['_body']);
            console.log(this.news);
