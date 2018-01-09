@@ -16,7 +16,7 @@ export class ListComponent {
   news:any;
 
   constructor(private http: Http) {
-    http.request('http://192.168.1.11:3000/news').subscribe(
+    http.request('http://192.168.1.8:3000/news').subscribe(
       (resp:Response)=>{
         this.news = JSON.parse(resp['_body']);
         console.log(this.news);

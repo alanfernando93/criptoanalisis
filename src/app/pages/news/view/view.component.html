@@ -18,29 +18,30 @@
 </nb-card>
 <nb-card>
   <nb-card-header>
-    <h4 class="text-primary">{{news.name}}</h4>
+    <h4 class="text-primary">{{news.titulo}}</h4>
+    <span>{{news.fecha_creacion}}</span>
   </nb-card-header>
   <nb-card-body>
     <div class="row">
       <div class="col-md-12 text-body">
-          {{news.body}}
+          {{news.contenido}}
       </div>
     </div>
   </nb-card-body>
 </nb-card>
 <nb-card>
   <nb-card-header>
-    <h5>{{news.email}}</h5>
+    <h5>{{news.fuente}}</h5>
   </nb-card-header>
   <nb-card-body>
     <div class="row">
       <div class="col-md-12">
-        <p>{{news.body}}</p>
+        <p>{{news.moneda}}</p>
       </div>
     </div>
     <div class="row show-grid">
       <div class="col-lg-6 col-md-6 col-12">
-        <div>Periodo : 12/11/2017</div>
+        <div>Periodo : {{news.fecha_creacion}}</div>
       </div>
       <div class="col-lg-6 col-md-6 col-12">
         <div>Direccion : Long Fuerte</div>
@@ -64,7 +65,7 @@
           <a href="http://whatsapp.com" class="fa fa-whatsapp socials"></a>
       </div>
       <div class="col-md-1 col-sm-2 col-3">
-          <a href="http://facebook.com" class="fa fa-thumbs-up socials">15</a>
+          <a href="http://facebook.com" class="fa fa-thumbs-up socials">{{news.like}}</a>
       </div>
       <div class="col-md-1 col-sm-2 col-3">
           <a href="http://facebook.com" class="fa fa-thumbs-down socials">74</a>
@@ -76,11 +77,19 @@
 <nb-card>
   <nb-card-body>
     <div class="row">
-      <div class="col-md-12">
-        <button type="button" class="btn btn-hero-info btn-block">Comentarios</button>
-      </div>
+      <div class="col-12">
+          <div class="dropdown" ngbDropdown>
+              <button class="btn btn-hero-info btn-block" type="button" ngbDropdownToggle>
+                  451 Comentarios
+              </button>
+              <ul class="dropdown-menu" ngbDropdownMenu>
+                <li class="dropdown-item">Icon Button 2</li>
+                <li class="dropdown-item">Hero Button</li>
+                <li class="dropdown-item">Default</li>
+              </ul>
+            </div>
+        </div>
     </div>
-    
   </nb-card-body>
 </nb-card>
     <div class="row">
