@@ -49,6 +49,9 @@
     "noticia": {
       "type": "hasMany",
       "model": "noticia",
+    "signals": {
+      "type": "hasMany",
+      "model": "signal",
       "foreignKey": ""
     }
   },
