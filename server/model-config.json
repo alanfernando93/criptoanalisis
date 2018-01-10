@@ -45,6 +45,10 @@
   },
   "signal": {
     "dataSource": "db",
+    "public":true
+  },
+  "signal": {
+    "dataSource": "db",
     "public": true
   }
 }
