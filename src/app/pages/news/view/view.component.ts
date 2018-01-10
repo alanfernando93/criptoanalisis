@@ -22,7 +22,7 @@ export class ViewComponent {
         console.log(this.id);
 
       })
-       this.http.get('http://localhost:3000/news/'+ this.id).subscribe(
+       this.http.get('http://192.168.100.106:3000/news/'+ this.id).subscribe(
          (resp:Response)=>{
            this.news = JSON.parse(resp['_body']);
            console.log(this.news);
