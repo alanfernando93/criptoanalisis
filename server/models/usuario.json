@@ -13,7 +13,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "signals": {
+      "type": "hasMany",
+      "model": "signal",
+      "foreignKey": ""
+    }
+  },
   "acls": [],
   "methods": {}
 }
