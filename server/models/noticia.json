@@ -15,39 +15,33 @@
       "type": "string",
       "required": true
     },
-    "tipo_moneda":{
-      "type":"string",
+    "tipo_moneda": {
+      "type": "string",
       "required": false
     },
-    "conj_moneda":{
-      "type":"string",
-      "required":false
+    "conj_moneda": {
+      "type": "string",
+      "required": false
     },
-    "like":{
-     "type":"number",
-     "required":false 
+    "like": {
+      "type": "number",
+      "required": false
     },
-    "fecha_create":{
-     "type":"date",
-     "required":false
+    "fecha_create": {
+      "type": "date",
+      "required": false
     },
-    "conj_precio":{
-      "type":"string",
-      "required":false
+    "conj_precio": {
+      "type": "string",
+      "required": false
     },
-    "fuentes":{
-      "type":"string",
-      "required":false
+    "fuentes": {
+      "type": "string",
+      "required": false
     }
   },
   "validations": [],
-  "relations": {
-    "usuarios": {
-      "type": "hasOne",
-      "model": "usuario",
-      "foreignKey": ""
-    }
-  },
+  "relations": {},
   "acls": [],
   "methods": {}
 }
