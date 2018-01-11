@@ -7,13 +7,31 @@
     "validateUpsert": true
   },
   "properties": {
-    "nickname": {
+    "nombre": {
       "type": "string",
+      "required": true
+    },
+    "apellido": {
+      "type": "string",
+      "required": true
+    },
+    "fecha_nacimiento": {
+      "type": "date",
+      "required": true
+    },
+    "fecha_registro": {
+      "type": "date",
       "required": true
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "noticia": {
+      "type": "hasMany",
+      "model": "noticia",
+      "foreignKey": ""
+    }
+  },
   "acls": [],
   "methods": {}
 }
