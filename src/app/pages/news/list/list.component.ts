@@ -18,8 +18,4 @@ export class ListComponent {
       this.news = noticias;
     });
   }
-
-  stringLimit(text,limit){
-    return (text.length < limit)? text : text.substr(0,limit);
-  }
 }
