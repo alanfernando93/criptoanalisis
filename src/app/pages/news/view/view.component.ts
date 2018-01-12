@@ -6,11 +6,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 @Component({
   selector: 'ngx-view',
   templateUrl: './view.component.html',
-  styles: [`
-    nb-card {
-      transform: translate3d(0, 0, 0);
-    }
-  `]
+  styleUrls: ['./view.component.scss']
 })
 export class ViewComponent {
 
@@ -22,7 +18,7 @@ export class ViewComponent {
         console.log(this.id);
 
       })
-       this.http.get('http://192.168.100.106:3000/news/'+ this.id).subscribe(
+       this.http.get('http://localhost:3000/news/'+ this.id).subscribe(
          (resp:Response)=>{
            this.news = JSON.parse(resp['_body']);
            console.log(this.news);
