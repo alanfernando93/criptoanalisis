@@ -14,6 +14,30 @@
     "contenido": {
       "type": "string",
       "required": true
+    },
+    "tipo_moneda":{
+      "type":"string",
+      "required": true
+    },
+    "conj_moneda":{
+      "type":"string",
+      "required":false
+    },
+    "like":{
+     "type":"number",
+     "required":true 
+    },
+    "fecha_create":{
+     "type":"date",
+     "required":true 
+    },
+    "conj_precio":{
+      "type":"string",
+      "required":true
+    },
+    "fuentes":{
+      "type":"string",
+      "required":true
     }
   },
   "validations": [],
