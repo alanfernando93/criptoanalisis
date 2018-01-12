@@ -18,7 +18,6 @@ export class ViewComponent {
       this.id = param['idNew'];
       console.log(this.id);
 
-<<<<<<< HEAD
       })
        this.http.get('http://localhost:3000/news/'+ this.id).subscribe(
          (resp:Response)=>{
@@ -27,14 +26,4 @@ export class ViewComponent {
          }
        )
     }
-=======
-    })
-    this.http.get(this.backend.getHost() + '/' + this.table + '/' + this.id).subscribe(
-      (resp: Response) => {
-        this.news = JSON.parse(resp['_body']);
-        console.log(this.news);
-      }
-    )
-  }
->>>>>>> 8a836b65daab5138a16087be0b2cb778d2e5e250
 }
