@@ -10,8 +10,8 @@ import { NoticiasService } from '../noticias.service';
 })
 export class ListComponent implements OnInit {
 
-  news:any;
-  table:String = "news";
+  news: any;
+  table: String = "news";
 
   constructor(private http: Http, private noticiasService: NoticiasService) {
   }
