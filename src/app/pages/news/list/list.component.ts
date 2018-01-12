@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { BackendService } from '../../backend.service';
+
+import { NoticiasService } from '../noticias.service';
 
 @Component({
   selector: 'ngx-list',
@@ -12,17 +13,13 @@ export class ListComponent {
   news:any;
   table:String = "news";
 
-  constructor(private http: Http) {
-    http.request('http://localhost:3000/news').subscribe(
-      (resp:Response)=>{
-        this.news = JSON.parse(resp['_body']);
-        console.log(this.news);
-      }
-    )
+  constructor(private http: Http, private noticiasService: NoticiasService) {
+    this.noticiasService.getNoticias().then((noticias) => {
+      this.news = noticias;
+    });
   }
 
   stringLimit(text,limit){
     return (text.length < limit)? text : text.substr(0,limit);
   }
-
 }
