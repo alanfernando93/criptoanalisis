@@ -10,6 +10,22 @@
     "nickname": {
       "type": "string",
       "required": true
+    },
+    "nombre": {
+      "type": "string",
+      "required": true
+    },
+    "apellido": {
+      "type": "string",
+      "required": true
+    },
+    "fecha_nacimiento": {
+      "type": "date",
+      "required": true
+    },
+    "fecha_registro": {
+      "type": "date",
+      "required": true
     }
   },
   "validations": [],
