@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+
+import { environment } from '../../../environments/environment';
+
 import 'rxjs/add/observable/of';
 
 let counter = 0;
 
 @Injectable()
 export class UserService {
+
+  private baseUrl = environment.apiUrl;
 
   private users = {
     nick: { name: 'Nick Jones', picture: 'assets/images/nick.png' },

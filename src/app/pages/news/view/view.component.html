@@ -1,74 +1,69 @@
 <nb-card>
   <nb-card-header>
     <div class="row">
-      <div class="col-6 col-sm-3">
+      <div class="col-6 col-sm-2">
         <span class="fa fa-user"></span>
       </div>
-      <div class="col-6 col-sm-3">
+      <div class="col-6 col-sm-4">
         <span class="font-w-light">Juan Jose Perez</span>
       </div>
-      <div class="col-6 col-sm-3">
+      <div class="col-4 col-sm-3">
         <span class="font-w-light">715 P</span>
       </div>
-      <div class="col-6 col-sm-3">
+      <div class="col-4 col-sm-2">
         <span class="font-w-light">25 f</span>
+      </div>
+      <div class="col-4 col-sm-1">
+        <span class="font-w-light">ETH</span>
       </div>
     </div>
   </nb-card-header>
 </nb-card>
 <nb-card>
   <nb-card-header>
-    <h4 class="text-primary">{{news.titulo}}</h4>
-    <span>{{news.fecha_creacion}}</span>
+    <div class="row">
+        <h4 class="col-12 col-lg-12 text-primary">{{news.titulo}}</h4>
+        <span class="col-12 col-lg-12 text-primary">{{news.fecha_creacion}}</span>
+    </div>
   </nb-card-header>
   <nb-card-body>
     <div class="row">
       <div class="col-md-12 text-body">
           {{news.contenido}}
       </div>
+        <p class="col-md-6">Fuente : {{news.fuentes}}</p>
+        <p class="col-md-6">Tipo de Modena {{news.moneda}}</p>
     </div>
   </nb-card-body>
 </nb-card>
 <nb-card>
-  <nb-card-header>
-    <h5>{{news.fuente}}</h5>
-  </nb-card-header>
   <nb-card-body>
-    <div class="row">
-      <div class="col-md-12">
-        <p>{{news.moneda}}</p>
-      </div>
-    </div>
-    <div class="row show-grid">
-      <div class="col-lg-6 col-md-6 col-12">
-        <div>Periodo : {{news.fecha_creacion}}</div>
-      </div>
-      <div class="col-lg-6 col-md-6 col-12">
-        <div>Direccion : Long Fuerte</div>
-      </div>
+    <div class="row">  
+      <p class="col-md-6 col-12">Conjetura de otra Modena : {{news.conjeturaOtraMoneda}}</p>
+      <p class="col-md-6 col-12">Confetura de precio : {{news.confeturaPrecio}}</p>
     </div>
   </nb-card-body>
 </nb-card>
 <nb-card>
   <nb-card-body>
     <div class="row">
-      <div class="col-md-6 col-sm-12 col-12">
-        <span>Compartir : </span>
+      <div class="col-md-3 col-sm-12 col-12">
+        <label>Compartir : </label>
       </div>
-      <div class="col-md-1 col-sm-2 col-2">
-        <a href="http://facebook.com" class="fa fa-facebook socials"></a>
+      <div class="col-md-1 col-sm-2 col-2 socials">
+        <a href="#" class="ion ion-social-facebook"></a>
       </div>
-      <div class="col-md-1 col-sm-2 col-2">
-          <a href="http://twitter.com" class="fa fa-twitter socials"></a>
+      <div class="col-md-1 col-sm-2 col-2 socials">
+          <a href="#" class="ion ion-social-twitter"></a>
       </div>
-      <div class="col-md-1 col-sm-2 col-2">
-          <a href="http://whatsapp.com" class="fa fa-whatsapp socials"></a>
+      <div class="col-md-1 col-sm-2 col-2 socials">
+          <a href="#" class="ion ion-social-whatsapp"></a>
       </div>
-      <div class="col-md-1 col-sm-2 col-3">
-          <a href="http://facebook.com" class="fa fa-thumbs-up socials">{{news.like}}</a>
+      <div class="col-md-2 col-sm-2 col-3 socials">
+          <a href="#" class="fa fa-thumbs-up">45</a>
       </div>
-      <div class="col-md-1 col-sm-2 col-3">
-          <a href="http://facebook.com" class="fa fa-thumbs-down socials">74</a>
+      <div class="col-md-2 col-sm-2 col-3 socials">
+          <a href="#" class="fa fa-thumbs-down">74</a>
       </div>
     </div>
   </nb-card-body>
@@ -82,11 +77,17 @@
               <button class="btn btn-hero-info btn-block" type="button" ngbDropdownToggle>
                   451 Comentarios
               </button>
-              <ul class="dropdown-menu" ngbDropdownMenu>
-                <li class="dropdown-item">Icon Button 2</li>
-                <li class="dropdown-item">Hero Button</li>
-                <li class="dropdown-item">Default</li>
-              </ul>
+              <nb-card>
+               <nb-card-body>
+                    <form>
+                      <div class="form-group">
+                        <textarea class="form-control" placeholder="Escribe un Comentario"></textarea>
+                      </div>
+                      <button type="submit" class="btn btn-success">Publicar</button>
+                    </form>
+                        <span class="btn-outline-primary">Comentarios</span>
+                  </nb-card-body>
+                </nb-card>
             </div>
         </div>
     </div>
@@ -94,7 +95,7 @@
 </nb-card>
     <div class="row">
       <div class="col-xl-6 col-md-6 col-12">
-        <div class="dropdown" placement="top" ngbDropdown>
+        <div class="dropdown" ngbDropdown>
           <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
             Señales
           </button>
@@ -106,7 +107,7 @@
         </div>
       </div>
       <div class="col-xl-6 col-md-6 col-12">
-        <div class="dropdown" placement="top" ngbDropdown>
+        <div class="dropdown" ngbDropdown>
           <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
             Señales
           </button>
@@ -118,7 +119,7 @@
         </div>
       </div>
       <div class="col-xl-6 col-md-6 col-12">
-        <div class="dropdown" placement="top" ngbDropdown>
+        <div class="dropdown" ngbDropdown>
           <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
             Tutoriales
           </button>
@@ -130,7 +131,7 @@
         </div>
       </div>
       <div class="col-xl-6 col-md-6 col-12">
-        <div class="dropdown" placement="top" ngbDropdown>
+        <div class="dropdown" ngbDropdown>
           <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
             Dropdown
           </button>

@@ -1,27 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
+import { NoticiasService } from '../noticias.service';
 
 @Component({
   selector: 'ngx-list',
   templateUrl: './list.component.html',
-  styles: [`
-    nb-card {
-      transform: translate3d(0, 0, 0);
-    }
-  `]
+  styleUrls: ['./list.component.scss'],
 })
-export class ListComponent {
+export class ListComponent implements OnInit {
 
-  news:any;
+  news: any;
+  table: String = "news";
 
-  constructor(private http: Http) {
-    http.request('http://192.168.1.8:3000/news').subscribe(
-      (resp:Response)=>{
-        this.news = JSON.parse(resp['_body']);
-        console.log(this.news);
-      }
-    )
+  constructor(private http: Http, private noticiasService: NoticiasService) {
   }
 
+  ngOnInit() {
+    this.noticiasService.getNoticias().then((noticias) => {
+      this.news = noticias;
+    });
+  }
 }
