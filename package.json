@@ -19,9 +19,13 @@
     "loopback-component-explorer": "^4.0.0",
     "loopback-connector-mysql": "^5.2.0",
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     "loopback-i18n": "^1.1.4",
 >>>>>>> tabla noticia
+=======
+    "loopback-i18n": "^1.1.4",
+>>>>>>> 078201d930352b5c6de23c5796746f4066ea0770
     "serve-favicon": "^2.0.1",
     "strong-error-handler": "^2.0.0"
   },

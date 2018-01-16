@@ -13,4 +13,5 @@ module.exports = function(Noticia) {
         returns: {arg: 'Noticias', type: 'array'},
         http: {path:'/listar_noticas', verb: 'get'}
       });
+
 };
