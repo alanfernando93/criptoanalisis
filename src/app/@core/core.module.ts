@@ -1,25 +1,39 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NbAuthModule, NbDummyAuthProvider } from '@nebular/auth';
+import { NbAuthModule, NbEmailPassAuthProvider } from '@nebular/auth';
 
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { DataModule } from './data/data.module';
 import { AnalyticsService } from './utils/analytics.service';
+
+import { environment } from '../../environments/environment';
 
 const NB_CORE_PROVIDERS = [
   ...DataModule.forRoot().providers,
   ...NbAuthModule.forRoot({
     providers: {
       email: {
-        service: NbDummyAuthProvider,
+        service: NbEmailPassAuthProvider,
         config: {
-          delay: 3000,
+          baseEndpoint: environment.apiUrl,
           login: {
             rememberMe: true,
+            endpoint: 'usuarios/login',
+            method: 'post',
+            redirect: {
+              success: '/',
+              failure: null,
+            },
+            defaultErrors: ['Login/Email combination is not correct, please try again.'],
+            defaultMessages: ['You have been successfully logged in.']
           },
         },
       },
-    },
+    }, forms: {
+      login: {
+        redirectDelay: 5000
+      }
+    }
   }).providers,
   AnalyticsService,
 ];
