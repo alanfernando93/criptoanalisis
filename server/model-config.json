@@ -18,24 +18,28 @@
   },
   "AccessToken": {
     "dataSource": "db",
-    "public": true
+    "public": false
   },
   "ACL": {
     "dataSource": "db",
-    "public": true
+    "public": false
   },
   "RoleMapping": {
     "dataSource": "db",
-    "public": true,
+    "public": false,
     "options": {
       "strictObjectIDCoercion": true
     }
   },
   "Role": {
     "dataSource": "db",
-    "public": true
+    "public": false
   },
   "usuario": {
+    "dataSource": "db",
+    "public": true
+  },
+  "noticia": {
     "dataSource": "db",
     "public": true
   }
