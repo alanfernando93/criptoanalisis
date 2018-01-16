@@ -21,7 +21,7 @@ const NB_CORE_PROVIDERS = [
             endpoint: 'usuarios/login',
             method: 'post',
             redirect: {
-              success: '/',
+              success: '/pages/forms/inputs',
               failure: null,
             },
             defaultErrors: ['Login/Email combination is not correct, please try again.'],
@@ -29,10 +29,6 @@ const NB_CORE_PROVIDERS = [
           },
         },
       },
-    }, forms: {
-      login: {
-        redirectDelay: 5000
-      }
     }
   }).providers,
   AnalyticsService,
@@ -48,7 +44,7 @@ const NB_CORE_PROVIDERS = [
   declarations: [],
 })
 export class CoreModule {
-  constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
+  constructor( @Optional() @SkipSelf() parentModule: CoreModule) {
     throwIfAlreadyLoaded(parentModule, 'CoreModule');
   }
 
