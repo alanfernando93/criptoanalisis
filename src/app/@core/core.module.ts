@@ -7,7 +7,7 @@ import { DataModule } from './data/data.module';
 import { AnalyticsService } from './utils/analytics.service';
 
 import { environment } from '../../environments/environment';
-
+ 
 const NB_CORE_PROVIDERS = [
   ...DataModule.forRoot().providers,
   ...NbAuthModule.forRoot({
