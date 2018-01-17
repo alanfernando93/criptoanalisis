@@ -8,8 +8,7 @@ module.exports = function (app) {
     app.models.usuario.create([{  
       "username": "ccuellar",
       "email": "ccuellar@test.com",
-      "password": "claudio123",
-      "nickname": "claudio"
+      "password": "claudio123"
     }], function(err, usuarios) {
       console.log('Models created: \n', usuarios);
     });
