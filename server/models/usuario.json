@@ -9,19 +9,19 @@
   "properties": {
     "nombre": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "apellido": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "fecha_nacimiento": {
       "type": "date",
-      "required": true
+      "required": false
     },
     "fecha_registro": {
       "type": "date",
-      "required": true
+      "required": false
     }
   },
   "validations": [],

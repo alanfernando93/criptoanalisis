@@ -17,7 +17,7 @@
     },
     "tipo_moneda":{
       "type":"string",
-      "required": true
+      "required": false
     },
     "conj_moneda":{
       "type":"string",
@@ -25,19 +25,19 @@
     },
     "like":{
      "type":"number",
-     "required":true 
+     "required":false 
     },
     "fecha_create":{
      "type":"date",
-     "required":true 
+     "required":false
     },
     "conj_precio":{
       "type":"string",
-      "required":true
+      "required":false
     },
     "fuentes":{
       "type":"string",
-      "required":true
+      "required":false
     }
   },
   "validations": [],
