@@ -32,6 +32,9 @@ const routes: Routes = [{
     path: 'news',
     loadChildren: './news/news.module#NewsModule',
   },{
+    path: 'usuarios',
+    loadChildren: './usuarios/usuarios.module#UsuariosModule',
+  },{
     path: 'tables',
     loadChildren: './tables/tables.module#TablesModule',
   }, {
