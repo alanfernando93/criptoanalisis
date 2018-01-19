@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Http } from '@angular/http';
 
 import { environment } from '../../../environments/environment';
 
@@ -13,18 +14,14 @@ export class UserService {
   private baseUrl = environment.apiUrl;
 
   private users = {
-    nick: { name: 'Nick Jones', picture: 'assets/images/nick.png' },
-    eva: { name: 'Eva Moor', picture: 'assets/images/eva.png' },
-    jack: { name: 'Jack Williams', picture: 'assets/images/jack.png' },
-    lee: { name: 'Lee Wong', picture: 'assets/images/lee.png' },
-    alan: { name: 'Alan Thompson', picture: 'assets/images/alan.png' },
-    kate: { name: 'Kate Martinez', picture: 'assets/images/kate.png' },
+    nick: { name: 'Nick Jones', picture: 'assets/images/nick.png' }    
   };
 
   private userArray: any[];
 
-  constructor() {
+  constructor(private http: Http) {
     // this.userArray = Object.values(this.users);
+    // this.http.get(this.baseUrl + 'usuarios/1').toPromise();
   }
 
   getUsers(): Observable<any> {
@@ -35,8 +32,9 @@ export class UserService {
     return Observable.of(this.userArray);
   }
 
-  getUser(): Observable<any> {
-    counter = (counter + 1) % this.userArray.length;
-    return Observable.of(this.userArray[counter]);
+  getUser(idUser: Number, token: String): any {
+    return this.http.get(this.baseUrl + 'usuarios/' + idUser + '?access_token=' + token).toPromise();
+    // counter = (counter + 1) % this.userArray.length;
+    // return Observable.of(this.userArray[counter]);
   }
 }

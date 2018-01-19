@@ -1,6 +1,5 @@
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { AuthGuard } from './pages/auth-guard.service';
 
 import {
   NbAuthComponent,

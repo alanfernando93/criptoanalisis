@@ -1,6 +1,8 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpResponse } from '@angular/common/http';
 import { NbAuthModule, NbEmailPassAuthProvider } from '@nebular/auth';
+import { getDeepFromObject } from '@nebular/auth/helpers';
 
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { DataModule } from './data/data.module';
@@ -26,6 +28,13 @@ const NB_CORE_PROVIDERS = [
             },
             defaultErrors: ['Login/Email combination is not correct, please try again.'],
             defaultMessages: ['You have been successfully logged in.']
+          },
+          token: {
+            key: 'data.token',
+            getter: (module: string, res: HttpResponse<Object>) => {
+              localStorage.setItem('userId', res.body['userId']);
+              return res.body['id'];
+            }
           },
         },
       },

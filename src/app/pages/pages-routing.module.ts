@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
+import { AuthGuard } from '../auth-guard.service';
+
 const routes: Routes = [{
   path: '',
   component: PagesComponent,
@@ -21,6 +23,7 @@ const routes: Routes = [{
     loadChildren: './maps/maps.module#MapsModule',
   }, {
     path: 'charts',
+    canActivate: [ AuthGuard ],
     loadChildren: './charts/charts.module#ChartsModule',
   }, {
     path: 'editors',
