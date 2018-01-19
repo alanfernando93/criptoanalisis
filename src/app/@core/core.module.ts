@@ -36,9 +36,19 @@ const NB_CORE_PROVIDERS = [
               return res.body['id'];
             }
           },
+          register:{
+            endpoint: 'usuarios',
+            method: 'post',
+            redirect: {
+              success: '/pages/forms/inputs',
+              failure: null,
+            },
+            defaultErrors: ['Signed Up is not correct, please try again'],
+            defaultMessages: ['you have been successfully signed up']
+          }
         },
       },
-    }
+    },
   }).providers,
   AnalyticsService,
 ];
