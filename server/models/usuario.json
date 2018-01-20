@@ -22,6 +22,26 @@
     "fecha_registro": {
       "type": "date",
       "required": false
+    },
+    "redes_sociales":{
+      "type": "string",
+      "required":false
+    },
+    "puntos":{
+      "type":"number",
+      "required":false
+    },
+    "precision":{
+      "type":"number",
+      "required":false
+    },
+    "fama":{
+      "type":"number",
+      "required":false
+    },
+    "profile":{
+      "type":"string",
+      "required":false
     }
   },
   "validations": [],
