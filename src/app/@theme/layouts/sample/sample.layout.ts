@@ -28,11 +28,21 @@ import 'rxjs/add/operator/delay';
                    tag="menu-sidebar"
                    responsive
                    [right]="sidebar.id === 'right'">
-        <nb-sidebar-header>
-          <a href="#" class="btn btn-hero-success main-btn">
-            <i class="ion ion-social-github"></i> <span>Support Us</span>
-          </a>
-        </nb-sidebar-header>
+          <div class="card" style="width: 13rem;">
+          <img class="card-img-top" src="..." alt="">
+          <div class="card-block">
+            <h4 class="card-title">Encuesta 1</h4>
+            <p class="card-text">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit..</p>
+            <a href="#" class="btn btn-primary btn-tn">Button</a>
+          </div>
+        </div>
+        <div class="card" style="width: 13rem;">
+        <div class="card-block">
+          <h4 class="card-title">Oferta !</h4>
+          <p class="card-text">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information..</p>
+          <a href="#" class="btn btn-primary btn-tn">Learn more</a>
+        </div>
+      </div>
         <ng-content select="nb-menu"></ng-content>
       </nb-sidebar>
 
@@ -62,7 +72,7 @@ import 'rxjs/add/operator/delay';
     </nb-layout>
   `,
 })
-export class SampleLayoutComponent  implements OnDestroy {
+export class SampleLayoutComponent implements OnDestroy {
 
   subMenu: NbMenuItem[] = [
     {
@@ -113,10 +123,10 @@ export class SampleLayoutComponent  implements OnDestroy {
   protected menuClick$: Subscription;
 
   constructor(protected stateService: StateService,
-              protected menuService: NbMenuService,
-              protected themeService: NbThemeService,
-              protected bpService: NbMediaBreakpointsService,
-              protected sidebarService: NbSidebarService) {
+    protected menuService: NbMenuService,
+    protected themeService: NbThemeService,
+    protected bpService: NbMediaBreakpointsService,
+    protected sidebarService: NbSidebarService) {
     this.layoutState$ = this.stateService.onLayoutState()
       .subscribe((layout: string) => this.layout = layout);
 

@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
       .subscribe((token: NbAuthJWTToken) => {
         let userId = Number.parseInt(localStorage.getItem('userId'));
         this.userService.getUser(userId, token['token']).then(usuario => {
-          console.log(usuario['_body']);
+          //console.log(usuario['_body']);
         });
       });              
   }
