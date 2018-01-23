@@ -4,6 +4,7 @@ import { UserComponent } from './user.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserRoutingModule} from './user-routing.module';
 import { ThemeModule } from '../@theme/theme.module';
+import { UploadService } from './upload.service';
 
 const USER_COMPONENTS = [
     UserComponent,
@@ -18,6 +19,6 @@ const USER_COMPONENTS = [
     declarations: [
         ...USER_COMPONENTS
     ],
-    providers: [],
+    providers: [UploadService],
 })
 export class UserModule { }

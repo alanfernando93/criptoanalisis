@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit {
     private authService: NbAuthService,
     private router: Router,
   ) {
+    
     this.authService.onTokenChange()
       .subscribe((token: NbAuthJWTToken) => {
         if (token.getValue()) {
