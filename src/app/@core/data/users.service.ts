@@ -13,7 +13,9 @@ export class UserService {
 
   private baseUrl = environment.apiUrl;
 
-  private users;
+  private users = {
+    nick: { name: 'Nick Jones', picture: 'assets/images/nick.png' }
+  };
 
   private userArray: any[];
 
@@ -32,7 +34,9 @@ export class UserService {
 
   getUser(idUser: Number, token: String): any {
     return this.http.get(this.baseUrl + 'usuarios/' + idUser + '?access_token=' + token).toPromise();
-    // counter = (counter + 1) % this.userArray.length;
-    // return Observable.of(this.userArray[counter]);
+  }
+
+  update(id: Number, token:String, itemToUpdate: any): any{
+    return this.http.put(this.baseUrl + "usuarios/" + id  + '?access_token=' + token, itemToUpdate).toPromise();
   }
 }

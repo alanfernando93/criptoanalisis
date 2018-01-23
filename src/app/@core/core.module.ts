@@ -1,6 +1,6 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpResponse } from '@angular/common/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { NbAuthModule, NbEmailPassAuthProvider } from '@nebular/auth';
 import { getDeepFromObject } from '@nebular/auth/helpers';
 
@@ -45,7 +45,7 @@ const NB_CORE_PROVIDERS = [
             },
             defaultErrors: ['Signed Up is not correct, please try again'],
             defaultMessages: ['you have been successfully signed up']
-          }
+          },        
         },
       },
     },

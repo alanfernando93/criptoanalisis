@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router'; 
+import { Router } from '@angular/router';
 
 import { NbMenuService, NbSidebarService } from '@nebular/theme';
 import { UserService } from '../../../@core/data/users.service';
@@ -17,25 +17,26 @@ export class HeaderComponent implements OnInit {
 
   @Input() position = 'normal';
 
-  user: any;
+  user: any = null;
 
-  userMenu = [{ title: 'Profile', link: 'usuarios/profile'}, { title: 'Log out' },{title:'close'}];
+  userMenu = [{ title: 'Profile', link: '/user/profile' }, { title: 'Log out' }];
 
   constructor(private sidebarService: NbSidebarService,
-              private menuService: NbMenuService,
-              private userService: UserService,
-              private analyticsService: AnalyticsService,
-              private authService: NbAuthService,
-              private router: Router) {
-                
-
+    private menuService: NbMenuService,
+    private userService: UserService,
+    private analyticsService: AnalyticsService,
+    private authService: NbAuthService,
+    private router: Router,
+  ) {
     this.authService.onTokenChange()
       .subscribe((token: NbAuthJWTToken) => {
-        let userId = Number.parseInt(localStorage.getItem('userId'));
-        this.userService.getUser(userId, token['token']).then(usuario => {
-          //console.log(usuario['_body']);
-        });
-      });              
+        if (token.getValue()) {
+          let userId = Number.parseInt(localStorage.getItem('userId'));
+          this.userService.getUser(userId, token['token']).then(usuario => {
+            this.user = JSON.parse(usuario['_body']);
+          });
+        }
+      });
   }
 
   ngOnInit() {
@@ -60,11 +61,18 @@ export class HeaderComponent implements OnInit {
   startSearch() {
     this.analyticsService.trackEvent('startSearch');
   }
-  Singin(){
+
+  logout() {
+    localStorage.clear();
+    this.user = null;
+    this.router.navigate(['/']);
+  }
+
+  signin() {
     this.router.navigate(['/auth/login']);
   }
 
-  signup(){
-    this.router.navigate(['/auth/register']);
+  signup() {
+    this.router.navigate(['/auth/register'])
   }
 }

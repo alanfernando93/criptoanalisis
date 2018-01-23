@@ -14,6 +14,8 @@ import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/delay';
 
+import { MENU_ITEMS } from '../../../pages/pages-menu';
+
 // TODO: move layouts into the framework
 @Component({
   selector: 'ngx-sample-layout',
@@ -28,35 +30,15 @@ import 'rxjs/add/operator/delay';
                    tag="menu-sidebar"
                    responsive
                    [right]="sidebar.id === 'right'">
-          <div class="card" style="width: 13rem;">
-          <img class="card-img-top" src="..." alt="">
-          <div class="card-block">
-            <h4 class="card-title">Encuesta 1</h4>
-            <p class="card-text">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit..</p>
-            <a href="#" class="btn btn-primary btn-tn">Button</a>
-          </div>
-        </div>
-        <div class="card" style="width: 13rem;">
-        <div class="card-block">
-          <h4 class="card-title">Oferta !</h4>
-          <p class="card-text">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information..</p>
-          <a href="#" class="btn btn-primary btn-tn">Learn more</a>
-        </div>
-      </div>
-        <ng-content select="nb-menu"></ng-content>
+        
+        <!-- <ng-content select="nb-menu"></ng-content> -->
+        <nb-menu [items]="menu"></nb-menu>
       </nb-sidebar>
 
       <nb-layout-column class="main-content">
         <ng-content select="router-outlet"></ng-content>
       </nb-layout-column>
 
-      <nb-layout-column left class="small" *ngIf="layout.id === 'two-column' || layout.id === 'three-column'">
-        <nb-menu [items]="subMenu"></nb-menu>
-      </nb-layout-column>
-
-      <nb-layout-column right class="small" *ngIf="layout.id === 'three-column'">
-        <nb-menu [items]="subMenu"></nb-menu>
-      </nb-layout-column>
 
       <nb-layout-footer fixed>
         <ngx-footer></ngx-footer>
@@ -74,6 +56,8 @@ import 'rxjs/add/operator/delay';
 })
 export class SampleLayoutComponent implements OnDestroy {
 
+  menu = MENU_ITEMS;
+  
   subMenu: NbMenuItem[] = [
     {
       title: 'PAGE LEVEL MENU',
