@@ -9,9 +9,17 @@ export class AuthGuard implements CanActivate {
   }
 
   canActivate() {
-    var isAuth = this.authService.isAuthenticated();
-    console.log(JSON.stringify(isAuth));
-    return false;
+    let sw = true;
+    var isAuth = JSON.parse(JSON.stringify(this.authService.isAuthenticated()));
+    let token = isAuth['source'].value['token'];
+    console.log(this.authService.isAuthenticated());
+    if(token != null){      
+      console.log(token);
+      sw = true;
+    }else{
+      sw = false;
+    }
+    return sw;
       // .do(authenticated => {
       //   if (!authenticated) {
       //     this.router.navigate(['auth/login']);
