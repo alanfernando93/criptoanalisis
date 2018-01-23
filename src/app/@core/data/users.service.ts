@@ -13,9 +13,7 @@ export class UserService {
 
   private baseUrl = environment.apiUrl;
 
-  private users = {
-    nick: { name: 'Nick Jones', picture: 'assets/images/nick.png' }    
-  };
+  private users;
 
   private userArray: any[];
 

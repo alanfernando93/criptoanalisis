@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router'; 
 
 import { NbMenuService, NbSidebarService } from '@nebular/theme';
 import { UserService } from '../../../@core/data/users.service';
@@ -24,7 +25,9 @@ export class HeaderComponent implements OnInit {
               private menuService: NbMenuService,
               private userService: UserService,
               private analyticsService: AnalyticsService,
-              private authService: NbAuthService) {
+              private authService: NbAuthService,
+              private router: Router) {
+                
 
     this.authService.onTokenChange()
       .subscribe((token: NbAuthJWTToken) => {
@@ -56,5 +59,12 @@ export class HeaderComponent implements OnInit {
 
   startSearch() {
     this.analyticsService.trackEvent('startSearch');
+  }
+  Singin(){
+    this.router.navigate(['/auth/login']);
+  }
+
+  signup(){
+    this.router.navigate(['/auth/register']);
   }
 }
