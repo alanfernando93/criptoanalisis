@@ -25,15 +25,8 @@ import { MENU_ITEMS } from '../../../pages/pages-menu';
       <nb-layout-header fixed>
         <ngx-header [position]="sidebar.id === 'right' ? 'normal': 'inverse'"></ngx-header>
       </nb-layout-header>
-<<<<<<< HEAD
-      <nb-layout-header fixed>
-        <ngx-header [position]="sidebar.id === 'left' ? 'normal': 'inverse'"></ngx-header>
-      </nb-layout-header>
-      
-=======
 
 
->>>>>>> c8167c3e47987f19f657e5f5b10c23fdee5e9d8d
       <nb-sidebar class="menu-sidebar"
                    tag="menu-sidebar"
                    responsive

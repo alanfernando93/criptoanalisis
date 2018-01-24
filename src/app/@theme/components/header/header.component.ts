@@ -1,11 +1,5 @@
-<<<<<<< HEAD
-import { Component, Input, OnInit } from "@angular/core";
-
-import { Router } from "@angular/router";
-=======
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
->>>>>>> c8167c3e47987f19f657e5f5b10c23fdee5e9d8d
 
 import { NbMenuService, NbSidebarService } from "@nebular/theme";
 import { UserService } from "../../../@core/data/users.service";
