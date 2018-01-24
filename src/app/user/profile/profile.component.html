@@ -3,7 +3,7 @@
   <nb-card-body>
     <div class="row full-name-inputs">
       <div class="col-sm-6 input-group">
-        <input type="text" [(ngModel)]="user.nombre" placeholder="Nombre" class="form-control" />
+        <input type="text" [(ngModel)]="user.nombre" #nombre placeholder="Nombre" class="form-control" />
       </div>
       <div class="col-sm-6 input-group">
         <input type="text" [(ngModel)]="user.username" placeholder="User Name" class="form-control" />
@@ -17,10 +17,10 @@
       <input type="file" placeholder="Subir imagen" (change)="fileChangeEvent($event)">
     </div>
     <div class="input-group">
-      <input type="text" [(ngModel)]="user.password" placeholder="Password" class="form-control"/>
+      <input type="text" [(ngModel)]="user.password" placeholder="Password" class="form-control" />
     </div>
     <div class="input-group">
-      <input type="text" [(ngModel)]="user.email" placeholder="Email" class="form-control"/>
+      <input type="text" [(ngModel)]="user.email" placeholder="Email" class="form-control" />
     </div>
     <div class="input-group">
       <!-- <input class="btn btn-success" [disabled]="form.invalid || loading"  (click)="onSave()" value="Save" /> -->

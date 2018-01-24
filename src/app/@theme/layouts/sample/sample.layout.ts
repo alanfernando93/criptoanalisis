@@ -23,16 +23,21 @@ import { MENU_ITEMS } from '../../../pages/pages-menu';
   template: `
     <nb-layout [center]="layout.id === 'center-column'" windowMode>
       <nb-layout-header fixed>
-        <ngx-header [position]="sidebar.id === 'left' ? 'normal': 'inverse'"></ngx-header>
+        <ngx-header [position]="sidebar.id === 'right' ? 'normal': 'inverse'"></ngx-header>
       </nb-layout-header>
+<<<<<<< HEAD
       <nb-layout-header fixed>
         <ngx-header [position]="sidebar.id === 'left' ? 'normal': 'inverse'"></ngx-header>
       </nb-layout-header>
       
+=======
+
+
+>>>>>>> c8167c3e47987f19f657e5f5b10c23fdee5e9d8d
       <nb-sidebar class="menu-sidebar"
                    tag="menu-sidebar"
                    responsive
-                   [right]="sidebar.id === 'right'">
+                   [right]="sidebar.id === 'left'">
         
         <!-- <ng-content select="nb-menu"></ng-content> -->
         <nb-menu [items]="menu"></nb-menu>
@@ -51,7 +56,7 @@ import { MENU_ITEMS } from '../../../pages/pages-menu';
     </nb-layout>
   `,
 })
-export class SampleLayoutComponent  implements OnDestroy {
+export class SampleLayoutComponent implements OnDestroy {
 
   menu = MENU_ITEMS;
   
@@ -104,10 +109,10 @@ export class SampleLayoutComponent  implements OnDestroy {
   protected menuClick$: Subscription;
 
   constructor(protected stateService: StateService,
-              protected menuService: NbMenuService,
-              protected themeService: NbThemeService,
-              protected bpService: NbMediaBreakpointsService,
-              protected sidebarService: NbSidebarService) {
+    protected menuService: NbMenuService,
+    protected themeService: NbThemeService,
+    protected bpService: NbMediaBreakpointsService,
+    protected sidebarService: NbSidebarService) {
     this.layoutState$ = this.stateService.onLayoutState()
       .subscribe((layout: string) => this.layout = layout);
 

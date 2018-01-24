@@ -6,8 +6,32 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-home',
     link: '/pages/dashboard',
     home: true,
-  },
-  {
+  },{
+    title: 'Asesoria Principiantes',
+    icon: 'nb-compose',
+    link: '/pages/dashboard',
+    home: true,
+  },{
+    title: 'Tutoriales',
+    icon: 'nb-home',
+    link: '/pages/dashboard',
+    home: true,
+  },{
+    title: 'Eventos',
+    icon: 'nb-edit',
+    link: '/pages/dashboard',
+    home: true,
+  },{
+    title: 'Gane $CA tokens',
+    icon: 'nb-audio',
+    link: '/pages/dashboard',
+    home: true,
+  },{
+    title: 'Nosotros',
+    icon: 'nb-grid-a',
+    link: '/pages/dashboard',
+    home: true,
+  },{
     title: 'FEATURES',
     group: true,
   },
