@@ -14,6 +14,6 @@
     "name": "FileStorage",
     "connector": "loopback-component-storage",
     "provider": "filesystem",
-    "root": "C:/Users/Acho/loop"
+    "root": "/Users/Prim/storage"
   }
 }

@@ -11,6 +11,6 @@ module.exports = function(Noticia) {
 
   Noticia.remoteMethod('Listar_noticias', {
     returns: {arg: 'Noticias', type: 'array'},
-    http: {path: '/listar_noticas', verb: 'get'},
+    http: {path: '/listar_noticias', verb: 'get'},
   });
 };

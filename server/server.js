@@ -17,6 +17,16 @@ app.start = function() {
     }
   });
 };
+var homedir = (process.platform === 'win32') ? process.env.HOMEPATH : process.env.HOME;
+var ds = loopback.createDataSource({
+  name: 'FileStorage',
+  connector: require('loopback-component-storage'),
+  provider: 'filesystem',
+  root: homedir + '/loop',
+});
+
+var container = ds.createModel('container');
+
 
 // Bootstrap the application, configure models, datasources and middleware.
 // Sub-apps like REST API are mounted via boot scripts.

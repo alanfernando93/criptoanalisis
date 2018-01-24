@@ -53,8 +53,11 @@ module.exports = function(Usuario) {
   Usuario.observe('loaded', function(context, next) {
     if (context.data.id != undefined){
       var cont = context.data.id;
-      context.data.profile = base64Img.base64Sync('C:/Users/Acho/loop/' + cont + '/perfil.png');
+      var homedir = (process.platform === 'win32') ? process.env.HOMEPATH : process.env.HOME;
+      base64Img.base64(homedir + '/loop/' + cont + '/perfil.png', (err, data)=> {
+        context.data.profile = data;
+        next();
+      });
     };
-    next();
   });
 };
