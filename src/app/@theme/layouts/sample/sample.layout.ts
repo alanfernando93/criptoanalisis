@@ -23,13 +23,14 @@ import { MENU_ITEMS } from '../../../pages/pages-menu';
   template: `
     <nb-layout [center]="layout.id === 'center-column'" windowMode>
       <nb-layout-header fixed>
-        <ngx-header [position]="sidebar.id === 'left' ? 'normal': 'inverse'"></ngx-header>
+        <ngx-header [position]="sidebar.id === 'right' ? 'normal': 'inverse'"></ngx-header>
       </nb-layout-header>
+
 
       <nb-sidebar class="menu-sidebar"
                    tag="menu-sidebar"
                    responsive
-                   [right]="sidebar.id === 'right'">
+                   [right]="sidebar.id === 'left'">
         
         <!-- <ng-content select="nb-menu"></ng-content> -->
         <nb-menu [items]="menu"></nb-menu>
