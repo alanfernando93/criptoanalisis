@@ -19,6 +19,7 @@ const NB_CORE_PROVIDERS = [
         config: {
           baseEndpoint: environment.apiUrl,
           login: {
+            redirectDelay: 500,
             rememberMe: true,
             endpoint: 'usuarios/login',
             method: 'post',
@@ -45,7 +46,7 @@ const NB_CORE_PROVIDERS = [
             },
             defaultErrors: ['Signed Up is not correct, please try again'],
             defaultMessages: ['you have been successfully signed up']
-          },        
+          }  
         },
       },
     },

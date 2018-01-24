@@ -50,9 +50,9 @@ export class ProfileComponent implements OnInit {
    onSave() {
       this.userService.update(this.userId, this.token, this.user).then(resp => {
          console.log(resp);
-        //  this.uploadService.makeFileRequest(this.form, this.userId, this.token).then(() => {
+         this.uploadService.makeFileRequest(this.form, this.userId, this.token).then(() => {
 
-        //  })
+         })
       });
    }
 
