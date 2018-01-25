@@ -11,9 +11,28 @@
       "type": "string",
       "required": true
     },
-    "tipo_inversion": {
+    "tipoInversion": {
       "type": "string",
-      "required": true
+      "required": false
+    },
+    "AnalisisFundamental": {
+      "type": "string",
+      "required": false
+    },
+    "AnalisisTecnico": {
+      "type": "string",
+      "required": false
+    },
+    "EstrategiaSalida": {
+      "type": "string",
+      "required": false
+    },
+    "FechaCreate": {
+      "type": "date",
+      "required": false
+    },
+    "estado": {
+      "type": "Boolean"
     }
   },
   "validations": [],
@@ -22,6 +41,23 @@
       "type": "belongsTo",
       "model": "usuario",
       "foreignKey": ""
+    },
+    "likes": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignKey": "SignalId",
+      "through": "LikeSignal"
+    },
+    "positions": {
+      "type": "hasMany",
+      "model": "position",
+      "foreignKey": ""
+    },
+    "comments":{
+      "type":"hasMany",
+      "model":"usuario",
+      "foreignkey":"signalId",
+      "through":"commentSignal"
     }
   },
   "acls": [

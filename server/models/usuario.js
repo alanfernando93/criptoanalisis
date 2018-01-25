@@ -11,9 +11,8 @@ module.exports = function (Usuario) {
       }
     })
   }
-  
   Usuario.remoteMethod('noticia_usuario', {
     returns: { arg: 'Usuarios', type: 'array' },
     http: { path: '/noticias', verb: 'get' }
-  })
+  });
 };

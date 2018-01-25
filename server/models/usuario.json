@@ -23,36 +23,40 @@
       "type": "date",
       "required": false
     },
-    "redes_sociales":{
+    "redes_sociales": {
       "type": "string",
-      "required":false
+      "required": false
     },
-    "puntos":{
-      "type":"number",
-      "required":false
+    "puntos": {
+      "type": "number",
+      "required": false
     },
-    "precision":{
-      "type":"number",
-      "required":false
+    "precision": {
+      "type": "number",
+      "required": false
     },
-    "fama":{
-      "type":"number",
-      "required":false
+    "fama": {
+      "type": "number",
+      "required": false
     },
-    "profile":{
-      "type":"string",
-      "required":false
+    "profile": {
+      "type": "string",
+      "required": false
     }
   },
   "validations": [],
   "relations": {
-    "noticia": {
-      "type": "hasMany",
-      "model": "noticia",
-    "signals": {
+    "likes": {
       "type": "hasMany",
       "model": "signal",
-      "foreignKey": ""
+      "foreignKey": "UsuarioId",
+      "through": "LikeSignal"
+    },
+    "comments":{
+      "type":"hasMany",
+      "model":"comment",
+      "foreignkey":"usuarioId",
+      "through":"commentSignal"
     }
   },
   "acls": [],
