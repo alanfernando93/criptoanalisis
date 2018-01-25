@@ -15,7 +15,7 @@ export class UploadService {
     }
 
     makeFileRequest(file: any, id, token: String) {
-        return this.http.post(this.baseUrl + "usuarios/" + id + "?access_token=" + token, file).toPromise();
+        return this.http.post(this.baseUrl + "usuarios/" + id + "/upload?access_token=" + token, file).toPromise();
     }
 
 }

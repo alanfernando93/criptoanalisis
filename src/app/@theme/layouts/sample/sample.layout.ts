@@ -45,13 +45,7 @@ import { MENU_ITEMS } from '../../../pages/pages-menu';
         <ngx-footer></ngx-footer>
       </nb-layout-footer>
 
-      <nb-sidebar class="settings-sidebar"
-                   tag="settings-sidebar"
-                   state="collapsed"
-                   fixed
-                   [right]="sidebar.id !== 'right'">
-        <ngx-theme-settings></ngx-theme-settings>
-      </nb-sidebar>
+     
     </nb-layout>
   `,
 })
