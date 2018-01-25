@@ -57,6 +57,11 @@
       "model":"comment",
       "foreignkey":"usuarioId",
       "through":"commentSignal"
+    },
+    "signals": {
+      "type": "hasMany",
+      "model": "signal",
+      "foreignKey": ""
     }
   },
   "acls": [],
