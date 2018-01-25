@@ -1,0 +1,19 @@
+import { NgModule } from '@angular/core';
+
+import { ThemeModule } from '../../@theme/theme.module';
+
+import { PublishComponent } from './publish.component';
+import { PublishNewsComponent } from './news/news.component';
+import { SignalComponent } from './signal/signal.component';
+@NgModule({
+    imports: [
+        ThemeModule,       
+    ],
+    declarations: [
+        PublishComponent,
+        PublishNewsComponent,
+        SignalComponent
+    ],
+    providers: [],
+})
+export class PublishModule { }

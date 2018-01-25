@@ -8,6 +8,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true,
   },
   {
+    title: 'Publish',
+    icon: 'fa fa-fire',
+    link: '/pages/publish',
+  },
+  {
     title: 'FEATURES',
     group: true,
   },
