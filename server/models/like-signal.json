@@ -1,0 +1,25 @@
+{
+  "name": "LikeSignal",
+  "plural": "likesSignal",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "usuario": {
+      "type": "belongsTo",
+      "model": "usuario",
+      "foreignKey": "UsuarioId"
+    },
+    "signal": {
+      "type": "belongsTo",
+      "model": "signal",
+      "foreignkey": "SignalId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

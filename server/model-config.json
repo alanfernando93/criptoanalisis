@@ -45,9 +45,21 @@
   },
   "signal": {
     "dataSource": "db",
-    "public":true
+    "public": true
   },
   "signal": {
+    "dataSource": "db",
+    "public": true
+  },
+  "position": {
+    "dataSource": "db",
+    "public": true
+  },
+  "LikeSignal": {
+    "dataSource": "db",
+    "public": true
+  },
+  "commentSignal": {
     "dataSource": "db",
     "public": true
   }
