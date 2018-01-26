@@ -10,7 +10,7 @@ module.exports = function (app) {
       "contenido": "prueba noticia",
       "tipo_moneda": "bitcoin",
       "conj_moneda": "siacoin",
-      "like":"0",
+      "like": '0',
       "fecha_create":"",
       "conj_precio":"ninguna",
       "fuentes":"wikipedia"
