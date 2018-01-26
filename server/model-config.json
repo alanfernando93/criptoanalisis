@@ -42,9 +42,5 @@
   "noticia": {
     "dataSource": "db",
     "public": true
-  },
-  "container": {
-    "dataSource": "FileStorage",
-    "public": true
   }
 }

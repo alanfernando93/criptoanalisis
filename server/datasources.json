@@ -9,11 +9,5 @@
     "user": "root",
     "connector": "mysql",
     "connectionLimit": 10
-  },
-  "FileStorage": {
-    "name": "FileStorage",
-    "connector": "loopback-component-storage",
-    "provider": "filesystem",
-    "root": "/Users/Prim/loop"
   }
 }
