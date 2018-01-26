@@ -32,7 +32,7 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
                    responsive
                    [right]="sidebar.id === 'left'">
 
-        <nb-sidebar-header class="d-block d-sm-none" *ngIf="user" >
+        <nb-sidebar-header class="d-block d-sm-block d-md-none" *ngIf="user" >
           <nb-user [menu]="userMenu" [name]="user?.username" [picture]="user?.picture" (menuClick)="logout()"></nb-user>
             <nb-action>
               <span class="badge badge-secondary">2 $CA</span>
@@ -60,14 +60,14 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
           -->
         </nb-sidebar-header>        
 
-        <nb-sidebar-header *ngIf="!user" class="d-block d-sm-none">
+        <nb-sidebar-header *ngIf="!user" class="d-block d-sm-block d-md-none">
           <nb-action>
-            <a class="icon-container badge badge-secondary" href="#">
+            <a class="btn btn-primary btn-tn" href="#">
               Sign Up
             </a>
           </nb-action>
           <nb-action>
-            <a class="icon-container badge badge-secondary" href="#">
+            <a class="btn btn-primary btn-tn" href="#">
               Log In
             </a>
           </nb-action>

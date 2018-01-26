@@ -73,6 +73,11 @@
     nb-user /deep/ .user-name {
       display: none;
     }
+    .header-container{
+      .icon-container{
+        display: none;
+      }
+    }
   }
   @include media-breakpoint-down(is) {
     .header-container {
