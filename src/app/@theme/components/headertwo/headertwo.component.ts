@@ -8,11 +8,11 @@ import { AnalyticsService } from '../../../@core/utils/analytics.service';
 import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
 
 @Component({
-    selector: "ngx-header2",
-    styleUrls: ["./header2.component.scss"],
-    templateUrl: "./header2.component.html"
+    selector: "ngx-headertwo",
+    styleUrls: ["./headertwocomponent.scss"],
+    templateUrl: "./headertwo.component.html"
 })
-export class Header2Component implements OnInit {
+export class HeaderTwoComponent implements OnInit {
     @Input() position = "normal";
 
     user: any = null;

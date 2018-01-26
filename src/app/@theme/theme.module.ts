@@ -20,10 +20,16 @@ import {
 import {
   FooterComponent,
   HeaderComponent,
+  HeaderTwoComponent,
   SearchInputComponent,
   ThemeSettingsComponent,
   TinyMCEComponent,
 } from './components';
+
+import {
+  NgxLayoutModule
+}from './components/layout/layout.module';
+
 import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe } from './pipes';
 import {
   OneColumnLayoutComponent,
@@ -47,10 +53,12 @@ const NB_MODULES = [
   NbSidebarModule,
   NbCheckboxModule,
   NgbModule,
+  NgxLayoutModule
 ];
 
 const COMPONENTS = [
   HeaderComponent,
+  HeaderTwoComponent,
   FooterComponent,
   SearchInputComponent,
   ThemeSettingsComponent,
@@ -59,6 +67,7 @@ const COMPONENTS = [
   SampleLayoutComponent,
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
+
 ];
 
 const PIPES = [

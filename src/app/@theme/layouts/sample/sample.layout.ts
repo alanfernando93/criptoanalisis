@@ -24,9 +24,9 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
   styleUrls: ["./sample.layout.scss"],
   template: `
     <nb-layout [center]="layout.id === 'center-column'" windowMode>
-      <nb-layout-header fixed>
+      <ngx-layout-header fixed>
         <ngx-header [position]="sidebar.id === 'right' ? 'normal': 'inverse'"></ngx-header>
-      </nb-layout-header>
+      </ngx-layout-header>
 
       <nb-sidebar class="menu-sidebar"
                    tag="menu-sidebar"
