@@ -6,6 +6,8 @@ import { PublishModule } from './publish/publish.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { ThemeModule } from '../@theme/theme.module';
 
+import { NewsService } from '../services/news.service';
+
 const PAGES_COMPONENTS = [
   PagesComponent,
 ];
@@ -20,7 +22,7 @@ const PAGES_COMPONENTS = [
   declarations: [
     ...PAGES_COMPONENTS,
 ],
-providers:[]
+providers:[NewsService]
 })
 export class PagesModule {
 }

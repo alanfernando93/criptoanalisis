@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
 import { ThemeModule } from '../../@theme/theme.module';
 
 import { PublishComponent } from './publish.component';
 import { PublishNewsComponent } from './news/news.component';
 import { SignalComponent } from './signal/signal.component';
+
+import { NewsService } from '../../services/news.service';
 @NgModule({
     imports: [
         ThemeModule,       
@@ -14,6 +17,6 @@ import { SignalComponent } from './signal/signal.component';
         PublishNewsComponent,
         SignalComponent
     ],
-    providers: [],
+    providers: [NewsService],
 })
 export class PublishModule { }

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, AfterViewInit, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, OnDestroy, AfterViewInit, Output, Input, EventEmitter, ElementRef } from '@angular/core';
 
 import 'tinymce';
 
@@ -34,9 +34,11 @@ import 'tinymce/plugins/wordcount';
 })
 export class TinyMCEComponent implements OnDestroy, AfterViewInit {
 
-  @Output() editorKeyup = new EventEmitter<any>();
+  @Input() height: String = '320';
+  @Output() onEditorKeyup = new EventEmitter<any>();
 
-  editor: any;
+  editor;
+  @Output() editorKeyup = new EventEmitter<any>();
 
   constructor(private host: ElementRef) { }
 
@@ -53,11 +55,16 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
       skin_url: 'assets/skins/lightgray',
       setup: editor => {
         this.editor = editor;
+        // editor.on('keyup', () => {
+        //   this.editorKeyup.emit(editor.getContent());
+        // });
+        // editor.startContent('<p>hola</p>');
         editor.on('keyup', () => {
-          this.editorKeyup.emit(editor.getContent());
+          const content = editor.getContent();
+          this.onEditorKeyup.emit(content);
         });
       },
-      height: '320',
+      height: this.height,
     });
   }
 
