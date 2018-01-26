@@ -23,7 +23,7 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
   selector: "ngx-sample-layout",
   styleUrls: ["./sample.layout.scss"],
   template: `
-    <nb-layout [center]="layout.id === 'center-column'" windowMode>
+    <ngx-layout [center]="layout.id === 'center-column'" windowMode>
       <ngx-layout-header fixed>
         <ngx-header [position]="sidebar.id === 'right' ? 'normal': 'inverse'"></ngx-header>
       </ngx-layout-header>
@@ -78,17 +78,17 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
         <nb-menu [items]="menu"></nb-menu>
       </nb-sidebar>
 
-      <nb-layout-column class="main-content">
+      <ngx-layout-column class="main-content">
         <ng-content select="router-outlet"></ng-content>
-      </nb-layout-column>
+      </ngx-layout-column>
 
 
-      <nb-layout-footer fixed>
+      <ngx-layout-footer fixed>
         <ngx-footer></ngx-footer>
-      </nb-layout-footer>
+      </ngx-layout-footer>
 
      
-    </nb-layout>
+    </ngx-layout>
   `
 })
 export class SampleLayoutComponent implements OnDestroy, OnInit {

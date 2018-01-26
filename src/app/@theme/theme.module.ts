@@ -6,7 +6,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   NbActionsModule,
   NbCardModule,
-  NbLayoutModule,
   NbMenuModule,
   NbRouteTabsetModule,
   NbSearchModule,
@@ -28,14 +27,11 @@ import {
 
 import {
   NgxLayoutModule
-}from './components/layout/layout.module';
+} from './components/layout/layout.module';
 
 import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe } from './pipes';
 import {
-  OneColumnLayoutComponent,
-  SampleLayoutComponent,
-  ThreeColumnsLayoutComponent,
-  TwoColumnsLayoutComponent,
+  SampleLayoutComponent
 } from './layouts';
 import { DEFAULT_THEME } from './styles/theme.default';
 
@@ -43,7 +39,7 @@ const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
 
 const NB_MODULES = [
   NbCardModule,
-  NbLayoutModule,
+  NgxLayoutModule,
   NbTabsetModule,
   NbRouteTabsetModule,
   NbMenuModule,
@@ -52,8 +48,7 @@ const NB_MODULES = [
   NbSearchModule,
   NbSidebarModule,
   NbCheckboxModule,
-  NgbModule,
-  NgxLayoutModule
+  NgbModule
 ];
 
 const COMPONENTS = [
@@ -63,11 +58,7 @@ const COMPONENTS = [
   SearchInputComponent,
   ThemeSettingsComponent,
   TinyMCEComponent,
-  OneColumnLayoutComponent,
-  SampleLayoutComponent,
-  ThreeColumnsLayoutComponent,
-  TwoColumnsLayoutComponent,
-
+  SampleLayoutComponent
 ];
 
 const PIPES = [
@@ -82,7 +73,7 @@ const NB_THEME_PROVIDERS = [
     {
       name: 'default',
     },
-    [ DEFAULT_THEME ],
+    [DEFAULT_THEME],
   ).providers,
   ...NbSidebarModule.forRoot().providers,
   ...NbMenuModule.forRoot().providers,

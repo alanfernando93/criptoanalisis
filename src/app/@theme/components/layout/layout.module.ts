@@ -32,4 +32,4 @@ const NB_LAYOUT_COMPONENTS = [
     ...NB_LAYOUT_COMPONENTS,
   ],
 })
-export class NgxLayoutModule { }
+export class NgxLayoutModule {}
