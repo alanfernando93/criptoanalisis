@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Router } from '@angular/router';
 import {
   NbMediaBreakpoint,
   NbMediaBreakpointsService,
@@ -62,12 +63,12 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
 
         <nb-sidebar-header *ngIf="!user" class="d-block d-sm-block d-md-none">
           <nb-action>
-            <a class="btn btn-primary btn-tn" href="#">
+            <a class="btn btn-primary btn-tn" (click)="signup()">
               Sign Up
             </a>
           </nb-action>
           <nb-action>
-            <a class="btn btn-primary btn-tn" href="#">
+            <a class="btn btn-primary btn-tn" (click)="signin()" >
               Log In
             </a>
           </nb-action>
@@ -150,7 +151,8 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
     protected themeService: NbThemeService,
     protected bpService: NbMediaBreakpointsService,
     protected sidebarService: NbSidebarService,
-    protected userService: UserService
+    protected userService: UserService,
+    protected router: Router
   ) {
     this.layoutState$ = this.stateService
       .onLayoutState()
@@ -193,5 +195,12 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
     this.menuClick$.unsubscribe();
     this.user = null;
   }
+
+  signin(){
+    this.router.navigate(["/auth/login"]);
+  }
   
+  signup(){
+    this.router.navigate(["/auth/register"]);
+  }
 }
