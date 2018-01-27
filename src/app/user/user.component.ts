@@ -6,9 +6,9 @@ import { StateService } from '../@core/data/state.service';
 @Component({
     selector: 'ngx-user',
     template: `
-        <ngx-sample-layout>
+        <nb-sample-layout>
             <router-outlet></router-outlet>
-        </ngx-sample-layout>
+        </nb-sample-layout>
     `,
 })
 

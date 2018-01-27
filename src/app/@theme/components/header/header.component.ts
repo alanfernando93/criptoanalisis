@@ -17,6 +17,9 @@ export class HeaderComponent implements OnInit {
 
   user: any = null;
 
+  userId;
+  token;
+
   userMenu = [
     { title: "Profile", link: "/user/profile" },
     { title: "Log out" }
@@ -37,6 +40,8 @@ export class HeaderComponent implements OnInit {
         let userId = Number.parseInt(localStorage.getItem("userId"));
         this.userService.getUser(userId, token["token"]).then(usuario => {
           this.user = JSON.parse(usuario["_body"]);
+          this.userId = localStorage.getItem('userId');
+          this.token = localStorage.getItem('auth_app_token');
         });
       }
     });
@@ -64,8 +69,13 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     localStorage.clear();
-    this.user = null;
-    this.router.navigate(["/"]);
+    this.user = null;    
+    this.userService.logout(this.token).then(()=>{
+      this.router.navigateByUrl("/auth/logout");
+      setTimeout(()=>{
+        this.router.navigate(["/"])
+      },500)
+    });    
   }
 
   signin() {

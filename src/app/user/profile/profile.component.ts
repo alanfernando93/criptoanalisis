@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { UserService } from "../../@core/data/users.service";
-import { UploadService } from "../upload.service";
 
 @Component({
   selector: "ngx-profile",
@@ -14,20 +13,12 @@ export class ProfileComponent implements OnInit {
   userId;
   token;
 
-  form: FormGroup;
-  loading: boolean = false;
-
-  file: FormData;
+  name:string; 
+  myFile:File;
 
   constructor(
-    private userService: UserService,
-    private uploadService: UploadService,
-    private fb: FormBuilder
+    private userService: UserService
   ) {
-    this.form = this.fb.group({
-      name: ["image", Validators.required],
-      avatar: null
-    });
   }
 
   ngOnInit() {
@@ -38,26 +29,20 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  private prepareSave() {
-   this.file.append("name", this.form.get("name").value);
-   this.file.append("avatar", this.form.get("avatar").value);
-  }
 
   onSave() {
+    let body = new FormData();
+    body.append('Key',this.user.username);
+    body.append('Value', this.myFile);
     this.userService.update(this.userId, this.token, this.user).then(resp => {
       // console.log(resp);
-      this.prepareSave
-      this.uploadService.makeFileRequest(this.file, this.userId, this.token).then((resp) => {
+      this.userService.makeFileRequest(body, this.userId, this.token).then((resp) => {
          console.log(resp)
       });
     });
   }
 
-  fileChangeEvent(event: any) {
-    if (event.target.files.length > 0) {
-      let file = event.target.files[0];
-      console.log(file);
-      this.form.get("avatar").setValue(file);
-    }
+  fileChangeEvent(files: any) {
+    this.myFile = files[0];
   }
 }

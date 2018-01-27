@@ -26,10 +26,6 @@ import {
   TinyMCEComponent,
 } from './components';
 
-import {
-  NgxLayoutModule
-}from './components/layout/layout.module';
-
 import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe } from './pipes';
 import {
   OneColumnLayoutComponent,
@@ -53,7 +49,6 @@ const NB_MODULES = [
   NbSidebarModule,
   NbCheckboxModule,
   NgbModule,
-  NgxLayoutModule
 ];
 
 const COMPONENTS = [

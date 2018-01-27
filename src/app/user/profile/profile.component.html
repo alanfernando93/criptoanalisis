@@ -14,7 +14,7 @@
     </div>
     <div>
       <label for="">Sube tu avatar</label>
-      <input type="file" placeholder="Subir imagen" (change)="fileChangeEvent($event)">
+      <input type="file" [(ngModel)]="name" #fileupload [(ngModel)]="myFile" (change)="fileChangeEvent(fileupload.files)">
     </div>
     <div class="input-group">
       <input type="text" [(ngModel)]="user.password" placeholder="Password" class="form-control" />

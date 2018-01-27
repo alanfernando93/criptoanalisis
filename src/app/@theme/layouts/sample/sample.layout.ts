@@ -20,13 +20,13 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
 
 // TODO: move layouts into the framework
 @Component({
-  selector: "ngx-sample-layout",
+  selector: "nb-sample-layout",
   styleUrls: ["./sample.layout.scss"],
   template: `
     <nb-layout [center]="layout.id === 'center-column'" windowMode>
-      <ngx-layout-header fixed>
+      <nb-layout-header fixed>
         <ngx-header [position]="sidebar.id === 'right' ? 'normal': 'inverse'"></ngx-header>
-      </ngx-layout-header>
+      </nb-layout-header>
 
       <nb-sidebar class="menu-sidebar"
                    tag="menu-sidebar"
