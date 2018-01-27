@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { UserService } from "../../@core/data/users.service";
@@ -17,7 +18,8 @@ export class ProfileComponent implements OnInit {
   myFile:File;
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {
   }
 
@@ -31,15 +33,19 @@ export class ProfileComponent implements OnInit {
 
 
   onSave() {
+    delete this.user.profile;
     let body = new FormData();
     body.append('Key',this.user.username);
     body.append('Value', this.myFile);
+    // console.log(this.user);
     this.userService.update(this.userId, this.token, this.user).then(resp => {
-      // console.log(resp);
+      // console.log(resp);   
       this.userService.makeFileRequest(body, this.userId, this.token).then((resp) => {
-         console.log(resp)
-      });
+        // console.log(resp)
+        this.router.navigate(['/user/profile']);
+     });   
     });
+    
   }
 
   fileChangeEvent(files: any) {

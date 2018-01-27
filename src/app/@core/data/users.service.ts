@@ -36,8 +36,8 @@ export class UserService {
       return this.http.get(this.baseUrl + 'usuarios/' + idUser + '?access_token=' + token).toPromise();
    }
 
-   update(id: Number, token: String, itemToUpdate: any): any {
-      return this.http.put(this.baseUrl + "usuarios/" + id + '?access_token=' + token, itemToUpdate).toPromise();
+   update(id: Number, token: String, itemToUpdate) { 
+      return this.http.put(this.baseUrl + "usuarios/" + id + "?access_token=" + token, itemToUpdate).toPromise();
    }
 
    makeFileRequest(file: any, id, token: String) {
