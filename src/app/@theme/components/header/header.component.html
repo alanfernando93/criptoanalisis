@@ -42,19 +42,24 @@
         <span class="badge badge-default">25 P</span>
     </nb-action>
 </nb-actions>
-<nb-actions size="medium" class="header-container right" *ngIf="!user">
-
-    <nb-action>
-        <a class="icon-container text-hint" (click)="signup()">
-            <i class="fa fa-user-plus"></i> Sign Up
-        </a>
-    </nb-action>
-    <nb-action>
-        <a class="icon-container text-hint" (click)="signin()">
-            <i class="fa fa-sign-in"></i> Log In
-        </a>
-    </nb-action>
-
+<nb-actions size="medium" class="header-container right btn-group" *ngIf="!user">
+   <!--
+            <a class="btn btn-secondary" role="group" (click)="signup()">
+                <i class="fa fa-user-plus"></i> Sign Up
+            </a>
+    
+            <a class="btn btn-secondary" role="group" (click)="signin()">
+                <i class="fa fa-sign-in"></i> Log In
+            </a>
+        -->
+        <nb-action>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-secondary" (click)="signup()">
+                    <i class="fa fa-user-plus"></i> Sign Up</button>
+                <button type="button" class="btn btn-secondary" (click)="signin()">
+                    <i class="fa fa-sign-in"></i> Log In</button>
+              </div>
+            </nb-action>
 </nb-actions>
 
 <!-- 

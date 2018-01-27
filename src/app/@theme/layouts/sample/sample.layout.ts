@@ -25,7 +25,7 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
   template: `
     <nb-layout [center]="layout.id === 'center-column'" windowMode>
       <nb-layout-header fixed>
-        <ngx-header [position]="sidebar.id === 'right' ? 'normal': 'inverse'"></ngx-header>
+        <ngx-header [position]="sidebar.id === 'right' ? 'normal': 'inverse'"></ngx-header>    
       </nb-layout-header>
 
       <nb-sidebar class="menu-sidebar"
@@ -44,14 +44,15 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
             <nb-action>
               <span class="badge badge-secondary">25 P</span>
             </nb-action>
+            
             <nb-action>
-            <a class="icon-container badge badge-secondary" href="#">
-              Sign Up
+            <a class="btn btn-primary btn-tn" href="#">
+              Profile
             </a>
           </nb-action>
           <nb-action>
-            <a class="icon-container badge badge-secondary" href="#">
-              Log In
+            <a class="btn btn-primary btn-tn" (click)="logout()">
+              Log out
             </a>
           </nb-action>
             <!--
@@ -61,7 +62,7 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
           -->
         </nb-sidebar-header>        
 
-        <nb-sidebar-header *ngIf="!user" class="d-block d-sm-block d-md-none">
+        <nb-sidebar-header *ngIf="!user" class="d-block d-sm-none">
           <nb-action>
             <a class="btn btn-primary btn-tn" (click)="signup()">
               Sign Up
@@ -202,5 +203,10 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
   
   signup(){
     this.router.navigate(["/auth/register"]);
+  }
+  logout() {
+    localStorage.clear();
+    this.user = null;
+    this.router.navigate(["/"]);
   }
 }
