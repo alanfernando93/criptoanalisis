@@ -28,10 +28,7 @@ export class PublishNewsComponent implements OnInit {
   constructor(private http: Http, private newsService: NewsService) {}
 
   ngOnInit() {
-    // this.publish = {
-    // 	titulo:"",
-    // 	contenido:"",
-    // };
+    
   }
 
   keyupHandlerFunction(event) {

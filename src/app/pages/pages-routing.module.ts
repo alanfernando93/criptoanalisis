@@ -5,6 +5,8 @@ import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PublishComponent } from './publish/publish.component';
 
+import { AuthGuard } from '../auth-guard.service';
+
 const routes: Routes = [{
   path: '',
   component: PagesComponent,
@@ -47,8 +49,8 @@ const routes: Routes = [{
 }];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+   imports: [RouterModule.forChild(routes)],
+   exports: [RouterModule],
 })
 export class PagesRoutingModule {
 }
