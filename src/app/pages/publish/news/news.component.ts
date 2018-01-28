@@ -20,24 +20,22 @@ export class PublishNewsComponent implements OnInit {
     }
   ];
 
-  newsPublish:any = {};
+  newsPublish: any = {};
   contenido: String;
 
   selectedView = this.buttonsViews[0];
 
   constructor(private http: Http, private newsService: NewsService) {}
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
 
   keyupHandlerFunction(event) {
     this.contenido = event;
   }
 
   onSave() {
-	this.newsPublish.contenido = this.contenido;
-	console.log(this.newsPublish);
+    this.newsPublish.contenido = this.contenido;
+    console.log(this.newsPublish);
     this.newsService.insertNews(this.newsPublish).then(resp => {
       console.log(resp);
     });

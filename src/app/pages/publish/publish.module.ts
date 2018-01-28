@@ -10,13 +10,13 @@ import { SignalComponent } from './signal/signal.component';
 import { NewsService } from '../../services/news.service';
 @NgModule({
     imports: [
-        ThemeModule,       
+        ThemeModule,
     ],
     declarations: [
         PublishComponent,
         PublishNewsComponent,
         SignalComponent
     ],
-    providers: [NewsService],
+    providers: [],
 })
 export class PublishModule { }

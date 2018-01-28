@@ -34,7 +34,7 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
                    [right]="sidebar.id === 'left'">
 
         <nb-sidebar-header class="d-block d-sm-block d-md-none" *ngIf="user" >
-          <nb-user [menu]="" [name]="user?.username" [picture]="user?.picture" ></nb-user>
+          <nb-user [menu]="" [name]="user?.username" [picture]="user?.profile" ></nb-user>
             <nb-action>
               <span class="badge badge-secondary">2 $CA</span>
             </nb-action>
@@ -59,7 +59,7 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
             <i class="ion ion-social-github"></i> <span>Support Us</span>
           </a>
           -->
-        </nb-sidebar-header>        
+        </nb-sidebar-header>
 
         <nb-sidebar-header *ngIf="!user" class="d-block d-sm-block d-md-none">
           <nb-action>
@@ -73,7 +73,7 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
             </a>
           </nb-action>
         </nb-sidebar-header>
-        
+
         <!-- <ng-content select="nb-menu"></ng-content> -->
         <nb-menu [items]="menu"></nb-menu>
       </nb-sidebar>
@@ -87,15 +87,13 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
         <ngx-footer></ngx-footer>
       </nb-layout-footer>
 
-     
+
     </nb-layout>
   `
 })
 export class SampleLayoutComponent implements OnDestroy, OnInit {
   menu = MENU_ITEMS;
-  id;
   user;
-  token;
 
   subMenu: NbMenuItem[] = [
     {
@@ -182,11 +180,7 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(){
-    this.token = localStorage.getItem("auth_app_token");
-    this.id = Number.parseInt(localStorage.getItem("userId"));
-    this.userService.getUser(this.id, this.token).then((usuario)=>{
-      this.user = JSON.parse(usuario['_body']);
-    });
+    this.user = this.userService.getSignIn();
   }
 
   ngOnDestroy() {
@@ -199,7 +193,7 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
   signin(){
     this.router.navigate(["/auth/login"]);
   }
-  
+
   signup(){
     this.router.navigate(["/auth/register"]);
   }
