@@ -5,8 +5,8 @@ module.exports = function(app) {
     if (err) throw err;
 
     app.models.noticia.create([{
-      "titulo": "Bitcoin",
-      "tipoInversion" : "prueba de señales",
+      'titulo': 'Bitcoin',
+      'tipoInversion': 'prueba de señales',
     }], function(err, noticias) {
       console.log('Models created: \n', noticias);
     });
