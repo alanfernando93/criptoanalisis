@@ -1,8 +1,8 @@
 'use strict';
 
-module.exports = function (app) {
+module.exports = function(app) {
 
-  app.dataSources.db.automigrate('noticia', function (err) {
+  app.dataSources.db.automigrate('noticia', function(err) {
     if (err) throw err;
 
     app.models.noticia.create([{  
