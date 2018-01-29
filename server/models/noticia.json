@@ -15,29 +15,29 @@
       "type": "string",
       "required": true
     },
-    "tipo_moneda":{
-      "type":"string",
+    "tipo_moneda": {
+      "type": "string",
       "required": false
     },
-    "conj_moneda":{
-      "type":"string",
-      "required":false
+    "conj_moneda": {
+      "type": "string",
+      "required": false
     },
-    "like":{
-     "type":"number",
-     "required":false 
+    "like": {
+      "type": "number",
+      "required": false
     },
-    "fecha_create":{
-     "type":"date",
-     "required":false
+    "fecha_create": {
+      "type": "date",
+      "required": false
     },
-    "conj_precio":{
-      "type":"string",
-      "required":false
+    "conj_precio": {
+      "type": "string",
+      "required": false
     },
-    "fuentes":{
-      "type":"string",
-      "required":false
+    "fuentes": {
+      "type": "string",
+      "required": false
     }
   },
   "validations": [],
@@ -48,6 +48,38 @@
       "foreignKey": ""
     }
   },
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW",
+      "property": "*"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW"
+    }
+  ],
   "methods": {}
 }
