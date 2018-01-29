@@ -2,6 +2,9 @@
   'use strict';
 
 module.exports = function(app) {
+  var User = app.models.usuario;
+  var Role = app.models.Role;
+  var RoleMapping = app.models.RoleMapping;
 
   app.dataSources.db.automigrate('usuario', function (err) {
     if (err) throw err;
