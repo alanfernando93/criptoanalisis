@@ -13,4 +13,13 @@ module.exports = function (app) {
       console.log('Models created: \n', usuarios);
     });
   });
+
+  //roles
+  // app.models.Role.create({
+  //   name: 'admin'
+  // }, function(err, role) {
+  //   if (err) throw err;
+
+  //   console.log('Created role:', role);
+  // });
 };
