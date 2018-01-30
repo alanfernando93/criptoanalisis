@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Router } from '@angular/router';
+import { Router } from "@angular/router";
 import {
   NbMediaBreakpoint,
   NbMediaBreakpointsService,
@@ -10,7 +10,7 @@ import {
 } from "@nebular/theme";
 
 import { StateService } from "../../../@core/data/state.service";
-import { UserService } from '../../../@core/data/users.service';
+import { UserService } from "../../../@core/data/users.service";
 
 import { Subscription } from "rxjs/Subscription";
 import "rxjs/add/operator/withLatestFrom";
@@ -44,9 +44,10 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
             <nb-action>
               <span class="badge badge-secondary">25 P</span>
             </nb-action>
-            
+            <hr>
+            <div>
             <nb-action>
-            <a class="btn btn-primary btn-tn" href="#">
+            <a class="btn btn-primary btn-tn" (click)="profile()">
               Profile
             </a>
           </nb-action>
@@ -55,6 +56,7 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
               Log out
             </a>
           </nb-action>
+          </div>
             <!--
           <a href="#" class="btn btn-hero-success main-btn d-block d-sm-block">
             <i class="ion ion-social-github"></i> <span>Support Us</span>
@@ -182,11 +184,11 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
       );
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.token = localStorage.getItem("auth_app_token");
     this.id = Number.parseInt(localStorage.getItem("userId"));
-    this.userService.getUser(this.id, this.token).then((usuario)=>{
-      this.user = JSON.parse(usuario['_body']);
+    this.userService.getUser(this.id, this.token).then(usuario => {
+      this.user = JSON.parse(usuario["_body"]);
     });
   }
 
@@ -197,16 +199,19 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
     this.user = null;
   }
 
-  signin(){
+  signin() {
     this.router.navigate(["/auth/login"]);
   }
-  
-  signup(){
+
+  signup() {
     this.router.navigate(["/auth/register"]);
   }
   logout() {
     localStorage.clear();
     this.user = null;
     this.router.navigate(["/"]);
+  }
+  profile(){
+    this.router.navigate(["/user/profile"]);
   }
 }
