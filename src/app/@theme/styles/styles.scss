@@ -4,6 +4,7 @@
 // framework component themes (styles tied to theme variables)
 @import '~@nebular/theme/styles/globals';
 @import '~@nebular/auth/styles/all';
+@import '../components/layout/layout.component';
 
 // loading progress bar theme
 @import './pace.theme';

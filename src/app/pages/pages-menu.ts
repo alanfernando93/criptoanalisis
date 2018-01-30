@@ -139,6 +139,20 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
   {
+    title: 'Signals',
+    icon: 'nb-paper-plane',
+    children: [
+      {
+        title: 'List Signals',
+        link: '/pages/signals/list',
+      },
+      {
+        title: 'View Signals',
+        link: '/pages/signals/view',
+      },
+    ],
+  },
+  {
     title: 'Tables',
     icon: 'nb-tables',
     children: [
