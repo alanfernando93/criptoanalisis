@@ -16,8 +16,10 @@ const routes: Routes = [{
   },{
     path: 'publish',
     component: PublishComponent,
-    // loadChildren: './publish/publish.module#PublishModule',
-  }, {
+  },{
+    path: 'publish/:idNew',
+    component: PublishComponent,
+  },{
     path: 'ui-features',
     loadChildren: './ui-features/ui-features.module#UiFeaturesModule',
   }, {

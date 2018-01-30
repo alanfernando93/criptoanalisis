@@ -1,21 +1,35 @@
 import { Injectable } from "@angular/core";
 
 @Injectable()
-export class SessionService {
-  public token:String;
-  public userId:String;
+export class SessionService{
+  protected token:String;
+  protected userId:String;
 
-  constructor() {
-    if (localStorage.length != 0) {
-      this.token = "?access_token="+localStorage.getItem("auth_app_token");
-      this.userId = localStorage.getItem("userId");
-      console.log("session-->"+this.token);
-    }
+  constructor() { }
+
+  getToken(){
+    return this.token;
   }
 
-  logout() {
+  setToken(token){
+    this.token = token;
+  }
+
+  getUserId(){
+    return this.userId;
+  }
+
+  setUserId(id){
+    this.userId = id;
+  }
+
+  clear() {
     localStorage.clear();
     this.token = "";
     this.userId = "";
+  }
+
+  toString():String{
+    return this.getToken + "\n" + this.getUserId;
   }
 }

@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Http } from "@angular/http";
-import { NbAuthJWTToken, NbAuthService } from "@nebular/auth";
 
 import { environment } from "../../../environments/environment";
 
@@ -12,9 +11,10 @@ import "rxjs/add/observable/of";
 let counter = 0;
 
 @Injectable()
-export class UserService extends SessionService {
+export class UserService extends SessionService  {
   private baseUrl = environment.apiUrl;
   private table = "usuarios";
+  private session:any=null;
 
   private users = {
     nick: { name: "Nick Jones", picture: "assets/images/nick.png" }
@@ -24,11 +24,16 @@ export class UserService extends SessionService {
 
   constructor(
     private http: Http,
-    private authService: NbAuthService
   ) {
-    super();
-    // this.userArray = Object.values(this.users);
-    // this.http.get(this.baseUrl + 'usuarios/1').toPromise();
+    super();    
+  }
+
+  setSession(item){
+    this.session = item;
+  }
+
+  getSession(){
+    return this.session;
   }
 
   getUsers(): Observable<any> {
@@ -39,29 +44,16 @@ export class UserService extends SessionService {
     return Observable.of(this.userArray);
   }
 
-  getSignIn() {
-    this.authService.onTokenChange().subscribe((token: NbAuthJWTToken) => {
-      if (token.getValue()) {
-        this.getUser().then(usuario => {
-          return JSON.parse(usuario["_body"]);
-        });
-      }else{
-        return null;
-      }
-    });
-  }
-
   getUser(){
-    console.log("getUser-->"+this.token);
     return this.http
-    .get(this.baseUrl + this.table + "/" + this.userId + this.token)
+    .get(this.baseUrl + this.table + "/" + this.getUserId() + this.getToken())
     .toPromise();
   }
 
   update(itemToUpdate) {
     return this.http
       .put(
-        this.baseUrl + this.table + "/" + this.userId + this.token,
+        this.baseUrl + this.table + "/" + this.getUserId() + this.getToken(),
         itemToUpdate
       )
       .toPromise();
@@ -70,16 +62,15 @@ export class UserService extends SessionService {
   makeFileRequest(file: any) {
     return this.http
       .post(
-        this.baseUrl + this.table + "/" + this.userId + "/upload" + this.token,
+        this.baseUrl + this.table + "/" + this.getUserId() + "/upload" + this.getToken(),
         file
       )
       .toPromise();
   }
 
   logout() {
-    super.logout();
     return this.http
-      .post(this.baseUrl + this.table + "/logout" + this.token, {})
+      .post(this.baseUrl + this.table + "/logout" + this.getToken(), {})
       .toPromise();
   }
 }

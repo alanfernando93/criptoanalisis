@@ -8,6 +8,7 @@ import {
   NbSidebarService,
   NbThemeService
 } from "@nebular/theme";
+import { NbAuthJWTToken, NbAuthService } from "@nebular/auth";
 
 import { StateService } from "../../../@core/data/state.service";
 import { UserService } from '../../../@core/data/users.service';
@@ -150,7 +151,8 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
     protected bpService: NbMediaBreakpointsService,
     protected sidebarService: NbSidebarService,
     protected userService: UserService,
-    protected router: Router
+    protected router: Router,
+    private authService: NbAuthService
   ) {
     this.layoutState$ = this.stateService
       .onLayoutState()
@@ -180,7 +182,16 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(){
-    this.user = this.userService.getSignIn();
+    this.authService.onTokenChange().subscribe((token: NbAuthJWTToken) => {
+      if (token.getValue() && localStorage.length != 0) {
+        this.userService.setToken("?access_token="+localStorage.getItem("auth_app_token"));
+        this.userService.setUserId(localStorage.getItem("userId"));
+        this.userService.getUser().then((usuario)=>{
+          this.user = JSON.parse(usuario['_body']);
+          this.userService.setSession(this.user);
+        })
+      }
+    });
   }
 
   ngOnDestroy() {

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, AfterViewInit, Output, Input, EventEmitter, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, Output, Input, EventEmitter, ElementRef } from '@angular/core';
 
 import 'tinymce';
 
@@ -32,19 +32,28 @@ import 'tinymce/plugins/wordcount';
   selector: 'ngx-tiny-mce',
   template: '',
 })
-export class TinyMCEComponent implements OnDestroy, AfterViewInit {
+export class TinyMCEComponent implements OnDestroy, AfterViewInit, OnInit{
 
   @Input() height: String = '320';
+  
+  @Input() body:String = "";
   @Output() onEditorKeyup = new EventEmitter<any>();
-
   editor;
   @Output() editorKeyup = new EventEmitter<any>();
 
-  constructor(private host: ElementRef) { }
+  constructor(private host: ElementRef) { 
+  }
+
+  ngOnInit(){
+    // console.log("-->"+this.body);
+  }
 
   ngAfterViewInit() {
+
+    console.log(this.body);
     tinymce.init({
       target: this.host.nativeElement,
+      // selector:"textarea",
       menubar: false,
       plugins: [
         "advlist autolink lists link image charmap print preview anchor",
@@ -55,12 +64,13 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
       skin_url: 'assets/skins/lightgray',
       setup: editor => {
         this.editor = editor;
-        // editor.on('keyup', () => {
-        //   this.editorKeyup.emit(editor.getContent());
-        // });
-        // editor.startContent('<p>hola</p>');
-        editor.on('keyup', () => {
+        editor.on('init', (cont) => {
+          if(this.body) cont.target.setContent(this.body);
+          // console.log(cont);
+        });
+        editor.on('keyup change', () => {
           const content = editor.getContent();
+          // console.log(content);
           this.onEditorKeyup.emit(content);
         });
       },
@@ -70,5 +80,13 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     tinymce.remove(this.editor);
+  }
+
+  set value(v: any){
+    this.body = v;
+  }
+
+  get value(){
+    return this.body;
   }
 }

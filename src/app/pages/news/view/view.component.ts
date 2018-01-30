@@ -18,13 +18,12 @@ export class ViewComponent {
     this.route.params.subscribe((param) => {
       this.id = param['idNew'];
       console.log(this.id);
+    })
+  }
 
-      })
-    }
-
-    ngOnInit() {
-      this.noticiasService.getNoticias().then((noticias) => {
-        this.news = noticias;
-      })
-    }
+  ngOnInit() {
+    // this.noticiasService.getNoticias().then((noticias) => {
+    //   this.news = noticias;
+    // })
+  }
 }

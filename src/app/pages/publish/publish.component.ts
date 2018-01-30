@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'ngx-publish',
@@ -7,7 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class PublishComponent implements OnInit {
-    constructor() { }
+
+    idNew:String;
+
+    constructor(        
+        private router: Router,
+        private route: ActivatedRoute,
+    ) {
+        this.route.params.subscribe((param) => {
+            this.idNew = param['idNew'];
+        });
+    }
 
     ngOnInit() { }
 }

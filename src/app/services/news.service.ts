@@ -15,11 +15,15 @@ export class NewsService extends SessionService implements OnInit {
 
   ngOnInit() {}
 
-  getNoticias() {
-    return this.http.get(this.baseUrl + this.table).toPromise();
+  getById(id) {
+    return this.http.get(this.baseUrl + this.table + "/" + id + this.getToken()).toPromise();
   }
 
   insertNews(body) {
-    return this.http.post(this.baseUrl + this.table + this.token, body).toPromise();
+    return this.http.post(this.baseUrl + this.table + this.getToken(), body).toPromise();
+  }
+
+  toString():String{
+    return "" + this.getToken() + "";
   }
 }

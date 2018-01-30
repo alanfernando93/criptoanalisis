@@ -17,8 +17,8 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.noticiasService.getNoticias().then((noticias) => {
-      this.news = noticias;
-    });
+    // this.noticiasService.getNoticias().then((noticias) => {
+    //   this.news = noticias;
+    // });
   }
 }
