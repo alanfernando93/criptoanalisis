@@ -10,7 +10,6 @@ module.exports = function(app) {
       'tipo_moneda': 'bitcoin',
       'conj_moneda': 'siacoin',
       'like': '0',
-      'fecha_create': '',
       'conj_precio': 'ninguna',
       'fuentes': 'wikipedia',
     }], function(err, noticias) {
