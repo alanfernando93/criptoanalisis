@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy, AfterViewInit, Output, Input, EventEmitte
 import 'tinymce';
 
 import 'tinymce/themes/modern';
+import 'tinymce/plugins/example'
 import 'tinymce/plugins/advlist';
 import 'tinymce/plugins/autolink';
 import 'tinymce/plugins/lists';
@@ -35,11 +36,16 @@ import 'tinymce/plugins/wordcount';
 export class TinyMCEComponent implements OnDestroy, AfterViewInit, OnInit{
 
   @Input() height: String = '320';
+  @Input()
+  set value(val: any){
+    this.body = val.contenido;
+  }
   
-  @Input() body:String = "";
   @Output() onEditorKeyup = new EventEmitter<any>();
-  editor;
+  
   @Output() editorKeyup = new EventEmitter<any>();
+  editor;
+  body:String = "";
 
   constructor(private host: ElementRef) { 
   }
@@ -58,9 +64,9 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit, OnInit{
       plugins: [
         "advlist autolink lists link image charmap print preview anchor",
         "searchreplace visualblocks code fullscreen",
-        "insertdatetime media table contextmenu paste imagetools wordcount"
+        "insertdatetime media table contextmenu paste imagetools wordcount example"
       ],
-      toolbar: 'undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | tradingview | image',
+      toolbar: 'undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | tradingview | image | example',
       skin_url: 'assets/skins/lightgray',
       setup: editor => {
         this.editor = editor;
@@ -74,7 +80,59 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit, OnInit{
           this.onEditorKeyup.emit(content);
         });
       },
+      content_css: [
+        '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+        '//www.tinymce.com/css/codepen.min.css'
+      ],
       height: this.height,
+    });
+    tinymce.PluginManager.add('example', function(editor, url) {
+      // Add a button that opens a window
+      editor.addButton('example', {
+        text: 'My button',
+        icon: false,
+        onclick: function() {
+          // Open window
+          editor.windowManager.open({
+            title: 'Example plugin',
+            body: [
+              {type: 'textbox', name: 'title', label: 'Title'}
+            ],
+            onsubmit: function(e) {
+              // Insert content when the window form is submitted
+              editor.insertContent('Title: ' + e.data.title);
+            }
+          });
+        }
+      });
+    
+      // Adds a menu item to the tools menu
+      editor.addMenuItem('example', {
+        text: 'Example plugin',
+        context: 'tools',
+        onclick: function() {
+          // Open window with a specific url
+          editor.windowManager.open({
+            title: 'TinyMCE site',
+            url: 'https://www.tinymce.com',
+            width: 800,
+            height: 600,
+            buttons: [{
+              text: 'Close',
+              onclick: 'close'
+            }]
+          });
+        }
+      });
+    
+      return {
+        getMetadata: function () {
+          return  {
+            title: "Example plugin",
+            url: "http://exampleplugindocsurl.com"
+          };
+        }
+      };
     });
   }
 
