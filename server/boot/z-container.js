@@ -7,5 +7,5 @@ module.exports = function(app) {
         extension = parts[parts.length-1];
         var newFilename = 'perfil.' + extension;
         return newFilename;
-    }
+      };
   };

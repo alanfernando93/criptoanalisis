@@ -2,21 +2,21 @@
 var loopback = require('loopback');
 var base64Img = require('base64-img');
 module.exports = function(Usuario) {
-  //validacion de campos de usuario
-  Usuario.validatesPresenceOf('nombre', 'apellido', 'fecha_nacimiento');
+  // validacion de campos de usuario
   Usuario.validatesLengthOf('password', {min: 5, message:
      {min: 'Password is too short'}});
   Usuario.validatesLengthOf('username',
-   {min: 5, message: {min: 'username is too short'}});
+   {min: 3, message: {min: 'username is too short'}});
   Usuario.validatesLengthOf('nombre',
    {min: 3, message: {min: 'nombre is too short'}});
   Usuario.validatesLengthOf('apellido', +
    {min: 3, message: {min: 'apellido is too short'}});
   Usuario.validatesUniquenessOf('email', {message: 'email is not unique'});
-  Usuario.validatesFormatOf('nombre', {with: /[a-zA-Z\-'\s]+/});
-  Usuario.validatesFormatOf('apellido', {with: /[a-zA-Z\-'\s]+/});
-  Usuario.validatesFormatOf('username', {with: /^[a-zA-Z]\w*$/});
-
+  Usuario.validatesFormatOf('nombre', {with: /[a-zA-Z\-'\s]+/});// solo nombres con letras ej juan
+  Usuario.validatesFormatOf('apellido', {with: /[a-zA-Z\-'\s]+/});// apellido solo  letras ej lopez
+  Usuario.validatesFormatOf('username', {with: /^[a-zA-Z]\w*$/});// username letras o letras seguido de numeros juan123
+  Usuario.validatesFormatOf('password', {with: /[a-zA-Z0-9]/});  // password compuesto por letras y numeros
+// upload para subir fotos usuario
   Usuario.upload = function(req, res, cb) {
     var Container = Usuario.app.models.Container;
     var user = req.params.id;
@@ -45,5 +45,5 @@ module.exports = function(Usuario) {
    //   });
    // };
    // next();
-  //});
+  // });
 };
