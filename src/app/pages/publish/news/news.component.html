@@ -6,12 +6,6 @@
           <input type="text" placeholder="Titulo de la noticia" [(ngModel)]="newsPublish.titulo " class="form-control">
         </div>
       </div>
-    </div><div class="row">
-      <div class="col">
-        <div class="input-group">
-          <input type="text" placeholder="Titulo de la noticia" [(ngModel)]="contenido " class="form-control">
-        </div>
-      </div>
     </div>
     <div class="row">
       <div class="col">
@@ -26,7 +20,7 @@
       </div>
     </div>
     <ngx-tiny-mce 
-      [body]="contenido.valueOf()"
+      [body]="contenido"
       [height]="150"
       (onEditorKeyup)="keyupHandlerFunction($event)"></ngx-tiny-mce>
     <ngx-tiny-mce></ngx-tiny-mce>

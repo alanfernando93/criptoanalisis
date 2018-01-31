@@ -24,7 +24,7 @@ export class PublishNewsComponent implements OnInit {
   @Input() idNew: number = null;
 
   newsPublish: any = {};
-  contenido: String = "";
+  contenido: String;
 
   selectedView = this.buttonsViews[0];
 
@@ -51,10 +51,6 @@ export class PublishNewsComponent implements OnInit {
 
   keyupHandlerFunction(event) {
     this.contenido = event;
-  }
-
-  getContenido(){
-    return String(this.contenido);
   }
 
   onSave() {

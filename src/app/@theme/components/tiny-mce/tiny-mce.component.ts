@@ -82,11 +82,4 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit, OnInit{
     tinymce.remove(this.editor);
   }
 
-  set value(v: any){
-    this.body = v;
-  }
-
-  get value(){
-    return this.body;
-  }
 }
