@@ -3,7 +3,6 @@ import { Component, OnInit, OnDestroy, AfterViewInit, Output, Input, EventEmitte
 import 'tinymce';
 
 import 'tinymce/themes/modern';
-import 'tinymce/plugins/example'
 import 'tinymce/plugins/advlist';
 import 'tinymce/plugins/autolink';
 import 'tinymce/plugins/lists';
@@ -27,6 +26,8 @@ import 'tinymce/plugins/code';
 import 'tinymce/plugins/imagetools';
 import 'tinymce/plugins/wordcount';
 
+import '../../../../assets/plugins/example'
+
 // declare var tinymce: any;
 
 @Component({
@@ -40,19 +41,17 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit, OnInit{
   set value(val: any){
     this.body = val.contenido;
   }
-  
+
   @Output() onEditorKeyup = new EventEmitter<any>();
-  
+
   @Output() editorKeyup = new EventEmitter<any>();
   editor;
   body:String = "";
+  files;
 
-  constructor(private host: ElementRef) { 
-  }
+  constructor(private host: ElementRef) { }
 
-  ngOnInit(){
-    // console.log("-->"+this.body);
-  }
+  ngOnInit(){ }
 
   ngAfterViewInit() {
 
@@ -72,67 +71,50 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit, OnInit{
         this.editor = editor;
         editor.on('init', (cont) => {
           if(this.body) cont.target.setContent(this.body);
-          // console.log(cont);
         });
         editor.on('keyup change', () => {
           const content = editor.getContent();
-          // console.log(content);
           this.onEditorKeyup.emit(content);
         });
       },
+      image_title: true,
+      automatic_uploads: true,
+      file_picker_types: 'image',
+      file_picker_callback: (cb, value, meta)=>{
+        var input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', 'image/*');
+
+        // Note: In modern browsers input[type="file"] is functional without
+        // even adding it to the DOM, but that might not be the case in some older
+        // or quirky browsers like IE, so you might want to add it to the DOM
+        // just in case, and visually hide it. And do not forget do remove it
+        // once you do not need it anymore.
+
+        input.onchange = function(event){
+          var file = event['target']['files'][0];
+
+          var reader = new FileReader();
+          reader.onload = function () {
+            var id = 'blobid' + (new Date()).getTime();
+            var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+            var base64 = reader.result.split(',')[1];
+            var blobInfo = blobCache.create(id, file, base64);
+            blobCache.add(blobInfo);
+
+            // call the callback and populate the Title field with the file name
+            cb(blobInfo.blobUri(), { title: file.name });
+          };
+          reader.readAsDataURL(file);
+        };
+
+        input.click();
+    	},
       content_css: [
         '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
         '//www.tinymce.com/css/codepen.min.css'
       ],
       height: this.height,
-    });
-    tinymce.PluginManager.add('example', function(editor, url) {
-      // Add a button that opens a window
-      editor.addButton('example', {
-        text: 'My button',
-        icon: false,
-        onclick: function() {
-          // Open window
-          editor.windowManager.open({
-            title: 'Example plugin',
-            body: [
-              {type: 'textbox', name: 'title', label: 'Title'}
-            ],
-            onsubmit: function(e) {
-              // Insert content when the window form is submitted
-              editor.insertContent('Title: ' + e.data.title);
-            }
-          });
-        }
-      });
-    
-      // Adds a menu item to the tools menu
-      editor.addMenuItem('example', {
-        text: 'Example plugin',
-        context: 'tools',
-        onclick: function() {
-          // Open window with a specific url
-          editor.windowManager.open({
-            title: 'TinyMCE site',
-            url: 'https://www.tinymce.com',
-            width: 800,
-            height: 600,
-            buttons: [{
-              text: 'Close',
-              onclick: 'close'
-            }]
-          });
-        }
-      });
-    
-      return {
-        getMetadata: function () {
-          return  {
-            title: "Example plugin",
-            url: "http://exampleplugindocsurl.com"
-          };
-        }
-      };
     });
   }
 

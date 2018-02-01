@@ -17,6 +17,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     title: 'Publish',
     icon: 'fa fa-fire',
     link: '/pages/publish/2',
+    hidden: false,
     home: true,
   },
   {
