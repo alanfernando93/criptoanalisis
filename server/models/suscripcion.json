@@ -1,28 +1,29 @@
 {
-  "name": "commentSignal",
-  "plural": "comments",
+  "name": "Suscripcion",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "comment": {
-      "type": "string",
-      "required": true
+    "fechaCreacion": {
+      "type": "date"
+    },
+    "fechaFin": {
+      "type": "date"
     }
   },
   "validations": [],
   "relations": {
-    "Usuario": {
+    "seguidor": {
       "type": "belongsTo",
       "model": "usuario",
-      "foreignkey": "usuarioId"
+      "foreignkey":"SeguidorId"
     },
-    "Signal": {
+    "trader": {
       "type": "belongsTo",
-      "model": "signal",
-      "foreigkey": "signalId"
+      "model": "usuario",
+      "foreignkey":"TraderId"
     }
   },
   "acls": [],

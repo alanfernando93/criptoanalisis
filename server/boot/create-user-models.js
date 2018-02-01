@@ -31,5 +31,19 @@
           console.log('Created principal:', principal);
         });
       });
+      Role.create({
+        name: 'normal',
+      }, function(err, role) {
+        if (err) throw err;
+
+        console.log('created:', role);
+      });
+      Role.create({
+        name: 'premium',
+      }, function(err, role) {
+        if (err) throw err;
+
+        console.log('created:', role);
+      });
     });
   };

@@ -38,10 +38,6 @@
     "fama": {
       "type": "number",
       "required": false
-    },
-    "profile": {
-      "type": "string",
-      "required": false
     }
   },
   "validations": [],
@@ -52,19 +48,36 @@
       "foreignKey": "UsuarioId",
       "through": "LikeSignal"
     },
-    "comments":{
-      "type":"hasMany",
-      "model":"comment",
-      "foreignkey":"usuarioId",
-      "through":"commentSignal"
+    "comments": {
+      "type": "hasMany",
+      "model": "comment",
+      "foreignkey": "usuarioId",
+      "through": "commentSignal"
     },
     "signals": {
       "type": "hasMany",
       "model": "signal",
       "foreignKey": ""
+    },
+    "seguidor": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignKey": "SeguidorId",
+      "through": "Suscripcion"
+    },
+    "trader": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignKey": "TraderId",
+      "through": "Suscripcion"
+    },
+    "Noticia":{
+      "type":"hasMany",
+      "model":"noticia",
+      "foreignkey": "UsuarioId"
     }
   },
-  "acls":  [
+  "acls": [
     {
       "accessType": "*",
       "principalType": "ROLE",
@@ -83,7 +96,10 @@
       "principalType": "ROLE",
       "principalId": "$owner",
       "permission": "ALLOW",
-      "property": "upload"  
+      "property": [
+        "upload",
+        "verPagaSeñal"
+      ]
     },
     {
       "accessType": "READ",
@@ -97,7 +113,6 @@
       "principalId": "$owner",
       "permission": "ALLOW"
     }
-   
   ],
   "methods": {}
 }
