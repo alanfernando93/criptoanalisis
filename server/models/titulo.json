@@ -1,0 +1,30 @@
+{
+  "name": "titulo",
+  "plural": "titulos",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "nombre": {
+      "type": "string"
+    },
+    "correspondencia": {
+      "type": "number"
+    },
+    "calificacion":{
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "contenido":{
+      "type":"hasMany",
+      "model": "contenidoMoneda",
+      "foreignkey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

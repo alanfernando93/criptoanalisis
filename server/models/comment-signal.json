@@ -14,15 +14,15 @@
   },
   "validations": [],
   "relations": {
-    "Usuario":{
-      "type":"belongsTo",
-      "model":"usuario",
-      "foreignkey":"usuarioId"
+    "Usuario": {
+      "type": "belongsTo",
+      "model": "usuario",
+      "foreignkey": "usuarioId"
     },
-    "Signal":{
-      "type":"belongsTo",
-      "model":"signal",
-      "foreigkey":"signalId"
+    "Signal": {
+      "type": "belongsTo",
+      "model": "signal",
+      "foreigkey": "signalId"
     }
   },
   "acls": [],

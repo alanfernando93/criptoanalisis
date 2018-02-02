@@ -52,19 +52,24 @@
       "foreignKey": "UsuarioId",
       "through": "LikeSignal"
     },
-    "comments":{
-      "type":"hasMany",
-      "model":"comment",
-      "foreignkey":"usuarioId",
-      "through":"commentSignal"
+    "comments": {
+      "type": "hasMany",
+      "model": "comment",
+      "foreignkey": "usuarioId",
+      "through": "commentSignal"
     },
     "signals": {
       "type": "hasMany",
       "model": "signal",
       "foreignKey": ""
+    },
+    "contenidoMoneda":{
+      "type":"hasMany",
+      "model":"contenidoMoneda",
+      "foreignkey": ""
     }
   },
-  "acls":  [
+  "acls": [
     {
       "accessType": "*",
       "principalType": "ROLE",
@@ -83,7 +88,7 @@
       "principalType": "ROLE",
       "principalId": "$owner",
       "permission": "ALLOW",
-      "property": "upload"  
+      "property": "upload"
     },
     {
       "accessType": "READ",
@@ -97,7 +102,6 @@
       "principalId": "$owner",
       "permission": "ALLOW"
     }
-   
   ],
   "methods": {}
 }

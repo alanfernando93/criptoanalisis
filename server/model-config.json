@@ -40,10 +40,6 @@
     "public": true
   },
   "noticia": {
-    "dataSource":"db",
-    "public":true
-  },
-  "signal": {
     "dataSource": "db",
     "public": true
   },
@@ -63,35 +59,19 @@
     "dataSource": "db",
     "public": true
   },
-  "signal": {
+  "moneda": {
     "dataSource": "db",
     "public": true
   },
-  "position": {
+  "titulo": {
     "dataSource": "db",
     "public": true
   },
-  "LikeSignal": {
+  "contenidoMoneda": {
     "dataSource": "db",
     "public": true
   },
-  "commentSignal": {
-    "dataSource": "db",
-    "public": true
-  },
-  "signal": {
-    "dataSource": "db",
-    "public": true
-  },
-  "position": {
-    "dataSource": "db",
-    "public": true
-  },
-  "LikeSignal": {
-    "dataSource": "db",
-    "public": true
-  },
-  "commentSignal": {
+  "mercado": {
     "dataSource": "db",
     "public": true
   }

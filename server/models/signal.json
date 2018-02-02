@@ -53,11 +53,11 @@
       "model": "position",
       "foreignKey": ""
     },
-    "comments":{
-      "type":"hasMany",
-      "model":"usuario",
-      "foreignkey":"signalId",
-      "through":"commentSignal"
+    "comments": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignkey": "signalId",
+      "through": "commentSignal"
     }
   },
   "acls": [
@@ -68,22 +68,22 @@
       "permission": "DENY"
     },
     {
-      "accessType":"READ",
-      "principalType":"ROLE",
-      "principalId":"$authenticated",
-      "permission":"ALLOW"
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
     },
     {
-      "accessType":"WRITE",
-      "principalType":"ROLE",
-      "principalId":"$authenticated",
-      "permission":"ALLOW"
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
     },
     {
-      "accessType":"update",
-      "principalType":"ROLE",
-      "principalId":"$owner",
-      "permission":"ALLOW"
+      "accessType": "update",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW"
     }
   ],
   "methods": {}
