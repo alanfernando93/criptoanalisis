@@ -35,6 +35,9 @@ const routes: Routes = [{
       path: 'news',
       loadChildren: './news/news.module#NewsModule',
    }, {
+       path: 'coins',
+      loadChildren: './coins/coins.module#CoinsModule',
+   }, {
       path: 'tables',
       loadChildren: './tables/tables.module#TablesModule',
    }, {

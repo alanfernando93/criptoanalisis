@@ -137,6 +137,18 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/news/list',
       },
     ],
+  },{
+    title: 'Coins',
+    icon: 'nb-plus-circled',
+    children: [
+      {
+        title: 'List Coins',
+        link: '/pages/coins/list'
+      },{
+        title: 'View Coins',
+        link: '/pages/coins/view',
+      },
+    ],
   },
   {
     title: 'Tables',
