@@ -9,7 +9,7 @@ import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
 
 @Component({
     selector: "ngx-headertwo",
-    styleUrls: ["./headertwocomponent.scss"],
+    styleUrls: ["./headertwo.component.scss"],
     templateUrl: "./headertwo.component.html"
 })
 export class HeaderTwoComponent implements OnInit {

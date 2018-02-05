@@ -24,9 +24,13 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
   styleUrls: ["./sample.layout.scss"],
   template: `
     <nb-layout [center]="layout.id === 'center-column'" windowMode>
-      <nb-layout-header fixed>
+      <nb-layout-header>
         <ngx-header [position]="sidebar.id === 'right' ? 'normal': 'inverse'"></ngx-header>    
       </nb-layout-header>
+      <nb-layout-header>
+      <ngx-headertwo [position]="sidebar.id === 'right' ? 'normal': 'inverse'"></ngx-headertwo>    
+      </nb-layout-header>
+      
       <nb-sidebar class="menu-sidebar"
                    tag="menu-sidebar"
                    responsive
