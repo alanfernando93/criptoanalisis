@@ -1,30 +1,14 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, Output, Input, EventEmitter, ElementRef } from '@angular/core';
+import { Component, OnDestroy, AfterViewInit, Output, Input, EventEmitter, ElementRef } from '@angular/core';
 
 import 'tinymce';
 
 import 'tinymce/themes/modern';
 import 'tinymce/plugins/advlist';
-import 'tinymce/plugins/autolink';
-import 'tinymce/plugins/lists';
 import 'tinymce/plugins/link';
 import 'tinymce/plugins/image';
-import 'tinymce/plugins/charmap';
-import 'tinymce/plugins/print';
-import 'tinymce/plugins/preview';
-import 'tinymce/plugins/anchor';
-import 'tinymce/plugins/textcolor';
-import 'tinymce/plugins/searchreplace';
-import 'tinymce/plugins/visualblocks';
-import 'tinymce/plugins/code';
-import 'tinymce/plugins/fullscreen';
-import 'tinymce/plugins/insertdatetime';
 import 'tinymce/plugins/media';
 import 'tinymce/plugins/table';
-import 'tinymce/plugins/contextmenu';
-import 'tinymce/plugins/paste';
-import 'tinymce/plugins/code';
 import 'tinymce/plugins/imagetools';
-import 'tinymce/plugins/wordcount';
 
 import '../../../../assets/plugins/example'
 
@@ -32,45 +16,46 @@ import '../../../../assets/plugins/example'
 
 @Component({
   selector: 'ngx-tiny-mce',
-  template: '',
+  template: `
+    <script type="text/javascript" src="https://s3.amazonaws.com/tradingview/tv.js"></script>
+    <script type="text/javascript">
+    var tradingview_embed_options = {};
+    tradingview_embed_options.width = '640';
+    tradingview_embed_options.height = '400';
+    tradingview_embed_options.chart = 'PjxrKxty';
+    new TradingView.chart(tradingview_embed_options);
+    </script>
+  `,
 })
-export class TinyMCEComponent implements OnDestroy, AfterViewInit, OnInit{
+export class TinyMCEComponent implements OnDestroy, AfterViewInit{
 
   @Input() height: String = '320';
-  @Input()
-  set value(val: any){
-    this.body = val.contenido;
-  }
+  @Input() content: String;
 
   @Output() onEditorKeyup = new EventEmitter<any>();
 
-  @Output() editorKeyup = new EventEmitter<any>();
   editor;
-  body:String = "";
   files;
 
   constructor(private host: ElementRef) { }
 
-  ngOnInit(){ }
-
   ngAfterViewInit() {
 
-    console.log(this.body);
+    console.log(this.content);
     tinymce.init({
       target: this.host.nativeElement,
       // selector:"textarea",
       menubar: false,
       plugins: [
-        "advlist autolink lists link image charmap print preview anchor",
-        "searchreplace visualblocks code fullscreen",
-        "insertdatetime media table contextmenu paste imagetools wordcount example"
+        "link image",
+        "media table imagetools example"
       ],
-      toolbar: 'undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | tradingview | image | example',
+      toolbar: 'undo redo | formatselect | bold italic backcolor underline | alignleft aligncenter alignright alignjustify | blockquote | bullist numlist | link image media | tradingview | example | table',
       skin_url: 'assets/skins/lightgray',
       setup: editor => {
         this.editor = editor;
         editor.on('init', (cont) => {
-          if(this.body) cont.target.setContent(this.body);
+          if(this.content) cont.target.setContent(this.content);
         });
         editor.on('keyup change', () => {
           const content = editor.getContent();

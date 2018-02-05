@@ -19,6 +19,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/publish/2',
     hidden: false,
     home: true,
+
   },
   {
     title: 'Asesoria Principiantes',

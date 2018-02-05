@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { Http, Response } from "@angular/http";
 
 import { NewsService } from "../../../services/news.service";
+import { HtmlParser } from "@angular/compiler";
 
 @Component({
   selector: "ngx-publish-news",
@@ -21,19 +22,19 @@ export class PublishNewsComponent implements OnInit {
     }
   ];
 
-  @Input() idNew: number = null;
+  @Input() idNew: String = null;
 
   newsPublish: any = {};
-  contenido: String;
+  contenido;
 
   selectedView = this.buttonsViews[0];
 
   constructor(
-    private http: Http, 
+    private http: Http,
     private newsService: NewsService,
     private router: Router
   ) {
-    
+
   }
 
   ngOnInit() {
@@ -44,7 +45,11 @@ export class PublishNewsComponent implements OnInit {
     if(this.idNew != null){
       this.newsService.getById(this.idNew).then(resp=>{
         this.newsPublish = resp;
+        let parse = new DOMParser();
         this.contenido = this.newsPublish.contenido;
+        // this.contenido = parse.parseFromString(this.newsPublish.contenido, "text/xml");
+        console.log(this.contenido);
+        // this.contenido = <HtmlParser>this.newsPublish.contenido;
       });
     }
   }
