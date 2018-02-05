@@ -4,33 +4,27 @@ import 'tinymce';
 
 import 'tinymce/themes/modern';
 import 'tinymce/plugins/advlist';
+import 'tinymce/plugins/code';
 import 'tinymce/plugins/link';
 import 'tinymce/plugins/image';
 import 'tinymce/plugins/media';
 import 'tinymce/plugins/table';
 import 'tinymce/plugins/imagetools';
 
-import '../../../../assets/plugins/example'
+import '../../../../assets/plugins/tradingview'
 
 // declare var tinymce: any;
 
 @Component({
   selector: 'ngx-tiny-mce',
   template: `
-    <script type="text/javascript" src="https://s3.amazonaws.com/tradingview/tv.js"></script>
-    <script type="text/javascript">
-    var tradingview_embed_options = {};
-    tradingview_embed_options.width = '640';
-    tradingview_embed_options.height = '400';
-    tradingview_embed_options.chart = 'PjxrKxty';
-    new TradingView.chart(tradingview_embed_options);
-    </script>
   `,
 })
 export class TinyMCEComponent implements OnDestroy, AfterViewInit{
 
   @Input() height: String = '320';
   @Input() content: String;
+  @Input() place;
 
   @Output() onEditorKeyup = new EventEmitter<any>();
 
@@ -41,16 +35,16 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit{
 
   ngAfterViewInit() {
 
-    console.log(this.content);
+    // console.log(this.content);
     tinymce.init({
       target: this.host.nativeElement,
       // selector:"textarea",
       menubar: false,
       plugins: [
-        "link image",
-        "media table imagetools example"
+        "link image tradingview code",
+        "media table imagetools"
       ],
-      toolbar: 'undo redo | formatselect | bold italic backcolor underline | alignleft aligncenter alignright alignjustify | blockquote | bullist numlist | link image media | tradingview | example | table',
+      toolbar: 'undo redo | formatselect | bold italic backcolor underline | alignleft aligncenter alignright alignjustify | blockquote | bullist numlist | link image media | tradingview | table',
       skin_url: 'assets/skins/lightgray',
       setup: editor => {
         this.editor = editor;
