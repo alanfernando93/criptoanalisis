@@ -15,35 +15,5 @@
       }], function(err, usuarios) {
         console.log('Models created: \n', usuarios);
       });
-
-      Role.create({
-        name: 'admin',
-      }, function(err, role) {
-        if (err) throw err;
-
-        console.log('Created role:', role);
-        role.principals.create({
-          principalType: RoleMapping.USER,
-          principalId: 1,
-        }, function(err, principal) {
-          if (err) throw err;
-
-          console.log('Created principal:', principal);
-        });
-      });
-      Role.create({
-        name: 'normal',
-      }, function(err, role) {
-        if (err) throw err;
-
-        console.log('created:', role);
-      });
-      Role.create({
-        name: 'premium',
-      }, function(err, role) {
-        if (err) throw err;
-
-        console.log('created:', role);
-      });
     });
   };

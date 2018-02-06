@@ -75,19 +75,19 @@ module.exports = function(Usuario) {
   Usuario.verPagaSignal = function(id, cb) {
     var suscrito = Usuario.app.models.Suscripcion;
     var signalPaga = Usuario.app.models.Signal;
-    var signals = [];
-    suscrito.find({where: {seguidorId: id}}, (err, traders)=> {
+    var iterable = [];
+    suscrito.find({where: {seguidorId: id}})
+    .then(traders=> {
       traders.forEach(trader => {
-        signalPaga.find({
+        var x = signalPaga.find({
           where: {usuarioId: trader.TraderId},
-        }, (err, data)=> {
-          signals.push(data);
         });
+        iterable.push(x);
+      });
+      Promise.all(iterable).then(values=>{
+        cb(null, values);
       });
     });
-    setTimeout(() => {
-      cb(null, signals);
-    }, 1000);
   };
   Usuario.remoteMethod('verPagaSignal',
     {
