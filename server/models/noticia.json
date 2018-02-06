@@ -42,8 +42,8 @@
   },
   "validations": [],
   "relations": {
-    "usuarios": {
-      "type": "hasOne",
+    "usuario": {
+      "type": "belongsTo",
       "model": "usuario",
       "foreignKey": ""
     }

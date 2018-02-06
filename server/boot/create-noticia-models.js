@@ -5,13 +5,13 @@ module.exports = function(app) {
     if (err) throw err;
 
     app.models.noticia.create([{
-      'titulo': 'bitcoin',
-      'contenido': 'prueba noticia',
-      'tipo_moneda': 'bitcoin',
-      'conj_moneda': 'siacoin',
-      'like': '0',
-      'conj_precio': 'ninguna',
-      'fuentes': 'wikipedia',
+      "titulo": "bitcoin",
+      "contenido": "prueba noticia",
+      "tipo_moneda": "bitcoin",
+      "conj_moneda": "siacoin",
+      "like": '0',
+      "conj_precio":"ninguna",
+      "fuentes":"wikipedia"
     }], function(err, noticias) {
       console.log('Models created: \n', noticias);
     });
