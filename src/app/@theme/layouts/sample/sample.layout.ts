@@ -23,12 +23,12 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
   selector: "nb-sample-layout",
   styleUrls: ["./sample.layout.scss"],
   template: `
-    <nb-layout [center]="layout.id === 'center-column'" windowMode>
+    <nb-layout [center]="layout.id === 'center-column'" windowMode fixed>
       <nb-layout-header>
         <ngx-header [position]="sidebar.id === 'right' ? 'normal': 'inverse'"></ngx-header>    
       </nb-layout-header>
       <nb-layout-header>
-      <ngx-headertwo [position]="sidebar.id === 'right' ? 'normal': 'inverse'"></ngx-headertwo>    
+        <ngx-headertwo [position]="sidebar.id === 'right' ? 'normal': 'inverse'"></ngx-headertwo>    
       </nb-layout-header>
       
       <nb-sidebar class="menu-sidebar"
@@ -47,7 +47,7 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
             <nb-action>
               <span class="badge badge-secondary">25 P</span>
             </nb-action>
-            
+            <hr>
             <nb-action>
             <a class="btn btn-primary btn-tn" href="#">
               Profile
