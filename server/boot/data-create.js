@@ -1,4 +1,5 @@
 'use strict';
+const HttpErrors = require('http-errors');
 var path = require('path');
 module.exports = function(app) {
   var homedir = (process.platform === 'win32') ? process.env.HOMEPATH : process.env.HOME;
