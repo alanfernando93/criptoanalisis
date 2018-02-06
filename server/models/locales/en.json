@@ -1,6 +1,0 @@
-{
-	"Titulo debe tener como maximo 25 caracteres": "Titulo debe tener como maximo 25 caracteres",
-	"Titulo es un campo  requerido": "Titulo es un campo  requerido",
-	"Contenido es un campo requerido": "Contenido es un campo requerido",
-	"El contenido debe tener como maximo 5000 caracteres": "El contenido debe tener como maximo 5000 caracteres"
-}
