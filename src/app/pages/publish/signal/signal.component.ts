@@ -10,4 +10,12 @@ export class SignalComponent implements OnInit {
     constructor() { }
 
     ngOnInit() { }
+
+    onSave(){
+
+    }
+
+    keyupHandlerFunction($event){
+        
+    }
 }
