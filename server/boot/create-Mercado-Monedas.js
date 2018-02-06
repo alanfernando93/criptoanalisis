@@ -22,12 +22,34 @@ module.exports = function(app) {
     if (err)
       throw err;
     app.models.titulo.create({
-      'nombre': 'Redes Sociales',
+      'nombre': 'Ideas del proyecto',
+    }, function(err, data) {
+      app.models.titulo.create({
+        'nombre': 'Redes Sociales',
+      }, function(err, data) {
+        app.models.titulo.create({
+          'nombre': 'Oferta y Demanda',
+        }, function(err, data) {
+          app.models.titulo.create({
+            'nombre': 'Team',
+          }, function(err, data) {
+            app.models.titulo.create({
+              'nombre': 'RoadMap',
+              'correspondencia': 1,
+            });
+            app.models.titulo.create({
+              'nombre': 'estadisticas',
+              'correspondencia': 2,
+            });
+            app.models.titulo.create({
+              'nombre': 'Oferta',
+              'correspondencia': 3,
+            });
+          });
+        });
+      });
     });
-    app.models.titulo.create({
-      'nombre': 'estadisticos',
-      'correspondencia': 1,
-    });
+
   });
   app.dataSources.db.automigrate('contenidoMoneda', function(err) {
     if (err)

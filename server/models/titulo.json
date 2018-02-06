@@ -2,7 +2,7 @@
   "name": "titulo",
   "plural": "titulos",
   "base": "PersistedModel",
-  "idInjection": true,
+  "idInjection": false,
   "options": {
     "validateUpsert": true
   },
@@ -13,8 +13,11 @@
     "correspondencia": {
       "type": "number"
     },
-    "calificacion":{
-      "type": "number"
+    "enlace":{
+      "type": "string"
+    },
+    "pregunta":{
+      "type": "string"
     }
   },
   "validations": [],

@@ -14,7 +14,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "moneda":{
+      "type":"hasMany",
+      "model":"belongsTo",
+      "foreignkey":""
+    }
+  },
   "acls": [],
   "methods": {}
 }

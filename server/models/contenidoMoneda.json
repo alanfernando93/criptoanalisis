@@ -15,6 +15,9 @@
     },
     "estado":{
       "type": "boolean"
+    },
+    "calificacion":{
+      "type": "number"
     }
   },
   "validations": [],

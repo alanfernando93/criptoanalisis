@@ -2,7 +2,7 @@
 
 module.exports = function(Contenido) {
   Contenido.beforeRemote('create', function(ctx, content, next) {
-    console.log(ctx.req.instance);
+    ctx.req.body.fechaCreacion = Date.now();
     next();
   });
 };

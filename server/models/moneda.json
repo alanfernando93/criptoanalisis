@@ -29,6 +29,11 @@
       "type": "hasMany",
       "model": "contenido",
       "foreignkey": ""
+    },
+    "mercado":{
+      "type":"belongsTo",
+      "model":"mercado",
+      "foreignkey":""
     }
   },
   "acls": [],
