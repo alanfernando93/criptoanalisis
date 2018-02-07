@@ -21,22 +21,18 @@
                 </ul>
             </div>
         </div>
-        <div class="row col input-group">
-            <label>Contenido de la noticia</label>
-            <ngx-tiny-mce 
-                [content]="contenido" 
-                [height]="150" 
-                (onEditorKeyup)="keyupHandlerFunction($event)">
+        <div class="row col inputgroup">
+            <label for="inputContenNews">Contenido de la noticia</label>
+            <ngx-tiny-mce id="inputContenNews" [content]="contenido" [height]="150" (onEditorKeyup)="keyupHandlerFunction($event)">
             </ngx-tiny-mce>
         </div>
-        <div class="row col input-group">
-            <!-- {{contenido}} -->
+        <div class="row col inputgroup" [innerHTML]="contenido">
         </div>
-        <div class="row col input-group">
+        <div class="row col inputgroup">
             <label>Conjeturas sobre el precio</label>
             <ngx-tiny-mce [height]="90"></ngx-tiny-mce>
         </div>
-        <div class="row col input-group">
+        <div class="row col inputgroup">
             <label>Conjeturas sobre otras monedas (* Opcional)</label>
             <ngx-tiny-mce [height]="90"></ngx-tiny-mce>
         </div>
