@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Router } from '@angular/router';
+import { Router } from "@angular/router";
 import {
   NbMediaBreakpoint,
   NbMediaBreakpointsService,
@@ -10,7 +10,7 @@ import {
 } from "@nebular/theme";
 
 import { StateService } from "../../../@core/data/state.service";
-import { UserService } from '../../../@core/data/users.service';
+import { UserService } from "../../../@core/data/users.service";
 
 import { Subscription } from "rxjs/Subscription";
 import "rxjs/add/operator/withLatestFrom";
@@ -23,20 +23,20 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
   selector: "nb-sample-layout",
   styleUrls: ["./sample.layout.scss"],
   template: `
-    <nb-layout [center]="layout.id === 'center-column'" windowMode >
+    <nb-layout [center]="layout.id === 'center-column'" windowMode fixed>
       <nb-layout-header>
-        <ngx-header [position]="sidebar.id === 'right' ? 'normal': 'inverse'" fixed></ngx-header>    
+        <ngx-header [position]="sidebar.id === 'right' ? 'normal': 'inverse'"></ngx-header>    
       </nb-layout-header>
       <nb-layout-header>
-        <ngx-headertwo [position]="sidebar.id === 'right' ? 'normal': 'inverse'" fixed></ngx-headertwo>    
+        <ngx-headertwo [position]="sidebar.id === 'right' ? 'normal': 'inverse'"></ngx-headertwo>    
       </nb-layout-header>
-      
-      <nb-sidebar 
+
+      <nb-sidebar class="menu-sidebar"
                    tag="menu-sidebar"
                    responsive
                    [right]="sidebar.id === 'left'">
 
-        <nb-sidebar-header class="d-block d-sm-none" *ngIf="user" >
+        <nb-sidebar-header class="d-block d-sm-block d-md-none" *ngIf="user" >
           <nb-user [menu]="" [name]="user?.username" [picture]="user?.picture" ></nb-user>
             <nb-action>
               <span class="badge badge-secondary">2 $CA</span>
@@ -48,8 +48,9 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
               <span class="badge badge-secondary">25 P</span>
             </nb-action>
             <hr>
+            <div>
             <nb-action>
-            <a class="btn btn-primary btn-tn" href="#">
+            <a class="btn btn-primary btn-tn" (click)="profile()">
               Profile
             </a>
           </nb-action>
@@ -58,6 +59,7 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
               Log out
             </a>
           </nb-action>
+          </div>
             <!--
           <a href="#" class="btn btn-hero-success main-btn d-block d-sm-block">
             <i class="ion ion-social-github"></i> <span>Support Us</span>
@@ -174,22 +176,22 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
       .withLatestFrom(this.themeService.onMediaQueryChange())
       .delay(20)
       .subscribe(
-      ([item, [bpFrom, bpTo]]: [
-        any,
-        [NbMediaBreakpoint, NbMediaBreakpoint]
-      ]) => {
-        if (bpTo.width <= isBp.width) {
-          this.sidebarService.collapse("menu-sidebar");
+        ([item, [bpFrom, bpTo]]: [
+          any,
+          [NbMediaBreakpoint, NbMediaBreakpoint]
+        ]) => {
+          if (bpTo.width <= isBp.width) {
+            this.sidebarService.collapse("menu-sidebar");
+          }
         }
-      }
       );
   }
 
   ngOnInit() {
     this.token = localStorage.getItem("auth_app_token");
     this.id = Number.parseInt(localStorage.getItem("userId"));
-    this.userService.getUser(this.id, this.token).then((usuario) => {
-      this.user = JSON.parse(usuario['_body']);
+    this.userService.getUser(this.id, this.token).then(usuario => {
+      this.user = JSON.parse(usuario["_body"]);
     });
   }
 
@@ -211,5 +213,8 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
     localStorage.clear();
     this.user = null;
     this.router.navigate(["/"]);
+  }
+  profile(){
+    this.router.navigate(["/user/profile"]);
   }
 }

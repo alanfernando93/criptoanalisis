@@ -3,7 +3,7 @@
 @import '~@nebular/theme/styles/global/bootstrap/breakpoints';
 
 @include nb-install-component() {
-  ngx-layout-column.small {
+  nb-layout-column.small {
     flex: 0.15 !important;
   }
 
