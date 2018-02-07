@@ -23,20 +23,20 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
   selector: "nb-sample-layout",
   styleUrls: ["./sample.layout.scss"],
   template: `
-    <nb-layout [center]="layout.id === 'center-column'" windowMode fixed>
+    <nb-layout [center]="layout.id === 'center-column'" windowMode >
       <nb-layout-header>
-        <ngx-header [position]="sidebar.id === 'right' ? 'normal': 'inverse'"></ngx-header>    
+        <ngx-header [position]="sidebar.id === 'right' ? 'normal': 'inverse'" fixed></ngx-header>    
       </nb-layout-header>
       <nb-layout-header>
-        <ngx-headertwo [position]="sidebar.id === 'right' ? 'normal': 'inverse'"></ngx-headertwo>    
+        <ngx-headertwo [position]="sidebar.id === 'right' ? 'normal': 'inverse'" fixed></ngx-headertwo>    
       </nb-layout-header>
       
-      <nb-sidebar class="menu-sidebar"
+      <nb-sidebar 
                    tag="menu-sidebar"
                    responsive
                    [right]="sidebar.id === 'left'">
 
-        <nb-sidebar-header class="d-block d-sm-block d-md-none" *ngIf="user" >
+        <nb-sidebar-header class="d-block d-sm-none" *ngIf="user" >
           <nb-user [menu]="" [name]="user?.username" [picture]="user?.picture" ></nb-user>
             <nb-action>
               <span class="badge badge-secondary">2 $CA</span>
@@ -174,21 +174,21 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
       .withLatestFrom(this.themeService.onMediaQueryChange())
       .delay(20)
       .subscribe(
-        ([item, [bpFrom, bpTo]]: [
-          any,
-          [NbMediaBreakpoint, NbMediaBreakpoint]
-        ]) => {
-          if (bpTo.width <= isBp.width) {
-            this.sidebarService.collapse("menu-sidebar");
-          }
+      ([item, [bpFrom, bpTo]]: [
+        any,
+        [NbMediaBreakpoint, NbMediaBreakpoint]
+      ]) => {
+        if (bpTo.width <= isBp.width) {
+          this.sidebarService.collapse("menu-sidebar");
         }
+      }
       );
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.token = localStorage.getItem("auth_app_token");
     this.id = Number.parseInt(localStorage.getItem("userId"));
-    this.userService.getUser(this.id, this.token).then((usuario)=>{
+    this.userService.getUser(this.id, this.token).then((usuario) => {
       this.user = JSON.parse(usuario['_body']);
     });
   }
@@ -200,11 +200,11 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
     this.user = null;
   }
 
-  signin(){
+  signin() {
     this.router.navigate(["/auth/login"]);
   }
-  
-  signup(){
+
+  signup() {
     this.router.navigate(["/auth/register"]);
   }
   logout() {

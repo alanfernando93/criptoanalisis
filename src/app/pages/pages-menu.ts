@@ -144,9 +144,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'List Coins',
         link: '/pages/coins/list'
-      },{
-        title: 'View Coins',
-        link: '/pages/coins/view',
       },
     ],
   },
