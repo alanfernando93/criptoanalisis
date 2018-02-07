@@ -1,4 +1,4 @@
-  'use strict';
+'use strict';
 
   module.exports = function(app) {
     var User = app.models.usuario;
@@ -16,4 +16,4 @@
         console.log('Models created: \n', usuarios);
       });
     });
-  };
+};

@@ -1,6 +1,10 @@
 'use strict';
 
 module.exports = function(Noticia) {
+  const HttpErrors = require('http-errors');
+
+// validacion campos de noticia
+
   Noticia.Listar_noticias = function(cb) {
     Noticia.find({
       where: {
