@@ -23,20 +23,21 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
   selector: "nb-sample-layout",
   styleUrls: ["./sample.layout.scss"],
   template: `
-    <nb-layout [center]="layout.id === 'center-column'" windowMode fixed>
-      <nb-layout-header>
-        <ngx-header [position]="sidebar.id === 'right' ? 'normal': 'inverse'"></ngx-header>    
-      </nb-layout-header>
-      <nb-layout-header>
+    <nb-layout [center]="layout.id === 'center-column'" windowMode>
+    
+    <nb-layout-header>
+      <ngx-header [position]="sidebar.id === 'right' ? 'normal': 'inverse'"></ngx-header>    
+    </nb-layout-header>
+    <nb-layout-header>
         <ngx-headertwo [position]="sidebar.id === 'right' ? 'normal': 'inverse'"></ngx-headertwo>    
-      </nb-layout-header>
-
+    </nb-layout-header>
+      
       <nb-sidebar class="menu-sidebar"
                    tag="menu-sidebar"
                    responsive
                    [right]="sidebar.id === 'left'">
 
-        <nb-sidebar-header class="d-block d-sm-block d-md-none" *ngIf="user" >
+        <nb-sidebar-header class="d-block d-sm-block d-md-none" *ngIf="user">
           <nb-user [menu]="" [name]="user?.username" [picture]="user?.picture" ></nb-user>
             <nb-action>
               <span class="badge badge-secondary">2 $CA</span>
@@ -176,14 +177,14 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
       .withLatestFrom(this.themeService.onMediaQueryChange())
       .delay(20)
       .subscribe(
-        ([item, [bpFrom, bpTo]]: [
-          any,
-          [NbMediaBreakpoint, NbMediaBreakpoint]
-        ]) => {
-          if (bpTo.width <= isBp.width) {
-            this.sidebarService.collapse("menu-sidebar");
-          }
+      ([item, [bpFrom, bpTo]]: [
+        any,
+        [NbMediaBreakpoint, NbMediaBreakpoint]
+      ]) => {
+        if (bpTo.width <= isBp.width) {
+          this.sidebarService.collapse("menu-sidebar");
         }
+      }
       );
   }
 
@@ -214,7 +215,7 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
     this.user = null;
     this.router.navigate(["/"]);
   }
-  profile(){
+  profile() {
     this.router.navigate(["/user/profile"]);
   }
 }

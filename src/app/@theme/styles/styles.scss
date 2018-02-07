@@ -19,18 +19,51 @@
   @include ngx-pace-theme();
 };
 
+.caro1{
+  .carousel-control-prev {
+    top: -130px;
+  }
+  .carousel-control-next {
+    top: -130px;
+  }
+}
+.caro2{
+  .carousel-control-prev {
+    top: -25px;
+  }
+  .carousel-control-next {
+    top: -25px;
+  }
+}
+.caro3{
+  .carousel-control-prev {
+    top: -70px;
+  }
+  .carousel-control-next {
+    top: -70px;
+  }
+}
+.caro4{
+  .carousel-control-prev {
+    top: 65px;
+  }
+  .carousel-control-next {
+    top: 65px;
+  }
+}
 .carousel-control-next-icon{
   background-color: black;
 }
 .carousel-control-next {
-  top: 66px;
   width: 5%;
 }
 .carousel-control-prev-icon{
   background-color: black;
 }
 .carousel-control-prev {
-  top: 66px;
   width: 5%;
 }
 
+.carousel-indicators .active {
+  background-color: transparent;
+}
