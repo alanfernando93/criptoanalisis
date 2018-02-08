@@ -2,6 +2,19 @@
 var loopback = require('loopback');
 var base64Img = require('base64-img');
 module.exports = function(Usuario) {
+  Usuario.validatesLengthOf('password', {min: 5, message:
+    {min: 'el password debe de contener por lo menos 5 caracteres'}});
+  Usuario.validatesLengthOf('username',
+    {min: 3, message: {min: 'username debe de tener como minimo 3 letras'}});
+  Usuario.validatesLengthOf('nombre',
+    {min: 3, message: {min: 'nombre debe de tener como minimo 3 letras'}});
+  Usuario.validatesLengthOf('apellido', +
+    {min: 3, message: {min: 'apellido debe de tener como minimo 3 letras'}});
+  Usuario.validatesUniquenessOf('email', {message: 'el email no es unico'});
+  Usuario.validatesFormatOf('nombre', {with: /[a-zA-Z\-'\s]+/, message: "el nombre debe estar compuesto por solo letras"});// solo nombres con letras ej juan
+  Usuario.validatesFormatOf('apellido', {with: /[a-zA-Z\-'\s]+/, message: "el apellido debe de estar compuesto de solo letras"});// apellido solo letras ej lopez
+  Usuario.validatesFormatOf('username', {with: /^[a-zA-Z]\w*$/, message: "el username debe estar compuesto por letras o por letras y numeros"});// username letras o letras seguido de numeros juan123
+  Usuario.validatesFormatOf('password', {with: /[a-zA-Z0-9]/, message: "password debe de estar compuesto por letras y numeros"}); // password compuesto por letras y numeros
   
   Usuario.upload = function(req, res, cb) {
     var Container = Usuario.app.models.Container;
