@@ -1,11 +1,6 @@
 'use strict';
 
 module.exports = function(Signal) {
-  // Signal.afterRemote('verGratis', function(ctx, signal, next) {
-  //   var comments = Signal.app.models.commentsignal;
-  //   console.log(ctx.result.señales[0]);
-  //   next();
-  // });
   Signal.observe('loaded', function(ctx, next) {
     var comment = Signal.app.models.commentSignal;
     comment.find({

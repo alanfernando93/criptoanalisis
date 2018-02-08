@@ -1,0 +1,41 @@
+{
+  "name": "moneda",
+  "plural": "monedas",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "nombre": {
+      "type": "string"
+    },
+    "TotalSuply": {
+      "type": "number"
+    },
+    "circulatingSuply": {
+      "type": "number"
+    },
+    "mineria": {
+      "type": "string"
+    },
+    "descripcion": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "contenido":{
+      "type": "hasMany",
+      "model": "contenido",
+      "foreignkey": ""
+    },
+    "mercado":{
+      "type":"belongsTo",
+      "model":"mercado",
+      "foreignkey":""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
