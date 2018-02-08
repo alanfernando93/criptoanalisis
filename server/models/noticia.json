@@ -88,7 +88,7 @@
           "method": "like",
           "endpoint": "/:id/like",
           "likes": "likes",
-          "userModel": "User"
+          "userModel": "usuario"
         }
     ]
 }
