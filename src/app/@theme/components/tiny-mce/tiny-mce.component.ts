@@ -24,6 +24,7 @@ import '../../../../assets/plugins/tradingview'
 export class TinyMCEComponent implements OnDestroy, AfterViewInit{
 
   @Input() height: String = '320';
+  @Input() innerHTML: String;
   @Input() content: String;
   @Input() place;
 

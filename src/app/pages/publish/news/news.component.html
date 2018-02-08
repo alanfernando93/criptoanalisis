@@ -1,6 +1,6 @@
 <nb-card-body>
     <div class="container">
-        <div class="row col input-group">
+        <div class="row col inputgroup">
             <input type="text" placeholder="Titulo de la noticia" [(ngModel)]="newsPublish.titulo " class="form-control">
         </div>
         <div class="row col input-group">
@@ -23,7 +23,11 @@
         </div>
         <div class="row col inputgroup">
             <label for="inputContenNews">Contenido de la noticia</label>
-            <ngx-tiny-mce id="inputContenNews" [content]="contenido" [height]="150" (onEditorKeyup)="keyupHandlerFunction($event)">
+            <ngx-tiny-mce 
+                id="inputContenNews" 
+                [innerHTML]="contenido" 
+                [height]="150" 
+                (onEditorKeyup)="keyupHandlerFunction($event)">
             </ngx-tiny-mce>
         </div>
         <div class="row col inputgroup" [innerHTML]="contenido">
@@ -42,7 +46,7 @@
     <div class="row justify-content-between">
         <div class="col-6">
             <button class="btn btn-hero-secondary btn-demo"> Cancelar </button>
-            <button class="btn btn-primary"> Vista Previa </button>
+            <button class="btn btn-lg btn-outline-primary" (click)="open()">Vista Previa</button>
         </div>
         <div class="col-2">
             <button class="btn btn-success" (click)="onSave()"> Publicar </button>

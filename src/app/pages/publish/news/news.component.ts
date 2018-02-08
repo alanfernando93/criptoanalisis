@@ -2,8 +2,33 @@ import { Component, OnInit, Input } from "@angular/core";
 import { Router } from "@angular/router";
 import { Http, Response } from "@angular/http";
 
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { NewsService } from "../../../services/news.service";
 import { HtmlParser } from "@angular/compiler";
+
+@Component({
+  selector: 'ngx-modal-content',
+  template: `
+    <div class="modal-header">
+      <h4 class="modal-title">Hi there!</h4>
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Hello, {{name}}!</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+    </div>
+  `
+})
+export class NgxModalContent {
+  @Input() name;
+
+  constructor(public activeModal: NgbActiveModal) {}
+}
 
 @Component({
   selector: "ngx-publish-news",
@@ -24,6 +49,7 @@ export class PublishNewsComponent implements OnInit {
 
   @Input() idNew: String = null;
 
+  modalConten:NgxModalContent;
   newsPublish: any = {};
   contenido;
 
@@ -32,9 +58,11 @@ export class PublishNewsComponent implements OnInit {
   constructor(
     private http: Http,
     private newsService: NewsService,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal,
+    public activeModal: NgbActiveModal 
   ) {
-
+    this.modalConten = new NgxModalContent(this.activeModal);
   }
 
   ngOnInit() {
@@ -47,9 +75,6 @@ export class PublishNewsComponent implements OnInit {
         this.newsPublish = resp;
         let parse = new DOMParser();
         this.contenido = this.newsPublish.contenido;
-        // this.contenido = parse.parseFromString(this.newsPublish.contenido, "text/xml");
-        console.log(this.contenido);
-        // this.contenido = <HtmlParser>this.newsPublish.contenido;
       });
     }
   }
@@ -63,5 +88,10 @@ export class PublishNewsComponent implements OnInit {
     this.newsService.insertNews(this.newsPublish).then(resp => {
       this.router.navigate(['/']);
     });
+  }
+
+  open() {
+    const modalRef = this.modalService.open(this.modalConten);
+    modalRef.componentInstance.name = 'World';
   }
 }
