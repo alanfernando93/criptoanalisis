@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class SignalComponent implements OnInit {
+    
+    punto = 1;
     constructor() { }
 
     ngOnInit() { }
@@ -17,5 +19,10 @@ export class SignalComponent implements OnInit {
 
     keyupHandlerFunction($event){
         
+    }
+
+    onClickPuntos(content){
+        this.punto+=1;
+        console.log(content);
     }
 }

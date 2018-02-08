@@ -58,16 +58,28 @@
         </div>
         <div class="row col inputgroup">
             <div class="col-6">
-                <div class="row">
-                    <h5>Puntos de entrada</h5>
-                    <div class="input-group">
-                        <span class="input-group-addon">$</span>
-                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                        <span class="input-group-addon">.00</span>
+                <div class="row col">
+                    <div class="row">
+                        <h5>Puntos de entrada</h5>
+                    </div>
+                    <div class="row">
+                        <div class="contenedor input-group">
+                            <span class="input-group-addon">Punto {{punto}} </span>
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                            <a class="input-group-addon">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a class="input-group-addon">
+                                <i class="fa fa-times-circle"></i>
+                            </a>
+                            <a class="input-group-addon" (click)="onClickPuntos($event);">
+                                Establecer
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row col">
                     <h5>Stop Loss</h5>
                 </div>
             </div>

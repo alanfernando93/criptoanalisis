@@ -6,6 +6,7 @@ import 'tinymce/themes/modern';
 import 'tinymce/plugins/advlist';
 import 'tinymce/plugins/code';
 import 'tinymce/plugins/link';
+import 'tinymce/plugins/lists';
 import 'tinymce/plugins/image';
 import 'tinymce/plugins/media';
 import 'tinymce/plugins/table';
