@@ -63,6 +63,22 @@
   "Suscripcion": {
     "dataSource": "db",
     "public": true
+  },
+  "moneda": {
+    "dataSource": "db",
+    "public": true
+  },
+  "titulo": {
+    "dataSource": "db",
+    "public": true
+  },
+  "contenidoMoneda": {
+    "dataSource": "db",
+    "public": true
+  },
+  "mercado": {
+    "dataSource": "db",
+    "public": true
   }
   
 }
