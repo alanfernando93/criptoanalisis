@@ -102,15 +102,26 @@
   }
 }
 
-.link {
-  font-size: 30px;
-}
-
-.socials {
-  font-size: 30px;
-  padding: 23px;
-}
 
 .btn-secondary{
-  padding: 11.5px
+  padding: 11px
+}
+
+.nav-link:hover{
+  color: gray !important;
+}
+
+.ion {
+  font-size: 30px;
+  color: grey !important;
+}
+.ion-social-youtube:hover{
+  color: rgb(196, 48, 43) !important;
+}
+
+.ion-social-twitter:hover{
+  color: rgb(0, 172, 237) !important;
+}
+.ion-social-facebook:hover{
+  color: rgb(59, 89, 152) !important;
 }

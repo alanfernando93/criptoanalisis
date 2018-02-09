@@ -7,8 +7,9 @@ export class NoticiasService {
   private baseUrl = environment.apiUrl;
   
   constructor(private http: HttpClient) {}
-
+/*
   getNoticias() {
     return this.http.get(this.baseUrl + 'news').toPromise();
   }
+  */
 }
