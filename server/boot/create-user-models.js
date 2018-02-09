@@ -5,18 +5,16 @@ module.exports = function(app) {
   var Role = app.models.Role;
   var RoleMapping = app.models.RoleMapping;
 
-    app.dataSources.db.automigrate('usuario', function(err) {
-      if (err) throw err;
-
-      app.models.usuario.create([{
-        'username': 'ccuellar',
-        'email': 'ccuellar@test.com',
-        'password': 'claudio123',
-        'nombre': 'claudio',
-        'apellido': 'cuellar',
-      }], function(err, usuarios) {
-        console.log('Models created: \n', usuarios);
-      });
+  app.dataSources.db.automigrate('usuario', function(err) {
+    if (err) throw err;
+    app.models.usuario.create([{
+      'username': 'ccuellar',
+      'email': 'ccuellar@test.com',
+      'password': 'claudio123',
+      'nombre': 'claudio',
+      'apellido': 'cuellar',
+    }], function(err, usuarios) {
+      console.log('Models created: \n', usuarios);
     });
   });
 };
