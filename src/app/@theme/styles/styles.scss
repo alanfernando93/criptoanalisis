@@ -67,3 +67,23 @@
 .carousel-indicators .active {
   background-color: transparent;
 }
+
+
+
+
+.nb-theme-default nb-layout .layout nb-layout-header {
+  font-family: Exo;
+  font-size: 1rem;
+  line-height: 1.74;
+}
+
+.nb-theme-default .dropdown.ghost-dropdown .btn-primary:hover, .nb-theme-default .dropup.ghost-dropdown .btn-primary:hover {
+  border: 0px ;
+  color: gray !important;
+}
+.nb-theme-default .btn{
+  border: 0px !important;
+}
+.nb-theme-default .dropdown.ghost-dropdown .btn-primary + .dropdown-menu, .nb-theme-default .dropup.ghost-dropdown .btn-primary + .dropdown-menu {
+  border: 1px solid #8a7fff;
+}
