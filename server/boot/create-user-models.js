@@ -11,6 +11,8 @@ module.exports = function(app) {
       'username': 'ccuellar',
       'email': 'ccuellar@test.com',
       'password': 'claudio123',
+      'nombre': 'claudio',
+      'apellido': 'cuellar',
     }], function(err, usuarios) {
       console.log('Models created: \n', usuarios);
     });
