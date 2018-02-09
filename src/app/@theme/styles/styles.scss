@@ -87,3 +87,9 @@
 .nb-theme-default .dropdown.ghost-dropdown .btn-primary + .dropdown-menu, .nb-theme-default .dropup.ghost-dropdown .btn-primary + .dropdown-menu {
   border: 1px solid #8a7fff;
 }
+.nb-theme-default .dropdown .dropdown-menu, .nb-theme-default .dropup .dropdown-menu .ico {
+  width: 150%;
+}
+.nb-theme-default .dropdown .dropdown-menu, .nb-theme-default .dropup .dropdown-menu .moneda {
+  width: 176%;
+}
