@@ -7,14 +7,14 @@
     "validateUpsert": true
   },
   "properties": {
-    "nombre": {
+    "name": {
+      "type": "string"
+    },
+    "symbol":{
       "type": "string"
     },
     "TotalSuply": {
-      "type": "number"
-    },
-    "circulatingSuply": {
-      "type": "number"
+      "type": "string"
     },
     "mineria": {
       "type": "string"

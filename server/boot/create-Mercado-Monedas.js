@@ -9,14 +9,8 @@ module.exports = function(app) {
       'descripcion': 'esta monedas son utilizables en este mercado',
     });
   });
-  app.dataSources.db.automigrate('moneda', function(err){
-    if (err)
-      throw err;
-    app.models.moneda.create({
-      'nombre': 'Siacoin',
-      'TotalSupply': '2000000',
-      'mineria': 'pow',
-    });
+  app.dataSources.db.automigrate('moneda', function(err) {
+    console.log('model created');
   });
   app.dataSources.db.automigrate('titulo', function(err) {
     if (err)
