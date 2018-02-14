@@ -30,4 +30,8 @@ export class HeaderTwoComponent implements OnInit {
 
     }
 
+    listcoin(){
+        this.router.navigate(["../pages/icons/list"]);
+    }
+
 }
