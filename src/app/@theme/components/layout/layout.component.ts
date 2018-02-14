@@ -73,12 +73,7 @@ import {
     selector: 'ngx-layout-header',
     template: `
       <nav [class.fixed]="fixedValue">
-      <div class="row">
-      <ng-content></ng-content>
-      <div>
-      <div class="row">
-      <ng-content></ng-content>
-      <div>  
+        <ng-content></ng-content>  
       </nav>
     `,
   })
