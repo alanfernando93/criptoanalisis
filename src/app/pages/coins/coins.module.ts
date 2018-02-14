@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { ThemeModule } from './../../@theme/theme.module';
 import { CoinsRoutingModule, routedComponents } from './coins-routing.module';
 
-//import { NoticiasService } from './noticias.service';
+import { CoinsService } from './coins.service';
 
 @NgModule({
   imports: [
@@ -13,7 +13,7 @@ import { CoinsRoutingModule, routedComponents } from './coins-routing.module';
   declarations:[
     ...routedComponents,
   ],
-  providers:[]
+  providers:[CoinsService]
 })
 
 export class CoinsModule {}

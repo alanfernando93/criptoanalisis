@@ -13,7 +13,8 @@ export class CoinsService{
     }
 
     getCoin(){
-        return this.http.get(this.baseUrl + '/monedas/nombres').map(res => res.json());
+        //return this.http.get(this.baseUrl + '/monedas/nombres').map(res => res.json());
+        return this.http.get(this.baseUrl + '/monedas/nombres').toPromise();
     }
 
 }

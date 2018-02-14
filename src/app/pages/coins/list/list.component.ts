@@ -12,15 +12,16 @@ import { CoinsService } from '../coins.service';
 })
 export class ListComponent implements OnInit {
     
-    public coins: Array<Object>;
+    public coins: object;
 
     constructor(
         private http: Http,
         private coinsService: CoinsService){
 
     }
-
+/*
     ngOnInit(){
+        
         this.coinsService.getCoin().subscribe(
             res => {
                 if(!res.coins){
@@ -34,4 +35,11 @@ export class ListComponent implements OnInit {
             }
         )  
     };
+    */
+
+    ngOnInit(){
+        this.coinsService.getCoin().then((coins) => {
+            this.coins = coins;
+        })
+    }
 }
