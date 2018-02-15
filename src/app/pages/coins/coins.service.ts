@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
 
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class CoinsService{
@@ -12,9 +14,9 @@ export class CoinsService{
         
     }
 
-    getCoin(){
-        //return this.http.get(this.baseUrl + '/monedas/nombres').map(res => res.json());
-        return this.http.get(this.baseUrl + '/monedas/nombres').toPromise();
+    getCoins(){
+        return this.http.get(this.baseUrl + 'monedas/nombres')
+        .map((res: Response) => res.json())
     }
 
 }

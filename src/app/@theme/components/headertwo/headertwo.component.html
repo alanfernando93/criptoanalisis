@@ -21,7 +21,7 @@
             <i class="nb-plus-circled"></i>
         </a>
     </div>
-<!--
+    <!--
     <div class="container-btn d-block d-sm-none">
         <a class="btn btn-secondary">
             Ico's
@@ -76,17 +76,14 @@
                     Mercados
                 </a>
                 <ul class="dropdown-menu moneda" ngbDropdownMenu>
-                    <li class="dropdown-item">Hero Button</li>
-                    <li class="dropdown-item">Hero Button</li>
+                    <form class="navbar-form" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Buscar">
+                        </div>
+                    </form>
                     <div class="dropdown-divider"></div>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-danger">
-                                Search
-                            </button>
-                        </span>
-                    </div>
+                    <li class="dropdown-item" *ngFor="let coin of coins">
+                        <a href="#">{{coin.name}}</a></li>
                 </ul>
             </div>
         </nb-action>

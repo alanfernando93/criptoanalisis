@@ -2,36 +2,36 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { NbMenuService, NbSidebarService } from '@nebular/theme';
-import { UserService } from '../../../@core/data/users.service';
 import { AnalyticsService } from '../../../@core/utils/analytics.service';
+import { CoinsService } from '../../../pages/coins/coins.service';
 
 import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
 
 @Component({
     selector: "ngx-headertwo",
     styleUrls: ["./headertwo.component.scss"],
-    templateUrl: "./headertwo.component.html"
+    templateUrl: "./headertwo.component.html",
+    providers: [CoinsService]
 })
 export class HeaderTwoComponent implements OnInit {
     @Input() position = "normal";
 
-    user: any = null;
+    public coins: any;
 
     constructor(
         private sidebarService: NbSidebarService,
         private menuService: NbMenuService,
-        private userService: UserService,
         private analyticsService: AnalyticsService,
+        private coinsService: CoinsService,
         private authService: NbAuthService,
-        private router: Router 
-    ){}
+        private router: Router
+    ) { }
 
-    ngOnInit(){
-
-    }
-
-    listcoin(){
-        this.router.navigate(["../pages/icons/list"]);
+    ngOnInit() {
+        this.coinsService.getCoins().subscribe(data => {
+            console.log(data);
+            this.coins = data.monedas;
+        });
     }
 
 }
