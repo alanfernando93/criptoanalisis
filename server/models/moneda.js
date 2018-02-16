@@ -1,11 +1,6 @@
 'use strict';
 
 module.exports = function(Moneda) {
-  Moneda.beforeRemote('create', function(ctx, moneda, next) {
-    if (ctx.req.body.id == null)
-      ctx.req.body.id = Date.now();
-    next();
-  });
   Moneda.afterRemote('findById', function(ctx, moneda, next) {
     var title = Moneda.app.models.titulo;
     title.find({
