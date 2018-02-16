@@ -9,6 +9,7 @@
     "mixins": [
       "loopback/common/mixins",
       "loopback/server/mixins",
+      "../node_modules/loopback-likes-mixin/dist",
       "../common/mixins",
       "./mixins"
     ]
@@ -79,4 +80,5 @@
     "dataSource": "db",
     "public": true
   }
+  
 }
