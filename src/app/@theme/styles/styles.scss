@@ -86,6 +86,10 @@
 .nb-theme-default .dropdown .dropdown-menu, .nb-theme-default .dropup .dropdown-menu .ico {
   width: 150%;
 }
-.nb-theme-default .dropdown .dropdown-menu, .nb-theme-default .dropup .dropdown-menu .moneda {
+.nb-theme-default .dropdown .dropdown-menu, .nb-theme-default .dropup .dropdown-menu .mercado {
   width: 176%;
+}
+
+.nb-theme-default .dropdown.ghost-dropdown .btn-primary + .dropdown-menu, .nb-theme-default .dropup.ghost-dropdown .btn-primary + .dropdown-menu .mercado{
+  border: 1px solid #ebeef2;
 }

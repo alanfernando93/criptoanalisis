@@ -71,19 +71,30 @@
         </nb-action>
     -->
         <nb-action>
-            <div class="dropdown ghost-dropdown d-none d-sm-block" ngbDropdown>
-                <a class="btn btn-primary nav-item" type="button" ngbDropdownToggle>
-                    Mercados
-                </a>
-                <ul class="dropdown-menu moneda" ngbDropdownMenu>
-                    <form class="navbar-form" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Buscar">
-                        </div>
-                    </form>
+
+            <div class="dropdown ghost-dropdown" ngbDropdown>
+                <button class="btn btn-primary" type="button" ngbDropdownToggle>
+                    Dropdown
+                </button>
+                <ul class="dropdown-menu" ngbDropdownMenu>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Buscar">
+                    </div>
                     <div class="dropdown-divider"></div>
-                    <li class="dropdown-item" *ngFor="let coin of coins">
-                        <a href="#">{{coin.name}}</a></li>
+                    <li class="dropdown-submenu dropdown-item" *ngFor="let market of markets">
+						<a class="dropdown ghost-dropdown" ngbDropdown href="#">{{market.nombre}}</a>
+						<ul class="dropdown-menu submenu">
+							<li class="dropdown-item">
+								<a href="#">Action</a>
+							</li>
+							<li class="dropdown-item">
+								<a href="#">Action</a>
+							</li>
+							<li class="dropdown-item">
+								<a href="#">Action</a>
+							</li>
+						</ul>
+					</li>
                 </ul>
             </div>
         </nb-action>
