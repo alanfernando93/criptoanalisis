@@ -17,7 +17,7 @@
   "relations": {
     "moneda":{
       "type":"hasMany",
-      "model":"belongsTo",
+      "model":"moneda",
       "foreignkey":""
     }
   },
