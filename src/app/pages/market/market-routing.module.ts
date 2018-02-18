@@ -11,7 +11,12 @@ const routes: Routes = [{
     children: [{
         path: 'list',
         component: ListComponent,
-    },],
+    },
+    {
+        path: 'list:/idMarket',
+        component: ListComponent,
+    }
+    ],
 }];
 
 export class MarketRoutingModule {}

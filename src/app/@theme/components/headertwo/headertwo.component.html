@@ -1,23 +1,23 @@
 <div class="header-container left">
     <div class="container-btn d-block d-sm-none">
-        <a class="btn btn-secondary">
+        <a class="btn btn-secondary btn-sm">
             <i class="nb-edit"></i>
         </a>
     </div>
     <div class="container-btn d-block d-sm-none">
-        <a class="btn btn-secondary">
+        <a class="btn btn-secondary btn-sm">
             <i class="nb-lightbulb"></i>
         </a>
     </div>
 
     <div class="container-btn d-block d-sm-none">
-        <a class="btn btn-secondary">
+        <a class="btn btn-secondary btn-sm">
             <i class="nb-compose"></i>
         </a>
     </div>
 
     <div class="container-btn d-block d-sm-none">
-        <a class="btn btn-secondary">
+        <a class="btn btn-secondary btn-sm">
             <i class="nb-plus-circled"></i>
         </a>
     </div>
@@ -29,7 +29,7 @@
     </div>
 -->
     <div class="container-btn d-block d-sm-none">
-        <a class="btn btn-secondary">
+        <a class="btn btn-secondary btn-sm">
             <i class="nb-rainy"></i>
         </a>
     </div>
@@ -71,10 +71,9 @@
         </nb-action>
     -->
         <nb-action>
-
             <div class="dropdown ghost-dropdown" ngbDropdown>
-                <button class="btn btn-primary" type="button" ngbDropdownToggle>
-                    Dropdown
+                <button class="btn btn-primary d-none d-sm-block" type="button" ngbDropdownToggle>
+                    Mercado
                 </button>
                 <ul class="dropdown-menu" ngbDropdownMenu>
                     <div class="form-group">
@@ -82,10 +81,10 @@
                     </div>
                     <div class="dropdown-divider"></div>
                     <li class="dropdown-submenu dropdown-item" *ngFor="let market of markets">
-						<a class="dropdown ghost-dropdown" ngbDropdown href="#">{{market.nombre}}</a>
+						<a class="dropdown ghost-dropdown" ngbDropdown [routerLink]="['../../../pages/market/view']">{{market.nombre}}</a>
 						<ul class="dropdown-menu submenu">
 							<li class="dropdown-item">
-								<a href="#">Action</a>
+								<a [routerLink]="['../../../pages/coins/view']">Action</a>
 							</li>
 							<li class="dropdown-item">
 								<a href="#">Action</a>
