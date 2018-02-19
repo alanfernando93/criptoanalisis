@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MarketComponent } from './market.component';
 import { ListComponent } from './list/list.component';
 import { Route } from '@angular/compiler/src/core';
+import { CoinsComponent } from '../coins/coins.component';
 
 const routes: Routes = [{
     path: '',
@@ -13,9 +14,13 @@ const routes: Routes = [{
         component: ListComponent,
     },
     {
-        path: 'list:/idMarket',
+        path: 'list:/marketId',
         component: ListComponent,
-    }
+    },
+    {
+        path: 'list:/idMarket/coins/idCoins',
+        component: CoinsComponent
+    },
     ],
 }];
 
