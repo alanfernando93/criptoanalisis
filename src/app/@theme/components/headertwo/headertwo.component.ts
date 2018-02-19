@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActivatedRoute, Params} from '@angular/router';
 
 import { NbMenuService, NbSidebarService } from '@nebular/theme';
 import { AnalyticsService } from '../../../@core/utils/analytics.service';
@@ -18,8 +17,6 @@ export class HeaderTwoComponent implements OnInit {
     @Input() position = "normal";
 
     markets: any;
-    marketId:number;
-    marketSeleccionado;
 
     constructor(
         private sidebarService: NbSidebarService,
@@ -27,29 +24,16 @@ export class HeaderTwoComponent implements OnInit {
         private analyticsService: AnalyticsService,
         private marketService: MarketService,
         private authService: NbAuthService,
-        private router: Router,
-        private ruta:ActivatedRoute
+        private router: Router
     ) { }
 
-    ngOnInit() {
-        this.ruta.params.subscribe( params =>  {
-            this.marketId = params['marketId'];
-            this.marketSeleccionado = this.encontrarMarket()
-        })        
+    ngOnInit() {      
+        this.getMarket()
     }
 
     getMarket(){
         this.marketService.getMarkets().subscribe(data => {
             this.markets = data;
-        });
+        });  
     }
-
-    filtroPorId(market){
-        return market.id = this;
-    }
-
-    encontrarMarket(){
-        return this.markets.filter(this.filtroPorId, this.marketId)[0];
-    }
-
 }

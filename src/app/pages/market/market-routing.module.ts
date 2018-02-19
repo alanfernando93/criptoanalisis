@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { MarketComponent } from './market.component';
 import { ListComponent } from './list/list.component';
-import { Route } from '@angular/compiler/src/core';
-import { CoinsComponent } from '../coins/coins.component';
 
 const routes: Routes = [{
     path: '',
@@ -12,17 +10,13 @@ const routes: Routes = [{
     children: [{
         path: 'list',
         component: ListComponent,
-    },
-    {
-        path: 'list:/marketId',
-        component: ListComponent,
-    },
-    {
-        path: 'list:/idMarket/coins/idCoins',
-        component: CoinsComponent
-    },
+    }
     ],
 }];
+@NgModule({
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
+})
 
 export class MarketRoutingModule {}
 
