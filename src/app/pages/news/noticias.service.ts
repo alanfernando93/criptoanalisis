@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
+
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class NoticiasService {
   private baseUrl = environment.apiUrl;
   
-  constructor(private http: HttpClient) {}
-/*
-  getNoticias() {
-    return this.http.get(this.baseUrl + 'news').toPromise();
+  constructor(private http: Http) {
+
   }
-  */
+
+  getNews(){
+    return this.http.get(this.baseUrl + 'noticias')
+    .map((res: Response) => res.json())
+  }
 }

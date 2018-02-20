@@ -34,10 +34,17 @@ const routes: Routes = [{
    }, {
       path: 'news',
       loadChildren: './news/news.module#NewsModule',
+<<<<<<< HEAD
    }, {
        path: 'coins',
       loadChildren: './coins/coins.module#CoinsModule',
    }, {
+=======
+   },{
+      path: 'signals',
+      loadChildren: './signals/signals.module#SignalsModule',
+   },{
+>>>>>>> feature/senales
       path: 'tables',
       loadChildren: './tables/tables.module#TablesModule',
    }, {
