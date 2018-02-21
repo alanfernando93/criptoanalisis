@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ComponentsComponent } from './components.component';
 import { TreeComponent } from './tree/tree.component';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [{
   path: '',
@@ -15,7 +16,10 @@ const routes: Routes = [{
   }, {
     path: 'notifications',
     component: NotificationsComponent,
-  },
+  }, {
+    path: 'chat',
+    component: ChatComponent
+  }
   ],
 }];
 
@@ -29,4 +33,5 @@ export const routedComponents = [
   ComponentsComponent,
   TreeComponent,
   NotificationsComponent,
+  ChatComponent
 ];

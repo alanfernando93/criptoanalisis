@@ -1,0 +1,13 @@
+<ul id="chat">
+	<li *ngFor="let message of messages">
+		{{message}}
+	</li>
+</ul>
+	<form id="chat-form">
+		<div class="input-group">
+			<input type="text" class="form-control" #messageInput required placeholder="mensaje" aria-label="Input group example" aria-describedby="btnGroupAddon" autocomplete="off">
+			<div class="input-group-prepend">
+					<button class="input-group-text btn btn-success" (click)="sendMsg(messageInput.value)">enviar</button>
+			  </div>
+		  </div>
+	</form>
