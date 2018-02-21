@@ -1,0 +1,43 @@
+{
+  "name": "contenidoMoneda",
+  "plural": "contenidoMonedas",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "contenido": {
+      "type": "string"
+    },
+    "fechaCreacion": {
+      "type": "date"
+    },
+    "estado":{
+      "type": "boolean"
+    },
+    "calificacion":{
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "titulo":{
+      "type": "belongsTo",
+      "model": "titulo",
+      "foreignkey": ""
+    },
+    "moneda": {
+      "type": "belongsTo",
+      "model": "moneda",
+      "foreignkey": ""
+    },
+    "usuario":{
+      "type": "belongsTo",
+      "model": "usario",
+      "foreignkey":""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

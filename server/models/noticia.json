@@ -81,5 +81,16 @@
       "permission": "ALLOW"
     }
   ],
-  "methods": {}
+  "methods": {},
+  "mixins": {
+    "Likes": [
+        {
+          "method": "like",
+          "endpoint": "/:id/like",
+          "likes": "likes",
+          "userModel": "usuario"
+        }
+    ]
+}
+  
 }
