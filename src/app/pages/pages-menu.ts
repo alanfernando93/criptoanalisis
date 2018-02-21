@@ -6,8 +6,32 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-home',
     link: '/pages/dashboard',
     home: true,
-  },
-  {
+  },{
+    title: 'Asesoria Principiantes',
+    icon: 'nb-compose',
+    link: '/pages/dashboard',
+    home: true,
+  },{
+    title: 'Tutoriales',
+    icon: 'nb-home',
+    link: '/pages/dashboard',
+    home: true,
+  },{
+    title: 'Eventos',
+    icon: 'nb-edit',
+    link: '/pages/dashboard',
+    home: true,
+  },{
+    title: 'Gane $CA tokens',
+    icon: 'nb-audio',
+    link: '/pages/dashboard',
+    home: true,
+  },{
+    title: 'Nosotros',
+    icon: 'nb-grid-a',
+    link: '/pages/dashboard',
+    home: true,
+  },{
     title: 'FEATURES',
     group: true,
   },
@@ -75,64 +99,22 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/components/chat'
       }
     ],
-  },
-  {
-    title: 'Maps',
-    icon: 'nb-location',
-    children: [
-      {
-        title: 'Google Maps',
-        link: '/pages/maps/gmaps',
-      },
-      {
-        title: 'Leaflet Maps',
-        link: '/pages/maps/leaflet',
-      },
-      {
-        title: 'Bubble Maps',
-        link: '/pages/maps/bubble',
-      },
-    ],
-  },
-  {
-    title: 'Charts',
-    icon: 'nb-bar-chart',
-    children: [
-      {
-        title: 'Echarts',
-        link: '/pages/charts/echarts',
-      },
-      {
-        title: 'Charts.js',
-        link: '/pages/charts/chartjs',
-      },
-      {
-        title: 'D3',
-        link: '/pages/charts/d3',
-      },
-    ],
-  },
-  {
-    title: 'Editors',
-    icon: 'nb-title',
-    children: [
-      {
-        title: 'TinyMCE',
-        link: '/pages/editors/tinymce',
-      },
-      {
-        title: 'CKEditor',
-        link: '/pages/editors/ckeditor',
-      },
-    ],
-  },
-  {
+  },{
     title: 'News',
     icon: 'nb-layout-sidebar-right',
     children: [
       {
         title: 'List News',
         link: '/pages/news/list',
+      },
+    ],
+  },{
+    title: 'Coins',
+    icon: 'nb-plus-circled',
+    children: [
+      {
+        title: 'List Coins',
+        link: '/pages/coins/list'
       },
     ],
   },

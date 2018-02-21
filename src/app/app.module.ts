@@ -19,6 +19,10 @@ import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 const config: SocketIoConfig = { url:'http://localhost:3000', options:{}};
 
 
+import { AuthGuard } from './auth-guard.service';
+
+import { NB_AUTH_TOKEN_WRAPPER_TOKEN, NbAuthJWTToken } from '@nebular/auth';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -35,6 +39,8 @@ const config: SocketIoConfig = { url:'http://localhost:3000', options:{}};
   bootstrap: [AppComponent],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },
+    { provide: NB_AUTH_TOKEN_WRAPPER_TOKEN, useClass: NbAuthJWTToken },
+    AuthGuard
   ],
 })
 export class AppModule {

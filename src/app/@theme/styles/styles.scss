@@ -18,3 +18,78 @@
   // loading progress bar
   @include ngx-pace-theme();
 };
+
+.caro1{
+  .carousel-control-prev {
+    top: -130px;
+  }
+  .carousel-control-next {
+    top: -130px;
+  }
+}
+.caro2{
+  .carousel-control-prev {
+    top: -25px;
+  }
+  .carousel-control-next {
+    top: -25px;
+  }
+}
+.caro3{
+  .carousel-control-prev {
+    top: -70px;
+  }
+  .carousel-control-next {
+    top: -70px;
+  }
+}
+.caro4{
+  .carousel-control-prev {
+    top: 65px;
+  }
+  .carousel-control-next {
+    top: 65px;
+  }
+}
+.carousel-control-next-icon{
+  background-color: black;
+}
+.carousel-control-next {
+  width: 5%;
+}
+.carousel-control-prev-icon{
+  background-color: black;
+}
+.carousel-control-prev {
+  width: 5%;
+}
+
+.carousel-indicators .active {
+  background-color: transparent;
+}
+
+.nb-theme-default nb-layout .layout nb-layout-header {
+  font-family: Exo;
+  line-height: 1.74;
+}
+
+.nb-theme-default .dropdown.ghost-dropdown .btn-primary:hover, .nb-theme-default .dropup.ghost-dropdown .btn-primary:hover {
+  border: 0px ;
+  color: gray !important;
+}
+.nb-theme-default .btn{
+  border: 0px !important;
+}
+.nb-theme-default .dropdown.ghost-dropdown .btn-primary + .dropdown-menu, .nb-theme-default .dropup.ghost-dropdown .btn-primary + .dropdown-menu {
+  border: 1px solid #8a7fff;
+}
+.nb-theme-default .dropdown .dropdown-menu, .nb-theme-default .dropup .dropdown-menu .ico {
+  width: 150%;
+}
+.nb-theme-default .dropdown .dropdown-menu, .nb-theme-default .dropup .dropdown-menu .mercado {
+  width: 176%;
+}
+
+.nb-theme-default .dropdown.ghost-dropdown .btn-primary + .dropdown-menu, .nb-theme-default .dropup.ghost-dropdown .btn-primary + .dropdown-menu .mercado{
+  border: 1px solid #ebeef2;
+}

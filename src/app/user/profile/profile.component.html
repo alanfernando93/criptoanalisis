@@ -1,0 +1,30 @@
+<nb-card>
+  <nb-card-header>Default Inputs</nb-card-header>
+  <nb-card-body>
+    <div class="row full-name-inputs">
+      <div class="col-sm-6 input-group">
+        <input type="text" [(ngModel)]="user.nombre" #nombre placeholder="Nombre" class="form-control" />
+      </div>
+      <div class="col-sm-6 input-group">
+        <input type="text" [(ngModel)]="user.username" placeholder="User Name" class="form-control" />
+      </div>
+    </div>
+    <div class="input-group">
+      <input type="text" [(ngModel)]="user.apellido" placeholder="Apellidos" class="form-control" />
+    </div>
+    <div>
+      <label for="">Sube tu avatar</label>
+      <input type="file" [(ngModel)]="name" #fileupload [(ngModel)]="myFile" (change)="fileChangeEvent(fileupload.files)">
+    </div>
+    <div class="input-group">
+      <input type="text" [(ngModel)]="user.password" placeholder="Password" class="form-control" />
+    </div>
+    <div class="input-group">
+      <input type="text" [(ngModel)]="user.email" placeholder="Email" class="form-control" />
+    </div>
+    <div class="input-group">
+      <!-- <input class="btn btn-success" [disabled]="form.invalid || loading"  (click)="onSave()" value="Save" /> -->
+      <input type="button" class="btn btn-success" (click)="onSave()" value="Save" />
+    </div>
+  </nb-card-body>
+</nb-card>

@@ -13,12 +13,10 @@ export class ListComponent implements OnInit {
   news: any;
   table: String = "news";
 
-  constructor(private http: Http, private noticiasService: NoticiasService) {
+  constructor(private http: Http ) {
   }
+  ngOnInit(){
 
-  ngOnInit() {
-    this.noticiasService.getNoticias().then((noticias) => {
-      this.news = noticias;
-    });
   }
+  
 }
