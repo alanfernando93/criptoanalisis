@@ -70,7 +70,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
       }, {
         title: 'Notifications',
         link: '/pages/components/notifications',
-      },
+      }, {
+        title: 'chat',
+        link: '/pages/components/chat'
+      }
     ],
   },
   {
@@ -164,5 +167,5 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/auth/reset-password',
       },
     ],
-  },
+  }
 ];
