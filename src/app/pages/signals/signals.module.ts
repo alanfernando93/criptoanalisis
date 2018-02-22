@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { ThemeModule } from './../../@theme/theme.module';
 import { SignalsRoutingModule, routedComponents } from './signals-routing.module';
 
+import { SignalsService } from './signals.service';
+
 @NgModule({
     imports: [
       ThemeModule,
@@ -11,7 +13,7 @@ import { SignalsRoutingModule, routedComponents } from './signals-routing.module
     declarations:[
       ...routedComponents,
     ],
-    providers:[]
+    providers:[SignalsService]
   })
   
   export class SignalsModule {}

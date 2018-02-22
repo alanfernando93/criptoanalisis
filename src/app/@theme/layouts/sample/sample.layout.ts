@@ -215,11 +215,7 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
     this.user = null;
     this.router.navigate(["/"]);
   }
-<<<<<<< HEAD
-  profile() {
-=======
   profile(){
->>>>>>> feature/senales
     this.router.navigate(["/user/profile"]);
   }
 }

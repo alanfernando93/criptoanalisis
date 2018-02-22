@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ListComponent } from '../../../pages/coins/list/list.component';
+import { HeaderTwoComponent } from './headertwo.component';
+import { ListComponent } from '../../../pages/market/list/list.component';
 
 const routes: Routes = [
     {
@@ -10,11 +11,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    exports: [RouterModule],
-    imports: [RouterModule.forRoot(routes)]
+    imports: [ RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 
 export class HeaderTwoRoutingModule {}
+
 export const routedComponents = [
+  HeaderTwoComponent,
   ListComponent
 ];

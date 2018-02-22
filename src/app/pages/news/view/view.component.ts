@@ -9,26 +9,22 @@ import { NoticiasService } from '../noticias.service';
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss']
 })
-export class ViewComponent {
+export class ViewComponent implements OnInit {
 
-  news: any;
-  id: number;
-
-  constructor(private http: Http, private route: ActivatedRoute, private noticiasService: NoticiasService) {
-    this.route.params.subscribe((param) => {
-      this.id = param['newId'];
-
-    })  
+  new: any;
+  constructor(private http: Http, private route: ActivatedRoute, private noticiasService: NoticiasService,) {
+      
+  }
+  ngOnInit(){
+    this.getNewsById()
   }
 
-    ngOnInit() {
-      this.getNewsId()
-  
-    }
-
-    getNewsId(){
-      this.noticiasService.getNews().subscribe((noticias) => {
-        this.news = noticias;
+    getNewsById(){
+      this.route.params.forEach((params: Params) => {
+        let id = params['newId'];
+        this.noticiasService.getNewsId(id).subscribe((noticias) => {
+          this.new = noticias;
+        });
       });
     }
 }

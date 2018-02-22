@@ -21,9 +21,9 @@
 </nb-card>
 <nb-card>
     <nb-card-header>
-        <div class="row">
+        <div class="row" *ngIf="signal">
             <h5 class="col-12 col-md-9 text-primary">
-                <strong class="item text-success">Comprar </strong>- Ethereum / US Dollar
+                <strong class="item">{{signal.titulo}}</strong>
             </h5>
             <p class="col-12 col-md-3 text-primary">
                 <small class="text-muted">Hace 15 minutos</small>
@@ -32,12 +32,11 @@
     </nb-card-header>
     <nb-card-body>
         <!-- Example row of columns -->
-        <div class="row">
+        <div class="row" *ngIf="signal">
             <div class="col-12 col-md-6">
                 <div class="row">
                     <h3 class="btn btn-hero-info col-12 col-md-12">Analisis fundamental</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                        et dolore magna.</p>
+                    <p>{{new.AnalisisFundamental}}</p>
 
                 </div>
                 <div class="row">
@@ -116,8 +115,7 @@
             </div>
             <div class="col-12 col-md-6">
                 <h3 class="btn btn-hero-info col-12 col-dm-11">Analisis tecnico</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                    magna aliqua.</p>
+                <p>{{new.AnalisisTecnico}}</p>
                 <div class="text-center">
                     <img src="../../../assets/images/esla.png" class="rounded" alt="...">
                 </div>
@@ -169,9 +167,9 @@
                                 <div class="form-group">
                                     <textarea class="form-control" placeholder="Escribe un Comentario"></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-success pull-right">Publicar</button>
+                                <button type="submit" class="btn btn-success pull-right btn-sm">Publicar</button>
                             </form>
-                            <span class="btn-outline-primary">Comentarios</span>
+                            <span class="btn-outline-primary btn-sm">Comentarios</span>
                         </nb-card-body>
                     </nb-card>
                 </div>

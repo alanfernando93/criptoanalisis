@@ -11,18 +11,17 @@ import { NoticiasService } from "../noticias.service";
 export class ListComponent implements OnInit {
 
   news: any;
+  dislike:any;
 
   constructor(private http: Http, private noticiasService: NoticiasService ) {
   }
   ngOnInit(){
-    this.getNew()
+    this.getNews()
   }
 
-  getNew(){
+  getNews(){
     this.noticiasService.getNews().subscribe(data => {
       this.news = data;     
-    })     
+    });     
   }
-
-  
 }

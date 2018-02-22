@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
+import { SignalsService } from '../signals.service';
+
 @Component({
   selector: 'ngx-list',
   templateUrl: './list.component.html',
@@ -8,9 +10,18 @@ import { Http, Response } from '@angular/http';
 })
 export class ListComponent implements OnInit {
 
-  constructor() {
+  signals: any;
+
+  constructor(private http: Http, private signalsService: SignalsService) {
   }
 
   ngOnInit() {
+    this.getSignals()
+  }
+
+  getSignals(){
+    this.signalsService.getSignals().subscribe(data => {
+      this.signals = data;
+    });
   }
 }

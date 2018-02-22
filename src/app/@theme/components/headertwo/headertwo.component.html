@@ -75,14 +75,14 @@
                 <button class="btn btn-primary d-none d-sm-block" type="button" ngbDropdownToggle>
                     Mercado
                 </button>
-                <ul class="dropdown-menu" ngbDropdownMenu>
+                <ul class="dropdown-menu merc" ngbDropdownMenu style="width: 150%;">
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Buscar">
                     </div>
                     <div class="dropdown-divider"></div>
                     <li class="dropdown-submenu dropdown-item" *ngFor="let market of markets">
 						<a class="dropdown ghost-dropdown" ngbDropdown>{{market.nombre}}</a>
-						<ul class="dropdown-menu submenu">
+						<ul class="dropdown-menu submenu" style="width: 150%">
 							<li class="dropdown-item">
 								<a>Action</a>
 							</li>
