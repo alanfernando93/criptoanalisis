@@ -7,11 +7,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/dashboard',
     home: true,
   },{
-    title: 'Asesoria Principiantes',
-    icon: 'nb-compose',
-    link: '/pages/dashboard',
-    home: true,
-  },{
     title: 'Tutoriales',
     icon: 'nb-home',
     link: '/pages/dashboard',
@@ -82,6 +77,17 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Form Layouts',
         link: '/pages/forms/layouts',
       },
+    ],
+  },
+  {
+    title: 'Asesoria Principal',
+    icon: 'nb-compose',
+    children: [
+      {
+        title: 'lista de asesorias',
+        link: '/pages/advisories/list',
+      },
+      
     ],
   },
   {
