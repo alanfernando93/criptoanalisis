@@ -5,7 +5,7 @@ module.exports = function(app) {
   var Role = app.models.Role;
   var RoleMapping = app.models.RoleMapping;
 
-  app.dataSources.db.automigrate('usuario', function(err) {
+  app.dataSources.db.autoupdate('usuario', function(err) {
     if (err) throw err;
     app.models.usuario.create([{
       'username': 'ccuellar',
