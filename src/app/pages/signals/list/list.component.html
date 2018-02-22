@@ -23,14 +23,14 @@
               </div>
             </div>
           </div>
-          <a href="">
+          <a [routerLink]="['/pages/signals/view', signal.id]">
             <img src="https://es.tradingview.com/i/jNGFZIAD/" alt="card image" class="card-img-top d-none d-sm-block">
           </a>
           <div class="card-body">
             <h4 class="card-title">
               <strong class="item text-success">{{signal.titulo}}</strong>
             </h4>
-            <a class="card-text d-none d-sm-block" [routerLink]="['/pages/signals/view', signal.id]" >
+            <a class="card-text d-none d-sm-block" [routerLink]="['/pages/signals/view', signal.id]">
               {{signal.AnalisisFundamental}}
             </a>
           </div>

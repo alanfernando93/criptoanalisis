@@ -123,10 +123,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'List Signals',
         link: '/pages/signals/list',
       },
-      {
-        title: 'View Signals',
-        link: '/pages/signals/view',
-      },
     ],
   },
   {
