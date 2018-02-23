@@ -1,34 +1,73 @@
 <div class="header-container left">
     <div class="logo-containter">
-        <a (click)="toggleSidebar()" href="#" class="navigation">
+        <a (click)="toggleSidebar()" href="#" class="navigation d-block d-sm-block d-md-block d-lg-none">
             <i class="nb-menu"></i>
         </a>
-        <div class="logo" (click)="goToHome()">Criptoanalisis.org</div>
+        <div class="logo d-none d-sm-block" (click)="goToHome()">Criptoanalisis.org</div>
+        <nb-action class="logo col-md-6 d-block d-sm-block dm-block d-lg-none" icon="nb-notifications" ></nb-action>
+        <nb-action class="logo col-md-6 d-block d-sm-block d-md-none">
+            <nb-search type="modal-half" tag="modal-half"></nb-search>
+        </nb-action>
     </div>
+    <nb-action class="logo d-block d-sm-block d-md-none float-right">
+        <img src="../../../../assets/images/icono-logos-color.png" alt="">
+    </nb-action>
     <nb-actions size="medium">
-        <nb-action class="control-item">
-            <form class="form-inline">
-                <div class="input-group">
-                    <input type="text" class="form-control full-width" placeholder="Search...">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default">
-                            Go!
-                        </button>
-                    </span>
-                </div>
-            </form>
+            <nb-action class="control-item">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary">
+                                Search
+                            </button>
+                        </span>
+                    </div>
         </nb-action>
     </nb-actions>
 </div>
 
-<nb-actions size="medium" class="header-container right">
-    <nb-action icon="nb-grid-b" class="toggle-layout" (click)="toggleSettings()"></nb-action>
+<nb-actions size="medium" class="header-container right" *ngIf="user">
     <nb-action>
-        <nb-user [menu]="userMenu" [name]="user?.name" [picture]="user?.picture"></nb-user>
+        <nb-user [menu]="userMenu" [name]="user?.username" [picture]="user?.profile" (menuClick)="logout()"></nb-user>
     </nb-action>
-    <nb-action class="control-item" disabled icon="nb-notifications"></nb-action>
-    <nb-action class="control-item" icon="nb-email">123</nb-action>
-    <nb-action class="control-item">
-        <nb-search type="rotate-layout" (click)="startSearch()"></nb-search>
+    <nb-action class="control-item" icon="nb-notifications"></nb-action>
+    <nb-action class="control-item" icon="nb-email"></nb-action>
+    <nb-action>
+        <span class="badge badge-default">2 $CA</span>
+    </nb-action>
+    <nb-action>
+        <span class="badge badge-default">17 F</span>
+    </nb-action>
+    <nb-action>
+        <span class="badge badge-default">25 P</span>
     </nb-action>
 </nb-actions>
+<nb-actions size="medium" class="header-container right btn-group" *ngIf="!user">
+   <!--
+            <a class="btn btn-secondary" role="group" (click)="signup()">
+                <i class="fa fa-user-plus"></i> Sign Up
+            </a>
+    
+            <a class="btn btn-secondary" role="group" (click)="signin()">
+                <i class="fa fa-sign-in"></i> Log In
+            </a>
+        -->
+        <nb-action>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-secondary" (click)="signup()">
+                    <i class="fa fa-user-plus"></i> Sign Up</button>
+                <button type="button" class="btn btn-secondary" (click)="signin()">
+                    <i class="fa fa-sign-in"></i> Log In</button>
+              </div>
+            </nb-action>
+</nb-actions>
+
+<!-- 
+<a class="icon-container" href="#" *ngIf="icon; else showContent" (click)="$event.preventDefault()">
+  <i class="control-icon icon"></i>
+</a>
+<ng-template #showContent>
+  <ng-content></ng-content>
+</ng-template>\n -->
+
+
