@@ -7,11 +7,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/dashboard',
     home: true,
   },{
-    title: 'Asesoria Principiantes',
-    icon: 'nb-compose',
-    link: '/pages/dashboard',
-    home: true,
-  },{
     title: 'Tutoriales',
     icon: 'nb-home',
     link: '/pages/dashboard',
@@ -85,6 +80,17 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
   {
+    title: 'Asesoria Principal',
+    icon: 'nb-compose',
+    children: [
+      {
+        title: 'lista de asesorias',
+        link: '/pages/advisories/list',
+      },
+      
+    ],
+  },
+  {
     title: 'Components',
     icon: 'nb-gear',
     children: [
@@ -97,44 +103,21 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },{
-    title: 'Charts',
-    icon: 'nb-bar-chart',
-    children: [
-      {
-        title: 'Echarts',
-        link: '/pages/charts/echarts',
-      },
-      {
-        title: 'Charts.js',
-        link: '/pages/charts/chartjs',
-      },
-      {
-        title: 'D3',
-        link: '/pages/charts/d3',
-      },
-    ],
-  },
-  {
-    title: 'Editors',
-    icon: 'nb-title',
-    children: [
-      {
-        title: 'TinyMCE',
-        link: '/pages/editors/tinymce',
-      },
-      {
-        title: 'CKEditor',
-        link: '/pages/editors/ckeditor',
-      },
-    ],
-  },
-  {
     title: 'News',
     icon: 'nb-layout-sidebar-right',
     children: [
       {
         title: 'List News',
         link: '/pages/news/list',
+      },
+    ],
+  },{
+    title: 'Coins',
+    icon: 'nb-plus-circled',
+    children: [
+      {
+        title: 'List Coins',
+        link: '/pages/coins/list'
       },
     ],
   },
@@ -145,20 +128,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'List Signals',
         link: '/pages/signals/list',
-      },
-      {
-        title: 'View Signals',
-        link: '/pages/signals/view',
-      },
-    ],
-  },
-  {
-    title: 'Tables',
-    icon: 'nb-tables',
-    children: [
-      {
-        title: 'Smart Table',
-        link: '/pages/tables/smart-table',
       },
     ],
   },

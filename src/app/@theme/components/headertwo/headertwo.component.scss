@@ -1,0 +1,185 @@
+@import '../../styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/bootstrap/breakpoints';
+@include nb-install-component() {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  .left {
+    display: flex;
+    width: 100%;
+    order: 1;
+    flex-direction: row;
+  }
+  .right {
+    order: 1;
+    flex-direction: row-reverse;
+  }
+  .logo-containter {
+    display: flex;
+    align-items: center;
+  }
+  .control-item {
+    display: block;
+    form {
+      height: 100%;
+    }
+  }
+  .header-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    .navigation {
+      padding-right: nb-theme(padding);
+      font-size: 2.5rem;
+      text-decoration: none;
+      display: none;
+      i {
+        display: block;
+      }
+    }
+    .logo {
+      padding: 0 nb-theme(padding);
+      font-size: 1.75rem;
+      font-weight: nb-theme(font-weight-bolder);
+      border-left: 1px solid nb-theme(separator);
+      white-space: nowrap;
+      span {
+        font-weight: nb-theme(font-weight-normal);
+      }
+    }
+  }
+  .toggle-layout /deep/ a {
+    display: block;
+    text-decoration: none;
+    line-height: 1;
+    i {
+      color: nb-theme(color-fg-highlight);
+      font-size: 2.25rem;
+    }
+  }
+  @include media-breakpoint-down(md) {
+    nb-action:not(.toggle-layout) {
+      border: none;
+    }
+    .control-item {
+      display: none;
+    }
+    .toggle-layout {
+      padding: 0;
+    }
+  }
+  @include media-breakpoint-down(sm) {
+    nb-user /deep/ .user-name {
+      display: none;
+    }
+    .header-container{
+      .icon-container{
+        display: none;
+      }
+    }
+  }
+  @include media-breakpoint-down(is) {
+    .header-container {
+      .logo {
+        font-size: 1.25rem;
+      }
+      .navigation{
+        display: flex;
+      }
+    }
+    .toggle-layout {
+      display: none;
+    }
+    nb-action:not(.toggle-layout) {
+      padding: 0;
+    }
+  }
+  @include media-breakpoint-down(xs) {
+    .right /deep/ {
+      display: none;
+    }
+  }
+}
+
+
+.btn-secondary{
+  padding: 11px
+}
+
+.nav-link:hover{
+  color: gray !important;
+}
+
+.ion {
+  font-size: 30px;
+  color: grey !important;
+}
+.ion-social-youtube:hover{
+  color: rgb(196, 48, 43) !important;
+}
+
+.ion-social-twitter:hover{
+  color: rgb(0, 172, 237) !important;
+}
+.ion-social-facebook:hover{
+  color: rgb(59, 89, 152) !important;
+}
+/*
+.dropdown-submenu {
+			    position: relative;
+			}
+
+			.dropdown-submenu > .dropdown-menu {
+			    top: 0;
+			    left: 100%;
+			    margin-top: -6px;
+			    margin-left: 0;
+			    border-radius: 0.25rem;
+			}
+
+			
+
+			.dropdown-submenu > a::after {
+				border-bottom: 0.3em solid transparent;
+				border-left-color: inherit;
+				border-left-style: solid;
+				border-left-width: 0.3em;
+				border-top: 0.3em solid transparent;
+				content: " ";
+				display: block;
+				float: right;
+				height: 0;
+				margin-right: -0.6em;
+				margin-top: -0.95em;
+				width: 0;
+      }
+      
+*/
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu > .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: 0;
+  border-radius: 0.25rem;
+}
+.dropdown-submenu:hover > .dropdown-menu {
+  display: block;
+}
+.dropdown-submenu > a::after {
+  border-bottom: 0.3em solid transparent;
+  border-left-color: inherit;
+  border-left-style: solid;
+  border-left-width: 0.3em;
+  border-top: 0.3em solid transparent;
+  display: block;
+  float: right;
+  height: 0;
+  width: 0;
+}
+.submenu{
+  width: 100% !important;
+}

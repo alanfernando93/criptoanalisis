@@ -84,3 +84,16 @@
         }
     }
 }
+.variants {
+    font-size: 1.2rem;
+    span {
+      padding: 0.4rem;
+      color: #a4abb3;
+      transition: color ease-out 0.1s;
+      text-decoration: none;
+
+      &:hover {
+        color: royalblue;
+      }
+    }
+  }

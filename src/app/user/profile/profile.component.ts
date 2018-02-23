@@ -37,11 +37,8 @@ export class ProfileComponent implements OnInit {
     let body = new FormData();
     body.append('Key',this.user.username);
     body.append('Value', this.myFile);
-    // console.log(this.user);
     this.userService.update(this.userId, this.token, this.user).then(resp => {
-      // console.log(resp);   
       this.userService.makeFileRequest(body, this.userId, this.token).then((resp) => {
-        // console.log(resp)
         this.router.navigate(['/user/profile']);
      });   
     });

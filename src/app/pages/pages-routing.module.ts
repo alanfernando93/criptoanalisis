@@ -31,15 +31,18 @@ const routes: Routes = [{
    }, {
       path: 'forms',
       loadChildren: './forms/forms.module#FormsModule',
+   },{
+    path: 'advisory',
+    loadChildren: './advisories/advisories.module#AdvisoryModule',
    }, {
       path: 'news',
       loadChildren: './news/news.module#NewsModule',
-   },{
+   }, {
       path: 'signals',
       loadChildren: './signals/signals.module#SignalsModule',
-   },{
-      path: 'tables',
-      loadChildren: './tables/tables.module#TablesModule',
+   }, {
+      path: 'coins',
+      loadChildren: './coins/coins.module#CoinsModule',
    }, {
       path: '',
       redirectTo: 'dashboard',

@@ -13,7 +13,7 @@ import { NoticiasService } from './noticias.service';
   declarations:[
     ...routedComponents,
   ],
-  providers:[ NoticiasService ]
+  providers:[NoticiasService]
 })
 
 export class NewsModule {}

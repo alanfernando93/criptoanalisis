@@ -12,9 +12,7 @@ export class AuthGuard implements CanActivate {
     let sw = true;
     var isAuth = JSON.parse(JSON.stringify(this.authService.isAuthenticated()));
     let token = isAuth['source'].value['token'];
-    console.log(this.authService.isAuthenticated());
-    if(token != null){      
-      console.log(token);
+    if(token != null){
       sw = true;
     }else{
       sw = false;
