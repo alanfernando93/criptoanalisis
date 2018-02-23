@@ -32,9 +32,9 @@ const routes: Routes = [{
       path: 'forms',
       loadChildren: './forms/forms.module#FormsModule',
    },{
-    path: 'advisory',
-    loadChildren: './advisories/advisories.module#AdvisoryModule',
-   }, {
+       path: 'advisories',
+       loadChildren: './advisories/advisories.module#AdvisoriesModule',
+   },{
       path: 'news',
       loadChildren: './news/news.module#NewsModule',
    }, {

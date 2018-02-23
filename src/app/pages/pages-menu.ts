@@ -80,17 +80,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
   {
-    title: 'Asesoria Principal',
-    icon: 'nb-compose',
-    children: [
-      {
-        title: 'lista de asesorias',
-        link: '/pages/advisories/list',
-      },
-      
-    ],
-  },
-  {
     title: 'Components',
     icon: 'nb-gear',
     children: [
@@ -100,6 +89,15 @@ export const MENU_ITEMS: NbMenuItem[] = [
       }, {
         title: 'Notifications',
         link: '/pages/components/notifications',
+      },
+    ],
+  },{
+    title: 'Asesoria',
+    icon: 'nb-compose',
+    children: [
+      {
+        title: 'List Advisories',
+        link: '/pages/advisories/list',
       },
     ],
   },{

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'ngx-advisory',
+    selector: 'ngx-advisories',
     template: '<router-outlet></router-outlet>'
 })
 export class AdvisoriesComponent {

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 
 import { AdvisoriesComponent } from './advisories.component';
 import { ListComponent } from './list/list.component';
@@ -10,15 +10,16 @@ const routes: Routes = [{
     children: [{
         path: 'list',
         component: ListComponent,
-    }
-    ]
+    },
+    ],
 }];
+
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],  
 })
 
-export class AdvisoryRoutingModule {}
+export class AdvisoriesRoutingModule { }
 
 export const routedComponents = [
     AdvisoriesComponent,
