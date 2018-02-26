@@ -66,7 +66,7 @@
                 </span>
             </div>
             <div class="col-md-2 col-sm-2 col-3 socials">
-                <span class="font-w-light up" (click)="Likes()">
+                <span class="font-w-light up" >
                     <i class="fa fa-thumbs-up"></i>{{new.likes.total}}</span>
             </div>
             <div class="col-md-1 col-sm-2 col-2 socials">
@@ -83,7 +83,7 @@
             <div class="col-12">
                 <div class="dropdown" ngbDropdown>
                     <button type="button" class="btn btn-hero-info btn-block" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
-                        aria-controls="collapseExample">
+                        aria-controls="collapseExample" ngbDropdownToggle>
                         {{new.comments.total}} Comentarios
                     </button>
                     <div id="collapseExample" [ngbCollapse]="!isCollapsed">

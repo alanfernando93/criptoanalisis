@@ -36,7 +36,7 @@
             <div class="col-12 col-md-6">
                 <div class="row">
                     <h3 class="btn btn-hero-info col-12 col-md-12">Analisis fundamental</h3>
-                    <p>{{new.AnalisisFundamental}}</p>
+                    <p>{{signal.AnalisisFundamental}}</p>
 
                 </div>
                 <div class="row">
@@ -113,9 +113,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-6" *ngIf="signal">
                 <h3 class="btn btn-hero-info col-12 col-dm-11">Analisis tecnico</h3>
-                <p>{{new.AnalisisTecnico}}</p>
+                <p>{{signal.AnalisisTecnico}}</p>
                 <div class="text-center">
                     <img src="../../../assets/images/esla.png" class="rounded" alt="...">
                 </div>

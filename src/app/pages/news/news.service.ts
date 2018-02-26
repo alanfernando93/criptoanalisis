@@ -24,10 +24,10 @@ export class NewsService {
     return this.http.get(this.baseUrl + 'noticias/' + id)
                     .map((res: Response) => res.json())
   }
-/*
+
   postNews(id){
     return this.http.get(this.baseUrl + 'noticias/' + id + '/comment?userId' + this.userId )
         .map((res: Response) => res.json())
   }
-*/
+
 }

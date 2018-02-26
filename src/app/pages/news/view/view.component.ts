@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
 
@@ -10,13 +10,13 @@ import { environment } from '../../../../environments/environment';
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss']
 })
-export class ViewComponent implements OnInit, OnChanges {
+export class ViewComponent implements OnInit {
 
   private token = environment.usertoken;
   new: any;
   comment: any;
 
-  like:number = 0;
+  like:number;
 
 
   constructor(private http: Http, private route: ActivatedRoute, private newsService: NewsService, ) {
@@ -24,10 +24,6 @@ export class ViewComponent implements OnInit, OnChanges {
   }
   ngOnInit() {
     this.getNewsById()
-  }
-
-  ngOnChanges(){
-    
   }
 
   getNewsById() {
@@ -38,5 +34,5 @@ export class ViewComponent implements OnInit, OnChanges {
       });
     });
   }
-  
+
 }
