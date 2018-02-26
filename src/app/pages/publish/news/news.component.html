@@ -1,55 +1,49 @@
 <nb-card-body>
-    <div class="container">
-        <div class="row col inputgroup">
-            <input type="text" placeholder="Titulo de la noticia" [(ngModel)]="newsPublish.titulo " class="form-control">
-        </div>
-        <div class="row col input-group">
-            <!-- <div class="dropdown" ngbDropdown>
-                <button class="btn btn-primary" type="button" ngbDropdownToggle>{{ selectedView.title }}</button>
-                <ul class="dropdown-menu" ngbDropdownMenu>
-                    <li class="dropdown-item" *ngFor="let v of buttonsViews" (click)="this.selectedView = v">{{ v.title }}</li>
-                </ul>
-            </div> -->
-            <div class="dropdown" ngbDropdown>
-                <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
-                Dropup
-                </button>
-                <ul class="dropdown-menu" ngbDropdownMenu>
-                    <li class="dropdown-item">Icon Button 3</li>
-                    <li class="dropdown-item">Hero Button</li>
-                    <li class="dropdown-item">Default</li>
-                </ul>
-            </div>
-        </div>
-        <div class="row col inputgroup">
-            <label for="inputContenNews">Contenido de la noticia</label>
-            <ngx-tiny-mce 
-                id="inputContenNews" 
-                [innerHTML]="contenido" 
-                [height]="150" 
-                (onEditorKeyup)="keyupHandlerFunction($event)">
-            </ngx-tiny-mce>
-        </div>
-        <div class="row col inputgroup" [innerHTML]="contenido">
-        </div>
-        <div class="row col inputgroup">
-            <label>Conjeturas sobre el precio</label>
-            <ngx-tiny-mce [height]="90"></ngx-tiny-mce>
-        </div>
-        <div class="row col inputgroup">
-            <label>Conjeturas sobre otras monedas (* Opcional)</label>
-            <ngx-tiny-mce [height]="90"></ngx-tiny-mce>
-        </div>
+  <div class="container">
+    <div class="row col inputgroup">
+      <input type="text" placeholder="Titulo de la noticia" [(ngModel)]="newsPublish.titulo " class="form-control">
     </div>
+    <div class="row col input-group">
+      <!-- <div class="dropdown" ngbDropdown>
+				<button class="btn btn-primary" type="button" ngbDropdownToggle>
+					{{ selectedView.title }}
+				</button>
+				<ul class="dropdown-menu" ngbDropdownMenu>
+					<li class="dropdown-item" *ngFor="let v of buttonsViews" (click)="this.selectedView = v">{{ v.title }}</li>
+				</ul>
+			</div> -->
+      <div class="dropdown" ngbDropdown>
+        <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{selectedView.name}} </button>
+        <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
+          <li class="dropdown-item" *ngFor="let coin of coins" (click)="this.selectedView = coin">{{coin.name}}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="row col inputgroup">
+      <label for="inputContenNews">Contenido de la noticia</label>
+      <ngx-tiny-mce id="inputContenNews" [innerHTML]="contenido" [height]="150" (onEditorKeyup)="keyupHandlerFunction($event)">
+      </ngx-tiny-mce>
+    </div>
+    <div class="row col inputgroup" [innerHTML]="contenido">
+    </div>
+    <div class="row col inputgroup">
+      <label>Conjeturas sobre el precio</label>
+      <ngx-tiny-mce [height]="90"></ngx-tiny-mce>
+    </div>
+    <div class="row col inputgroup">
+      <label>Conjeturas sobre otras monedas (* Opcional)</label>
+      <ngx-tiny-mce [height]="90"></ngx-tiny-mce>
+    </div>
+  </div>
 </nb-card-body>
 <nb-card-footer>
-    <div class="row justify-content-between">
-        <div class="col-6">
-            <button class="btn btn-hero-secondary btn-demo"> Cancelar </button>
-            <button class="btn btn-lg btn-outline-primary" (click)="open()">Vista Previa</button>
-        </div>
-        <div class="col-2">
-            <button class="btn btn-success" (click)="onSave()"> Publicar </button>
-        </div>
+  <div class="row justify-content-between">
+    <div class="col-6">
+      <button class="btn btn-hero-secondary btn-demo"> Cancelar </button>
+      <!-- <button class="btn btn-lg btn-outline-primary" (click)="open()">Vista Previa</button> -->
     </div>
+    <div class="col-2">
+      <button class="btn btn-success" (click)="onSave()"> Publicar </button>
+    </div>
+  </div>
 </nb-card-footer>
