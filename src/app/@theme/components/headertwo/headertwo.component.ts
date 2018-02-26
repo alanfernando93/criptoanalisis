@@ -33,7 +33,6 @@ export class HeaderTwoComponent implements OnInit {
     getMarket(){
         this.marketService.getMarkets().subscribe(data => {
             this.markets = data;
-            console.log(data);
         });  
     }
 }

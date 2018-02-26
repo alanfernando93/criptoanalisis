@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
-import { NoticiasService } from "../noticias.service";
+import { NewsService } from "../news.service";
 
 @Component({
   selector: 'ngx-list',
@@ -13,14 +13,14 @@ export class ListComponent implements OnInit {
   news: any;
   dislike:any;
 
-  constructor(private http: Http, private noticiasService: NoticiasService ) {
+  constructor(private http: Http, private newsService: NewsService ) {
   }
   ngOnInit(){
     this.getNews()
   }
 
   getNews(){
-    this.noticiasService.getNews().subscribe(data => {
+    this.newsService.getNews().subscribe(data => {
       this.news = data;     
     });     
   }

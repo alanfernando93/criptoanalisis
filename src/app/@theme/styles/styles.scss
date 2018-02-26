@@ -78,13 +78,7 @@
   border: 0px ;
   color: gray !important;
 }
-.nb-theme-default .btn{
-  border: 0px !important;
-}
-.nb-theme-default .dropdown.ghost-dropdown .btn-primary + .dropdown-menu, .nb-theme-default .dropup.ghost-dropdown .btn-primary + .dropdown-menu {
-  border: 1px solid #8a7fff;
-}
 
-.nb-theme-default .dropdown.ghost-dropdown .btn-primary + .dropdown-menu, .nb-theme-default .dropup.ghost-dropdown .btn-primary + .dropdown-menu .mercado{
+.nb-theme-default .dropdown.ghost-dropdown .btn-primary + .dropdown-menu, .nb-theme-default .dropup.ghost-dropdown .btn-primary + .dropdown-menu {
   border: 1px solid #ebeef2;
 }

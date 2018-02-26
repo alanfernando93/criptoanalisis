@@ -66,7 +66,7 @@
                 </span>
             </div>
             <div class="col-md-2 col-sm-2 col-3 socials">
-                <span class="font-w-light up">
+                <span class="font-w-light up" (click)="Likes()">
                     <i class="fa fa-thumbs-up"></i>{{new.likes.total}}</span>
             </div>
             <div class="col-md-1 col-sm-2 col-2 socials">
@@ -82,9 +82,18 @@
         <div class="row" *ngIf="new">
             <div class="col-12">
                 <div class="dropdown" ngbDropdown>
-                    <button class="btn btn-hero-info btn-block" type="button" ngbDropdownToggle>
+                    <button type="button" class="btn btn-hero-info btn-block" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
+                        aria-controls="collapseExample">
                         {{new.comments.total}} Comentarios
                     </button>
+                    <div id="collapseExample" [ngbCollapse]="!isCollapsed">
+                        <div class="card" *ngFor="let comment of new.comments.users_comments">
+                            <div class="card-body">
+                                {{comment}}
+                            </div>
+                            <a href="#" class="pull-right">Responser</a>
+                        </div>
+                    </div>
                     <nb-card>
                         <nb-card-body>
                             <form>

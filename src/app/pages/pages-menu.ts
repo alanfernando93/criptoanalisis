@@ -92,15 +92,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },{
-    title: 'Asesoria',
-    icon: 'nb-compose',
-    children: [
-      {
-        title: 'List Advisories',
-        link: '/pages/advisories/list',
-      },
-    ],
-  },{
     title: 'News',
     icon: 'nb-layout-sidebar-right',
     children: [

@@ -20,7 +20,6 @@ export class ListComponent implements OnInit {
     ){
         this.route.params.subscribe((param) => {
             this.id = param['marketId'];
-            console.log(this.id);
         });
     }
 

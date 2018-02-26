@@ -37,7 +37,7 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
                    responsive
                    [right]="sidebar.id === 'left'">
 
-        <nb-sidebar-header class="d-block d-sm-block d-md-none" *ngIf="user">
+        <nb-sidebar-header class="d-block d-sm-none" *ngIf="user">
           <nb-user [menu]="" [name]="user?.username" [picture]="user?.picture" ></nb-user>
             <nb-action>
               <span class="badge badge-secondary">2 $CA</span>
