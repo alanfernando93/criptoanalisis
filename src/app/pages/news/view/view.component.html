@@ -66,12 +66,12 @@
                 </span>
             </div>
             <div class="col-md-2 col-sm-2 col-3 socials">
-                <span class="font-w-light up" >
-                    <i class="fa fa-thumbs-up"></i>{{new.likes.total}}</span>
+                <a class="font-w-light up" (click)="sendLike()">
+                    <i class="fa fa-thumbs-up"></i>{{new.likes.total}}</a>
             </div>
             <div class="col-md-1 col-sm-2 col-2 socials">
-                <span class="font-w-light down">
-                    <i class="fa fa-thumbs-down"></i>{{new.dislikes.total}}</span>
+                <a class="font-w-light down" (click)="sendDislike()" >
+                    <i class="fa fa-thumbs-down"></i>{{new.dislikes.total}}</a>
             </div>
         </div>
     </nb-card-body>

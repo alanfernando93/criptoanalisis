@@ -13,17 +13,17 @@ import { environment } from '../../../../environments/environment';
 export class ViewComponent implements OnInit {
 
   private token = environment.usertoken;
+  
   new: any;
-  comment: any;
-
   like:number;
-
+  dislike:number;
 
   constructor(private http: Http, private route: ActivatedRoute, private newsService: NewsService, ) {
 
   }
   ngOnInit() {
-    this.getNewsById()
+    this.getNewsById(),
+    this.sendDislike()
   }
 
   getNewsById() {
@@ -31,6 +31,26 @@ export class ViewComponent implements OnInit {
       let id = params['newId'];
       this.newsService.getNewsId(id).subscribe((news) => {
         this.new = news;
+      });
+    });
+  }
+
+  sendDislike(){
+    this.route.params.forEach((params: Params) => {
+      let id = params['newId'];
+    this.newsService.postDislikes(id).subscribe(data => {
+      this.dislike = data;
+      this.new=data;
+      });
+    });
+  }
+
+  sendLike(){
+    this.route.params.forEach((params: Params) => {
+      let id = params['newId'];
+    this.newsService.postLikes(id).subscribe(data => {
+      this.like = data;
+      this.new=data;
       });
     });
   }

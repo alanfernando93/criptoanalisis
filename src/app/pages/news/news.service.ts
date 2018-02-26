@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map';
 export class NewsService {
   private baseUrl = environment.apiUrl;
   private token = environment.usertoken;
-  private userId = environment.usertoken;
+  private userId = environment.userId;
   
   constructor(private http: Http) {
 
@@ -22,12 +22,22 @@ export class NewsService {
 
   getNewsId(id){
     return this.http.get(this.baseUrl + 'noticias/' + id)
-                    .map((res: Response) => res.json())
+                    .map((res: Response) => res.json());
   }
 
   postNews(id){
     return this.http.get(this.baseUrl + 'noticias/' + id + '/comment?userId' + this.userId )
-        .map((res: Response) => res.json())
+        .map((res: Response) => res.json());
+  }
+
+  postDislikes(id){
+    return this.http.get(this.baseUrl + 'noticias/' + id + '/dislike?userId=' + this.userId)
+        .map((res:Response) => res.json());
+  }
+
+  postLikes(id){
+    return this.http.get(this.baseUrl + 'noticias/' + id + '/like?userId=' + this.userId)
+        .map((res:Response) => res.json());
   }
 
 }
