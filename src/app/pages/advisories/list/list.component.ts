@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { ActivatedRoute, Params } from '@angular/router';
+
+import { AdvisoriesService } from '../advisories.service';
+
 
 
 @Component({
@@ -9,16 +11,21 @@ import { ActivatedRoute, Params } from '@angular/router';
     styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-
+    advisories: any;
     constructor(
         private http:Http,
-        private route: ActivatedRoute,
+        private AdvisoriesService: AdvisoriesService,
         
     ){
         
     }
 
     ngOnInit(){
-        
+        this.getAdvisories()
     }
+    getAdvisories(){
+        this.AdvisoriesService.getAdvisories().subscribe(data => {
+          this.advisories = data;
+        });
+      }
 }

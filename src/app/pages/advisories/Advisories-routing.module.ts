@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AdvisoriesComponent } from './advisories.component';
 import { ListComponent } from './list/list.component';
+import { ViewComponent } from './view/view.component';
 
 const routes: Routes = [{
     path: '',
@@ -10,7 +11,12 @@ const routes: Routes = [{
     children: [{
         path: 'list',
         component: ListComponent,
-    }
+            },
+        {
+        path: 'view',
+       component: ViewComponent,
+    },
+    
     ]
 }];
 @NgModule({
@@ -22,5 +28,6 @@ export class AdvisoryRoutingModule {}
 
 export const routedComponents = [
     AdvisoriesComponent,
-    ListComponent
+    ListComponent,
+    ViewComponent,
 ];

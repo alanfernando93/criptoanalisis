@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ThemeModule } from './../../@theme/theme.module';
 import { AdvisoryRoutingModule, routedComponents } from './Advisories-routing.module';
+import { AdvisoriesService } from './advisories.service';
 
 @NgModule({
   imports: [
@@ -10,6 +11,6 @@ import { AdvisoryRoutingModule, routedComponents } from './Advisories-routing.mo
   declarations:[
       ...routedComponents,
   ],
-  providers:[]
+  providers:[AdvisoriesService]
 })
 export class AdvisoryModule {}
