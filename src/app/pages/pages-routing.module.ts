@@ -31,10 +31,13 @@ const routes: Routes = [{
    }, {
       path: 'forms',
       loadChildren: './forms/forms.module#FormsModule',
-   },{
+   }, {
       path: 'news',
       loadChildren: './news/news.module#NewsModule',
    }, {
+      path: 'markets',
+      loadChildren: './markets/markets.module#MarketsModule',
+   },{
       path: 'signals',
       loadChildren: './signals/signals.module#SignalsModule',
    }, {

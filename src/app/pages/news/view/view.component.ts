@@ -14,7 +14,7 @@ export class ViewComponent implements OnInit {
 
   private token = environment.usertoken;
   
-  new: any;
+  news: any;
   like:number;
   dislike:number;
 
@@ -28,29 +28,29 @@ export class ViewComponent implements OnInit {
 
   getNewsById() {
     this.route.params.forEach((params: Params) => {
-      let id = params['newId'];
+      let id = params['newsId'];
       this.newsService.getNewsId(id).subscribe((news) => {
-        this.new = news;
+        this.news = news;
       });
     });
   }
 
   sendDislike(){
     this.route.params.forEach((params: Params) => {
-      let id = params['newId'];
+      let id = params['newsId'];
     this.newsService.postDislikes(id).subscribe(data => {
       this.dislike = data;
-      this.new=data;
+      this.news=data;
       });
     });
   }
 
   sendLike(){
     this.route.params.forEach((params: Params) => {
-      let id = params['newId'];
+      let id = params['newsId'];
     this.newsService.postLikes(id).subscribe(data => {
       this.like = data;
-      this.new=data;
+      this.news=data;
       });
     });
   }

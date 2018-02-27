@@ -1,13 +1,14 @@
 .socials {
-    font-size: 1.2rem;
-    span {
+    font-size: 1.3rem;
+    a {
       padding: 0.4rem;
       color: #a4abb3;
       transition: color ease-out 0.1s;
       text-decoration: none;
+      cursor: pointer;
 
       &:hover {
-        color: royalblue;
+        color: steelblue !important;
       }
     }
   }

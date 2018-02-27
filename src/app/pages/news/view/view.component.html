@@ -21,32 +21,32 @@
 </nb-card>
 <nb-card>
     <nb-card-header>
-        <div class="row" *ngIf="new">
-            <h4 class="col-12 col-lg-12 text-primary">{{new.titulo}}</h4>
-            <span class="col-12 col-lg-12 text-primary">{{new.fecha_create}}</span>
+        <div class="row" *ngIf="news">
+            <h4 class="col-12 col-lg-12 text-primary">{{news.titulo}}</h4>
+            <span class="col-12 col-lg-12 text-primary">{{news.fecha_create}}</span>
         </div>
     </nb-card-header>
     <nb-card-body>
-        <div class="row" *ngIf="new">
+        <div class="row" *ngIf="news">
             <div class="col-md-12 text-body">
-                {{new.contenido}}
+                {{news.contenido}}
             </div>
-            <p class="col-md-6">Fuente : {{new.fuentes}}</p>
-            <p class="col-md-6">Tipo de Modena : {{new.tipo_moneda}}</p>
+            <p class="col-md-6">Fuente : {{news.fuentes}}</p>
+            <p class="col-md-6">Tipo de Modena : {{news.tipo_moneda}}</p>
         </div>
     </nb-card-body>
 </nb-card>
 <nb-card>
     <nb-card-body>
-        <div class="row" *ngIf="new">
-            <p class="col-md-6 col-12">Conjetura de moneda : {{new.conj_moneda}}</p>
-            <p class="col-md-6 col-12">Confetura de precio : {{new.conj_precio}}</p>
+        <div class="row" *ngIf="news">
+            <p class="col-md-6 col-12">Conjetura de moneda : {{news.conj_moneda}}</p>
+            <p class="col-md-6 col-12">Confetura de precio : {{news.conj_precio}}</p>
         </div>
     </nb-card-body>
 </nb-card>
 <nb-card>
     <nb-card-body>
-        <div class="row" *ngIf="new">
+        <div class="row" *ngIf="news">
             <div class="col-md-5 col-sm-12 col-12">
                 <h5>Compartir : </h5>
             </div>
@@ -67,11 +67,11 @@
             </div>
             <div class="col-md-2 col-sm-2 col-3 socials">
                 <a class="font-w-light up" (click)="sendLike()">
-                    <i class="fa fa-thumbs-up"></i>{{new.likes.total}}</a>
+                    <i class="fa fa-thumbs-up"></i>{{news.likes.total}}</a>
             </div>
             <div class="col-md-1 col-sm-2 col-2 socials">
                 <a class="font-w-light down" (click)="sendDislike()" >
-                    <i class="fa fa-thumbs-down"></i>{{new.dislikes.total}}</a>
+                    <i class="fa fa-thumbs-down"></i>{{news.dislikes.total}}</a>
             </div>
         </div>
     </nb-card-body>
@@ -79,19 +79,21 @@
 
 <nb-card>
     <nb-card-body>
-        <div class="row" *ngIf="new">
+        <div class="row" *ngIf="news">
             <div class="col-12">
                 <div class="dropdown" ngbDropdown>
                     <button type="button" class="btn btn-hero-info btn-block" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
                         aria-controls="collapseExample" ngbDropdownToggle>
-                        {{new.comments.total}} Comentarios
+                        {{news.comments.total}} Comentarios
                     </button>
                     <div id="collapseExample" [ngbCollapse]="!isCollapsed">
-                        <div class="card" *ngFor="let comment of new.comments.users_comments">
+                        <div class="card" *ngFor="let comment of news.comments.users_comments">
                             <div class="card-body">
                                 {{comment}}
                             </div>
-                            <a href="#" class="pull-right">Responser</a>
+                            <div class="card-footer">
+                                <a href="#" class="pull-right">Responser</a>
+                            </div>
                         </div>
                     </div>
                     <nb-card>

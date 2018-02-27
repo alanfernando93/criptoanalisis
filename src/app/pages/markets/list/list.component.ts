@@ -2,25 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import { MarketService } from '../market.service';
+import { MarketsService } from '../markets.service';
 
 @Component({
     selector: 'ngx-list',
     templateUrl: './list.component.html',
     styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit {
-
-    id:number;
-
+export class ListComponent {
     constructor(
-        private http:Http,
+        private http: Http,
         private route: ActivatedRoute,
-        private marketService: MarketService
     ){
-        this.route.params.subscribe((param) => {
-            this.id = param['marketId'];
-        });
+        
     }
 
     ngOnInit(){

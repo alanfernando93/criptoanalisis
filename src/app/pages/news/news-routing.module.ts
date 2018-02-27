@@ -17,7 +17,7 @@ const routes: Routes = [{
     redirectTo: 'pages'
   },
   {
-    path: 'view/:newId',
+    path: 'view/:newsId',
     component: ViewComponent,
   },
   ],
