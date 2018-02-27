@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HeaderTwoComponent } from './headertwo.component';
-import { ListComponent } from '../../../pages/market/list/list.component';
+import { ListComponent } from '../../../pages/markets/list/list.component';
 
 const routes: Routes = [
     {
