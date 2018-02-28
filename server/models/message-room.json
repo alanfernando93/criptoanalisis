@@ -1,0 +1,26 @@
+{
+  "name": "messageRoom",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "message": {
+      "type": "string",
+      "required": true
+    },
+    "RoomId": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "usuario":{
+      "type": "belongsTo",
+      "model": "usuario"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

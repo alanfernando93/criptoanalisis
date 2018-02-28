@@ -79,6 +79,9 @@
   "mercado": {
     "dataSource": "db",
     "public": true
+  },
+  "messageRoom": {
+    "dataSource": "db",
+    "public": true
   }
-  
 }

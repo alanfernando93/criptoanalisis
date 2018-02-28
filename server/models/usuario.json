@@ -71,14 +71,19 @@
       "foreignKey": "TraderId",
       "through": "Suscripcion"
     },
-    "Noticia":{
-      "type":"hasMany",
-      "model":"noticia",
+    "Noticia": {
+      "type": "hasMany",
+      "model": "noticia",
       "foreignkey": "UsuarioId"
     },
-    "contenidoMoneda":{
-      "type":"hasMany",
-      "model":"contenidoMoneda",
+    "contenidoMoneda": {
+      "type": "hasMany",
+      "model": "contenidoMoneda",
+      "foreignkey": ""
+    },
+    "message":{
+      "type": "hasMany",
+      "model": "messageRoom",
       "foreignkey": ""
     }
   },

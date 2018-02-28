@@ -23,6 +23,43 @@ boot(app, __dirname, function(err) {
   if (err) throw err;
 
   // start the server if `$ node server.js`
-  if (require.main === module)
-    app.start();
+  if (require.main === module) {
+    app.io = require('socket.io')(app.start());
+    app.io.on('connection', (socket) => {
+      // socket.broadcast.emit('new user',
+      // {message: 'Ha entrado un usuario al Chat'});
+      socket.on('join', roomId => {
+        console.log('joining roomId', roomId);
+        socket.join(roomId);
+      });
+      socket.on('leave', roomId =>{
+        if (roomId != undefined) {
+          socket.leave(roomId);
+          console.log('room left', roomId);
+        }
+      });
+      socket.on('new message', message => {
+        app.models.usuario.findById(message.usuarioId).then(resp=>{
+          message.username = resp.username;
+          app.io.to(message.room).emit('user says', message);
+        });
+        if (message.room != undefined) {
+          app.models.messageRoom.create([
+            {
+              'usuarioId': message.usuarioId,
+              'message': message.message,
+              'RoomId': message.room,
+            },
+          ]).then(mensaje=>{
+            console.log('mensaje insertado:', mensaje);
+          });
+        };
+      });
+      socket.on('disconnect', () => {
+        console.log('Ha salido un usuario del Chat');
+        socket.broadcast.emit('bye bye user',
+        {message: 'Ha salido un usuario del Chat'});
+      });
+    });
+  }
 });
