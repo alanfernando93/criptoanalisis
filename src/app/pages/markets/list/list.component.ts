@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { ActivatedRoute, Params } from '@angular/router';
 
 import { MarketsService } from '../markets.service';
 
@@ -10,14 +9,22 @@ import { MarketsService } from '../markets.service';
     styleUrls: ['./list.component.scss']
 })
 export class ListComponent {
+
+    market:any;
+
     constructor(
         private http: Http,
-        private route: ActivatedRoute,
-    ){
-        
+        private marketsService: MarketsService
+    ){    
     }
 
     ngOnInit(){
-        
+        this.getMarket()
+    }
+
+    getMarket(){
+        this.marketsService.getMarkets().subscribe(data => {
+            this.market = data;
+        });
     }
 }

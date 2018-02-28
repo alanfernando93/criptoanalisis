@@ -48,7 +48,7 @@
     <nb-card-body>
         <div class="row" *ngIf="news">
             <div class="col-md-5 col-sm-12 col-12">
-                <h5>Compartir : </h5>
+                <h5>Compartir : </h5>  
             </div>
             <div class="col-md-1 col-sm-2 col-2 facebook">
                 <span class="font-w-light up">
@@ -69,8 +69,8 @@
                 <a class="font-w-light up" (click)="sendLike()">
                     <i class="fa fa-thumbs-up"></i>{{news.likes.total}}</a>
             </div>
-            <div class="col-md-1 col-sm-2 col-2 socials">
-                <a class="font-w-light down" (click)="sendDislike()" >
+            <div class="col-md-1 col-sm-2 col-3 socials">
+                <a class="font-w-light down" (click)="sendDislike()">
                     <i class="fa fa-thumbs-down"></i>{{news.dislikes.total}}</a>
             </div>
         </div>
@@ -91,8 +91,14 @@
                             <div class="card-body">
                                 {{comment}}
                             </div>
-                            <div class="card-footer">
-                                <a href="#" class="pull-right">Responser</a>
+                            <div class="card-footer" *ngIf="answer">
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" placeholder="Escribe una respuesta" />
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-tn">Publicar</button>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-tn pull-right" (click)="answer = !answer">Responser</button>
                             </div>
                         </div>
                     </div>

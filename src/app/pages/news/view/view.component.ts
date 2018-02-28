@@ -3,7 +3,6 @@ import { Http, Response } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { NewsService } from '../news.service';
-import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'ngx-view',
@@ -11,19 +10,21 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./view.component.scss']
 })
 export class ViewComponent implements OnInit {
-
-  private token = environment.usertoken;
   
   news: any;
   like:number;
   dislike:number;
 
-  constructor(private http: Http, private route: ActivatedRoute, private newsService: NewsService, ) {
+  constructor(
+          private http: Http, 
+          private route: ActivatedRoute, 
+          private newsService: NewsService ) {
 
   }
   ngOnInit() {
     this.getNewsById(),
-    this.sendDislike()
+    this.sendDislike(),
+    this.sendLike()
   }
 
   getNewsById() {
@@ -54,5 +55,4 @@ export class ViewComponent implements OnInit {
       });
     });
   }
-
 }

@@ -1,1 +1,104 @@
-<h1>mercados</h1>
+<nb-card>
+    <nb-card-body>
+        <div class="row" *ngFor="let market of market">
+            <div class="col-12 col-md-7">
+                <div class="row">
+                    <div class="col-4 col-md-5">
+                        <h4 class="text-primary pull-right">{{market.nombre}}</h4>
+                    </div>
+                    <div class="col-8 col-md-7">
+                        <img src="../../../assets/images/platinum_tcm1305-467308.png" alt="" class="img-thumbnail">
+                    </div>
+                </div>
+                <hr>
+                <div class="col-12 col-md-12">
+                    <a>{{market.descripcion}}</a>
+                </div>
+                <hr class="d-block d-sm-none">
+            </div>
+            <div class="col-12 col-md-5">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="row">Monedas</th>
+                            <th scope="row">Capitaliz</th>
+                            <th scope="row">% Anual / Calif</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">SiaCoin</th>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Made</th>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">FileCoin</th>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Storj</th>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>
+<div class="row">
+    <div class="col-12 col-md-6">
+        <div class="dropdown" ngbDropdown>
+            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+                Señales
+            </button>
+            <ul class="dropdown-menu" ngbDropdownMenu>
+                <li class="dropdown-item">Icon Button 4</li>
+                <li class="dropdown-item">Hero Button</li>
+                <li class="dropdown-item">Default</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-12 col-md-6">
+        <div class="dropdown" ngbDropdown>
+            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+                Señales
+            </button>
+            <ul class="dropdown-menu" ngbDropdownMenu>
+                <li class="dropdown-item">Icon Button 4</li>
+                <li class="dropdown-item">Hero Button</li>
+                <li class="dropdown-item">Default</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-12 col-md-6">
+        <div class="dropdown" ngbDropdown>
+            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+                Tutoriales
+            </button>
+            <ul class="dropdown-menu" ngbDropdownMenu>
+                <li class="dropdown-item">Icon Button 4</li>
+                <li class="dropdown-item">Hero Button</li>
+                <li class="dropdown-item">Default</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-12 col-md-6">
+        <div class="dropdown" ngbDropdown>
+            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+                Dropdown
+            </button>
+            <ul class="dropdown-menu" ngbDropdownMenu>
+                <li class="dropdown-item">Icon Button 4</li>
+                <li class="dropdown-item">Hero Button</li>
+                <li class="dropdown-item">Default</li>
+            </ul>
+        </div>
+    </div>
+</div>

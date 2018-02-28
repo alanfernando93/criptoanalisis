@@ -1,5 +1,5 @@
 .socials {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     a {
       padding: 0.4rem;
       color: #a4abb3;
@@ -14,6 +14,7 @@
   }
 .whatsapp{
   span{
+    font-size: 0.8rem;
     &:hover{
       color: #25d366;
     }
@@ -21,12 +22,14 @@
 }
 .twitter{
   span{
+    font-size: 0.8rem;
     &:hover{
       color: #00acee;
     }
   }
 }
 .facebook{
+  font-size: 0.8rem;
   span{
     &:hover{
       color: #3b5998;
