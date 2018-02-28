@@ -6,12 +6,7 @@
     float: none;
     margin: 0 auto;
 }
-.margin-top {
-    margin-top: 50px;
-  }
-.margin-bot{
-  margin-bottom: 5px;
-}
+
 
 .pad-t{
     padding-top: 15px;
@@ -20,4 +15,24 @@
 .pad-l{
     padding-left: 14px;
 
+}
+.pad-ltitulo{
+    padding-left: 0px;
+
+}
+.pad-luser{
+    padding-left: 100px;
+
+}
+ 
+.pad-bot{
+    padding-bottom: 0px;
+  }
+  
+
+@media only screen and (min-width:700) {
+    body {
+        font-size: 1px;
+        
+    }
 }

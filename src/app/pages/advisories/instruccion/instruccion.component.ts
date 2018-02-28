@@ -6,11 +6,11 @@ import { AdvisoriesService } from '../advisories.service';
 
 
 @Component({
-  selector: 'ngx-view',
-  templateUrl: './view.component.html',
-  styleUrls: ['./view.component.scss']
+  selector: 'ngx-instruccion',
+  templateUrl: './instruccion.component.html',
+  styleUrls: ['./instruccion.component.scss']
 })
-export class ViewComponent implements OnInit {
+export class InstruccionComponent implements OnInit {
 
   advisory:any;
 
@@ -19,12 +19,12 @@ export class ViewComponent implements OnInit {
   }
 
     ngOnInit() {
-      this.getAdvisoryByIduser()
+      this.getAdvisoryById()
     }
 
-    getAdvisoryByIduser(){
+    getAdvisoryById(){
       this.route.params.forEach((params: Params) => {
-        let id = params['advisoryId'];
+        let id = params['advisoryIduser'];
         this.advisoriesService.getAdvisoriesId(id).subscribe((advisories) => {
           this.advisory = advisories;
         });
