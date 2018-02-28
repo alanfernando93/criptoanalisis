@@ -5,7 +5,7 @@ module.exports = function(app) {
     if (err)
       throw err;
     app.models.messageRoom.create({
-      'content': 'Bienvenido al chat',
+      'message': 'Bienvenido al chat',
     }, (err, data)=>{
       if (err) throw err;
       else

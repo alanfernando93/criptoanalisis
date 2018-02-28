@@ -39,12 +39,15 @@ boot(app, __dirname, function(err) {
         }
       });
       socket.on('new message', message => {
-        app.io.to(message.room).emit('user says', message);
+        app.models.usuario.findById(message.usuarioId).then(resp=>{
+          message.username = resp.username;
+          app.io.to(message.room).emit('user says', message);
+        });
         if (message.room != undefined) {
           app.models.messageRoom.create([
             {
-              'usuarioId': message.userId,
-              'content': message.message,
+              'usuarioId': message.usuarioId,
+              'message': message.message,
               'RoomId': message.room,
             },
           ]).then(mensaje=>{
