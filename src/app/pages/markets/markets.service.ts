@@ -6,16 +6,21 @@ import { environment } from '../../../environments/environment';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class MarketService{
+export class MarketsService {
 
     private baseUrl = environment.apiUrl;
 
     constructor(private http: Http){
-
+        
     }
-    
+
     getMarkets(){
         return this.http.get(this.baseUrl + 'mercados')
-        .map((res: Response) => res.json())
+                        .map((res: Response) => res.json())
+    }
+
+    getMarketId(id){
+        return this.http.get(this.baseUrl + 'mercados/' + id)
+                        .map((res: Response) => res.json());
     }
 }

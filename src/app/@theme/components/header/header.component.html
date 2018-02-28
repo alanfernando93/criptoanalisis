@@ -4,7 +4,7 @@
             <i class="nb-menu"></i>
         </a>
         <div class="logo d-none d-sm-block" (click)="goToHome()">Criptoanalisis.org</div>
-        <nb-action disabled icon="nb-notifications" class="logo col-md-6 d-block d-sm-block d-md-none notification"></nb-action>
+        <nb-action icon="nb-notifications" class="logo col-md-6 d-block d-sm-block d-md-none notification"></nb-action>
         <nb-action class="logo col-md-6 d-block d-sm-block d-md-none">
             <nb-search type="modal-half" tag="modal-half"></nb-search>
         </nb-action>
@@ -44,7 +44,7 @@
 </nb-actions>
 <nb-actions size="medium" class="header-container right btn-group" *ngIf="!user">
     <nb-action>
-        <div class="btn-group" role="group" aria-label="Basic example">
+        <div class="btn-group d-none d-sm-block" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-secondary" (click)="signup()">
                 <i class="fa fa-user-plus"></i> Sign Up</button>
             <button type="button" class="btn btn-secondary" (click)="signin()">
