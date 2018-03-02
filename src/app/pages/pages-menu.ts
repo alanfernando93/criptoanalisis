@@ -12,6 +12,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/dashboard',
     home: true,
   },{
+    title: 'chat',
+    icon: 'ion-paper-airplane',
+    link: '/pages/chat'
+  },{
     title: 'Tutoriales',
     icon: 'nb-home',
     link: '/pages/dashboard',
@@ -94,9 +98,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
       }, {
         title: 'Notifications',
         link: '/pages/components/notifications',
-      }, {
-        title: 'chat',
-        link: '/pages/components/chat'
       }
     ],
   },{
