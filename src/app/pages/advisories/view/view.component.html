@@ -53,12 +53,13 @@
             <div class="col-8">
                 <h5>Temas de Asesoria</h5>
             </div>
-            <div class="col-12 pad-le">
-                <ul>
-                    <li>compra de equipos adecuados</li>
-                    <li>armado de equipos segun mi guia</li>
-                    <li>configuracion de software via skype</li>
-                    <li>mantenimiento diario</li>
+            <div class="col-12 pad-le" *ngIf="advisory">
+                <ul *ngFor="let temas_asesoria of advisory.temas_asesoria">
+                    <li>
+                        {{advisory.temas_asesoria}}
+
+                        </li>
+                    
                 </ul>
             </div>
         </div>
