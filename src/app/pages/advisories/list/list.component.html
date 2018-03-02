@@ -1,18 +1,23 @@
+
 <nb-card>
-  <nb-card-body>
-    
-            <div class="row">
-              
-              <h3 class="btn btn-hero-info col-12 col-md-12">Asesoria Personal-Couching</h3>
-              
-            </div>
+  <nb-card-body style="padding-top:0px;padding-left:0px;padding-right:0px;">
+      <div class="row">
+                
+          <div class="col-12">
+                  <button type="button" class="btn btn-info btn-lg btn-block">Asesoria Personal - Couching</button>
+                 </div> 
+           </div>
+    <div class="row">
+        <div class="col-12 col-md-6"style="padding-bottom:20px;" *ngFor="let advisory of advisories">
+
       
-            
+      
+            <div class="card" style="background-color:palegoldenrod">
              
             
-            <div class="row">
+            <div class="row" style="padding-left:20px;">
               <div class="col-4 col-md-2">
-                  <a [routerLink]="['/pages/advisories/view']">
+                  <a [routerLink]="['/pages/advisories/view', advisory.id ]">
                   <img src="https://es.tradingview.com/i/jNGFZIAD/" alt="card image" class="card-img-top pad-t">
                 </a>
               </div>
@@ -20,7 +25,7 @@
                 <div class="row">
                   <div class="col-12 pad-ltitulo">
                         <h4 class="card-title pad-t">
-                          <strong class="item text-elegant">Titulo en grande</strong>
+                          <strong class="item text-elegant">{{advisory.titulo}}</strong>
                         </h4>
                   </div>
 
@@ -28,7 +33,7 @@
 
                 <div class="row">
                    <div class="col-12 pad-ltitulo">
-                          ingles,español
+                      {{advisory.idiomas}}
                           <span class="badge badge-pill badge-primary small">virtual</span>
                           <span class="badge badge-pill badge-danger small">presencial</span>
                    </div>
@@ -41,7 +46,7 @@
                 <div class="row">
                   <div class="col-12 col-md-8 pad-t pad-ltitulo">
                       <i class="fa fa-map-marker fa-1x"></i>
-                      <span class="text-success">Cochabamba-Bolivia</span>
+                      <span class="text-success">{{advisory.ubicacion}}</span>
                       
                   </div >
                  </div>
@@ -52,15 +57,15 @@
             
 
             </div>
-            <div class="row  pad-t pad-bot" >
+            <div class="row  pad-t pad-bot" style="padding-left:25px;" >
               <div class="col-12 pad-luser text-info">Juan jose perez
                 <span class="badge badge-pill badge-secondary">7P</span>
                 <span class="badge badge-pill badge-info">3E</span></div>
               
            </div>
-           <div class="row pad-t pad-bot">
+           <div class="row pad-t pad-bot" style="padding-left:30px;padding-right:15px;">
               <div class="col-6">
-                <small class="text-muted"><h5>8 $ctk / hr</h5></small>
+                <small class="text-muted"><h5>{{advisory.costo}} $ctk / hr</h5></small>
               </div>
               <div class="col-2">
                 <span class="socials">
@@ -84,8 +89,9 @@
         
             
           
-        
-      
+        </div>
+        </div>
+      </div>
     
   </nb-card-body>
 </nb-card>

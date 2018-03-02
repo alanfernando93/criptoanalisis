@@ -20,7 +20,7 @@ import 'rxjs/add/operator/map';
     }
 
     getAdvisoriesId(id){
-        return this.http.get('http://localhost:3000/api/' + 'asesoria_personals' + id )
+        return this.http.get('http://localhost:3000/api/' + 'asesoria_personals/' + id )
         .map((res: Response) => res.json())
     }
 

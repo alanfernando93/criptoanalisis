@@ -6,6 +6,7 @@ import { ListComponent } from './list/list.component';
 import { ViewComponent } from './view/view.component';
 import { InstruccionComponent } from './instruccion/instruccion.component';
 import { PagoComponent } from './pago/pago.component';
+import { DisputaComponent } from './disputa/disputa.component';
 
 const routes: Routes = [{
     path: '',
@@ -19,12 +20,20 @@ const routes: Routes = [{
        component: ViewComponent,
     },
     {
+        path: 'view/:advisoryId',
+        component: ViewComponent,
+      },
+    {
         path: 'instruccion',
        component: InstruccionComponent,
     },
     {
         path: 'pago',
        component: PagoComponent,
+    },
+    {
+        path: 'disputa',
+       component: DisputaComponent,
     },
     
     ]
@@ -42,4 +51,5 @@ export const routedComponents = [
     ViewComponent,
     InstruccionComponent,
     PagoComponent,
+    DisputaComponent,
 ];
