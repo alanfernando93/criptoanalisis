@@ -183,32 +183,14 @@ Noticia.afterRemote('like', function(ctx, noticia, next) {
               }
       next();
     });
-  Noticia.Listar_noticias = function(cb) {
-    Noticia.find({
-      where: {
-        titulo: 'bitcoin',
-      },
-    }, cb);
-  };
 
-  Noticia.remoteMethod('Listar_noticias', {
-    returns: {arg: 'Noticias', type: 'array'},
-    http: {path: '/listar_noticias', verb: 'get'},
-  });
-  Noticia.afterRemote('find', function(ctx, noticia, next) {
-    ctx.result.forEach(element => {
-      element.fecha_create=Date.now();
-      console.log(element.fecha_create);
-    });
-    next();
-  });
 // validacion campos de noticia  
   Noticia.observe('before save', function(context, next) {
     var tit = context.instance.titulo;
     var cont = context.instance.contenido;
-    if (tit.length > 25)
+    if (tit.length > 90)
 {
-      return next(new HttpErrors.BadRequest('Titulo debe tener como maximo 25 caracteres'));
+      return next(new HttpErrors.BadRequest('Titulo debe tener como maximo 90 caracteres caracteres'));
 }
     if (tit === ' ')
 {
