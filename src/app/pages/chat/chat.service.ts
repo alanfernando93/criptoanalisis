@@ -45,7 +45,7 @@ export class ChatService {
     .map((res: Response) => res.json())
    }
    getoldMessages(room: string){
-    return this.http.get('http://localhost:3000/api/messageRooms/RoomMessage/' +room+'?access_token=' + localStorage.getItem('auth_app_token'))
+    return this.http.get(this.baseUrl +'/messageRooms/RoomMessage/' +room+'?access_token=' + localStorage.getItem('auth_app_token'))
     .map((res: Response) => res.json())
    }
 
