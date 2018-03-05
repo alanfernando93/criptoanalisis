@@ -24,6 +24,11 @@ import 'rxjs/add/operator/map';
         .map((res: Response) => res.json())
     }
 
+    getAdvisoriesIntruccion(id){
+        return this.http.get('http://localhost:3000/api/' + 'asesoria_personals/' + id +'/instruccions')
+        .map((res: Response) => res.json())
+        
+    }    
     
     
  }

@@ -1,18 +1,20 @@
 .socials {
     font-size: 1.2rem;
-    span {
+    a {
       padding: 0.4rem;
       color: #a4abb3;
       transition: color ease-out 0.1s;
       text-decoration: none;
+      cursor: pointer;
 
       &:hover {
-        color: royalblue;
+        color: steelblue !important;
       }
     }
   }
 .whatsapp{
   span{
+    font-size: 0.8rem;
     &:hover{
       color: #25d366;
     }
@@ -20,12 +22,14 @@
 }
 .twitter{
   span{
+    font-size: 0.8rem;
     &:hover{
       color: #00acee;
     }
   }
 }
 .facebook{
+  font-size: 0.8rem;
   span{
     &:hover{
       color: #3b5998;

@@ -38,6 +38,9 @@ const routes: Routes = [{
       path: 'news',
       loadChildren: './news/news.module#NewsModule',
    }, {
+      path: 'markets',
+      loadChildren: './markets/markets.module#MarketsModule',
+   },{
       path: 'signals',
       loadChildren: './signals/signals.module#SignalsModule',
    }, {

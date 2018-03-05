@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'ngx-market',
+    selector: 'ngx-markets',
     template: '<router-outlet></router-outlet>'
 })
-export class MarketComponent {
+export class MarketsComponent {
     
 }

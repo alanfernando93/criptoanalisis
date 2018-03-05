@@ -36,7 +36,7 @@
             <div class="col-12 col-md-6">
                 <div class="row">
                     <h3 class="btn btn-hero-info col-12 col-md-12">Analisis fundamental</h3>
-                    <p>{{new.AnalisisFundamental}}</p>
+                    <p>{{signal.AnalisisFundamental}}</p>
 
                 </div>
                 <div class="row">
@@ -113,9 +113,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-6" *ngIf="signal">
                 <h3 class="btn btn-hero-info col-12 col-dm-11">Analisis tecnico</h3>
-                <p>{{new.AnalisisTecnico}}</p>
+                <p>{{signal.AnalisisTecnico}}</p>
                 <div class="text-center">
                     <img src="../../../assets/images/esla.png" class="rounded" alt="...">
                 </div>
@@ -129,28 +129,36 @@
     </nb-card-body>
 </nb-card>
 <nb-card>
-    <nb-card-body>
-        <div class="row">
-            <div class="col-md-5 col-sm-12 col-12">
-                <h4>Compartir : </h4>
-            </div>
-            <div class="col-md-1 col-sm-2 col-2 socials">
-                <a href="#" class="ion ion-social-facebook socials"></a>
-            </div>
-            <div class="col-md-1 col-sm-2 col-2 socials">
-                <a href="#" class="ion ion-social-twitter socials"></a>
-            </div>
-            <div class="col-md-2 col-sm-2 col-2 socials">
-                <a href="#" class="ion ion-social-whatsapp socials"></a>
-            </div>
-            <div class="col-md-2 col-sm-2 col-3 socials">
-                <a href="#" class="fa fa-thumbs-up socials">45</a>
-            </div>
-            <div class="col-md-1 col-sm-2 col-2 socials">
-                <a href="#" class="fa fa-thumbs-down socials">74</a>
-            </div>
-        </div>
-    </nb-card-body>
+        <nb-card-body>
+                <div class="row" *ngIf="news">
+                    <div class="col-md-5 col-sm-12 col-12">
+                        <h5>Compartir : </h5>
+                    </div>
+                    <div class="col-md-1 col-sm-2 col-2 facebook">
+                        <span class="font-w-light up">
+                            <i class="fa fa-facebook-f fa-2x"></i>
+                        </span>
+                    </div>
+                    <div class="col-md-1 col-sm-2 col-2 twitter">
+                        <span class="font-w-light up">
+                            <i class="fa fa-twitter fa-2x"></i>
+                        </span>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-2 whatsapp">
+                        <span class="font-w-light up">
+                            <i class="fa fa-whatsapp fa-2x"></i>
+                        </span>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-3 socials">
+                        <a class="font-w-light up">
+                            <i class="fa fa-thumbs-up"></i>84</a>
+                    </div>
+                    <div class="col-md-1 col-sm-2 col-2 socials">
+                        <a class="font-w-light down">
+                            <i class="fa fa-thumbs-down"></i>12</a>
+                    </div>
+                </div>
+            </nb-card-body>
 </nb-card>
 
 <nb-card>

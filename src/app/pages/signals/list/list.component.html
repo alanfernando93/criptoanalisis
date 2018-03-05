@@ -28,7 +28,7 @@
           </a>
           <div class="card-body">
             <h4 class="card-title">
-              <strong class="item text-success">{{signal.titulo}}</strong>
+              <strong class="item text-success" [routerLink]="['/pages/signals/view', signal.id]">{{signal.titulo}}</strong>
             </h4>
             <a class="card-text d-none d-sm-block" [routerLink]="['/pages/signals/view', signal.id]">
               {{signal.AnalisisFundamental}}

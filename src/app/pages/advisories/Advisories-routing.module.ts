@@ -28,6 +28,10 @@ const routes: Routes = [{
        component: InstruccionComponent,
     },
     {
+        path: 'instruccion/:advisoryId',
+       component: InstruccionComponent,
+    },
+    {
         path: 'pago',
        component: PagoComponent,
     },

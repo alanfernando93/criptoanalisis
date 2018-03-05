@@ -64,8 +64,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/ui-features/tabs',
       },
     ],
-  },
-  {
+  },{
     title: 'Forms',
     icon: 'nb-compose',
     children: [
@@ -78,19 +77,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/forms/layouts',
       },
     ],
-  },
-  {
-    title: 'Asesoria Principal',
-    icon: 'nb-compose',
-    children: [
-      {
-        title: 'lista de asesorias',
-        link: '/pages/advisories/list',
-      },
-      
-    ],
-  },
-  {
+  },{
     title: 'Components',
     icon: 'nb-gear',
     children: [
@@ -111,6 +98,25 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/news/list',
       },
     ],
+  },
+  {
+    title: 'Advisory',
+    icon: 'nb-layout-sidebar-right',
+    children: [
+      {
+        title: 'List advisory',
+        link: '/pages/advisories/list',
+      },
+    ],
+  },{
+    title: 'Markets',
+    icon: 'nb-title',
+    children: [
+      {
+        title: 'List Markets',
+        link: '/pages/markets/list'
+      },
+    ],
   },{
     title: 'Coins',
     icon: 'nb-plus-circled',
@@ -120,8 +126,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/coins/list'
       },
     ],
-  },
-  {
+  },{
     title: 'Signals',
     icon: 'nb-paper-plane',
     children: [

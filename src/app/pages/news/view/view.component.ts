@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import { NoticiasService } from '../noticias.service';
+import { NewsService } from '../news.service';
 
 @Component({
   selector: 'ngx-view',
@@ -10,21 +10,49 @@ import { NoticiasService } from '../noticias.service';
   styleUrls: ['./view.component.scss']
 })
 export class ViewComponent implements OnInit {
+  
+  news: any;
+  like:number;
+  dislike:number;
 
-  new: any;
-  constructor(private http: Http, private route: ActivatedRoute, private noticiasService: NoticiasService,) {
-      
+  constructor(
+          private http: Http, 
+          private route: ActivatedRoute, 
+          private newsService: NewsService ) {
+
   }
-  ngOnInit(){
-    this.getNewsById()
+  ngOnInit() {
+    this.getNewsById(),
+    this.sendDislike(),
+    this.sendLike()
   }
 
-    getNewsById(){
-      this.route.params.forEach((params: Params) => {
-        let id = params['newId'];
-        this.noticiasService.getNewsId(id).subscribe((noticias) => {
-          this.new = noticias;
-        });
+  getNewsById() {
+    this.route.params.forEach((params: Params) => {
+      let id = params['newsId'];
+      this.newsService.getNewsId(id).subscribe((news) => {
+        this.news = news;
       });
-    }
+    });
+  }
+
+  sendDislike(){
+    this.route.params.forEach((params: Params) => {
+      let id = params['newsId'];
+    this.newsService.postDislikes(id).subscribe(data => {
+      this.dislike = data;
+      this.news=data;
+      });
+    });
+  }
+
+  sendLike(){
+    this.route.params.forEach((params: Params) => {
+      let id = params['newsId'];
+    this.newsService.postLikes(id).subscribe(data => {
+      this.like = data;
+      this.news=data;
+      });
+    });
+  }
 }

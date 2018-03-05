@@ -33,5 +33,5 @@ export class SignalsRoutingModule{ }
 export const routedComponents = [
   SignalsComponent,
   ListComponent,
-  ViewComponent,
+  ViewComponent
 ];

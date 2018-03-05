@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { SignalsService } from '../signals.service';
 
@@ -14,7 +14,11 @@ export class ViewComponent implements OnInit {
 
   signal:any;
 
-  constructor(private http: Http, private route: ActivatedRoute, private signalsService: SignalsService) {
+  constructor(
+    private http: Http, 
+    private route: ActivatedRoute,
+    private router: Router, 
+    private signalsService: SignalsService) {
       
   }
 
@@ -30,4 +34,6 @@ export class ViewComponent implements OnInit {
         });
       });
     }
+
+    
 }
