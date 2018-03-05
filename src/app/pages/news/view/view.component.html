@@ -22,14 +22,13 @@
 <nb-card>
     <nb-card-header>
         <div class="row" *ngIf="news">
-            <h4 class="col-12 col-lg-12 text-primary">{{news.titulo}}</h4>
+            <h4 class="col-12 col-lg-12 text-primary" [innerHTML]="news.titulo"></h4>
             <span class="col-12 col-lg-12 text-primary">{{news.fecha_create}}</span>
         </div>
     </nb-card-header>
     <nb-card-body>
         <div class="row" *ngIf="news">
-            <div class="col-md-12 text-body">
-                {{news.contenido}}
+            <div class="col-md-12 text-body" [innerHTML]="news.contenido">
             </div>
             <p class="col-md-6">Fuente : {{news.fuentes}}</p>
             <p class="col-md-6">Tipo de Modena : {{news.tipo_moneda}}</p>
