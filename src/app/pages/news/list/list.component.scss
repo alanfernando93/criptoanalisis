@@ -3,19 +3,17 @@
     nb-card {
         transform: translate3d(0, 0, 0);
     }
-    .icons {
+    .coin {
         color: grey;
+        &:hover {
+            color: midnightblue;
+        }
     }
-    .icons:hover {
-        color: black;
-    }
-    .coin:hover {
-        color: darkgrey !important;
-    }
+
     .hands{
-        font-size: 20px;
-    }
-    .hands:hover{ 
+        font-size: 20px;   
+        &:hover{ 
         color: #3b5998
+        }
     }
 }

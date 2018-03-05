@@ -8,38 +8,44 @@
 <nb-card *ngFor="let news of news">
   <nb-card-header>
     <div class="row">
-      <div class="col-md-3">
-        <h5 class="text-primary" [innerHTML]="news.titulo">Titulo de la Noticia - 25 F</h5>
+      <div class="col-6 col-md-3">
+        <h5 class="text-primary">Juan Perez - 25 F</h5>
       </div>
-      <div class="col-md-6 pull-left icons">
+      <div class="col-4 col-md-6 pull-left icons">
         <i class="fa fa-binoculars"></i>
         <i class="fa fa-diamond"></i>
       </div>
-      <div class="col-md-3 coin">
-        <span class="font-w-light pull-right">ETH</span>
+      <div class="col-2 col-md-3 coin">
+        <h4 class="font-w-light pull-right">ETH</h4>
       </div>
     </div>
   </nb-card-header>
   <nb-card-body>
     <div class="row">
-      <div class="col-md-10">
-        <a class="text-body" [routerLink]="['/pages/news/view', news.id]" [innerHTML]="news.contenido"></a>
-      </div>
+      <div class="col-12 col-md-10">
+        <h2>
+            <a class="text-body" [routerLink]="['/pages/news/view', news.id]" [innerHTML]="news.titulo"></a>
+        </h2>
+        </div>
       <div class="col-md-2">
-        <img src="../../../assets/images/cover2.jpg" class="rounded" alt="">
+        <img src="../../../assets/images/cover2.jpg" class="rounded d-none d-sm-block" alt="">
       </div>
     </div>
   </nb-card-body>
   <nb-card-footer>
     <div class="row">
-      <div class="col-6 col-md-6">
-        <p class="test-body" [innerHTML]="news.fecha_create"></p>
+      <div class="col-6 col-md-10">
+        <p class="test-body" [innerHTML]="news.fecha_create | date:'MMM d, y, h:mm:ss a'"></p>
       </div>
-      <div class="col-6 col-md-6 hands">
-        <span class="font-w-light up pull-right">
-          <i class="fa fa-thumbs-up up" [innerHTML]="news.likes.total"></i></span>
-        <span class="font-w-light down pull-right">
-          <i class="fa fa-thumbs-down down" [innerHTML]="news.dislikes.total"></i></span>
+      <div class="col-3 col-md-1 hands">
+        <span class="font-w-light up">
+          <i class="fa fa-thumbs-up up" [innerHTML]="news.likes.total"></i>
+        </span>
+      </div>
+      <div class="col-3 col-md-1 hands">
+        <span class="font-w-light down">
+          <i class="fa fa-thumbs-down down" [innerHTML]="news.dislikes.total"></i>
+        </span>
       </div>
     </div>
   </nb-card-footer>
