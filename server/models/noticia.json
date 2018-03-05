@@ -13,6 +13,7 @@
     },
     "contenido": {
       "type": "string",
+      "dataType": "text",
       "required": true
     },
     "tipo_moneda": {
