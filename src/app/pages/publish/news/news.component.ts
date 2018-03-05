@@ -20,7 +20,7 @@ export class PublishNewsComponent implements OnInit {
   contenido;
 
   selectedView = {
-    name: "Seleccione"
+    name: "Seleccione Moneda"
   };
 
   constructor(
