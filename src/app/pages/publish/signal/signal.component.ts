@@ -38,6 +38,7 @@ export class SignalComponent implements OnInit {
       },{
         id: 'ETH'
       }];
+
     constructor(
         private modalService: NgbModal,
         private renderer: Renderer2,
@@ -95,26 +96,32 @@ export class SignalComponent implements OnInit {
         this.renderer.setProperty(d1, 'aria-label', "Amount (to the nearest dollar)");
         this.renderer.setProperty(d1, 'type', "text");
         this.renderer.setProperty(d1, 'value', this.data1.nativeElement.value);
+        this.renderer.setAttribute(d1,'disabled','true');
         
         const d2 = this.renderer.createElement('input');
         this.renderer.addClass(d2,"form-control");
         this.renderer.setProperty(d2, 'aria-label', "Amount (to the nearest dollar)");
         this.renderer.setProperty(d2, 'type', "text");
         this.renderer.setProperty(d2, 'value', this.data2.nativeElement.value);
+        this.renderer.setAttribute(d2,'disabled','true');
         
         const edit = this.renderer.createElement('span');
         this.renderer.addClass(edit,"input-group-btn");
         const bedit = this.renderer.createElement('button');
-        this.renderer.addClass(bedit,"btn btn-secondary");
-        this.renderer.setProperty(bedit,'type','button');
+        this.renderer.addClass(bedit,"btn");
+        this.renderer.addClass(bedit,"btn-secondary");
+        this.renderer.setProperty(bedit,'type','button');        
+        // this.renderer.listen(bedit,'(click)',onClickEdit());
+        console.log(bedit);
         this.renderer.appendChild(edit,bedit);
         const iedit = this.renderer.createElement('i');
         this.renderer.addClass(iedit,"fa");
-        this.renderer.addClass(iedit,"fa-pencil");
+        this.renderer.addClass(iedit,"fa-pencil");        
         this.renderer.appendChild(bedit,iedit);
 
         const remove = this.renderer.createElement('span');
-        this.renderer.addClass(remove,"input-group-btn");
+        this.renderer.addClass(remove,"input-group-addon");
+        this.renderer.addClass(remove,"rigth");
         const iremove = this.renderer.createElement('i');
         this.renderer.addClass(iremove,"fa");
         this.renderer.addClass(iremove,"fa-times-circle");
@@ -132,5 +139,13 @@ export class SignalComponent implements OnInit {
         this.renderer.insertBefore(this.container.nativeElement,_body,this.container.nativeElement.children[lenght-1]);
         
         this.punto += 1;
+    }
+
+    onClickRemove(){
+
+    }
+
+    onClickEdit(){
+        console.log("edit ***");
     }
 }

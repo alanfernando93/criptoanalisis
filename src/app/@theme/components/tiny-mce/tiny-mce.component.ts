@@ -45,7 +45,7 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
   constructor(
     private host: ElementRef,
     public userService: UserService,
-  ) {console.log(this.userService.getToken())}
+  ) { }
 
   ngAfterViewInit() {
     tinymce.init({
