@@ -1,0 +1,28 @@
+{
+  "name": "instruccion",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "como_contratar": {
+      "type": "string"
+    },
+    "terminos": {
+      "type": [
+        "string"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {
+    "asesoriaPersonal": {
+      "type": "belongsTo",
+      "model": "asesoria_personal",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
