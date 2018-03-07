@@ -15,13 +15,7 @@ import { CoinsService } from "../../../services/coins.service";
 
 export class SignalComponent implements OnInit {
     @Input() idSignal: String = null;
-
-    @ViewChild('container') container : ElementRef;
-    @ViewChild('data1') data1 : ElementRef;
-    @ViewChild('data2') data2 : ElementRef;
-    refCont1;
-    refD2;
-    refD3
+    
     pntEnt = 1;
     tpSal = 1;
     stopLoss = 1;
@@ -83,95 +77,98 @@ export class SignalComponent implements OnInit {
 
     }
 
-    onClickPuntos(option,select) {
-        this.refCont1 = select;
-        console.log(this.container);
-        // const _body = this.renderer.createElement('div');
-        // this.renderer.addClass(_body,"row");
-
-        // const content = this.renderer.createElement('div');
-        // this.renderer.addClass(content,"contenedor");
-        // this.renderer.addClass(content,"input-group")
+    onClickPuntos($events,option,ptn) {
         
-        // const span = this.renderer.createElement('span');
-        // this.renderer.addClass(span,"input-group-addon");
-        // this.renderer.appendChild(span,this.renderer.createText('Punto ' + this.punto));
+        const container = $events.originalTarget.parentNode.parentNode.parentNode.parentNode;
+        const data1 = $events.originalTarget.parentNode.parentNode.children[1];
+        const data2 = $events.originalTarget.parentNode.parentNode.children[2];
 
-        // const d1 = this.renderer.createElement('input');
-        // this.renderer.addClass(d1,"form-control");
-        // this.renderer.setProperty(d1, 'aria-label', "Amount (to the nearest dollar)");
-        // this.renderer.setProperty(d1, 'type', "text");
-        // this.renderer.setProperty(d1, 'value', this.data1.nativeElement.value + " " + this.selectedType.id);
-        // this.renderer.setAttribute(d1,'disabled','true');
+        const _body = this.renderer.createElement('div');
+        this.renderer.addClass(_body,"row");
+
+        const content = this.renderer.createElement('div');
+        this.renderer.addClass(content,"contenedor");
+        this.renderer.addClass(content,"input-group")
         
-        // const d2 = this.renderer.createElement('input');
-        // this.renderer.addClass(d2,"form-control");
-        // this.renderer.setProperty(d2, 'aria-label', "Amount (to the nearest dollar)");
-        // this.renderer.setProperty(d2, 'type', "text");
-        // this.renderer.setProperty(d2, 'value', this.data2.nativeElement.value + " %");
-        // this.renderer.setAttribute(d2,'disabled','true');
+        const span = this.renderer.createElement('span');
+        this.renderer.addClass(span,"input-group-addon");
+        this.renderer.appendChild(span,this.renderer.createText('Punto ' + ptn));
+
+        const d1 = this.renderer.createElement('input');
+        this.renderer.addClass(d1,"form-control");
+        this.renderer.setProperty(d1, 'aria-label', "Amount (to the nearest dollar)");
+        this.renderer.setProperty(d1, 'type', "text");
+        this.renderer.setProperty(d1, 'value', data1.value + " " + this.selectedType.id);
+        this.renderer.setAttribute(d1,'disabled','true');
         
-        // const edit = this.renderer.createElement('span');
-        // this.renderer.addClass(edit,"input-group-btn");
-        // const bedit = this.renderer.createElement('button');
-        // this.renderer.addClass(bedit,"btn");
-        // this.renderer.addClass(bedit,"btn-secondary");
-        // this.renderer.setProperty(bedit,'type','button');        
-        // this.renderer.listen(bedit,'click', ($event) => {
-        //     const oldBody = $event.originalTarget.parentNode.parentNode;
-        //     const input1 = oldBody.children[1];
-        //     const input2 = oldBody.children[2];
-        //     this.renderer.removeAttribute(input1,'disabled');
-        //     this.renderer.removeAttribute(input2,'disabled');
-    	// });
-        // this.renderer.appendChild(edit,bedit);
-        // const iedit = this.renderer.createElement('i');
-        // this.renderer.addClass(iedit,"fa");
-        // this.renderer.addClass(iedit,"fa-pencil");        
-        // this.renderer.appendChild(bedit,iedit);
-
-        // const remove = this.renderer.createElement('span');
-        // this.renderer.addClass(remove,"input-group-btn");
-        // this.renderer.addClass(remove,"rigth");
-        // const bremove = this.renderer.createElement('button');
-        // this.renderer.addClass(bremove,"btn");
-        // this.renderer.addClass(bremove,"btn-secondary");
-        // this.renderer.setProperty(bremove,'type','button');        
-        // this.renderer.listen(bremove,'click', ($event) => {
-        //     const oldBody = $event.originalTarget.parentNode.parentNode.parentNode;
-        //     this.renderer.removeChild(oldBody.parentNode,oldBody);
-        //     // this.punto -= 1;
-        //     switch(option){
-        //         case 'puntEntr': this.pntEnt -=1;break;
-        //         case 'tipSal': this.tpSal -=1;break;
-        //         case 'stopLoss': this.stopLoss -=2;break;
-        //     }
-        // });
-        // this.renderer.appendChild(remove,bremove);
-        // const iremove = this.renderer.createElement('i');
-        // this.renderer.addClass(iremove,"fa");
-        // this.renderer.addClass(iremove,"fa-times-circle");
-        // this.renderer.appendChild(bremove,iremove);
-
-        // this.renderer.appendChild(content,span);
-        // this.renderer.appendChild(content,d1);
-        // this.renderer.appendChild(content,d2);
-        // this.renderer.appendChild(content,edit);
-        // this.renderer.appendChild(content,remove);
-
-        // this.renderer.appendChild(_body,content);
+        const d2 = this.renderer.createElement('input');
+        this.renderer.addClass(d2,"form-control");
+        this.renderer.setProperty(d2, 'aria-label', "Amount (to the nearest dollar)");
+        this.renderer.setProperty(d2, 'type', "text");
+        this.renderer.setProperty(d2, 'value', data2.value + " %");
+        this.renderer.setAttribute(d2,'disabled','true');
         
-        // let lenght = this.container.nativeElement.children.length;
-        // this.renderer.insertBefore(this.container.nativeElement,_body,this.container.nativeElement.children[lenght-1]);
-        
-        // this.data1.nativeElement.value = '';
-        // this.data2.nativeElement.value = '';
+        const edit = this.renderer.createElement('span');
+        this.renderer.addClass(edit,"input-group-btn");
+        const bedit = this.renderer.createElement('button');
+        this.renderer.addClass(bedit,"btn");
+        this.renderer.addClass(bedit,"btn-secondary");
+        this.renderer.setProperty(bedit,'type','button');        
+        this.renderer.listen(bedit,'click', ($event) => {
+            const oldBody = $event.originalTarget.parentNode.parentNode;
+            const input1 = oldBody.children[1];
+            const input2 = oldBody.children[2];
+            this.renderer.removeAttribute(input1,'disabled');
+            this.renderer.removeAttribute(input2,'disabled');
+    	});
+        this.renderer.appendChild(edit,bedit);
+        const iedit = this.renderer.createElement('i');
+        this.renderer.addClass(iedit,"fa");
+        this.renderer.addClass(iedit,"fa-pencil");        
+        this.renderer.appendChild(bedit,iedit);
 
-        // // this.punto += 1;
-        // switch(option){
-        //     case 'puntEntr': this.pntEnt +=1;break;
-        //     case 'tipSal': this.tpSal +=1;break;
-        //     case 'stopLoss': this.stopLoss +=1;break;
-        // }
+        const remove = this.renderer.createElement('span');
+        this.renderer.addClass(remove,"input-group-btn");
+        this.renderer.addClass(remove,"rigth");
+        const bremove = this.renderer.createElement('button');
+        this.renderer.addClass(bremove,"btn");
+        this.renderer.addClass(bremove,"btn-secondary");
+        this.renderer.setProperty(bremove,'type','button');        
+        this.renderer.listen(bremove,'click', ($event) => {
+            const oldBody = $event.originalTarget.parentNode.parentNode.parentNode;
+            this.renderer.removeChild(oldBody.parentNode,oldBody);
+            // this.punto -= 1;
+            switch(option){
+                case 'puntEntr': this.pntEnt -=1;break;
+                case 'tipSal': this.tpSal -=1;break;
+                case 'stopLoss': this.stopLoss -=2;break;
+            }
+        });
+        this.renderer.appendChild(remove,bremove);
+        const iremove = this.renderer.createElement('i');
+        this.renderer.addClass(iremove,"fa");
+        this.renderer.addClass(iremove,"fa-times-circle");
+        this.renderer.appendChild(bremove,iremove);
+
+        this.renderer.appendChild(content,span);
+        this.renderer.appendChild(content,d1);
+        this.renderer.appendChild(content,d2);
+        this.renderer.appendChild(content,edit);
+        this.renderer.appendChild(content,remove);
+
+        this.renderer.appendChild(_body,content);
+        
+        let lenght = container.children.length;
+        this.renderer.insertBefore(container,_body,container.children[lenght-1]);
+        
+        data1.value = '';
+        data2.value = '';
+
+        // this.punto += 1;
+        switch(option){
+            case 'puntEntr': this.pntEnt +=1;break;
+            case 'tipSal': this.tpSal +=1;break;
+            case 'stopLoss': this.stopLoss +=1;break;
+        }
     }
 }

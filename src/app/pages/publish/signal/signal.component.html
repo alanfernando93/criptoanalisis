@@ -50,17 +50,17 @@
         </div>
         <div class="row col inputgroup">
             <div class="col-6">
-                <div class="row col" id="pntEnt" #container>
+                <div class="row col">
                     <div class="row">
                         <h5>Puntos de entrada</h5>
                     </div>
                     <div class="row">
                         <div class="contenedor input-group">
-                            <span class="input-group-addon">Punto {{punto}}</span>
-                            <input #data1 type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Valor (USD)">
-                            <input #data2 type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="% Capital">
+                            <span class="input-group-addon">Punto {{pntEnt}}</span>
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Valor (USD)">
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="% Capital">
                             <span class="input-group-btn">
-                                <button  class="btn btn-secondary" (click)="onClickPuntos('puntEntr','container')">
+                                <button  class="btn btn-secondary" (click)="onClickPuntos($event,'puntEntr',pntEnt)">
                                     Añadir
                                 </button>
                             </span>
@@ -68,11 +68,41 @@
                     </div>
                 </div>
                 <div class="row col">
-                    <h5>Stop Loss</h5>
+                    <div class="row">
+                        <h5>Stop Loss</h5>
+                    </div>
+                    <div class="row">
+                        <div class="contenedor input-group">
+                            <span class="input-group-addon">Punto {{stopLoss}}</span>
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Valor (USD)">
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="% Capital">
+                            <span class="input-group-btn">
+                                <button  class="btn btn-secondary" (click)="onClickPuntos($event,'stopLoss',stopLoss)">
+                                    Añadir
+                                </button>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-6">
-                <h5>Tipo de salido</h5>
+                <div class="row col">
+                    <div class="row">
+                        <h5>Tipo de salido</h5>
+                    </div>
+                    <div class="row">
+                        <div class="contenedor input-group">
+                            <span class="input-group-addon">Punto {{pntEnt}}</span>
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Valor (USD)">
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="% Capital">
+                            <span class="input-group-btn">
+                                <button  class="btn btn-secondary" (click)="onClickPuntos($event,'tipSal',tpSal)">
+                                    Añadir
+                                </button>
+                            </span>
+                        </div>
+                    </div>                    
+                </div>
             </div>
         </div>
     </div>
