@@ -13,7 +13,8 @@ export class ChatComponent implements OnInit {
   msg : string;
   messages = [];
   connection;
-  roomId : string;
+  users =[];
+  chatId : string;
   rooms : any;
   showMsg: boolean = true;
   showRoom: boolean = true;
@@ -23,35 +24,39 @@ export class ChatComponent implements OnInit {
     this.connection = this.chatService.getMessages().subscribe(message =>{
       this.messages.push(message);
     });
-    this.getrooms();
+    this.getChats();
   }
 
   sendMsg(msg){
-     this.chatService.sendMessage(msg,this.roomId);
+     this.chatService.sendMessage(msg,this.chatId);
      console.log(msg)
      this.msg ='';
   }
-  join(room){
-    if(this.roomId!=room){
-    this.leave(this.roomId);
-    this.roomId= room;
-    this.chatService.join(this.roomId);
-    this.messages = [];
-    this.getoldMessages(room);
-    console.log('uniendo a sala: ', this.roomId);
-    }
+  joinRoom(Id){
+      if(this.chatId!=Id){
+        this.leave(this.chatId);
+        this.chatId= Id;
+        this.chatService.join(this.chatId);
+        this.messages = [];
+        this.getoldMessages(Id);
+        console.log('uniendo a sala: ', this.chatId);
+        }
   }
 
   leave(room){
-    this.chatService.leave(this.roomId);
-    console.log('sala abandonada', this.roomId);
-    this.roomId="";
+    this.chatService.leave(this.chatId);
+    console.log('sala abandonada', this.chatId);
+    this.chatId="";
   }
 
-  getrooms(){
+  getChats(){
     this.chatService.getrooms().subscribe(data =>{
       this.rooms = data;
-    })
+    });
+    this.chatService.getUsers().subscribe(data =>{
+      this.users = data;
+      console.log(data);
+    });
   }
 
   getoldMessages(room:string){

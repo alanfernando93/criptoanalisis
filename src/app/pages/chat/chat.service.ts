@@ -48,5 +48,9 @@ export class ChatService {
     return this.http.get(this.baseUrl +'/messageRooms/RoomMessage/' +room+'?access_token=' + localStorage.getItem('auth_app_token'))
     .map((res: Response) => res.json())
    }
+   getUsers(){
+    return this.http.get(this.baseUrl + 'usuarios')
+    .map((res: Response) => res.json())
+   }
 
 }
