@@ -50,18 +50,18 @@
         </div>
         <div class="row col inputgroup">
             <div class="col-6">
-                <div class="row col" #container>
+                <div class="row col" id="pntEnt" #container>
                     <div class="row">
                         <h5>Puntos de entrada</h5>
                     </div>
                     <div class="row">
                         <div class="contenedor input-group">
                             <span class="input-group-addon">Punto {{punto}}</span>
-                            <input #data1 type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                            <input #data2 type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                            <input #data1 type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Valor (USD)">
+                            <input #data2 type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="% Capital">
                             <span class="input-group-btn">
-                                <button  class="btn btn-secondary" (click)="onClickPuntos()">
-                                    Establecer
+                                <button  class="btn btn-secondary" (click)="onClickPuntos('puntEntr','container')">
+                                    Añadir
                                 </button>
                             </span>
                         </div>
