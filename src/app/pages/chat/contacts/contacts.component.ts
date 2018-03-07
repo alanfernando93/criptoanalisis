@@ -10,13 +10,14 @@ import { ChatService } from '../chat.service';
 export class ContactsComponent implements OnInit, OnDestroy {
 
   contacts: any[];
-  recent: any[];
+  rooms: any[];
   breakpoint: NbMediaBreakpoint;
   breakpoints: any;
   themeSubscription: any;
 
   constructor(private themeService: NbThemeService,
-              private breakpointService: NbMediaBreakpointsService) {
+              private breakpointService: NbMediaBreakpointsService,
+              private chatService : ChatService) {
 
     this.breakpoints = this.breakpointService.getBreakpointsMap();
     this.themeSubscription = this.themeService.onMediaQueryChange()
@@ -26,6 +27,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.getChats();
 
     // this.userService.getUsers()
     //   .subscribe((users: any) => {
@@ -50,7 +52,15 @@ export class ContactsComponent implements OnInit, OnDestroy {
     //     ];
     //   });
   }
-  
+  getChats(){
+    this.chatService.getrooms().subscribe(data =>{
+      this.rooms = data;
+    });
+    this.chatService.getUsers().subscribe(data =>{
+      this.contacts = data;
+      console.log(data);
+    });
+  }
   ngOnDestroy() {
     this.themeSubscription.unsubscribe();
   }
