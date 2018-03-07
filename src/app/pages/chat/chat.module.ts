@@ -3,6 +3,7 @@ import { HttpModule } from '@angular/http';
 import { ThemeModule } from './../../@theme/theme.module';
 import {ChatComponent} from './chat.component';
 import { ChatService } from './chat.service';
+import { ContactsComponent } from './contacts/contacts.component';
 
 @NgModule({
   imports: [
@@ -10,7 +11,8 @@ import { ChatService } from './chat.service';
     HttpModule
   ],
   declarations:[
-    ChatComponent
+    ChatComponent,
+    ContactsComponent
   ],
   providers:[ChatService]
 })
