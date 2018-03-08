@@ -12,8 +12,20 @@
 
     .hands{
         font-size: 20px;   
-        &:hover{ 
-        color: #3b5998
+    }
+    @media (max-width: 576px) {
+        .title { font-size: 0.6em; }
+    }
+    @media (max-width: 768px) {
+        .title { font-size: 0.8em; }
+    }
+    @media (max-width: 992px) {
+        .title {font-size: 1em;}
+    }
+    @media (max-width: 576px) {
+        img {
+            width: 5em;
+            height: 6em;
         }
     }
 }

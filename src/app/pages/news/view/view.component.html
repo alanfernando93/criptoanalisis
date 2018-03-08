@@ -1,20 +1,26 @@
 <nb-card>
     <nb-card-header>
         <div class="row">
-            <div class="col-6 col-sm-2">
-                <span class="fa fa-user"></span>
+            <div class="col-3 col-md-1">
+                <img src="../../../assets/images/jack.png" class="img-thumbnail foto_user" alt="Responsive image">
             </div>
-            <div class="col-6 col-sm-4">
-                <span class="font-w-light">Juan Jose Perez</span>
+            <div class="col-9 col-md-3">
+                <p class="font-w-light user">Juan Jose Perez Perez</p>
             </div>
-            <div class="col-4 col-sm-3">
-                <span class="font-w-light">96 P</span>
+            <div class="col-4 col-md-1">
+                <h4>
+                    <span class="badge badge-primary font-w-light user">97 P</span>
+                </h4>
             </div>
-            <div class="col-4 col-sm-2">
-                <span class="font-w-light">25 f</span>
+            <div class="col-4 col-md-6">
+                <h4>
+                    <span class="badge badge-success font-w-light user">51 P</span>
+                </h4>
             </div>
-            <div class="col-4 col-sm-1">
-                <span class="font-w-light">ETH</span>
+            <div class="col-4 col-md-1">
+                <h3>
+                    <span class="badge badge-info font-w-light user">ETH</span>
+                </h3>
             </div>
         </div>
     </nb-card-header>
@@ -22,26 +28,41 @@
 <nb-card>
     <nb-card-header>
         <div class="row" *ngIf="news">
-            <h4 class="col-12 col-lg-12 text-primary" [innerHTML]="news.titulo"></h4>
-            <span class="col-12 col-lg-12 text-primary" [innerHTML]="news.fecha_create | date:'MMM d, y, h:mm:ss a'"></span>
+            <div class="col-12 col-md-10">
+                <h4 [innerHTML]="news.titulo"></h4>
+            </div>
+            <div class="col-6 col-md-2">
+                <h1>
+                    <span class="badge badge-secondary">{{news.tipo_moneda}}</span>
+                </h1>
+            </div>
+            <div class="col-6 col-md-12">
+                <span class=" text-primary date" [innerHTML]="news.fecha_create | date:'MMM d, y, h:mm:ss a'"></span>
+            </div>
         </div>
     </nb-card-header>
     <nb-card-body>
         <div class="row" *ngIf="news">
-            <div class="col-md-10 text-body" [innerHTML]="news.contenido"></div>
-            <div class="col-md-2">
-                <img src="../../../assets/images/cover2.jpg" class="rounded d-none d-sm-block" alt="">
-            </div>
-            <p class="col-md-6">Fuente : {{news.fuentes}}</p>
-            <p class="col-md-6">Tipo de Modena : {{news.tipo_moneda}}</p>
+            <div class="col-12 col-md-12 text-body" [innerHTML]="news.contenido"></div>
         </div>
     </nb-card-body>
+    <nb-card-footer>
+        <div class="row" *ngIf="news">
+            <p class="col-md-6">Fuente : {{news.fuentes}}</p>
+        </div>
+    </nb-card-footer>
 </nb-card>
 <nb-card>
     <nb-card-body>
         <div class="row" *ngIf="news">
-            <p class="col-md-6 col-12">Conjetura de moneda : {{news.conj_moneda}}</p>
-            <p class="col-md-6 col-12">Confetura de precio : {{news.conj_precio}}</p>
+            <div class="col-12 col-md-6">
+                <h3>Conjetura de precio :</h3>
+                <span [innerHTML]="news.conj_moneda"></span>
+            </div>
+            <div class="col-12 col-md-6">
+                <h3>Confetura a otra moneda :</h3>
+                <span [innerHTML]="news.conj_precio"></span>
+            </div>
         </div>
     </nb-card-body>
 </nb-card>
@@ -49,7 +70,7 @@
     <nb-card-body>
         <div class="row" *ngIf="news">
             <div class="col-md-5 col-sm-12 col-12">
-                <h5>Compartir : </h5>  
+                <h5>Compartir : </h5>
             </div>
             <div class="col-md-1 col-sm-2 col-2 facebook">
                 <span class="font-w-light up">
@@ -61,12 +82,12 @@
                     <i class="fa fa-twitter fa-2x"></i>
                 </span>
             </div>
-            <div class="col-md-2 col-sm-2 col-2 whatsapp">
+            <div class="col-md-3 col-sm-2 col-2 whatsapp">
                 <span class="font-w-light up">
                     <i class="fa fa-whatsapp fa-2x"></i>
                 </span>
             </div>
-            <div class="col-md-2 col-sm-2 col-3 socials">
+            <div class="col-md-1 col-sm-2 col-3 socials">
                 <a class="font-w-light up" (click)="sendLike()">
                     <i class="fa fa-thumbs-up"></i>{{news.likes.total}}</a>
             </div>

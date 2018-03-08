@@ -23,12 +23,12 @@
   <nb-card-body>
     <div class="row">
       <div class="col-12 col-md-10">
-        <h2>
+        <h3 class="title">
             <a class="text-body" [routerLink]="['/pages/news/view', news.id]" [innerHTML]="news.titulo"></a>
-        </h2>
+        </h3>
         </div>
       <div class="col-md-2">
-        <img src="../../../assets/images/cover2.jpg" class="rounded d-none d-sm-block" alt="">
+        <img src="../../../assets/images/cover1.jpg" class="img-thumbnail" alt="Cinque Terre" width="260" height="70">
       </div>
     </div>
   </nb-card-body>
@@ -38,12 +38,12 @@
         <p class="test-body" [innerHTML]="news.fecha_create | date:'MMM d, y, h:mm:ss a'"></p>
       </div>
       <div class="col-3 col-md-1 hands">
-        <span class="font-w-light up">
+        <span class="font-w-light up pull-right">
           <i class="fa fa-thumbs-up up" [innerHTML]="news.likes.total"></i>
         </span>
       </div>
       <div class="col-3 col-md-1 hands">
-        <span class="font-w-light down">
+        <span class="font-w-light down pull-right">
           <i class="fa fa-thumbs-down down" [innerHTML]="news.dislikes.total"></i>
         </span>
       </div>
