@@ -14,7 +14,7 @@ export class ChatComponent implements OnInit {
   messages = [];
   connection;
   users =[];
-  chatId : string;
+ chatId : string;
   rooms : any;
   showMsg: boolean = true;
   showRoom: boolean = true;
@@ -24,7 +24,6 @@ export class ChatComponent implements OnInit {
     this.connection = this.chatService.getMessages().subscribe(message =>{
       this.messages.push(message);
     });
-    this.getChats();
   }
 
   sendMsg(msg){
@@ -32,15 +31,15 @@ export class ChatComponent implements OnInit {
      console.log(msg)
      this.msg ='';
   }
-  joinRoom(Id){
-      if(this.chatId!=Id){
-        this.leave(this.chatId);
-        this.chatId= Id;
-        this.chatService.join(this.chatId);
-        this.messages = [];
-        this.getoldMessages(Id);
-        console.log('uniendo a sala: ', this.chatId);
-        }
+  ChatRoom(Room: string){
+    if(this.chatId!=Room){
+      this.leave(this.chatId);
+      this.chatId= Room;
+      this.chatService.join(this.chatId);
+      this.messages = [];
+      this.getoldMessages(Room);
+      console.log('uniendo a sala: ', this.chatId);
+      }
   }
 
   leave(room){
@@ -49,15 +48,6 @@ export class ChatComponent implements OnInit {
     this.chatId="";
   }
 
-  getChats(){
-    this.chatService.getrooms().subscribe(data =>{
-      this.rooms = data;
-    });
-    this.chatService.getUsers().subscribe(data =>{
-      this.users = data;
-      console.log(data);
-    });
-  }
 
   getoldMessages(room:string){
     this.chatService.getoldMessages(room).subscribe(data =>{
@@ -65,6 +55,7 @@ export class ChatComponent implements OnInit {
       console.log(data);
     })
   }
+  
   changeView(){
     if(this.showMsg){
       this.showMsg=false;

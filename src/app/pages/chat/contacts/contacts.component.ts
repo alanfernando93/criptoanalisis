@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
 import { NbThemeService, NbMediaBreakpoint, NbMediaBreakpointsService } from '@nebular/theme';
 import { ChatService } from '../chat.service';
 
@@ -14,6 +14,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
   breakpoint: NbMediaBreakpoint;
   breakpoints: any;
   themeSubscription: any;
+  @Output() onChat = new EventEmitter();
 
   constructor(private themeService: NbThemeService,
               private breakpointService: NbMediaBreakpointsService,
@@ -28,29 +29,6 @@ export class ContactsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getChats();
-
-    // this.userService.getUsers()
-    //   .subscribe((users: any) => {
-    //     this.contacts = [
-    //       {user: users.nick, type: 'mobile'},
-    //       {user: users.eva, type: 'home'},
-    //       {user: users.jack, type: 'mobile'},
-    //       {user: users.lee, type: 'mobile'},
-    //       {user: users.alan, type: 'home'},
-    //       {user: users.kate, type: 'work'},
-    //     ];
-
-    //     this.recent = [
-    //       {user: users.alan, type: 'home', time: '9:12 pm'},
-    //       {user: users.eva, type: 'home', time: '7:45 pm'},
-    //       {user: users.nick, type: 'mobile', time: '5:29 pm'},
-    //       {user: users.lee, type: 'mobile', time: '11:24 am'},
-    //       {user: users.jack, type: 'mobile', time: '10:45 am'},
-    //       {user: users.kate, type: 'work', time: '9:42 am'},
-    //       {user: users.kate, type: 'work', time: '9:31 am'},
-    //       {user: users.jack, type: 'mobile', time: '8:01 am'},
-    //     ];
-    //   });
   }
   getChats(){
     this.chatService.getrooms().subscribe(data =>{
@@ -58,8 +36,11 @@ export class ContactsComponent implements OnInit, OnDestroy {
     });
     this.chatService.getUsers().subscribe(data =>{
       this.contacts = data;
-      console.log(data);
     });
+  }
+  chatRoom(Room: string){
+    this.onChat.emit(Room);
+    console.log('cambiando chat',Room);
   }
   ngOnDestroy() {
     this.themeSubscription.unsubscribe();

@@ -43,7 +43,8 @@
                 </form>
         </div>
     <div class ="col-12 col-md-4 pull-right" *ngIf="showRoom">
-        <ngx-contacts></ngx-contacts>
+        <ngx-contacts (onChat)="ChatRoom($event)">
+        </ngx-contacts>
     </div>
     
     <!--  <div class ="col-12 col-md-4 pull-right" *ngIf="showRoom">
