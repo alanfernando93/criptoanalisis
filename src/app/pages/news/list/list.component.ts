@@ -3,6 +3,8 @@ import { Http, Response } from '@angular/http';
 
 import { NewsService } from "../news.service";
 
+
+
 @Component({
   selector: 'ngx-list',
   templateUrl: './list.component.html',
@@ -39,7 +41,6 @@ export class ListComponent implements OnInit {
         }
       },
       error => {
-        console.log(<any>error);
         console.log("la conexion no fue posible");
       }
     );

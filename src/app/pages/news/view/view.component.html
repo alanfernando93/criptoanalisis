@@ -56,11 +56,11 @@
     <nb-card-body>
         <div class="row" *ngIf="news">
             <div class="col-12 col-md-6">
-                <h3>Conjetura de precio :</h3>
+                <h2>Conjetura de precio :</h2>
                 <span [innerHTML]="news.conj_moneda"></span>
             </div>
             <div class="col-12 col-md-6">
-                <h3>Confetura a otra moneda :</h3>
+                <h2>Confetura a otra Moneda :</h2>
                 <span [innerHTML]="news.conj_precio"></span>
             </div>
         </div>
@@ -98,7 +98,6 @@
         </div>
     </nb-card-body>
 </nb-card>
-
 <nb-card>
     <nb-card-body>
         <div class="row" *ngIf="news">
@@ -140,53 +139,57 @@
         </div>
     </nb-card-body>
 </nb-card>
-<div class="row">
-    <div class="col-12 col-md-6">
-        <div class="dropdown" ngbDropdown>
-            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
-                Señales
-            </button>
-            <ul class="dropdown-menu" ngbDropdownMenu>
-                <li class="dropdown-item">Icon Button 4</li>
-                <li class="dropdown-item">Hero Button</li>
-                <li class="dropdown-item">Default</li>
-            </ul>
+<nb-card>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="dropdown" ngbDropdown>
+                    <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+                        Señales
+                    </button>
+                    <ul class="dropdown-menu" ngbDropdownMenu>
+                        <li class="dropdown-item">Icon Button 4</li>
+                        <li class="dropdown-item">Hero Button</li>
+                        <li class="dropdown-item">Default</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="dropdown" ngbDropdown>
+                    <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+                        Señales
+                    </button>
+                    <ul class="dropdown-menu" ngbDropdownMenu>
+                        <li class="dropdown-item">Icon Button 4</li>
+                        <li class="dropdown-item">Hero Button</li>
+                        <li class="dropdown-item">Default</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="dropdown" ngbDropdown>
+                    <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+                        Tutoriales
+                    </button>
+                    <ul class="dropdown-menu" ngbDropdownMenu>
+                        <li class="dropdown-item">Icon Button 4</li>
+                        <li class="dropdown-item">Hero Button</li>
+                        <li class="dropdown-item">Default</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="dropdown" ngbDropdown>
+                    <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+                        Dropdown
+                    </button>
+                    <ul class="dropdown-menu" ngbDropdownMenu>
+                        <li class="dropdown-item">Icon Button 4</li>
+                        <li class="dropdown-item">Hero Button</li>
+                        <li class="dropdown-item">Default</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="col-12 col-md-6">
-        <div class="dropdown" ngbDropdown>
-            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
-                Señales
-            </button>
-            <ul class="dropdown-menu" ngbDropdownMenu>
-                <li class="dropdown-item">Icon Button 4</li>
-                <li class="dropdown-item">Hero Button</li>
-                <li class="dropdown-item">Default</li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-12 col-md-6">
-        <div class="dropdown" ngbDropdown>
-            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
-                Tutoriales
-            </button>
-            <ul class="dropdown-menu" ngbDropdownMenu>
-                <li class="dropdown-item">Icon Button 4</li>
-                <li class="dropdown-item">Hero Button</li>
-                <li class="dropdown-item">Default</li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-12 col-md-6">
-        <div class="dropdown" ngbDropdown>
-            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
-                Dropdown
-            </button>
-            <ul class="dropdown-menu" ngbDropdownMenu>
-                <li class="dropdown-item">Icon Button 4</li>
-                <li class="dropdown-item">Hero Button</li>
-                <li class="dropdown-item">Default</li>
-            </ul>
-        </div>
-    </div>
-</div>
+    </nb-card-body>
+</nb-card>

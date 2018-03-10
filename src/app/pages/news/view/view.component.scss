@@ -15,24 +15,27 @@
 .whatsapp{
   span{
     font-size: 0.8rem;
+    color: #25d366;
     &:hover{
-      color: #25d366;
+      color: #2a2a2a;;
     }
   }
 }
 .twitter{
   span{
     font-size: 0.8rem;
+    color: #00acee;
     &:hover{
-      color: #00acee;
+      color: #2a2a2a;;
     }
   }
 }
 .facebook{
-  font-size: 0.8rem;
   span{
+    font-size: 0.8rem;
+    color: #3b5998;
     &:hover{
-      color: #3b5998;
+      color: #2a2a2a;;
     }
   }
 }
@@ -43,5 +46,5 @@
   border-radius: 3.25rem;;
 }
 .user{
-  margin-top: 12px;
+  margin-top: 10px;
 }

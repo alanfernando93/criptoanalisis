@@ -8,15 +8,26 @@
 <nb-card *ngFor="let news of news">
   <nb-card-header>
     <div class="row">
-      <div class="col-6 col-md-3">
-        <h5 class="text-primary">Juan Perez - 25 F</h5>
+      <div class="col-3 col-md-1">
+        <img src="../../../assets/images/jack.png" class="img-thumbnail foto_user" alt="Responsive image">
       </div>
-      <div class="col-4 col-md-6 pull-left icons">
-        <i class="fa fa-binoculars"></i>
-        <i class="fa fa-diamond"></i>
+      <div class="col-9 col-md-3">
+        <p class="font-w-light user">Juan Jose Perez Perez</p>
       </div>
-      <div class="col-2 col-md-3 coin">
-        <h4 class="font-w-light pull-right">ETH</h4>
+      <div class="col-4 col-md-1">
+        <h4>
+          <span class="badge badge-primary font-w-light user">97 P</span>
+        </h4>
+      </div>
+      <div class="col-4 col-md-1">
+        <h4>
+          <span class="badge badge-success font-w-light user">51 F</span>
+        </h4>
+      </div>
+      <div class="col-4 col-md-6">
+        <h4>
+          <span class="badge badge-info font-w-light user">ETH</span>
+        </h4>
       </div>
     </div>
   </nb-card-header>
@@ -24,27 +35,30 @@
     <div class="row">
       <div class="col-12 col-md-10">
         <h3 class="title">
-            <a class="text-body" [routerLink]="['/pages/news/view', news.id]" [innerHTML]="news.titulo"></a>
+          <a class="text-body" [routerLink]="['/pages/news/view', news.id]" [innerHTML]="news.titulo"></a>
         </h3>
-        </div>
+      </div>
       <div class="col-md-2">
-        <img src="../../../assets/images/cover1.jpg" class="img-thumbnail" alt="Cinque Terre" width="260" height="70">
+        <img src="../../../assets/images/cover1.jpg" class="img-thumbnail" alt="Responsive image" width="" height="">
       </div>
     </div>
   </nb-card-body>
   <nb-card-footer>
     <div class="row">
-      <div class="col-6 col-md-10">
-        <p class="test-body" [innerHTML]="news.fecha_create | date:'MMM d, y, h:mm:ss a'"></p>
+      <div class="col-12 col-md-8">
+        <p class="text-body">{{news.fecha_create}}</p>
+      </div>
+      <div class="col-6 col-md-2">
+        <p class="text-body">{{news.comments.total}} Comentarios</p>
       </div>
       <div class="col-3 col-md-1 hands">
         <span class="font-w-light up pull-right">
-          <i class="fa fa-thumbs-up up" [innerHTML]="news.likes.total"></i>
+          <i class="fa fa-thumbs-up up">{{news.likes.total}}</i>
         </span>
       </div>
       <div class="col-3 col-md-1 hands">
         <span class="font-w-light down pull-right">
-          <i class="fa fa-thumbs-down down" [innerHTML]="news.dislikes.total"></i>
+          <i class="fa fa-thumbs-down down">{{news.dislikes.total}}</i>
         </span>
       </div>
     </div>
