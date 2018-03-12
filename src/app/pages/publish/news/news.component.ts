@@ -2,10 +2,11 @@ import { Component, OnInit, Input } from "@angular/core";
 import { Router } from "@angular/router";
 import { Http, Response } from "@angular/http";
 
-import { NgbModal, NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 import { NewsService } from "../../../services/news.service";
 import { CoinsService } from "../../../services/coins.service";
+import { environment } from "../../../../environments/environment"; 
 
 @Component({
   selector: "ngx-publish-news",
@@ -15,15 +16,22 @@ import { CoinsService } from "../../../services/coins.service";
 export class PublishNewsComponent implements OnInit {
   @Input() idNew: String = null;
 
+  closeResult: string;
+
   newsPublish: any = {};
   coins: any = [];
   contenido;
+  conjePrecio;
+  conjeMoneda;
+  titulo;
+  usuarioId = environment.userId;
 
   selectedView = {
     name: "Seleccione Moneda"
   };
 
   constructor(
+    private modalService: NgbModal,
     private http: Http,
     private newsService: NewsService,
     private coinsService: CoinsService,
@@ -52,14 +60,41 @@ export class PublishNewsComponent implements OnInit {
     });
   }
 
-  keyupHandlerFunction(event) {
-    this.contenido = event;
+  keyupHandlerFunction(event,opc) {
+    switch(opc){
+      case 'C':this.contenido = event;break;
+      case 'CP': this.conjePrecio = event;break;
+      case 'CM': this.conjeMoneda = event;break;
+    }
   }
 
   onSave() {
     this.newsPublish.contenido = this.contenido;
+    this.newsPublish.titulo = this.titulo;
+    this.newsPublish.tipo_moneda = this.selectedView;
+    this.newsPublish.conj_moneda = this.conjeMoneda;
+    this.newsPublish.conj_precio = this.conjePrecio;
+    this.newsPublish.usuarioId = this.usuarioId;
     this.newsService.insertNews(this.newsPublish).then(resp => {
       this.router.navigate(["/"]);
     });
+  }
+
+  open(content) {
+    this.modalService.open(content).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  
+  private getDismissReason(reason: any): string {
+      if (reason === ModalDismissReasons.ESC) {
+          return 'by pressing ESC';
+      } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+          return 'by clicking on a backdrop';
+      } else {
+          return `with: ${reason}`;
+      }
   }
 }
