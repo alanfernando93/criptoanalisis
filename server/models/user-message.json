@@ -1,0 +1,32 @@
+{
+  "name": "userMessage",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "message": {
+      "type": "string",
+      "required": true
+    },
+    "idProper": {
+      "type": "number",
+      "required": true
+    },
+    "fechaEnvio":{
+      "type":"date",
+      "default":"$now"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "usuario":{
+      "type":"belongsTo",
+      "model":"usuario",
+      "foreignkey":""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
