@@ -83,5 +83,13 @@
   "messageRoom": {
     "dataSource": "db",
     "public": true
+  },
+  "userMessage": {
+    "dataSource": "db",
+    "public": true
+  },
+  "transaccion": {
+    "dataSource": "db",
+    "public": true
   }
 }

@@ -12,15 +12,26 @@
     },
     "RoomId": {
       "type": "string"
+    },
+    "fecha": {
+      "type": "date",
+      "default": "$now"
     }
   },
   "validations": [],
   "relations": {
-    "usuario":{
+    "usuario": {
       "type": "belongsTo",
       "model": "usuario"
     }
   },
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "DENY"
+    }
+  ],
   "methods": {}
 }

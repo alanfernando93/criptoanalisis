@@ -1,29 +1,35 @@
 {
-  "name": "Suscripcion",
+  "name": "userMessage",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "fechaCreacion": {
-      "type": "date"
+    "message": {
+      "type": "string",
+      "required": true
     },
-    "fechaFin": {
-      "type": "date"
+    "idProper": {
+      "type": "number",
+      "required": true
+    },
+    "fechaEnvio": {
+      "type": "date",
+      "default": "$now"
     }
   },
   "validations": [],
   "relations": {
-    "seguidor": {
+    "sender": {
       "type": "belongsTo",
       "model": "usuario",
-      "foreignkey": "SeguidorId"
+      "foreignkey": "sender"
     },
-    "trader": {
+    "reciever":{
       "type": "belongsTo",
       "model": "usuario",
-      "foreignkey": "TraderId"
+      "foreignkey": "reciever"
     }
   },
   "acls": [],
