@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+
+import { MomentModule } from 'angular2-moment';
+import * as moment from 'moment';
 
 import { NewsService } from '../news.service';
 
@@ -10,48 +13,57 @@ import { NewsService } from '../news.service';
   styleUrls: ['./view.component.scss']
 })
 export class ViewComponent implements OnInit {
-  
+
   news: any;
-  like:number;
-  dislike:number;
+  like: number;
+  dislike: number;
 
   constructor(
-          private http: Http, 
-          private route: ActivatedRoute, 
-          private newsService: NewsService ) {
+    private http: Http,
+    private route: ActivatedRoute,
+    private router: Router,
+    private newsService: NewsService) {
 
   }
   ngOnInit() {
-    this.getNewsById(),
-    this.sendDislike(),
-    this.sendLike()
+    this.getNewsById();
+    this.sendDislike();
+    this.sendLike();
   }
 
   getNewsById() {
     this.route.params.forEach((params: Params) => {
       let id = params['newsId'];
-      this.newsService.getNewsId(id).subscribe((news) => {
-        this.news = news;
+      this.newsService.getNewsId(id).subscribe(
+        news => {
+          if (!news) {
+
+          } else {
+            this.news = news;
+          }
+          error => {
+            console.log("no pudo cargar las noticias por id");
+          }
+        });
+    });
+  }
+
+  sendDislike() {
+    this.route.params.forEach((params: Params) => {
+      let id = params['newsId'];
+      this.newsService.postDislikes(id).subscribe(data => {
+        this.dislike = data;
+        this.news = data;
       });
     });
   }
 
-  sendDislike(){
+  sendLike() {
     this.route.params.forEach((params: Params) => {
       let id = params['newsId'];
-    this.newsService.postDislikes(id).subscribe(data => {
-      this.dislike = data;
-      this.news=data;
-      });
-    });
-  }
-
-  sendLike(){
-    this.route.params.forEach((params: Params) => {
-      let id = params['newsId'];
-    this.newsService.postLikes(id).subscribe(data => {
-      this.like = data;
-      this.news=data;
+      this.newsService.postLikes(id).subscribe(data => {
+        this.like = data;
+        this.news = data;
       });
     });
   }

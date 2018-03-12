@@ -12,28 +12,34 @@ import { SignalsService } from '../signals.service';
 })
 export class ViewComponent implements OnInit {
 
-  signal:any;
+  signal: any;
 
   constructor(
-    private http: Http, 
+    private http: Http,
     private route: ActivatedRoute,
-    private router: Router, 
+    private router: Router,
     private signalsService: SignalsService) {
-      
+
   }
 
-    ngOnInit() {
-      this.getSignalById()
-    }
+  ngOnInit() {
+    this.getSignalById();
+  }
 
-    getSignalById(){
-      this.route.params.forEach((params: Params) => {
-        let id = params['signalId'];
-        this.signalsService.getSignalsId(id).subscribe((señales) => {
-          this.signal = señales;
+  getSignalById() {
+    this.route.params.forEach((params: Params) => {
+      let id = params['signalId'];
+      this.signalsService.getSignalsId(id).subscribe(
+        signal => {
+          if (!signal) {
+
+          } else {
+            this.signal = signal;
+          }
+          error => {
+            console.log("no pudo cargar las señales");
+          }
         });
-      });
-    }
-
-    
+    });
+  }
 }

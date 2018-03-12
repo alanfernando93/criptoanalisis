@@ -24,15 +24,24 @@ export class HeaderTwoComponent implements OnInit {
         private analyticsService: AnalyticsService,
         private authService: NbAuthService,
         private marketsService: MarketsService
-    ) { }
+    ){}
 
-    ngOnInit() {      
-        this.getMarket()
+    ngOnInit() {
+        this.getMarket();
     }
 
-    getMarket(){
-        this.marketsService.getMarkets().subscribe(data => {
-            this.markets = data;
-        });  
+    getMarket() {
+        this.marketsService.getMarkets().subscribe(
+            res => {
+                if (!res) {
+
+                } else {
+                    this.markets = res;
+                }
+            },
+            error => {
+                console.log("no pudo cargar los mercados");
+            }
+        );
     }
 }

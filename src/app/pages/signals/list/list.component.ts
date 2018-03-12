@@ -16,12 +16,21 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getSignals()
+    this.getSignals();
   }
 
-  getSignals(){
-    this.signalsService.getSignals().subscribe(data => {
-      this.signals = data;
-    });
-  }
+  getSignals() {
+    this.signalsService.getSignals().subscribe(
+      res => {
+        if(!res) {
+
+        }else {
+          this.signals = res;
+        }
+      },
+      error => {
+        console.log("no pudo cargar las señales");
+      }
+    );
+  }  
 }
