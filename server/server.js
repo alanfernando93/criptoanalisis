@@ -38,22 +38,39 @@ boot(app, __dirname, function(err) {
           console.log('room left', roomId);
         }
       });
-      socket.on('new message', message => {
-        app.models.usuario.findById(message.usuarioId).then(resp=>{
-          message.username = resp.username;
-          app.io.to(message.room).emit('user says', message);
-        });
-        if (message.room != undefined) {
-          app.models.messageRoom.create([
-            {
-              'usuarioId': message.usuarioId,
-              'message': message.message,
-              'RoomId': message.room,
-            },
-          ]).then(mensaje=>{
-            console.log('mensaje insertado:', mensaje);
+      socket.on('room message', message => {
+        app.models.messageRoom.create([
+          {
+            'usuarioId': message.usuarioId,
+            'message': message.message,
+            'RoomId': message.room,
+          },
+        ]).then(mensaje=>{
+          console.log('mensaje insertado:', mensaje);
+          app.models.usuario.findById(message.usuarioId).then(resp=>{
+            message.username = resp.username;
+            app.io.to(message.room).emit('user says', message);
           });
-        };
+        });
+      });
+      socket.on('personal message', message => {
+        var idChat;
+        (message.senderId > message.receptorId) ? idChat = message.receptorId * 10 + message.senderId : idChat = message.senderId * 10 + message.receptorId;
+        console.log(idChat);
+        console.log(message);
+        app.models.userMessage.create([
+          {
+            'idProper': idChat,
+            'message': message.message,
+            'senderId': message.senderId,
+          },
+        ]).then(mensaje=>{
+          console.log('mensaje insertado:', mensaje);
+          app.models.usuario.findById(message.senderId).then(resp=>{
+            message.username = resp.username;
+            app.io.to(idChat).emit('user says', message);
+          });
+        });
       });
       socket.on('disconnect', () => {
         console.log('Ha salido un usuario del Chat');

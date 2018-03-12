@@ -23,4 +23,13 @@ module.exports = function(Messageroom) {
       next();
     });
   });
+
+  Messageroom.MessageValue = function(id, cb) {
+    Messageroom.find({where: {id: {between: [1, 2]}}}, cb);
+  };
+  Messageroom.remoteMethod('MessageValue', {
+    accepts: {arg: 'room', type: 'string', required: true},
+    http: {path: '/MessageValue/:id', verb: 'get'},
+    returns: {arg: 'room', type: 'Object'},
+  });
 };
