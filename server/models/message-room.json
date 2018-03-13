@@ -13,8 +13,8 @@
     "RoomId": {
       "type": "string"
     },
-    "fecha":{
-      "type":"date",
+    "fecha": {
+      "type": "date",
       "default": "$now"
     }
   },

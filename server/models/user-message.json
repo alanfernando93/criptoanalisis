@@ -14,17 +14,17 @@
       "type": "number",
       "required": true
     },
-    "fechaEnvio":{
-      "type":"date",
-      "default":"$now"
+    "fechaEnvio": {
+      "type": "date",
+      "default": "$now"
     }
   },
   "validations": [],
   "relations": {
-    "usuario":{
-      "type":"belongsTo",
-      "model":"usuario",
-      "foreignkey":""
+    "usuario": {
+      "type": "belongsTo",
+      "model": "usuario",
+      "foreignkey": ""
     }
   },
   "acls": [],
