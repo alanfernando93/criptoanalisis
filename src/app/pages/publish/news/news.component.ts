@@ -22,10 +22,6 @@ export class PublishNewsComponent implements OnInit {
 
   newsPublish: any = {};
   coins: any = [];
-  contenido;
-  conjePrecio;
-  conjeMoneda;
-  titulo;
   usuarioId = environment.userId;
 
   selectedView = {
@@ -44,7 +40,6 @@ export class PublishNewsComponent implements OnInit {
     if (this.idNew != null) {
       this.newsService.getById(this.idNew).subscribe(resp => {
         this.newsPublish = resp;
-        this.contenido = this.newsPublish.contenido;
       });
     }
     this.coinsService.getAll().subscribe(resp => {
@@ -54,20 +49,16 @@ export class PublishNewsComponent implements OnInit {
 
   keyupHandlerFunction(event,opc) {
     switch(opc){
-      case 'C':this.contenido = event;break;
-      case 'CP': this.conjePrecio = event;break;
-      case 'CM': this.conjeMoneda = event;break;
+      case 'C':this.newsPublish.contenido = event;break;
+      case 'CP': this.newsPublish.conj_precio = event;break;
+      case 'CM': this.newsPublish.conj_moneda = event;break;
     }
   }
 
   onSave() {
-    this.newsPublish.contenido = this.contenido;
-    this.newsPublish.titulo = this.titulo;
     this.newsPublish.tipo_moneda = this.selectedView;
-    this.newsPublish.conj_moneda = this.conjeMoneda;
-    this.newsPublish.conj_precio = this.conjePrecio;
     this.newsPublish.usuarioId = this.usuarioId;
-    this.newsService.postNews(this.newsPublish).subscribe(resp => {
+    this.newsService.insert(this.newsPublish).subscribe(resp => {
       this.router.navigate(["/"]);
     });
   }
