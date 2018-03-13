@@ -22,6 +22,9 @@ export class SignalComponent implements OnInit {
     tpSal = 1;
     stopLoss = 1;
 
+    signal = {
+        
+    };
     coins: any = [];
 
     selectedCoin = {
