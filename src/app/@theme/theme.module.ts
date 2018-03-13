@@ -25,7 +25,6 @@ import {
   ThemeSettingsComponent,
   TinyMCEComponent,
 } from './components';
-
 import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe } from './pipes';
 import {
   SampleLayoutComponent

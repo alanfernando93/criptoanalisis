@@ -4,8 +4,10 @@ import { Http, Response } from "@angular/http";
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
-import { NewsService } from "../../../services/news.service";
-import { CoinsService } from "../../../services/coins.service";
+// import { NewsService } from "../../../services/news.service";
+import { NewsService } from "../../news/news.service";
+// import { CoinsService } from "../../../services/coins.service";
+import { CoinsService } from "../../coins/coins.service";
 import { environment } from "../../../../environments/environment"; 
 
 @Component({
@@ -39,24 +41,14 @@ export class PublishNewsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (localStorage.length != 0) {
-      this.newsService.setToken(
-        "?access_token=" + localStorage.getItem("auth_app_token")
-      );
-      this.newsService.setUserId(localStorage.getItem("userId"));
-      this.coinsService.setToken(
-        "?access_token=" + localStorage.getItem("auth_app_token")
-      );
-      this.coinsService.setUserId(localStorage.getItem("userId"));
-    }
     if (this.idNew != null) {
-      this.newsService.getById(this.idNew).then(resp => {
+      this.newsService.getById(this.idNew).subscribe(resp => {
         this.newsPublish = resp;
         this.contenido = this.newsPublish.contenido;
       });
     }
-    this.coinsService.getAll().then(resp => {
-      this.coins = JSON.parse(resp["_body"]);
+    this.coinsService.getAll().subscribe(resp => {
+      this.coins = resp;
     });
   }
 
@@ -75,7 +67,7 @@ export class PublishNewsComponent implements OnInit {
     this.newsPublish.conj_moneda = this.conjeMoneda;
     this.newsPublish.conj_precio = this.conjePrecio;
     this.newsPublish.usuarioId = this.usuarioId;
-    this.newsService.insertNews(this.newsPublish).then(resp => {
+    this.newsService.postNews(this.newsPublish).subscribe(resp => {
       this.router.navigate(["/"]);
     });
   }

@@ -4,28 +4,32 @@
   </nb-card-header>
 
   <nb-card-body>
-    <div class="list-group">
-      <a [routerLink]="['/pages/news/view',new.id]" class="list-group-item flex-column align-items-start" *ngFor="let new of news">
-        <div class="font-row font-main">
-          <div class="header">
-            <div class="name">Roboto - 25 F <i class="fa fa-binoculars fa-lg"></i>  <i class="fa fa-diamond fa-lg"></i></div>
+    <div class="list-group" *ngFor="let news of news">
+      <div class="font-row font-main">
+        <hr>
+        <div class="header" >
+          <div class="name">{{news.titulo}} - 25 F
+            <i class="fa fa-binoculars fa-lg"></i>
+            <i class="fa fa-diamond fa-lg"></i>
+          </div>
 
-            <div class="variants">
-              <span class="font-w-light">ETH</span>
-            </div>
-          </div>
-          <div class="body" >
-            <p> {{new.contenido}} </p>
-          </div>
-          <div class="footer">
-            <div class="blockquote-footer name">{{new.fecha_creacion}} </div>
-            <div class="variants">
-              <span class="font-w-light up"><i class="fa fa-thumbs-up fa-lg"></i> {{new.likes}}</span>
-              <span class="font-w-light down"><i class="fa fa-thumbs-down fa-lg"></i> 25</span>
-            </div>
+          <div class="variants">
+            <span class="font-w-light">ETH</span>
           </div>
         </div>
-      </a>
+        <div class="body">
+          <a [routerLink]="['/pages/news/view', news.id]">{{news.contenido}}</a>
+        </div>
+        <div class="footer">
+          <div class="blockquote-footer name">{{news.fecha_create}}</div>
+          <div class="variants">
+            <span class="font-w-light up">
+              <i class="fa fa-thumbs-up fa-lg"></i>{{news.likes.total}}</span>
+            <span class="font-w-light down">
+              <i class="fa fa-thumbs-down fa-lg"></i>{{news.dislikes.total}}</span>
+          </div>
+        </div>
+      </div>
     </div>
   </nb-card-body>
 </nb-card>

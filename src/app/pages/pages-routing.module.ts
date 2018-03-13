@@ -13,13 +13,11 @@ const routes: Routes = [{
   children: [{
     path: 'dashboard',
     component: DashboardComponent,
-  },{
+  }, {
     path: 'publish',
     component: PublishComponent,
-  },{
-    path: 'publish/:idNew',
-    component: PublishComponent,
-  },{
+  },
+  {
     path: 'ui-features',
     loadChildren: './ui-features/ui-features.module#UiFeaturesModule',
   }, {
@@ -29,6 +27,10 @@ const routes: Routes = [{
     path: 'maps',
     loadChildren: './maps/maps.module#MapsModule',
   }, {
+    // path: 'charts',
+    // canActivate: [AuthGuard],
+    // loadChildren: './charts/charts.module#ChartsModule',
+  }, {
     path: 'editors',
     loadChildren: './editors/editors.module#EditorsModule',
   }, {
@@ -37,9 +39,15 @@ const routes: Routes = [{
   }, {
     path: 'news',
     loadChildren: './news/news.module#NewsModule',
-  },{
-    path: 'tables',
-    loadChildren: './tables/tables.module#TablesModule',
+  }, {
+    path: 'markets',
+    loadChildren: './markets/markets.module#MarketsModule',
+  }, {
+    path: 'signals',
+    loadChildren: './signals/signals.module#SignalsModule',
+  }, {
+    path: 'coins',
+    loadChildren: './coins/coins.module#CoinsModule',
   }, {
     path: '',
     redirectTo: 'dashboard',
@@ -48,8 +56,8 @@ const routes: Routes = [{
 }];
 
 @NgModule({
-   imports: [RouterModule.forChild(routes)],
-   exports: [RouterModule],
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
 export class PagesRoutingModule {
 }

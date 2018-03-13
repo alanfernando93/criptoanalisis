@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { ThemeModule } from './../../@theme/theme.module';
 import { NewsRoutingModule, routedComponents } from './news-routing.module';
 
-// import { NewsService } from '../../services/news.service';
+import { NewsService } from './news.service';
 
 @NgModule({
   imports: [
@@ -13,7 +13,7 @@ import { NewsRoutingModule, routedComponents } from './news-routing.module';
   declarations:[
     ...routedComponents,
   ],
-  providers:[ ]
+  providers:[NewsService]
 })
 
 export class NewsModule {}

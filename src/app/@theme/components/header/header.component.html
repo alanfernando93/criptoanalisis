@@ -4,7 +4,7 @@
             <i class="nb-menu"></i>
         </a>
         <div class="logo d-none d-sm-block" (click)="goToHome()">Criptoanalisis.org</div>
-        <nb-action class="logo col-md-6 d-block d-sm-block dm-block d-lg-none" icon="nb-notifications" ></nb-action>
+        <nb-action icon="nb-notifications" class="logo col-md-6 d-block d-sm-block d-md-none notification"></nb-action>
         <nb-action class="logo col-md-6 d-block d-sm-block d-md-none">
             <nb-search type="modal-half" tag="modal-half"></nb-search>
         </nb-action>
@@ -13,21 +13,21 @@
         <img src="../../../../assets/images/icono-logos-color.png" alt="">
     </nb-action>
     <nb-actions size="medium">
-            <nb-action class="control-item">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary">
-                                Search
-                            </button>
-                        </span>
-                    </div>
+        <nb-action class="control-item">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary">
+                        Search
+                    </button>
+                </span>
+            </div>
         </nb-action>
     </nb-actions>
 </div>
 
 <nb-actions size="medium" class="header-container right" *ngIf="user">
-    <nb-action>
+    <nb-action class="d-sm-none d-md-block">
         <nb-user [menu]="userMenu" [name]="user?.username" [picture]="user?.profile" (menuClick)="logout()"></nb-user>
     </nb-action>
     <nb-action class="control-item" icon="nb-notifications"></nb-action>
@@ -42,27 +42,13 @@
         <span class="badge badge-default">25 P</span>
     </nb-action>
 </nb-actions>
-<nb-actions size="medium" class="header-container right" *ngIf="!user">
-
+<nb-actions size="medium" class="header-container right btn-group" *ngIf="!user">
     <nb-action>
-        <a class="icon-container text-hint" (click)="signup()">
-            <i class="fa fa-user-plus"></i> Sign Up
-        </a>
+        <div class="btn-group d-none d-sm-block" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary" (click)="signup()">
+                <i class="fa fa-user-plus"></i> Sign Up</button>
+            <button type="button" class="btn btn-secondary" (click)="signin()">
+                <i class="fa fa-sign-in"></i> Log In</button>
+        </div>
     </nb-action>
-    <nb-action>
-        <a class="icon-container text-hint" (click)="signin()">
-            <i class="fa fa-sign-in"></i> Log In
-        </a>
-    </nb-action>
-
 </nb-actions>
-
-<!-- 
-<a class="icon-container" href="#" *ngIf="icon; else showContent" (click)="$event.preventDefault()">
-  <i class="control-icon icon"></i>
-</a>
-<ng-template #showContent>
-  <ng-content></ng-content>
-</ng-template>\n -->
-
-

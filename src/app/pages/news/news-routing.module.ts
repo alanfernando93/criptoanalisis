@@ -14,10 +14,10 @@ const routes: Routes = [{
   },
   {
     path: 'view',
-    redirectTo: 'pages',
+    redirectTo: 'pages'
   },
   {
-    path: 'view/:idNew',
+    path: 'view/:newsId',
     component: ViewComponent,
   },
   ],

@@ -5,7 +5,7 @@ import { Http, Response } from "@angular/http";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 // import { NewsService } from "../../../services/news.service";
-import { CoinsService } from "../../../services/coins.service";
+import { CoinsService } from "../../coins/coins.service";
 
 @Component({
     selector: 'ngx-publish-signal',
@@ -63,24 +63,14 @@ export class SignalComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        if (localStorage.length != 0) {
-            // this.newsService.setToken(
-            //   "?access_token=" + localStorage.getItem("auth_app_token")
-            // );
-            // this.newsService.setUserId(localStorage.getItem("userId"));
-            this.coinsService.setToken(
-                "?access_token=" + localStorage.getItem("auth_app_token")
-            );
-            this.coinsService.setUserId(localStorage.getItem("userId"));
-        }
         if (this.idSignal != null) {
             // this.newsService.getById(this.idNew).then(resp => {
             //   this.newsPublish = resp;
             //   this.contenido = this.newsPublish.contenido;
             // });
         }
-        this.coinsService.getAll().then(resp => {
-            this.coins = JSON.parse(resp["_body"]);
+        this.coinsService.getAll().subscribe(resp => {
+            this.coins = resp;
         });
     }
 

@@ -14,14 +14,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true,
   },
   {
-    title: 'Publish',
-    icon: 'fa fa-fire',
-    link: '/pages/publish/2',
-    hidden: false,
-    home: true,
-
-  },
-  {
     title: 'Asesoria Principiantes',
     icon: 'nb-compose',
     link: '/pages/dashboard',
@@ -84,8 +76,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/ui-features/tabs',
       },
     ],
-  },
-  {
+  },{
     title: 'Forms',
     icon: 'nb-compose',
     children: [
@@ -98,8 +89,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/forms/layouts',
       },
     ],
-  },
-  {
+  },{
     title: 'Components',
     icon: 'nb-gear',
     children: [
@@ -111,58 +101,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/components/notifications',
       },
     ],
-  },
-  {
-    title: 'Maps',
-    icon: 'nb-location',
-    children: [
-      {
-        title: 'Google Maps',
-        link: '/pages/maps/gmaps',
-      },
-      {
-        title: 'Leaflet Maps',
-        link: '/pages/maps/leaflet',
-      },
-      {
-        title: 'Bubble Maps',
-        link: '/pages/maps/bubble',
-      },
-    ],
-  },
-  {
-    title: 'Charts',
-    icon: 'nb-bar-chart',
-    children: [
-      {
-        title: 'Echarts',
-        link: '/pages/charts/echarts',
-      },
-      {
-        title: 'Charts.js',
-        link: '/pages/charts/chartjs',
-      },
-      {
-        title: 'D3',
-        link: '/pages/charts/d3',
-      },
-    ],
-  },
-  {
-    title: 'Editors',
-    icon: 'nb-title',
-    children: [
-      {
-        title: 'TinyMCE',
-        link: '/pages/editors/tinymce',
-      },
-      {
-        title: 'CKEditor',
-        link: '/pages/editors/ckeditor',
-      },
-    ],
-  },
-  {
+  },{
     title: 'News',
     icon: 'nb-layout-sidebar-right',
     children: [
@@ -171,14 +110,31 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/news/list',
       },
     ],
-  },
-  {
-    title: 'Tables',
-    icon: 'nb-tables',
+  },{
+    title: 'Markets',
+    icon: 'nb-title',
     children: [
       {
-        title: 'Smart Table',
-        link: '/pages/tables/smart-table',
+        title: 'List Markets',
+        link: '/pages/markets/list'
+      },
+    ],
+  },{
+    title: 'Coins',
+    icon: 'nb-plus-circled',
+    children: [
+      {
+        title: 'List Coins',
+        link: '/pages/coins/list'
+      },
+    ],
+  },{
+    title: 'Signals',
+    icon: 'nb-paper-plane',
+    children: [
+      {
+        title: 'List Signals',
+        link: '/pages/signals/list',
       },
     ],
   },
