@@ -22,7 +22,7 @@
     "fecha_registro": {
       "type": "date",
       "required": false,
-      "default":"$now"
+      "default": "$now"
     },
     "redes_sociales": {
       "type": "string",
@@ -87,10 +87,10 @@
       "model": "messageRoom",
       "foreignkey": ""
     },
-    "userMessage":{
+    "userMessage": {
       "type": "hasMany",
-      "model":"userMessage",
-      "foreignkey":""
+      "model": "userMessage",
+      "foreignkey": ""
     }
   },
   "acls": [

@@ -1,0 +1,26 @@
+{
+  "name": "transaccion",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "tipo": {
+      "type": "string"
+    },
+    "monto": {
+      "type": "number"
+    },
+    "fecha": {
+      "type": "date"
+    },
+    "costo": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

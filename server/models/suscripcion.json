@@ -18,12 +18,12 @@
     "seguidor": {
       "type": "belongsTo",
       "model": "usuario",
-      "foreignkey":"SeguidorId"
+      "foreignkey": "SeguidorId"
     },
     "trader": {
       "type": "belongsTo",
       "model": "usuario",
-      "foreignkey":"TraderId"
+      "foreignkey": "TraderId"
     }
   },
   "acls": [],
