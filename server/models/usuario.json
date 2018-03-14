@@ -42,12 +42,6 @@
   },
   "validations": [],
   "relations": {
-    "likes": {
-      "type": "hasMany",
-      "model": "signal",
-      "foreignKey": "UsuarioId",
-      "through": "LikeSignal"
-    },
     "comments": {
       "type": "hasMany",
       "model": "comment",
