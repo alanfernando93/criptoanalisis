@@ -19,7 +19,8 @@ export class PublishNewsComponent implements OnInit {
   @Input() idNew: String = null;
 
   closeResult: string;
-
+  successMessage: string;
+  type : String;
   newsPublish: any = {};
   coins: any = [];
   usuarioId = environment.userId;
@@ -56,11 +57,21 @@ export class PublishNewsComponent implements OnInit {
   }
 
   onSave() {
-    this.newsPublish.tipo_moneda = this.selectedView;
+    this.newsPublish.tipo_moneda = this.selectedView.name;
     this.newsPublish.usuarioId = this.usuarioId;
+    console.log(this.newsPublish);
     this.newsService.insert(this.newsPublish).subscribe(resp => {
-      this.router.navigate(["/"]);
-    });
+      this.type = "success";
+      this.successMessage = "Se guardo correctamente!!!"
+      setTimeout(() => {
+        this.successMessage = null, 7000; 
+        // this.router.navigate(["/"]);
+      });
+    },err => {
+      this.type = "warning";
+      this.successMessage = "Se produjo un error!!!"
+      setTimeout(() => this.successMessage = null, 7000);
+    });    
   }
 
   open(content) {
