@@ -20,7 +20,7 @@ export class ListComponent implements OnInit {
   }
 
   getSignals(){
-    this.signalsService.getSignals().subscribe(data => {
+    this.signalsService.getAlls().subscribe(data => {
       this.signals = data;
     });
   }

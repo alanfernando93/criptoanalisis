@@ -65,7 +65,7 @@ export class PublishNewsComponent implements OnInit {
       this.successMessage = "Se guardo correctamente!!!"
       setTimeout(() => {
         this.successMessage = null, 7000; 
-        // this.router.navigate(["/"]);
+        this.router.navigate(["/"]);
       });
     },err => {
       this.type = "warning";

@@ -4,73 +4,51 @@ import { Http } from "@angular/http";
 
 import { environment } from "../../../environments/environment";
 
-import { SessionService } from "../../model/session";
-
 import "rxjs/add/observable/of";
 
 let counter = 0;
 
 @Injectable()
-export class UserService extends SessionService  {
+export class UserService {
   private baseUrl = environment.apiUrl;
-  private table = "usuarios";
-  private session:any=null;
-
-  private users = {
-    nick: { name: "Nick Jones", picture: "assets/images/nick.png" }
-  };
-
-  private userArray: any[];
+  private userId = environment.userId
+  private token = environment.usertoken;
 
   constructor(
     private http: Http,
-  ) {
-    super();    
+  ) { }
+
+  getById(id) {
+    return this.http.get(this.baseUrl + "usuarios/" + id + this.getAuth())
+      .map(resp => resp.json());
   }
 
-  setSession(item){
-    this.session = item;
-  }
-
-  getSession(){
-    return this.session;
-  }
-
-  getUsers(): Observable<any> {
-    return Observable.of(this.users);
-  }
-
-  getUserArray(): Observable<any[]> {
-    return Observable.of(this.userArray);
-  }
-
-  getUser(){
-    return this.http
-    .get(this.baseUrl + this.table + "/" + this.getUserId() + this.getToken())
-    .toPromise();
+  /**
+   * Retorna el usuario logeado o en actual session
+   * 
+   * @returns Objeto : any
+   */
+  getSession() {
+    return this.http.get(this.baseUrl + "usuarios/" + this.userId + this.getAuth())
+      .map(resp => resp.json())
   }
 
   update(itemToUpdate) {
-    return this.http
-      .put(
-        this.baseUrl + this.table + "/" + this.getUserId() + this.getToken(),
-        itemToUpdate
-      )
-      .toPromise();
+    return this.http.put(this.baseUrl + "usuarios/" + this.userId + this.getAuth(), itemToUpdate)
+      .map(resp => resp.json());
   }
 
   makeFileRequest(file: any) {
-    return this.http
-      .post(
-        this.baseUrl + this.table + "/" + this.getUserId() + "/upload" + this.getToken(),
-        file
-      )
-      .toPromise();
+    return this.http.post(this.baseUrl + "usuarios/" + this.userId + "/upload" + this.getAuth(), file)
+      .map(resp => resp.json());
   }
 
   logout() {
-    return this.http
-      .post(this.baseUrl + this.table + "/logout" + this.getToken(), {})
-      .toPromise();
+    return this.http.post(this.baseUrl + "usuarios/logout" + this.getAuth(), {})
+      .map(resp => resp.json());
+  }
+
+  getAuth() {
+    return "?access_token=" + this.token
   }
 }

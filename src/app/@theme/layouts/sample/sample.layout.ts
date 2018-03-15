@@ -191,12 +191,8 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
   ngOnInit(){
     this.authService.onTokenChange().subscribe((token: NbAuthJWTToken) => {
       if (token.getValue() && localStorage.length != 0) {
-        this.userService.setToken("?access_token="+localStorage.getItem("auth_app_token"));
-        this.userService.setUserId(localStorage.getItem("userId"));
-        this.userService.getUser().then((usuario)=>{
-          this.user = JSON.parse(usuario['_body']);
-          this.userService.setSession(this.user);
-        })
+        let id = localStorage.getItem("userId")
+        this.userService.getById(id).subscribe(resp=> this.user = resp)
       }
     });
   }

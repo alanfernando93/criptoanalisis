@@ -4,7 +4,9 @@ import { Http, Response } from "@angular/http";
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
-// import { NewsService } from "../../../services/news.service";
+import { environment } from '../../../../environments/environment';
+
+import { SignalsService } from '../../signals/signals.service';
 import { CoinsService } from "../../coins/coins.service";
 
 @Component({
@@ -15,25 +17,20 @@ import { CoinsService } from "../../coins/coins.service";
 
 export class SignalComponent implements OnInit {
     @Input() idSignal: String = null;
-
+    userId = environment.userId;
     closeResult: string;
 
     pntEnt = 1;
     tpSal = 1;
     stopLoss = 1;
 
-    signal = {
-        
-    };
+    signal: any = {};
+    pos : any = {
+        moneda1 : "Modena",
+        moneda2 : "USD"
+    }
+    positions : any = []
     coins: any = [];
-
-    selectedCoin = {
-        name: "Moneda"
-    };
-
-    selectedType = {
-        id: "USD"
-    };
 
     types = [{
         id: 'USD'
@@ -60,7 +57,7 @@ export class SignalComponent implements OnInit {
         private modalService: NgbModal,
         private renderer: Renderer2,
         private http: Http,
-        // private newsService: NewsService,
+        private signalsService: SignalsService,
         private coinsService: CoinsService,
         private router: Router
     ) { }
@@ -78,11 +75,17 @@ export class SignalComponent implements OnInit {
     }
 
     onSave() {
-
+        this.signal.visible = "true";
+        this.signal.usuarioId = this.userId;
+        this.signalsService.add(this.signal).subscribe(resp=>console.log(resp));
+        console.log(this.pos)
     }
 
-    keyupHandlerFunction($event) {
-
+    keyupHandlerFunction($event,opc) {
+        switch (opc) {
+            case 'CS': this.signal.AnalisisFundamental = event; break;
+            case 'AT': this.signal.AnalisisTecnico = event; break;
+        }
     }
 
     onClickPuntos($events, option, ptn) {
@@ -105,7 +108,7 @@ export class SignalComponent implements OnInit {
         this.renderer.addClass(d1, "form-control");
         this.renderer.setProperty(d1, 'aria-label', "Amount (to the nearest dollar)");
         this.renderer.setProperty(d1, 'type', "text");
-        this.renderer.setProperty(d1, 'value', data1.value + " " + this.selectedType.id);
+        this.renderer.setProperty(d1, 'value', data1.value + " " + this.pos.moneda2);
         this.renderer.setAttribute(d1, 'disabled', 'true');
 
         const d2 = this.renderer.createElement('input');

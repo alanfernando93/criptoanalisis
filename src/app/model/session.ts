@@ -24,9 +24,7 @@ export class SessionService{
   }
 
   clear() {
-    localStorage.clear();
-    this.token = "";
-    this.userId = "";
+    
   }
 
   toString():String{
