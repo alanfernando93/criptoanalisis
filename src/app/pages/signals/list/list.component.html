@@ -1,4 +1,9 @@
 <nb-card>
+  <nb-card-header>
+    <div class="text-body">
+      Lista de Señales
+    </div>
+  </nb-card-header>
   <nb-card-body>
     <div class="row">
       <div class="col-12 col-md-6" *ngFor="let signal of signals">
@@ -12,19 +17,19 @@
                 <p class="font-w-light user">Juan Jose Perez Perez</p>
               </div>
               <div class="col-4 col-md-2">
-                <h4>
+                <h5>
                   <span class="badge badge-primary font-w-light user">97 P</span>
-                </h4>
+                </h5>
               </div>
               <div class="col-4 col-md-2">
-                <h4>
+                <h5>
                   <span class="badge badge-success font-w-light user">51 F</span>
-                </h4>
+                </h5>
               </div>
               <div class="col-4 col-md-2">
-                <h4>
+                <h5>
                   <span class="badge badge-info font-w-light user">ETH</span>
-                </h4>
+                </h5>
               </div>
             </div>
           </div>
@@ -32,31 +37,26 @@
             <img src="https://es.tradingview.com/i/jNGFZIAD/" alt="card image" class="card-img-top d-none d-sm-block">
           </a>
           <div class="card-body">
-            <h4 class="card-title">
-              <strong class="item text-success" [routerLink]="['/pages/signals/view', signal.id]"></strong>
-            </h4>
-            <a class="card-text d-none d-sm-block" [routerLink]="['/pages/signals/view', signal.id]">
-              {{signal.AnalisisFundamental}}
+            <a class="card-text" [routerLink]="['/pages/signals/view', signal.id]">
+              {{signal.titulo}}
             </a>
           </div>
-          <div class="card-footer text-muted">
+          <div class="card-footer">
             <div class="row">
-              <div class="col-6">
-                <small class="text-muted">Last updated 3 mins ago</small>
+              <div class="col-12 col-md-6">
+                <p class="text-body">publicado {{signal.FechaCreate | amTimeAgo}}</p>
               </div>
-              <div class="col-2">
-                <span class="socials">
-                  <i class="fa fa-file-text-o"></i>
+              <div class="col-6 col-md-2">
+                <p class="text-body">0 Com</p>
+              </div>
+              <div class="col-3 col-md-2">
+                <span class="font-w-light up pull-right">
+                  <i class="fa fa-thumbs-up up">15</i>
                 </span>
               </div>
-              <div class="col-2">
-                <span class="socials">
-                  <i class="fa fa-thumbs-up fa-2">45</i>
-                </span>
-              </div>
-              <div class="col-2">
-                <span class="socials">
-                  <i class="fa fa-thumbs-down">74</i>
+              <div class="col-3 col-md-2">
+                <span class="font-w-light dowm pull-right">
+                  <i class="fa fa-thumbs-down down">74</i>
                 </span>
               </div>
             </div>

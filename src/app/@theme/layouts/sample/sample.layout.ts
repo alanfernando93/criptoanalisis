@@ -177,14 +177,14 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
       .withLatestFrom(this.themeService.onMediaQueryChange())
       .delay(20)
       .subscribe(
-      ([item, [bpFrom, bpTo]]: [
-        any,
-        [NbMediaBreakpoint, NbMediaBreakpoint]
-      ]) => {
-        if (bpTo.width <= isBp.width) {
-          this.sidebarService.collapse("menu-sidebar");
+        ([item, [bpFrom, bpTo]]: [
+          any,
+          [NbMediaBreakpoint, NbMediaBreakpoint]
+        ]) => {
+          if (bpTo.width <= isBp.width) {
+            this.sidebarService.collapse("menu-sidebar");
+          }
         }
-      }
       );
   }
 
@@ -215,7 +215,7 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
     this.user = null;
     this.router.navigate(["/"]);
   }
-  profile(){
+  profile() {
     this.router.navigate(["/user/profile"]);
   }
 }

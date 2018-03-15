@@ -23,4 +23,15 @@
     color: #d5e0ea !important;
     text-align: center;
   }
+  .relink{
+    text-decoration: none;
+    h6{
+      &:hover{
+        color: slategrey;
+      }
+    }
+  }
+  .user_dash{
+    top: 22px !important;
+  }
 }

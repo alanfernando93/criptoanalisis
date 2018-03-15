@@ -29,7 +29,7 @@ export class ViewComponent implements OnInit {
   getSignalById() {
     this.route.params.forEach((params: Params) => {
       let id = params['signalId'];
-      this.signalsService.getSignalsId(id).subscribe(
+      this.signalsService.getById(id).subscribe(
         signal => {
           if (!signal) {
 

@@ -12,7 +12,9 @@ export class ListComponent implements OnInit {
 
   signals: any;
 
-  constructor(private http: Http, private signalsService: SignalsService) {
+  constructor(
+    private http: Http, 
+    private signalsService: SignalsService) {
   }
 
   ngOnInit() {
@@ -20,7 +22,7 @@ export class ListComponent implements OnInit {
   }
 
   getSignals() {
-    this.signalsService.getSignals().subscribe(
+    this.signalsService.getAll().subscribe(
       res => {
         if(!res) {
 

@@ -14,12 +14,12 @@ import 'rxjs/add/operator/map';
 
     }
 
-    getSignals(){
+    getAll(){
         return this.http.get(this.baseUrl + 'signals' + '?access_token=' + this.token)
         .map((res: Response) => res.json())
     }
 
-    getSignalsId(id){
+    getById(id){
         return this.http.get(this.baseUrl + 'signals/' + id + '?access_token=' + this.token)
         .map((res: Response) => res.json())
     }

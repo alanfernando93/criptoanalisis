@@ -1,7 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { MomentModule } from 'angular2-moment';
-import * as moment from 'moment';
 
 import { NewsService } from "../news.service";
 
@@ -13,6 +11,7 @@ import { NewsService } from "../news.service";
 export class ListComponent implements OnInit {
 
   news: any;
+  user: any;
   
   constructor(
     private http: Http,
@@ -24,12 +23,24 @@ export class ListComponent implements OnInit {
   }
 
   getNews() {
-    this.newsService.getNews().subscribe(
-      res => {
-        if (!res) {
+    this.newsService.getAll().subscribe(
+      news => {
+        if (!news) {
 
         } else {
-          this.news = res;
+          this.news = news;
+          this.newsService.getUserById(news.usuarioId).subscribe(
+            user => {
+              if(!user){
+
+              }else {
+                this.user = user;
+              }
+            },
+            error => {
+              console.log("no pudo cargar el usuario");
+            }
+          )
         }
       },
       error => {

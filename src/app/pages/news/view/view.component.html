@@ -1,20 +1,20 @@
 <nb-card>
     <nb-card-header>
-        <div class="row">
+        <div class="row" *ngIf="user">
             <div class="col-3 col-md-1">
-                <img src="../../../assets/images/jack.png" class="img-thumbnail foto_user" alt="Responsive image">
+                <img src="{{user.perfil}}" class="img-thumbnail foto_user" alt="Responsive image">
             </div>
             <div class="col-9 col-md-3">
-                <p class="font-w-light user">Juan Jose Perez Perez</p>
+                <p class="font-w-light user">{{user.nombre}}</p>
             </div>
             <div class="col-4 col-md-1">
                 <h4>
-                    <span class="badge badge-primary font-w-light user">97 P</span>
+                    <span class="badge badge-primary font-w-light user">{{user.puntos}} P</span>
                 </h4>
             </div>
             <div class="col-4 col-md-6">
                 <h4>
-                    <span class="badge badge-success font-w-light user">51 P</span>
+                    <span class="badge badge-success font-w-light user">{{user.precision}} P</span>
                 </h4>
             </div>
             <div class="col-4 col-md-1">
@@ -37,7 +37,7 @@
                 </h1>
             </div>
             <div class="col-6 col-md-12">
-                <span class=" text-primary date">{{news.fecha_create | amTimeAgo}}</span>
+                <span class="text-body date">{{news.fecha_create | amTimeAgo}}</span>
             </div>
         </div>
     </nb-card-header>
@@ -56,11 +56,11 @@
     <nb-card-body>
         <div class="row" *ngIf="news">
             <div class="col-12 col-md-6">
-                <h2>Conjetura de precio :</h2>
+                <h4>Conjetura de precio :</h4>
                 <span [innerHTML]="news.conj_moneda"></span>
             </div>
             <div class="col-12 col-md-6">
-                <h2>Confetura a otra Moneda :</h2>
+                <h4>Confetura a otra Moneda :</h4>
                 <span [innerHTML]="news.conj_precio"></span>
             </div>
         </div>
@@ -77,22 +77,17 @@
                     <i class="fa fa-facebook-f fa-2x"></i>
                 </span>
             </div>
-            <div class="col-md-1 col-sm-2 col-2 twitter">
+            <div class="col-md-5 col-sm-2 col-2 twitter">
                 <span class="font-w-light up">
                     <i class="fa fa-twitter fa-2x"></i>
                 </span>
             </div>
-            <div class="col-md-6 col-sm-2 col-2 whatsapp">
-                <span class="font-w-light up">
-                    <i class="fa fa-whatsapp fa-2x"></i>
-                </span>
-            </div>
-            <div class="col-md-1 col-sm-2 col-3 socials">
-                <a class="font-w-light up" (click)="sendLike()">
+            <div class="col-md-2 col-sm-2 col-4 socials">
+                <a class="font-w-light up pull-right" (click)="sendLike()">
                     <i class="fa fa-thumbs-up"></i>{{news.likes.total}}</a>
             </div>
-            <div class="col-md-1 col-sm-2 col-3 socials">
-                <a class="font-w-light down" (click)="sendDislike()">
+            <div class="col-md-2 col-sm-2 col-4 socials">
+                <a class="font-w-light down pull-right" (click)="sendDislike()">
                     <i class="fa fa-thumbs-down"></i>{{news.dislikes.total}}</a>
             </div>
         </div>

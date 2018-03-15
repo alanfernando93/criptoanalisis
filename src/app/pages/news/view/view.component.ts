@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { MomentModule } from 'angular2-moment';
-import * as moment from 'moment';
-
 import { NewsService } from '../news.service';
 
 @Component({
@@ -15,6 +12,7 @@ import { NewsService } from '../news.service';
 export class ViewComponent implements OnInit {
 
   news: any;
+  user: any;
   like: number;
   dislike: number;
 
@@ -34,12 +32,23 @@ export class ViewComponent implements OnInit {
   getNewsById() {
     this.route.params.forEach((params: Params) => {
       let id = params['newsId'];
-      this.newsService.getNewsId(id).subscribe(
+      this.newsService.getById(id).subscribe(
         news => {
           if (!news) {
 
           } else {
             this.news = news;
+            this.newsService.getUserById(news.userioId).subscribe(
+              user => {
+                if (!user) {
+
+                } else {
+                  this.user = user;
+                }
+              },
+              error => {
+                console.log("no pudo cargar el usuario");
+              });
           }
           error => {
             console.log("no pudo cargar las noticias por id");

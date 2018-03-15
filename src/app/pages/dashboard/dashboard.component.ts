@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
-import { MomentModule } from 'angular2-moment';
-import * as moment from 'moment';
 
 import { NewsService } from '../news/news.service';
 import { SignalsService } from '../signals/signals.service';
@@ -30,7 +28,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getNews() {
-    this.newsService.getNews().subscribe(
+    this.newsService.getAll().subscribe(
       res => {
         if (!res) {
 
@@ -45,7 +43,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getSignals() {
-    this.signalsService.getSignals().subscribe(
+    this.signalsService.getAll().subscribe(
       res => {
         if(!res) {
 

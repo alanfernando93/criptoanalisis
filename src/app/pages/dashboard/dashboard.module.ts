@@ -49,5 +49,6 @@ import { MomentModule } from 'angular2-moment';
     TrafficChartComponent,
     ...routedComponents
   ],
+  
 })
 export class DashboardModule { }

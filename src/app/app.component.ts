@@ -5,6 +5,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { AnalyticsService } from './@core/utils/analytics.service';
+import { MomentModule } from 'angular2-moment';
 import * as moment from 'moment';
 
 @Component({
