@@ -83,5 +83,21 @@
   "messageRoom": {
     "dataSource": "db",
     "public": true
+  },
+  "asesoria_personal": {
+    "dataSource": "db",
+    "public": true
+  },
+  "instruccion": {
+    "dataSource": "db",
+    "public": true
+  },
+  "pago": {
+    "dataSource": "db",
+    "public": true
+  },
+  "disputa": {
+    "dataSource": "db",
+    "public": true
   }
 }
