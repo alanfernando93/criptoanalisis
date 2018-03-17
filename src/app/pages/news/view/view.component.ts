@@ -3,7 +3,8 @@ import { Http, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { NewsService } from '../news.service';
-
+import { UserService } from '../../../@core/data/users.service';
+ 
 @Component({
   selector: 'ngx-view',
   templateUrl: './view.component.html',
@@ -20,7 +21,8 @@ export class ViewComponent implements OnInit {
     private http: Http,
     private route: ActivatedRoute,
     private router: Router,
-    private newsService: NewsService) {
+    private newsService: NewsService,
+    private userService: UserService) {
 
   }
   ngOnInit() {
@@ -38,17 +40,7 @@ export class ViewComponent implements OnInit {
 
           } else {
             this.news = news;
-            this.newsService.getUserById(news.userioId).subscribe(
-              user => {
-                if (!user) {
-
-                } else {
-                  this.user = user;
-                }
-              },
-              error => {
-                console.log("no pudo cargar el usuario");
-              });
+            console.log(this.news);
           }
           error => {
             console.log("no pudo cargar las noticias por id");

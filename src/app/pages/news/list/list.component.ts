@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { NewsService } from "../news.service";
+import { UserService } from "../../../@core/data/users.service";
 
 @Component({
   selector: 'ngx-list',
@@ -15,7 +17,8 @@ export class ListComponent implements OnInit {
   
   constructor(
     private http: Http,
-    private newsService: NewsService
+    private newsService: NewsService,
+    private userService: UserService
   ) {
   }
   ngOnInit() {
@@ -29,18 +32,7 @@ export class ListComponent implements OnInit {
 
         } else {
           this.news = news;
-          this.newsService.getUserById(news.usuarioId).subscribe(
-            user => {
-              if(!user){
-
-              }else {
-                this.user = user;
-              }
-            },
-            error => {
-              console.log("no pudo cargar el usuario");
-            }
-          )
+          //this.getUser();
         }
       },
       error => {
@@ -48,4 +40,22 @@ export class ListComponent implements OnInit {
       }
     );
   }
+
+  getUser(){
+    this.news.forEach( (data,index) => {
+      this.userService.getById(data.usuarioId).subscribe(
+        data => {
+          if(!data ) {
+
+          }else {
+            this.news[index].user = data;
+          }
+          error => {
+            console.log("no pudo cargar los usuarios");
+          }
+        }
+      );      
+    });
+  }
+
 }

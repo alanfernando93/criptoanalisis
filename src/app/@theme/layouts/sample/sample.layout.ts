@@ -190,9 +190,9 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
 
   ngOnInit() {
     this.token = localStorage.getItem("auth_app_token");
-    this.id = Number.parseInt(localStorage.getItem("userId"));
-    this.userService.getUser(this.id, this.token).then(usuario => {
-      this.user = JSON.parse(usuario["_body"]);
+    let id = Number.parseInt(localStorage.getItem("userId"));
+    this.userService.getById(id).subscribe(usuario => {
+      this.user = usuario;
     });
   }
 

@@ -3,39 +3,31 @@
     <div class="row">
       <div class="col-12 col-md-6">
         <ngb-carousel>
-          <ng-template ngbSlide *ngFor=" let news of news">
+          <ng-template ngbSlide *ngFor="let news of news">
+            <a [routerLink]="['/pages/news/view', news.id]">
+              <div class="carousel-caption">
+                <h4 [innerHTML]="news.titulo"></h4>
+                <p class="font-w-light user">Juan Jose Perez Perez</p>
+                <p class="badge badge-primary font-w-light user">97 P</p>
+                <p class="badge badge-success font-w-light user">51 F</p>
+              </div>
+            </a>
             <img src="https://lorempixel.com/900/500?r=1" alt="Random first slide">
-            <div class="carousel-caption">
-              <a [routerLink]="['/pages/news/view', news.id]">
-                <h5 class="content" [innerHTML]="news.titulo"></h5>
-              </a>
-              <p class="font-w-light user">Juan Jose Perez Perez</p>
-              <span class="badge badge-primary font-w-light user">97 P</span>
-              <span class="badge badge-success font-w-light user">51 F</span>
-            </div>
           </ng-template>
         </ngb-carousel>
       </div>
       <div class="col-12 col-md-6">
-        <div class="list-group-item" *ngFor="let signals of signals">
-          <div class="row">
-            <div class="col-12 col-md-8">
-              <a [routerLink]="['/pages/signals/view', signals.id]" class="relink">
-                <h6 class="list-group-item-heading">{{signals.titulo}}</h6>
+        <div class="list-group" *ngFor="let signals of signals">
+          <div class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+              <a [routerLink]="['/pages/signals/view', signals.id]" class="flex-column align-items-start">
+                <h6 class="mb-4 signal_user" [innerHTML]="signals.titulo"></h6>
               </a>
+              <small class="text-muted">{{signals.FechaCreate | amTimeAgo}}</small>
             </div>
-            <div class="col-12 col-md-4">
-              <span class="list-group-item-text pull-right">{{signals.FechaCreate | amTimeAgo}}</span>
-            </div>
-            <div class="col-6 col-md-6 user_dash">
-              <p class="font-w-light user">Juan Jose Perez Perez</p>
-            </div>
-            <div class="col-1 col-md-1 user_dash">
-              <span class="badge badge-primary font-w-light user">97 P</span>
-            </div>
-            <div class="col-3 col-md-3 user_dash">
-              <span class="badge badge-success font-w-light user">51 P</span>
-            </div>
+            <small class="text-muted">Juan Jose Perez Perez</small>
+            <p class="badge badge-primary font-w-light user">97 P</p>
+            <p class="badge badge-success font-w-light user">51 F</p>
           </div>
         </div>
       </div>
@@ -46,7 +38,7 @@
       <div class="col-12">
         <div class="card-group">
           <div class="card">
-            <img class="card-img-top" src="../../../assets/images/camera2.jpg"  alt="Card image cap">
+            <img class="card-img-top" src="../../../assets/images/camera2.jpg" alt="Card image cap">
             <div class="card-block">
               <h4 class="card-title btn-hero-primary">Noticias</h4>
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is

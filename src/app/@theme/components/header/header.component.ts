@@ -38,10 +38,8 @@ export class HeaderComponent implements OnInit {
     this.authService.onTokenChange().subscribe((token: NbAuthJWTToken) => {
       if (token.getValue()) {
         let userId = Number.parseInt(localStorage.getItem("userId"));
-        this.userService.getUser(userId, token["token"]).then(usuario => {
-          this.user = JSON.parse(usuario["_body"]);
-          this.userId = localStorage.getItem('userId');
-          this.token = localStorage.getItem('auth_app_token');
+        this.userService.getById(userId).subscribe(usuario => {
+          this.user = usuario;
         });
       }
     });
@@ -70,7 +68,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     localStorage.clear();
     this.user = null;    
-    this.userService.logout(this.token).then(()=>{
+    this.userService.logout().subscribe(()=>{
       this.router.navigateByUrl("/auth/logout");
       setTimeout(()=>{
         this.router.navigate(["/"])

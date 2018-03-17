@@ -17,7 +17,7 @@ export class NewsService {
 
   getAll(){
     return this.http.get(this.baseUrl + 'noticias')
-                    .map((res: Response) => res.json())
+                    .map((res: Response) => res.json());
   }
 
   getById(id){
@@ -32,14 +32,6 @@ export class NewsService {
 
   postLikes(id){
     return this.http.get(this.baseUrl + 'noticias/' + id + '/like?userId=' + this.userId)
-        .map((res:Response) => res.json());
-  }
-  /*
-  modificar getUserById
-  */
-
-  getUserById(id){
-    return this.http.get(this.baseUrl + 'usuarios/' + id)
         .map((res:Response) => res.json());
   }
 

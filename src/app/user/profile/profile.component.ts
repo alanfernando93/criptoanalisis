@@ -24,10 +24,10 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userId = Number.parseInt(localStorage.getItem("userId"));
+    let userId = Number.parseInt(localStorage.getItem("userId"));
     this.token = localStorage.getItem("auth_app_token");
-    this.userService.getUser(this.userId, this.token).then(usuario => {
-      this.user = JSON.parse(usuario["_body"]);
+    this.userService.getById(userId).subscribe(usuario => {
+      this.user = usuario;
     });
   }
 
@@ -37,8 +37,8 @@ export class ProfileComponent implements OnInit {
     let body = new FormData();
     body.append('Key',this.user.username);
     body.append('Value', this.myFile);
-    this.userService.update(this.userId, this.token, this.user).then(resp => {
-      this.userService.makeFileRequest(body, this.userId, this.token).then((resp) => {
+    this.userService.update(this.user).subscribe(resp => {
+      this.userService.makeFileRequest(body).subscribe((resp) => {
         this.router.navigate(['/user/profile']);
      });   
     });

@@ -19,19 +19,12 @@
       height: nb-theme(card-height-medium);
     }
   }
-  .content{
-    color: #d5e0ea !important;
-    text-align: center;
-  }
-  .relink{
+  a{
     text-decoration: none;
-    h6{
+    .signal_user{
       &:hover{
-        color: slategrey;
+        color: rgb(67, 130, 194);
       }
     }
-  }
-  .user_dash{
-    top: 22px !important;
   }
 }
