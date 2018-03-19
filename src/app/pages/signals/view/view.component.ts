@@ -31,14 +31,7 @@ export class ViewComponent implements OnInit {
       let id = params['signalId'];
       this.signalsService.getById(id).subscribe(
         signal => {
-          if (!signal) {
-
-          } else {
-            this.signal = signal;
-          }
-          error => {
-            console.log("no pudo cargar las señales");
-          }
+          signal ? this.signal = signal : '';
         });
     });
   }

@@ -29,30 +29,16 @@ export class DashboardComponent implements OnInit {
 
   getNews() {
     this.newsService.getAll().subscribe(
-      res => {
-        if (!res) {
-
-        } else {
-          this.news = res;
-        }
-      },
-      error => {
-        console.log("no pudo cargar la lista de noticias");
+      news => {
+        news ? this.news = news : '';
       }
     );
   }
 
   getSignals() {
     this.signalsService.getAll().subscribe(
-      res => {
-        if(!res) {
-
-        }else{
-          this.signals = res;
-        }
-      },
-      error => {
-        console.log("no pudo cargar la lista de señales");
+      signals => {
+        signals ? this.signals = signals : '';
       }
     );
   }

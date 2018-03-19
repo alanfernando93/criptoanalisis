@@ -35,4 +35,25 @@ export class NewsService {
         .map((res:Response) => res.json());
   }
 
+  
+  getNewsComment(id){
+    return this.http.get(this.baseUrl + 'noticias/' + id + '/comentarioNoticia')
+                      .map((res: Response) => res.json());
+  }
+
+  postNewsComment(id, comments){
+    return this.http.post(this.baseUrl + 'noticias/' + id + '/comentarioNoticia', comments)
+                      .map((res: Response) => res.json());
+  }
+
+  getNewsAnswer(id){
+    return this.http.get(this.baseUrl + 'comentario_noticia/' + id + '/answerNoticia')
+                      .map((res: Response) => res.json());
+  }
+
+  getNewsCommentCount(id){
+    return this.http.get(this.baseUrl + 'noticias/' + id + '/comentarioNoticia'+'/count')
+                      .map((res: Response) => res.json());
+  }
+
 }

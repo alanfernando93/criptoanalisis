@@ -16,7 +16,7 @@
           </ng-template>
         </ngb-carousel>
       </div>
-      <div class="col-12 col-md-6">
+      <div class="col-12 col-md-6" *ngIf="signals ; else otroTexto">
         <div class="list-group" *ngFor="let signals of signals">
           <div class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
@@ -31,6 +31,23 @@
           </div>
         </div>
       </div>
+      <ng-template #otroTexto>
+      <div class="col-12 col-md-6">
+        <div class="list-group" >
+          <div class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+              <a  class="flex-column align-items-start">
+                <h6 class="mb-4 signal_user" >titulo</h6>
+              </a>
+              <small class="text-muted">fecha</small>
+            </div>
+            <small class="text-muted">Juan Jose Perez Perez</small>
+            <p class="badge badge-primary font-w-light user">97 P</p>
+            <p class="badge badge-success font-w-light user">51 F</p>
+          </div>
+        </div>
+      </div>
+      </ng-template>
     </div>
   </nb-card-header>
   <nb-card-body>

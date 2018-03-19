@@ -28,19 +28,10 @@ export class ListComponent implements OnInit {
   getNews() {
     this.newsService.getAll().subscribe(
       news => {
-        if (!news) {
-
-        } else {
-          this.news = news;
-          //this.getUser();
-        }
-      },
-      error => {
-        console.log("no pudo cargar las noticias");
+       news ? this.news = news : '';
       }
     );
   }
-
   getUser(){
     this.news.forEach( (data,index) => {
       this.userService.getById(data.usuarioId).subscribe(

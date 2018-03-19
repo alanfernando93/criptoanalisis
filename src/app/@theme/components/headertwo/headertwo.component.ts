@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http } from '@angular/http';
 
 import { NbMenuService, NbSidebarService } from '@nebular/theme';
 import { AnalyticsService } from '../../../@core/utils/analytics.service';
@@ -32,15 +32,8 @@ export class HeaderTwoComponent implements OnInit {
 
     getMarket() {
         this.marketsService.getMarkets().subscribe(
-            res => {
-                if (!res) {
-
-                } else {
-                    this.markets = res;
-                }
-            },
-            error => {
-                console.log("no pudo cargar los mercados");
+            markets => {
+                markets ? this.markets = markets : '';
             }
         );
     }

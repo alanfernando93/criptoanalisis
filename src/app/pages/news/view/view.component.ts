@@ -4,7 +4,9 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { NewsService } from '../news.service';
 import { UserService } from '../../../@core/data/users.service';
- 
+
+import { environment } from '../../../../environments/environment';
+
 @Component({
   selector: 'ngx-view',
   templateUrl: './view.component.html',
@@ -12,10 +14,19 @@ import { UserService } from '../../../@core/data/users.service';
 })
 export class ViewComponent implements OnInit {
 
+
+  private userId = environment.userId;
+
   news: any;
   user: any;
   like: number;
   dislike: number;
+  commentById: any;
+  answers: any;
+  count: any;
+  idNews: any;
+
+  comment: any = {};
 
   constructor(
     private http: Http,
@@ -26,46 +37,58 @@ export class ViewComponent implements OnInit {
 
   }
   ngOnInit() {
+    this.route.params.forEach((params: Params) => {
+      this.idNews = params['newsId'];
+    });
     this.getNewsById();
-    this.sendDislike();
-    this.sendLike();
+    this.getNewsCommentById();
+    //this.getNewsAnswerById();
+    this.getNewsCommentCount();
   }
 
   getNewsById() {
-    this.route.params.forEach((params: Params) => {
-      let id = params['newsId'];
-      this.newsService.getById(id).subscribe(
-        news => {
-          if (!news) {
+    this.newsService.getById(this.idNews).subscribe(
+      news => {
+        news ? this.news = news : '';
+      });
+  }
 
-          } else {
-            this.news = news;
-            console.log(this.news);
-          }
-          error => {
-            console.log("no pudo cargar las noticias por id");
-          }
-        });
+  getNewsCommentById() {
+    this.newsService.getNewsComment(this.idNews).subscribe(data => {
+      this.commentById = data;
+    });
+  }
+
+  getNewsAnswerById() {
+    this.newsService.getNewsAnswer(this.idNews).subscribe(data => {
+      this.answers = data;
+    });
+  }
+
+  getNewsCommentCount() {
+    this.newsService.getNewsCommentCount(this.idNews).subscribe(data => {
+      this.count = data;
     });
   }
 
   sendDislike() {
-    this.route.params.forEach((params: Params) => {
-      let id = params['newsId'];
-      this.newsService.postDislikes(id).subscribe(data => {
-        this.dislike = data;
-        this.news = data;
-      });
+    this.newsService.postDislikes(this.idNews).subscribe(data => {
+      this.dislike = data;
+      this.news = data;
     });
   }
 
   sendLike() {
-    this.route.params.forEach((params: Params) => {
-      let id = params['newsId'];
-      this.newsService.postLikes(id).subscribe(data => {
-        this.like = data;
-        this.news = data;
-      });
+    this.newsService.postLikes(this.idNews).subscribe(data => {
+      this.like = data;
+      this.news = data;
+    });
+  }
+
+  sendComent() {
+    this.comment.userId = this.userId;
+    this.comment.noticiaId = this.idNews;
+    this.newsService.postNewsComment(this.idNews, this.comment).subscribe(data => {
     });
   }
 }

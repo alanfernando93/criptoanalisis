@@ -23,15 +23,8 @@ export class ListComponent implements OnInit {
 
   getSignals() {
     this.signalsService.getAll().subscribe(
-      res => {
-        if(!res) {
-
-        }else {
-          this.signals = res;
-        }
-      },
-      error => {
-        console.log("no pudo cargar las señales");
+      signals => {
+        signals ? this.signals = signals : '';
       }
     );
   }  
