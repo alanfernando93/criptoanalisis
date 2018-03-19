@@ -8,7 +8,6 @@ import { environment } from '../../../../environments/environment';
 
 import { SignalsService } from '../../signals/signals.service';
 import { CoinsService } from "../../coins/coins.service";
-import { PositionsService } from "../positions.service"
 
 @Component({
     selector: 'ngx-publish-signal',
@@ -60,7 +59,6 @@ export class SignalComponent implements OnInit {
         private http: Http,
         private signalsService: SignalsService,
         private coinsService: CoinsService,
-        private positionsService: PositionsService,
         private router: Router
     ) { }
 
@@ -80,11 +78,11 @@ export class SignalComponent implements OnInit {
         this.signal.visible = "true";
         this.signal.usuarioId = this.userId;
         this.signalsService.add(this.signal).subscribe(resp=>{
+            console.log(resp)
             let id = resp.id;
             this.positions.forEach((value,key) => {
                 this.positions[key].signalId = id
-                this.positionsService.add(this.positions[key]).subscribe(resp => console.log("add item : " + key))
-            });
+                this.signalsService.setPosition(this.positions[key]).subscribe(resp => console.log(resp))            });
         });
         // console.log(this.positions)
     }

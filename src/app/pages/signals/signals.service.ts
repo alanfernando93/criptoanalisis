@@ -26,7 +26,7 @@ export class SignalsService {
     }
 
     add(signal) {
-        return this.http.post(this.baseUrl + 'positions?access_token=' + this.token, signal)
+        return this.http.post(this.baseUrl + 'signal?access_token=' + this.token, signal)
             .map(resp => resp.json())
     }
 
