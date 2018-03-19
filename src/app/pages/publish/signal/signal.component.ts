@@ -8,6 +8,7 @@ import { environment } from '../../../../environments/environment';
 
 import { SignalsService } from '../../signals/signals.service';
 import { CoinsService } from "../../coins/coins.service";
+import { PositionsService } from "../positions.service"
 
 @Component({
     selector: 'ngx-publish-signal',
@@ -59,6 +60,7 @@ export class SignalComponent implements OnInit {
         private http: Http,
         private signalsService: SignalsService,
         private coinsService: CoinsService,
+        private positionsService: PositionsService,
         private router: Router
     ) { }
 
@@ -77,11 +79,17 @@ export class SignalComponent implements OnInit {
     onSave() {
         this.signal.visible = "true";
         this.signal.usuarioId = this.userId;
-        this.signalsService.add(this.signal).subscribe(resp=>console.log(resp));
-        console.log(this.pos)
+        this.signalsService.add(this.signal).subscribe(resp=>{
+            let id = resp.id;
+            this.positions.forEach((value,key) => {
+                this.positions[key].signalId = id
+                this.positionsService.add(this.positions[key]).subscribe(resp => console.log("add item : " + key))
+            });
+        });
+        // console.log(this.positions)
     }
 
-    keyupHandlerFunction($event,opc) {
+    keyupHandlerFunction(event,opc) {
         switch (opc) {
             case 'CS': this.signal.AnalisisFundamental = event; break;
             case 'AT': this.signal.AnalisisTecnico = event; break;
@@ -89,9 +97,26 @@ export class SignalComponent implements OnInit {
     }
 
     onClickPuntos($events, option, ptn) {
+        let type
+        switch (option) {
+            case 'puntEntr': type = "puntoEntrada"; break;
+            case 'tipSal': type = "puntoSalida"; break;
+            case 'stopLoss': type = "stopLoss"; break;
+        }
         const container = $events.originalTarget.parentNode.parentNode.parentNode.parentNode;
         const data1 = $events.originalTarget.parentNode.parentNode.children[1];
         const data2 = $events.originalTarget.parentNode.parentNode.children[2];
+
+        if(!data1.value || !data2.value) {
+            console.log("vacio");
+            return
+        }
+
+        this.pos.valor = data1.value
+        this.pos.porcentajeCapital = data2.value
+        this.pos.tipo = type
+
+        this.positions.push(this.pos)
 
         const _body = this.renderer.createElement('div');
         this.renderer.addClass(_body, "row");

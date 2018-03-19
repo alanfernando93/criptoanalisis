@@ -9,6 +9,7 @@ import { SignalComponent } from './signal/signal.component';
 import { NewsService } from '../news/news.service';
 import { CoinsService } from '../coins/coins.service';
 import { SignalsService } from '../signals/signals.service';
+import { PositionsService } from './positions.service'
 
 @NgModule({
     imports: [
@@ -19,6 +20,6 @@ import { SignalsService } from '../signals/signals.service';
         PublishNewsComponent,
         SignalComponent
     ],
-    providers: [NewsService,CoinsService,SignalsService],
+    providers: [NewsService,CoinsService,SignalsService,PositionsService],
 })
 export class PublishModule { }
