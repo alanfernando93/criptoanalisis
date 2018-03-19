@@ -1,24 +1,24 @@
 {
-  "name": "mercado",
+  "name": "answer_noticia",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "nombre": {
+    "contenido": {
       "type": "string"
     },
-    "descripcion": {
-      "type": "string"
+    "userId": {
+      "type": "number"
     }
   },
   "validations": [],
   "relations": {
-    "moneda": {
-      "type": "hasMany",
-      "model": "moneda",
-      "foreignkey": ""
+    "comentarioNoticia": {
+      "type": "belongsTo",
+      "model": "comentario_noticia",
+      "foreignKey": ""
     }
   },
   "acls": [],

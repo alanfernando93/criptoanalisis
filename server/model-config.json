@@ -99,5 +99,21 @@
   "disputa": {
     "dataSource": "db",
     "public": true
+  },
+  "comentario_asesoria": {
+    "dataSource": "db",
+    "public": true
+  },
+  "answer_asesoria": {
+    "dataSource": "db",
+    "public": true
+  },
+  "comentario_noticia": {
+    "dataSource": "db",
+    "public": true
+  },
+  "answer_noticia": {
+    "dataSource": "db",
+    "public": true
   }
 }

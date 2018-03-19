@@ -13,17 +13,17 @@
     "correspondencia": {
       "type": "number"
     },
-    "enlace":{
+    "enlace": {
       "type": "string"
     },
-    "pregunta":{
+    "pregunta": {
       "type": "string"
     }
   },
   "validations": [],
   "relations": {
-    "contenido":{
-      "type":"hasMany",
+    "contenido": {
+      "type": "hasMany",
       "model": "contenidoMoneda",
       "foreignkey": ""
     }
