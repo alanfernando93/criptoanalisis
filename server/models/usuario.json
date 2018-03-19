@@ -81,10 +81,15 @@
       "model": "contenidoMoneda",
       "foreignkey": ""
     },
-    "message":{
+    "message": {
       "type": "hasMany",
       "model": "messageRoom",
       "foreignkey": ""
+    },
+    "asesoriaPersonals": {
+      "type": "hasMany",
+      "model": "asesoria_personal",
+      "foreignKey": ""
     }
   },
   "acls": [

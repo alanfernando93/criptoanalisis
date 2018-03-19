@@ -13,16 +13,16 @@
     "fechaCreacion": {
       "type": "date"
     },
-    "estado":{
+    "estado": {
       "type": "boolean"
     },
-    "calificacion":{
+    "calificacion": {
       "type": "number"
     }
   },
   "validations": [],
   "relations": {
-    "titulo":{
+    "titulo": {
       "type": "belongsTo",
       "model": "titulo",
       "foreignkey": ""
@@ -32,10 +32,10 @@
       "model": "moneda",
       "foreignkey": ""
     },
-    "usuario":{
+    "usuario": {
       "type": "belongsTo",
       "model": "usario",
-      "foreignkey":""
+      "foreignkey": ""
     }
   },
   "acls": [],

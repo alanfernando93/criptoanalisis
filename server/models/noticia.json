@@ -6,6 +6,16 @@
   "options": {
     "validateUpsert": true
   },
+  "mixins": {
+    "Likes": [
+      {
+        "method": "like",
+        "endpoint": "/:id/like",
+        "likes": "likes",
+        "userModel": "usuario"
+      }
+    ]
+  },
   "properties": {
     "titulo": {
       "type": "string",
@@ -13,8 +23,8 @@
     },
     "contenido": {
       "type": "string",
-      "dataType": "text",
-      "required": true
+      "required": true,
+      "dataType": "text"
     },
     "tipo_moneda": {
       "type": "string",
@@ -42,6 +52,11 @@
     "usuario": {
       "type": "belongsTo",
       "model": "usuario",
+      "foreignKey": ""
+    },
+    "comentarioNoticia": {
+      "type": "hasMany",
+      "model": "comentario_noticia",
       "foreignKey": ""
     }
   },
@@ -78,16 +93,5 @@
       "permission": "ALLOW"
     }
   ],
-  "methods": {},
-  "mixins": {
-    "Likes": [
-        {
-          "method": "like",
-          "endpoint": "/:id/like",
-          "likes": "likes",
-          "userModel": "usuario"
-        }
-    ]
-}
-  
+  "methods": {}
 }
