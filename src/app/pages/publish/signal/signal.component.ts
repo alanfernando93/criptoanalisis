@@ -78,11 +78,13 @@ export class SignalComponent implements OnInit {
         this.signal.visible = "true";
         this.signal.usuarioId = this.userId;
         this.signalsService.add(this.signal).subscribe(resp=>{
-            console.log(resp)
+            console.log(this.positions)
             let id = resp.id;
             this.positions.forEach((value,key) => {
+                console.log(key + " : " + value.toString())
                 this.positions[key].signalId = id
-                this.signalsService.setPosition(this.positions[key]).subscribe(resp => console.log(resp))            });
+                this.signalsService.setPosition(this.positions[key]).subscribe(respo => {})            
+            });
         });
         // console.log(this.positions)
     }
@@ -115,6 +117,7 @@ export class SignalComponent implements OnInit {
         this.pos.tipo = type
 
         this.positions.push(this.pos)
+        console.log(this.positions);
 
         const _body = this.renderer.createElement('div');
         this.renderer.addClass(_body, "row");
