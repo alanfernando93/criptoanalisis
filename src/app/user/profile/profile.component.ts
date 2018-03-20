@@ -38,7 +38,7 @@ export class ProfileComponent implements OnInit {
       this.userService.makeFileRequest(body).subscribe((resp) => {
         this.router.navigate(['/']);
      });
-    });
+    },error=>console.log("Error!!!"));
 
   }
 

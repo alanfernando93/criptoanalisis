@@ -61,6 +61,19 @@ export class SignalComponent implements OnInit {
         key: false,
     }];
 
+    tipoSignal = {
+        title : 'Accion',
+        key   : true,
+    }
+
+    tipos = [{
+        title : 'Comprar',
+        key : true,
+    },{
+        title : 'Vender',
+        key : false,
+    }]
+
     constructor(
         private modalService: NgbModal,
         private renderer: Renderer2,
@@ -85,6 +98,7 @@ export class SignalComponent implements OnInit {
     onSave() {
         this.signal.visible = "true";
         this.signal.usuarioId = this.userId;
+        this.signal.tipo = this.tipoSignal.key;
         this.signalsService.add(this.signal).subscribe(resp=>{
             console.log(this.positions)
             let id = resp.id;
