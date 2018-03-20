@@ -9,6 +9,14 @@ import { environment } from '../../../../environments/environment';
 import { SignalsService } from '../../signals/signals.service';
 import { CoinsService } from "../../coins/coins.service";
 
+class Pos {
+    valor : String;
+    porcentajeCapital : String;
+    tipo : String;
+    constructor(moneda1:String,moneda2:String){
+    }
+}
+
 @Component({
     selector: 'ngx-publish-signal',
     styleUrls: ['./signal.component.scss'],
@@ -25,10 +33,10 @@ export class SignalComponent implements OnInit {
     stopLoss = 1;
 
     signal: any = {};
-    pos : any = {
-        moneda1 : "Modena",
-        moneda2 : "USD"
-    }
+
+    moneda1 : String = "Moneda"
+    moneda2 : String = "USD"
+
     positions : any = []
     coins: any = [];
 
@@ -81,7 +89,6 @@ export class SignalComponent implements OnInit {
             console.log(this.positions)
             let id = resp.id;
             this.positions.forEach((value,key) => {
-                console.log(key + " : " + value.toString())
                 this.positions[key].signalId = id
                 this.signalsService.setPosition(this.positions[key]).subscribe(respo => {})            
             });
@@ -97,12 +104,7 @@ export class SignalComponent implements OnInit {
     }
 
     onClickPuntos($events, option, ptn) {
-        let type
-        switch (option) {
-            case 'puntEntr': type = "puntoEntrada"; break;
-            case 'tipSal': type = "puntoSalida"; break;
-            case 'stopLoss': type = "stopLoss"; break;
-        }
+        let pos = new Pos(this.moneda1,this.moneda2);
         const container = $events.originalTarget.parentNode.parentNode.parentNode.parentNode;
         const data1 = $events.originalTarget.parentNode.parentNode.children[1];
         const data2 = $events.originalTarget.parentNode.parentNode.children[2];
@@ -111,14 +113,15 @@ export class SignalComponent implements OnInit {
             console.log("vacio");
             return
         }
-
-        this.pos.valor = data1.value
-        this.pos.porcentajeCapital = data2.value
-        this.pos.tipo = type
-
-        this.positions.push(this.pos)
-        console.log(this.positions);
-
+        switch (option) {
+            case 'puntEntr': pos.tipo = "puntoEntrada"; break;
+            case 'tipSal': pos.tipo = "puntoSalida"; break;
+            case 'stopLoss': pos.tipo = "stopLoss"; break;
+        }
+        pos.valor = data1.value
+        pos.porcentajeCapital = data2.value
+        this.positions.push(pos)
+        
         const _body = this.renderer.createElement('div');
         this.renderer.addClass(_body, "row");
 
@@ -134,7 +137,7 @@ export class SignalComponent implements OnInit {
         this.renderer.addClass(d1, "form-control");
         this.renderer.setProperty(d1, 'aria-label', "Amount (to the nearest dollar)");
         this.renderer.setProperty(d1, 'type', "text");
-        this.renderer.setProperty(d1, 'value', data1.value + " " + this.pos.moneda2);
+        this.renderer.setProperty(d1, 'value', data1.value + " " + this.moneda2);
         this.renderer.setAttribute(d1, 'disabled', 'true');
 
         const d2 = this.renderer.createElement('input');

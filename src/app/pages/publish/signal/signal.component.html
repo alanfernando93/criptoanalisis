@@ -8,17 +8,17 @@
                 <div class="row">
                     <div class="col-4">
                         <div class="dropdown" ngbDropdown>
-                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{pos.moneda1}} </button>
+                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{moneda1}} </button>
                             <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
-                              <li class="dropdown-item" *ngFor="let coin of coins" (click)="this.position.moneda1 = coin.name">{{coin.name}}</li>
+                              <li class="dropdown-item" *ngFor="let coin of coins" (click)="this.moneda1 = coin.name">{{coin.name}}</li>
                             </ul>
                           </div>
                     </div>
                     <div class="col-4">
                         <div class="dropdown" ngbDropdown>
-                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{pos.moneda2}} </button>
+                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{moneda2}} </button>
                             <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
-                              <li class="dropdown-item" *ngFor="let type of types" (click)="this.position.moneda2 = type.id">{{type.id}}</li>
+                              <li class="dropdown-item" *ngFor="let type of types" (click)="this.moneda2 = type.id">{{type.id}}</li>
                             </ul>
                           </div>
                     </div>
