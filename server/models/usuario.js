@@ -53,35 +53,37 @@ module.exports = function(Usuario) {
   Usuario.observe('after save', function(ctx, next) {
     var rol = Usuario.app.models.Role;
     var map = Usuario.app.models.RoleMapping;
-    if (ctx.instance.realm == 'normal') {
-      rol.find({where: {name: 'normal'}}, function(err, rol) {
-        if (err)
-          throw err;
-        map.upsertWithWhere({principalId: ctx.instance.id}, {
-          principalType: 'NORMAL',
-          principalId: ctx.instance.id,
-          roleId: rol[0].id,
-        }, function(err, rolemapping) {
+    if (ctx.instance != undefined) {
+      if (ctx.instance.realm == 'normal') {
+        rol.find({where: {name: 'normal'}}, function(err, rol) {
           if (err)
-            console.log('error asignando roles');
-          console.log(rolemapping);
+            throw err;
+          map.upsertWithWhere({principalId: ctx.instance.id}, {
+            principalType: 'NORMAL',
+            principalId: ctx.instance.id,
+            roleId: rol[0].id,
+          }, function(err, rolemapping) {
+            if (err)
+              console.log('error asignando roles');
+            console.log(rolemapping);
+          });
         });
-      });
-    }
-    if (ctx.instance.realm == 'premium') {
-      rol.find({where: {name: 'premium'}}, function(err, rol) {
-        if (err)
-          throw err;
-        map.upsertWithWhere({principalId: ctx.instance.id}, {
-          principalType: 'Premium',
-          principalId: ctx.instance.id,
-          roleId: rol[0].id,
-        }, function(err, rolemapping) {
+      }
+      if (ctx.instance.realm == 'premium') {
+        rol.find({where: {name: 'premium'}}, function(err, rol) {
           if (err)
-            console.log('error asignando roles');
-          console.log(rolemapping);
+            throw err;
+          map.upsertWithWhere({principalId: ctx.instance.id}, {
+            principalType: 'Premium',
+            principalId: ctx.instance.id,
+            roleId: rol[0].id,
+          }, function(err, rolemapping) {
+            if (err)
+              console.log('error asignando roles');
+            console.log(rolemapping);
+          });
         });
-      });
+      }
     }
     next();
   });

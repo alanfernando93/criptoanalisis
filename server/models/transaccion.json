@@ -1,0 +1,41 @@
+{
+  "name": "transaccion",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "tipo": {
+      "type": "string"
+    },
+    "monto": {
+      "type": "number",
+      "datatype": "decimal",
+      "presition": 7,
+      "scale": 3
+    },
+    "fecha": {
+      "type": "date",
+      "default": "$now"
+    },
+    "costo": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "sender": {
+      "type": "belongsTo",
+      "model": "usuario",
+      "foreignkey": "senderId"
+    },
+    "reciever": {
+      "type": "belongsTo",
+      "model": "usuario",
+      "foreignkey": "recieverId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

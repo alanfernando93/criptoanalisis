@@ -1,5 +1,5 @@
 {
-  "name": "messageRoom",
+  "name": "userMessage",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -10,28 +10,28 @@
       "type": "string",
       "required": true
     },
-    "RoomId": {
-      "type": "string"
+    "idProper": {
+      "type": "number",
+      "required": true
     },
-    "fecha": {
+    "fechaEnvio": {
       "type": "date",
       "default": "$now"
     }
   },
   "validations": [],
   "relations": {
-    "usuario": {
+    "sender": {
       "type": "belongsTo",
-      "model": "usuario"
+      "model": "usuario",
+      "foreignkey": "sender"
+    },
+    "reciever":{
+      "type": "belongsTo",
+      "model": "usuario",
+      "foreignkey": "reciever"
     }
   },
-  "acls": [
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$unauthenticated",
-      "permission": "DENY"
-    }
-  ],
+  "acls": [],
   "methods": {}
 }
