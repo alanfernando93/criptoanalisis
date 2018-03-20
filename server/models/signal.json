@@ -8,7 +8,7 @@
   },
   "properties": {
     "titulo": {
-      "type": "string",
+      "type": "Boolean",
       "required": true
     },
     "tipoInversion": {
@@ -51,9 +51,9 @@
       "foreignKey": "SignalId",
       "through": "LikeSignal"
     },
-    "positions": {
+    "puntos": {
       "type": "hasMany",
-      "model": "position",
+      "model": "punto",
       "foreignKey": ""
     },
     "comments": {
