@@ -21,10 +21,15 @@
   },
   "validations": [],
   "relations": {
-    "usuario": {
+    "sender": {
       "type": "belongsTo",
       "model": "usuario",
-      "foreignkey": ""
+      "foreignkey": "sender"
+    },
+    "reciever":{
+      "type": "belongsTo",
+      "model": "usuario",
+      "foreignkey": "reciever"
     }
   },
   "acls": [],

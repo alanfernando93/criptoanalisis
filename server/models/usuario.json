@@ -84,13 +84,33 @@
     },
     "message": {
       "type": "hasMany",
-      "model": "messageRoom",
-      "foreignkey": ""
+      "model": "usuario",
+      "foreignkey": "",
+      "through": "messageRoom"
     },
-    "userMessage": {
+    "MsgSender": {
       "type": "hasMany",
-      "model": "userMessage",
-      "foreignkey": ""
+      "model": "usuario",
+      "foreignkey": "senderId",
+      "through": "messageRoom"
+    },
+    "MsgRec":{
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignkey": "recieverId",
+      "through": "messageRoom"
+    },
+    "sender": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignKey": "senderId",
+      "through": "transaccion"
+    },
+    "reciever": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignKey": "recieverId",
+      "through": "transaccion"
     }
   },
   "acls": [

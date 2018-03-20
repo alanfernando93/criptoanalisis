@@ -10,17 +10,32 @@
       "type": "string"
     },
     "monto": {
-      "type": "number"
+      "type": "number",
+      "datatype": "decimal",
+      "presition": 7,
+      "scale": 3
     },
     "fecha": {
-      "type": "date"
+      "type": "date",
+      "default": "$now"
     },
     "costo": {
       "type": "string"
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "sender": {
+      "type": "belongsTo",
+      "model": "usuario",
+      "foreignkey": "senderId"
+    },
+    "reciever": {
+      "type": "belongsTo",
+      "model": "usuario",
+      "foreignkey": "recieverId"
+    }
+  },
   "acls": [],
   "methods": {}
 }
