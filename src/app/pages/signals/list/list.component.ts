@@ -11,9 +11,10 @@ import { SignalsService } from '../signals.service';
 export class ListComponent implements OnInit {
 
   signals: any;
+  count: any;
 
   constructor(
-    private http: Http, 
+    private http: Http,
     private signalsService: SignalsService) {
   }
 
@@ -22,10 +23,15 @@ export class ListComponent implements OnInit {
   }
 
   getSignals() {
-    this.signalsService.getAll().subscribe(
-      signals => {
-        signals ? this.signals = signals : '';
-      }
-    );
-  }  
+    this.signalsService.getAll().subscribe(signals => {
+      signals ? this.signals = signals : '';
+      this.signals.forEach((element, index) => {
+        let signalId = this.signals[index].id;
+        this.signalsService.getSignalsCommentCount(signalId).subscribe(data => {
+          this.count = data;
+        });
+      });
+    });
+  }
+  
 }

@@ -21,12 +21,13 @@ export class ViewComponent implements OnInit {
   user: any;
   like: number;
   dislike: number;
-  commentById: any;
+  commentById: any = [];
   answers: any;
   count: any;
   idNews: any;
 
   comment: any = {};
+  answer: any = {};
 
   constructor(
     private http: Http,
@@ -42,7 +43,6 @@ export class ViewComponent implements OnInit {
     });
     this.getNewsById();
     this.getNewsCommentById();
-    //this.getNewsAnswerById();
     this.getNewsCommentCount();
   }
 
@@ -56,12 +56,26 @@ export class ViewComponent implements OnInit {
   getNewsCommentById() {
     this.newsService.getNewsComment(this.idNews).subscribe(data => {
       this.commentById = data;
+      this.commentById.forEach((element, index) => {
+        let commentId = this.commentById[index].id;
+        this.newsService.getNewsAnswer(commentId).subscribe(data => {
+          this.answers = data;
+          this.commentById[index].res = [];
+          this.commentById[index].res = data;
+        });
+      });
     });
   }
-
-  getNewsAnswerById() {
-    this.newsService.getNewsAnswer(this.idNews).subscribe(data => {
-      this.answers = data;
+  sendAnswer() {
+    this.commentById.forEach((element, index) => {
+      let commentId = this.commentById[index].id;
+      this.answer.comentarioNoticiaId = commentId;
+      this.answer.userId = this.userId;
+      console.log(this.answer);
+      /*
+      this.newsService.postNewsAnswer(this.answer.comentarioNoticiaId, this.answer).subscribe(data => {
+  
+      });*/
     });
   }
 
@@ -88,7 +102,10 @@ export class ViewComponent implements OnInit {
   sendComent() {
     this.comment.userId = this.userId;
     this.comment.noticiaId = this.idNews;
-    this.newsService.postNewsComment(this.idNews, this.comment).subscribe(data => {
+    this.newsService.postNewsComment(this.comment.noticiaId, this.comment).subscribe(data => {
     });
   }
+
+
+
 }

@@ -107,21 +107,20 @@
                             <div class="card-body">
                                 <span *ngIf="comment">
                                     {{comment.contenido}}
-                                    <div *ngFor="let answer of answers">
-                                        <div class="card-body pull-right" *ngIf="answer">
+                                    <div class="card-body" *ngFor="let answer of comment.res">
+                                        <div class="pull-right text-body" *ngIf="answer">
                                             {{answer.contenido}}
                                         </div>
                                     </div>
                                 </span>
                             </div>
-                            <div class="card-footer" *ngIf="resp">
-                                <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control" placeholder="Escribe una respuesta" />
+                            <div class="card-footer">
+                                <div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Escribe una respuesta" [(ngModel)]="answer.contenido"/>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-tn" (click)="sendAnswer()">Responder</button>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-tn">Publicar</button>
-                            </div>
-                            <div class="form-group">
-                                <button class="btn btn-primary btn-tn pull-right" (click)="resp = !resp">Responser</button>
                             </div>
                         </div>
                     </div>

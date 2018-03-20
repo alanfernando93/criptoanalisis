@@ -23,4 +23,9 @@ import 'rxjs/add/operator/map';
         return this.http.get(this.baseUrl + 'signals/' + id + '?access_token=' + this.token)
         .map((res: Response) => res.json())
     }
+
+    getSignalsCommentCount(id) {
+        return this.http.get(this.baseUrl + 'signals/' + id + '/comments' + '/count'+ '?access_token=' + this.token)
+        .map((res: Response) => res.json())
+    }
  }

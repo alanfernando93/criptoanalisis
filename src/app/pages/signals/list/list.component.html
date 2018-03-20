@@ -44,10 +44,10 @@
             <div class="card-footer">
               <div class="row">
                 <div class="col-12 col-md-6">
-                  <p class="text-body">publicado {{signal.FechaCreate | amTimeAgo}}</p>
+                  <p class="text-body">{{signal.FechaCreate | amTimeAgo}}</p>
                 </div>
-                <div class="col-6 col-md-2">
-                  <p class="text-body">0 Com</p>
+                <div class="col-6 col-md-2" *ngIf="count">
+                  <p class="text-body">{{count.count}} Com</p>
                 </div>
                 <div class="col-3 col-md-2">
                   <span class="font-w-light up pull-right">

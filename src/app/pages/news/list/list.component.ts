@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Router, ActivatedRoute } from '@angular/router';
 
 import { NewsService } from "../news.service";
 import { UserService } from "../../../@core/data/users.service";
@@ -13,39 +12,27 @@ import { UserService } from "../../../@core/data/users.service";
 export class ListComponent implements OnInit {
 
   news: any;
-  user: any;
-  
+  count: any;
+
   constructor(
     private http: Http,
-    private newsService: NewsService,
-    private userService: UserService
+    private newsService: NewsService
   ) {
   }
+
   ngOnInit() {
     this.getNews();
   }
 
   getNews() {
-    this.newsService.getAll().subscribe(
-      news => {
-       news ? this.news = news : '';
-      }
-    );
-  }
-  getUser(){
-    this.news.forEach( (data,index) => {
-      this.userService.getById(data.usuarioId).subscribe(
-        data => {
-          if(!data ) {
-
-          }else {
-            this.news[index].user = data;
-          }
-          error => {
-            console.log("no pudo cargar los usuarios");
-          }
-        }
-      );      
+    this.newsService.getAll().subscribe(news => {
+      news ? this.news = news : '';
+      this.news.forEach((element, index) => {
+        let newsId = this.news[index].id;
+        this.newsService.getNewsCommentCount(newsId).subscribe(data => {
+          this.count = data;
+        });
+      });
     });
   }
 
