@@ -26,6 +26,6 @@ import 'rxjs/add/operator/map';
 
     getSignalsCommentCount(id) {
         return this.http.get(this.baseUrl + 'signals/' + id + '/comments' + '/count'+ '?access_token=' + this.token)
-        .map((res: Response) => res.json())
+        .map((res: Response) => res.json());
     }
  }

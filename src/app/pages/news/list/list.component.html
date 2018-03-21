@@ -43,12 +43,12 @@
       </div>
     </div>
   </nb-card-body>
-  <nb-card-footer>
+  <nb-card-footer *ngFor="let count of news.count">
     <div class="row">
       <div class="col-12 col-md-8">
         <p class="text-body">{{news.fecha_create | amTimeAgo}}</p>
       </div>
-      <div class="col-6 col-md-2" *ngIf="count">
+      <div class="col-6 col-md-2">
         <p class="text-body">{{count.count}} Comentarios</p>
       </div>
       <div class="col-3 col-md-1 hands">

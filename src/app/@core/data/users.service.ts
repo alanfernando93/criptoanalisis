@@ -19,7 +19,7 @@ export class UserService {
   ) { }
 
   getById(id) {
-    return this.http.get(this.baseUrl + "usuarios/" + id + "?filter[fields][nombre]=true&filter[fields][puntos]=true")
+    return this.http.get(this.baseUrl + "usuarios/" + id)
       .map(resp => resp.json());
   }
 

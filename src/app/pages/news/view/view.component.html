@@ -12,12 +12,12 @@
                     <span class="badge badge-primary font-w-light user">21 P</span>
                 </h4>
             </div>
-            <div class="col-4 col-md-6">
+            <div class="col-4 col-md-1">
                 <h4>
                     <span class="badge badge-success font-w-light user">21 P</span>
                 </h4>
             </div>
-            <div class="col-4 col-md-1">
+            <div class="col-4 col-md-6">
                 <h3>
                     <span class="badge badge-info font-w-light user">ETH</span>
                 </h3>
@@ -96,7 +96,7 @@
 <nb-card>
     <nb-card-body>
         <div class="row" *ngIf="news">
-            <div class="col-12">
+            <div class="col-12 col-md-12">
                 <div class="dropdown" ngbDropdown>
                     <button type="button" class="btn btn-hero-info btn-block" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
                         aria-controls="collapseExample" ngbDropdownToggle *ngIf="count">
@@ -104,22 +104,32 @@
                     </button>
                     <div id="collapseExample" [ngbCollapse]="isCollapsed">
                         <div class="card" *ngFor="let comment of commentById">
-                            <div class="card-body">
-                                <span *ngIf="comment">
-                                    {{comment.contenido}}
+                            <div class="row" class="card-body">
+                                <div *ngIf="comment">
+                                    <h5 class="text-heading">Comentario</h5>
+                                    <!--
+                                    <div *ngIf="contentUser">
+                                        <img src="" class="img-thumbnail foto_user" alt="Responsive image">
+                                        <span>{{contentUser.nombre}}</span>
+                                    </div>
+                                -->
+                                    <div class="col-12 col-md-12">
+                                        <span class="text-body">{{comment.contenido}}</span>
+                                    </div>
                                     <div class="card-body" *ngFor="let answer of comment.res">
-                                        <div class="pull-right text-body" *ngIf="answer">
-                                            {{answer.contenido}}
+                                        <h5 class="text-heading">Respuestas</h5>
+                                        <div *ngIf="answer">
+                                            <span class="text-body" >{{answer.contenido}}</span>
                                         </div>
                                     </div>
-                                </span>
+                                </div>
                             </div>
                             <div class="card-footer">
-                                <div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Escribe una respuesta" [(ngModel)]="answer.contenido"/>
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text btn btn-primary btn-tn" id="inputGroup-sizing-sm" (click)="sendAnswer($event)">Responder</span>
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-tn" (click)="sendAnswer()">Responder</button>
+                                    <input type="text" id="{{comment.id}}" name="{{position}}" class="form-control" placeholder="Escribe una respuesta" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                                 </div>
                             </div>
                         </div>
@@ -128,7 +138,7 @@
                         <nb-card-body>
                             <div>
                                 <div class="form-group">
-                                    <textarea class="form-control" placeholder="Escribe un Comentario" [(ngModel)]="comment.contenido"></textarea>
+                                    <textarea class="form-control" id="comments" placeholder="Escribe un Comentario" [(ngModel)]="comment.contenido"></textarea>
                                 </div>
                                 <button type="submit" class="btn btn-success pull-right btn-sm" (click)="sendComent()">Publicar</button>
                             </div>
@@ -145,10 +155,12 @@
             <div class="col-12 col-md-6">
                 <div class="dropdown" ngbDropdown>
                     <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
-                        Señales
+                        Mas Noticias
                     </button>
                     <ul class="dropdown-menu" ngbDropdownMenu>
-                        <li class="dropdown-item">Icon Button 4</li>
+                        <li class="dropdown-item">
+                            <a href="">Icon Button 4</a>
+                        </li>
                         <li class="dropdown-item">Hero Button</li>
                         <li class="dropdown-item">Default</li>
                     </ul>

@@ -36,7 +36,7 @@ export class NewsService {
   }
 
   getNewsCommentCount(id) {
-    return this.http.get(this.baseUrl + 'noticias/' + id + '/comentarioNoticia' + '/count')
+    return this.http.get(this.baseUrl + 'noticias/' + id + '/comentarioNoticia/count')
       .map((res: Response) => res.json());
   }
 
@@ -47,6 +47,11 @@ export class NewsService {
 
   postNewsAnswer(id, answers) {
     return this.http.post(this.baseUrl + 'comentario_noticia/' + id + '/answerNoticia', answers)
+      .map((res: Response) => res.json());
+  }
+
+  getUserById(id){
+    return this.http.get(this.baseUrl + 'usuarios/' +id)
       .map((res: Response) => res.json());
   }
 
