@@ -1,24 +1,26 @@
 {
-  "name": "mercado",
+  "name": "instruccion",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "nombre": {
+    "como_contratar": {
       "type": "string"
     },
-    "descripcion": {
-      "type": "string"
+    "terminos": {
+      "type": [
+        "string"
+      ]
     }
   },
   "validations": [],
   "relations": {
-    "moneda": {
-      "type": "hasMany",
-      "model": "moneda",
-      "foreignkey": ""
+    "asesoriaPersonal": {
+      "type": "belongsTo",
+      "model": "asesoria_personal",
+      "foreignKey": ""
     }
   },
   "acls": [],

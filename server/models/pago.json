@@ -1,24 +1,24 @@
 {
-  "name": "mercado",
+  "name": "pago",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "nombre": {
-      "type": "string"
+    "total": {
+      "type": "number"
     },
-    "descripcion": {
-      "type": "string"
+    "horas": {
+      "type": "number"
     }
   },
   "validations": [],
   "relations": {
-    "moneda": {
-      "type": "hasMany",
-      "model": "moneda",
-      "foreignkey": ""
+    "asesoriaPersonal": {
+      "type": "belongsTo",
+      "model": "asesoria_personal",
+      "foreignKey": ""
     }
   },
   "acls": [],

@@ -24,6 +24,7 @@
     "loopback-i18n": "^1.1.4",
     "loopback-likes-mixin": "^1.0.2",
     "serve-favicon": "^2.0.1",
+    "socket.io": "^2.0.4",
     "strong-error-handler": "^2.0.0",
     "strong-globalize": "^2.10.0"
   },

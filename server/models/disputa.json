@@ -1,24 +1,23 @@
 {
-  "name": "mercado",
+  "name": "disputa",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "nombre": {
-      "type": "string"
-    },
-    "descripcion": {
-      "type": "string"
+    "pagos_anteriores": {
+      "type": [
+        "object"
+      ]
     }
   },
   "validations": [],
   "relations": {
-    "moneda": {
-      "type": "hasMany",
-      "model": "moneda",
-      "foreignkey": ""
+    "asesoriaPersonal": {
+      "type": "belongsTo",
+      "model": "asesoria_personal",
+      "foreignKey": ""
     }
   },
   "acls": [],
