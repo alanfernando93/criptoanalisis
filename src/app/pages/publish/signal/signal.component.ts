@@ -10,10 +10,15 @@ import { SignalsService } from '../../signals/signals.service';
 import { CoinsService } from "../../coins/coins.service";
 
 class Pos {
-    valor : String;
-    porcentajeCapital : String;
-    tipo : String;
-    constructor(moneda1:String,moneda2:String){
+    /**
+     * 
+     * @param moneda1 
+     * @param valor 
+     * @param moneda2 
+     * @param porcentajeCapital 
+     * @param tipo 
+     */
+    constructor(moneda1:String,valor:String,moneda2:String,porcentajeCapital:String,tipo:String){
     }
 }
 
@@ -98,14 +103,14 @@ export class SignalComponent implements OnInit {
     onSave() {
         this.signal.visible = "true";
         this.signal.usuarioId = this.userId;
-        this.signal.tipo = this.tipoSignal.key;
+        this.signal.titulo = this.tipoSignal.key;
         this.signalsService.add(this.signal).subscribe(resp=>{
-            console.log(this.positions)
+            console.log(resp)
             let id = resp.id;
-            this.positions.forEach((value,key) => {
-                this.positions[key].signalId = id
-                this.signalsService.setPosition(this.positions[key]).subscribe(respo => {})            
-            });
+            // this.positions.forEach((value,key) => {
+            //     this.positions[key].signalId = id
+            //     this.signalsService.setPosition(this.positions[key]).subscribe(respo => {})            
+            // });
         });
         // console.log(this.positions)
     }
@@ -118,7 +123,7 @@ export class SignalComponent implements OnInit {
     }
 
     onClickPuntos($events, option, ptn) {
-        let pos = new Pos(this.moneda1,this.moneda2);
+        let tipo
         const container = $events.originalTarget.parentNode.parentNode.parentNode.parentNode;
         const data1 = $events.originalTarget.parentNode.parentNode.children[1];
         const data2 = $events.originalTarget.parentNode.parentNode.children[2];
@@ -128,13 +133,11 @@ export class SignalComponent implements OnInit {
             return
         }
         switch (option) {
-            case 'puntEntr': pos.tipo = "puntoEntrada"; break;
-            case 'tipSal': pos.tipo = "puntoSalida"; break;
-            case 'stopLoss': pos.tipo = "stopLoss"; break;
+            case 'puntEntr': tipo = "puntoEntrada"; break;
+            case 'tipSal': tipo = "puntoSalida"; break;
+            case 'stopLoss': tipo = "stopLoss"; break;
         }
-        pos.valor = data1.value
-        pos.porcentajeCapital = data2.value
-        this.positions.push(pos)
+        this.positions.push(new Pos(this.moneda1,data1.value,this.moneda2,data2.value,tipo))
         
         const _body = this.renderer.createElement('div');
         this.renderer.addClass(_body, "row");

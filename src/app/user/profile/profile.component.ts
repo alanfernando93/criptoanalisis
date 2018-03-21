@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
     body.append('Key',this.user.username);
     body.append('Value', this.myFile);
     this.userService.update(this.user).subscribe(resp => {
-      this.userService.makeFileRequest(body).subscribe((resp) => {
+      this.userService.imageFileUpload(body).subscribe((resp) => {
         this.router.navigate(['/']);
      });
     },error=>console.log("Error!!!"));

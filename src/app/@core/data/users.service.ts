@@ -19,7 +19,7 @@ export class UserService {
   ) { }
 
   getById(id) {
-    return this.http.get(this.baseUrl + "usuarios/" + id + this.getAuth())
+    return this.http.get(this.baseUrl + "usuarios/" + id)
       .map(resp => resp.json());
   }
 
@@ -28,8 +28,8 @@ export class UserService {
    * 
    * @returns Objeto : any
    */
-  getSession() {
-    return this.http.get(this.baseUrl + "usuarios/" + this.userId + this.getAuth())
+  getCurrentUser() {
+    return this.http.get(this.baseUrl + "usuarios/" + this.userId)
       .map(resp => resp.json())
   }
 
@@ -38,7 +38,7 @@ export class UserService {
       .map(resp => resp.json());
   }
 
-  makeFileRequest(file: any) {
+  imageFileUpload(file: any) {
     return this.http.post(this.baseUrl + "usuarios/" + this.userId + "/upload" + this.getAuth(), file)
       .map(resp => resp.json());
   }
