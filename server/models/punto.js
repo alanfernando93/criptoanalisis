@@ -1,5 +1,5 @@
 'use strict';
 
-module.exports = function(Position) {
+module.exports = function(Puntos) {
 
 };

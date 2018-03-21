@@ -53,7 +53,7 @@
     },
     "puntos": {
       "type": "hasMany",
-      "model": "punto",
+      "model": "position",
       "foreignKey": ""
     },
     "comments": {

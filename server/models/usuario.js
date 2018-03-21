@@ -111,8 +111,6 @@ module.exports = function(Usuario) {
       returns: {arg: 'signal', type: 'Object'},
     });
   Usuario.updateInfo = function(req, res, cb) {
-    console.log(req.body);
-    console.log(req.params.id);
     Usuario.updateAll({
       id: req.params.id,
     }, req.body, cb);
