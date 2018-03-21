@@ -97,7 +97,8 @@
       "permission": "ALLOW",
       "property": [
         "upload",
-        "verPagaSeñal"
+        "verPagaSeñal",
+        "updateInfo"
       ]
     },
     {

@@ -224,4 +224,24 @@ Noticia.afterRemote('like', function(ctx, noticia, next) {
 }
     next();
   });
+  Noticia.afterRemote('find', function(ctx, noticia, next) {
+    var noticias = ctx.result;
+    var x = [];
+    ctx.result.forEach((element, index) => {
+      var y = Noticia.app.models.usuario.findById(element.usuarioId, {
+        fields: {
+          username: true,
+          nombre: true,
+        },
+      })
+      .then(data =>{
+        ctx.result[index].usuario = data;
+      });
+      x.push(y);
+    });
+    Promise.all(x)
+    .then(data=>{
+      next();
+    });
+  });
 };

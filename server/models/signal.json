@@ -98,7 +98,6 @@
           "likes": "likes",
           "userModel": "usuario"
         }
-    ],
-    "timestamp": true
+    ]
 }
 }
