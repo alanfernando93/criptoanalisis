@@ -36,7 +36,7 @@
     },
     "fecha_create": {
       "type": "date",
-      "required": false
+      "default": "$now"
     },
     "conj_precio": {
       "type": "string",

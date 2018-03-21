@@ -52,10 +52,6 @@
     "dataSource": "db",
     "public": true
   },
-  "LikeSignal": {
-    "dataSource": "db",
-    "public": true
-  },
   "commentSignal": {
     "dataSource": "db",
     "public": true

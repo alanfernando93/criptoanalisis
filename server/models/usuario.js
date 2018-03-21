@@ -110,4 +110,17 @@ module.exports = function(Usuario) {
       http: {path: '/:id/verPagaSignal', verb: 'get'},
       returns: {arg: 'signal', type: 'Object'},
     });
+  Usuario.updateInfo = function(req, res, cb) {
+    Usuario.updateAll({
+      id: req.params.id,
+    }, req.body, cb);
+  };
+  Usuario.remoteMethod('updateInfo', {
+    http: {path: '/:id/updateInfo', verb: 'put'},
+    accepts: [
+           {arg: 'req', type: 'object', 'http': {source: 'req'}},
+           {arg: 'res', type: 'object', 'http': {source: 'res'}},
+    ],
+    returns: {arg: 'user', type: 'object'},
+  });
 };

@@ -1,24 +1,67 @@
 {
   "name": "position",
+  "plural": "positions",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "descripcion": {
-      "type": "string",
-      "required": true
+    "valor": {
+      "type": "number"
+    },
+    "porcentajeCapital": {
+      "type": "number"
+    },
+    "moneda1": {
+      "type": "string"
+    },
+    "moneda2": {
+      "type": "string"
+    },
+    "categoria": {
+      "type": "string"
+    },
+    "tipo": {
+      "type": "string"
+    },
+    "createDate": {
+      "type": "date",
+      "default": "$now"
     }
   },
   "validations": [],
   "relations": {
-    "punto": {
-      "type": "hasMany",
+    "signal": {
+      "type": "belongsTo",
+      "model": "signal",
+      "foreignKey": ""
+    },
+    "position": {
+      "type": "belongsTo",
       "model": "punto",
       "foreignkey": ""
     }
   },
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
   "methods": {}
 }

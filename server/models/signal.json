@@ -53,7 +53,7 @@
     },
     "puntos": {
       "type": "hasMany",
-      "model": "punto",
+      "model": "position",
       "foreignKey": ""
     },
     "comments": {
@@ -89,5 +89,15 @@
       "permission": "ALLOW"
     }
   ],
-  "methods": {}
+  "methods": {},
+  "mixins": {
+    "Likes": [
+        {
+          "method": "like",
+          "endpoint": "/:id/like",
+          "likes": "likes",
+          "userModel": "usuario"
+        }
+    ]
+}
 }

@@ -1,23 +1,20 @@
 'use strict';
 
 module.exports = function(app) {
-  app.dataSources.db.autoupdate('punto', function(err) {
+  app.dataSources.db.automigrate('punto', function(err) {
     if (err) throw err;
-  });
-  app.dataSources.db.autoupdate('LikeSignal', function(err) {
-    if (err) throw err;
-  });
-  app.dataSources.db.autoupdate('commentSignal', function(err) {
-    if (err) throw err;
-  });
-  app.dataSources.db.automigrate('position', function(err) {
-    if (err) throw err;
-    app.models.position.create([{
+    app.models.punto.create([{
       descripcion: 'entrada',
     }, {
       descripcion: 'salida',
     }, {
       descripcion: 'stoploss',
     }]);
+  });
+  app.dataSources.db.autoupdate('commentSignal', function(err) {
+    if (err) throw err;
+  });
+  app.dataSources.db.autoupdate('position', function(err) {
+    if (err) throw err;
   });
 };
