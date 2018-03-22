@@ -1,0 +1,53 @@
+{
+  "name": "noticia",
+  "plural": "noticias",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "contenido": {
+      "type": "string",
+      "required": true
+    },
+    "tipo_moneda":{
+      "type":"string",
+      "required": true
+    },
+    "conj_moneda":{
+      "type":"string",
+      "required":false
+    },
+    "like":{
+     "type":"number",
+     "required":true 
+    },
+    "fecha_create":{
+     "type":"date",
+     "required":true 
+    },
+    "conj_precio":{
+      "type":"string",
+      "required":true
+    },
+    "fuentes":{
+      "type":"string",
+      "required":true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "usuarios": {
+      "type": "hasOne",
+      "model": "usuario",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
