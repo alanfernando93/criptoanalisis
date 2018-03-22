@@ -10,22 +10,13 @@ module.exports = function(Signal) {
       next();
     });
   });
-  Signal.observe('loaded', function(ctx, next) {
-    var likes = Signal.app.models.LikeSignal;
-    likes.count({
-      where: {SignalId: ctx.data.id},
-    }, (err, data)=>{
-      ctx.data.likes = data;
-      next();
-    });
-  });
 
   Signal.verGratis = function(cb) {
     Signal.find({
       where: {
         visible: 'gratuito',
       },
-      include: ['positions', 'comments', 'likes'],
+      include: ['positions', 'comments'],
     }, cb);
   };
   Signal.remoteMethod('verGratis', {
