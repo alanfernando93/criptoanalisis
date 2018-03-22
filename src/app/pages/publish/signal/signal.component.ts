@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Renderer2, ElementRef, ViewChild } from '@angular/core';
+import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { Router } from "@angular/router";
 import { Http, Response } from "@angular/http";
 
@@ -9,6 +10,8 @@ import { environment } from '../../../../environments/environment';
 import { SignalsService } from '../../signals/signals.service';
 import { CoinsService } from "../../coins/coins.service";
 
+import 'style-loader!angular2-toaster/toaster.css';
+
 class Pos {
     /**
      * 
@@ -16,9 +19,9 @@ class Pos {
      * @param valor 
      * @param moneda2 
      * @param porcentajeCapital 
-     * @param tipo 
+     * @param puntoId 
      */
-    constructor(moneda1:String,valor:String,moneda2:String,porcentajeCapital:String,tipo:String){
+    constructor(moneda1: String, valor: String, moneda2: String, porcentajeCapital: String, puntoId: Number) {
     }
 }
 
@@ -39,10 +42,10 @@ export class SignalComponent implements OnInit {
 
     signal: any = {};
 
-    moneda1 : String = "Moneda"
-    moneda2 : String = "USD"
+    moneda1: String = "Moneda"
+    moneda2: String = "Moneda"
 
-    positions : any = []
+    positions: any = []
     coins: any = [];
 
     types = [{
@@ -67,17 +70,22 @@ export class SignalComponent implements OnInit {
     }];
 
     tipoSignal = {
-        title : 'Accion',
-        key   : true,
+        title: 'Accion',
+        key: true,
     }
 
     tipos = [{
-        title : 'Comprar',
-        key : true,
-    },{
-        title : 'Vender',
-        key : false,
+        title: 'Comprar',
+        key: true,
+    }, {
+        title: 'Vender',
+        key: false,
     }]
+
+    config: ToasterConfig
+    title = null;
+    content = `I'm cool toaster!`;
+    type = 'default';
 
     constructor(
         private modalService: NgbModal,
@@ -85,7 +93,8 @@ export class SignalComponent implements OnInit {
         private http: Http,
         private signalsService: SignalsService,
         private coinsService: CoinsService,
-        private router: Router
+        private router: Router,
+        private toasterService: ToasterService
     ) { }
 
     ngOnInit() {
@@ -98,24 +107,39 @@ export class SignalComponent implements OnInit {
         this.coinsService.getAll().subscribe(resp => {
             this.coins = resp;
         });
+
+        this.type = 'error'
+        this.content = 'Se produjo un error con señales'
+        this.showToast(this.type, this.title, this.content);
     }
 
     onSave() {
         this.signal.visible = "true";
-        this.signal.usuarioId = this.userId;
         this.signal.titulo = this.tipoSignal.key;
-        this.signalsService.add(this.signal).subscribe(resp=>{
+        this.signal.count="";
+        this.signalsService.add(this.signal).subscribe(resp => {
             console.log(resp)
             let id = resp.id;
-            // this.positions.forEach((value,key) => {
-            //     this.positions[key].signalId = id
-            //     this.signalsService.setPosition(this.positions[key]).subscribe(respo => {})            
-            // });
+            this.positions.forEach((value, key) => {
+                this.positions[key].signalId = id
+                this.signalsService.setPosition(this.positions[key]).subscribe(respo => { 
+                    this.type = 'success'
+                    this.content = 'Se guardo con exito!!!'
+                    this.showToast(this.type, this.title, this.content);
+                })
+            }, erro => {
+                this.type = 'error'
+                this.content = 'Se produjo un error con los puntos'
+                this.showToast(this.type, this.title, this.content);
+            });
+        }, error => {
+            this.type = 'error'
+            this.content = 'Se produjo un error con señales'
+            this.showToast(this.type, this.title, this.content);
         });
-        // console.log(this.positions)
     }
 
-    keyupHandlerFunction(event,opc) {
+    keyupHandlerFunction(event, opc) {
         switch (opc) {
             case 'CS': this.signal.AnalisisFundamental = event; break;
             case 'AT': this.signal.AnalisisTecnico = event; break;
@@ -123,22 +147,22 @@ export class SignalComponent implements OnInit {
     }
 
     onClickPuntos($events, option, ptn) {
-        let tipo
+        let positionId
         const container = $events.originalTarget.parentNode.parentNode.parentNode.parentNode;
         const data1 = $events.originalTarget.parentNode.parentNode.children[1];
         const data2 = $events.originalTarget.parentNode.parentNode.children[2];
 
-        if(!data1.value || !data2.value) {
+        if (!data1.value || !data2.value) {
             console.log("vacio");
             return
         }
         switch (option) {
-            case 'puntEntr': tipo = "puntoEntrada"; break;
-            case 'tipSal': tipo = "puntoSalida"; break;
-            case 'stopLoss': tipo = "stopLoss"; break;
+            case 'puntEntr': positionId = 3; break;
+            case 'tipSal': positionId = 2; break;
+            case 'stopLoss': positionId = 1; break;
         }
-        this.positions.push(new Pos(this.moneda1,data1.value,this.moneda2,data2.value,tipo))
-        
+        this.positions.push(new Pos(this.moneda1, data1.value, this.moneda2, data2.value, positionId))
+
         const _body = this.renderer.createElement('div');
         this.renderer.addClass(_body, "row");
 
@@ -244,5 +268,26 @@ export class SignalComponent implements OnInit {
         } else {
             return `with: ${reason}`;
         }
+    }
+
+    private showToast(type: string, title: string, body: string) {
+        this.config = new ToasterConfig({
+            positionClass: 'toast-top-right',
+            timeout: 5000,
+            newestOnTop: true,
+            tapToDismiss: true,
+            preventDuplicates: false,
+            animation: 'flyRight',
+            limit: 5,
+        });
+        const toast: Toast = {
+            type: type,
+            title: title,
+            body: body,
+            timeout: 5000,
+            showCloseButton: true,
+            bodyOutputType: BodyOutputType.TrustedHtml,
+        };
+        this.toasterService.popAsync(toast);
     }
 }

@@ -26,6 +26,7 @@ export class SignalsService {
     }
 
     add(signal) {
+        signal.usuarioId = this.userId;
         return this.http.post(this.baseUrl + 'signals?access_token=' + this.token, signal)
             .map(resp => resp.json())
     }

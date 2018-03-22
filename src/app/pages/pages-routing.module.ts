@@ -25,11 +25,8 @@ const routes: Routes = [{
     loadChildren: './components/components.module#ComponentsModule',
   }, {
     path: 'maps',
-    loadChildren: './maps/maps.module#MapsModule',
-  }, {
-    // path: 'charts',
-    // canActivate: [AuthGuard],
-    // loadChildren: './charts/charts.module#ChartsModule',
+    canActivate: [AuthGuard],
+    loadChildren: './maps/maps.module#MapsModule',    
   }, {
     path: 'editors',
     loadChildren: './editors/editors.module#EditorsModule',

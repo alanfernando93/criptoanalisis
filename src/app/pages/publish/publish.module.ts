@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ThemeModule } from '../../@theme/theme.module';
+import { ToasterModule } from 'angular2-toaster';
 
 import { PublishComponent } from './publish.component';
 import { PublishNewsComponent } from './news/news.component';
@@ -13,6 +14,7 @@ import { SignalsService } from '../signals/signals.service';
 @NgModule({
     imports: [
         ThemeModule,
+        ToasterModule
     ],
     declarations: [
         PublishComponent,
