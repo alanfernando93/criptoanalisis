@@ -106,6 +106,9 @@
                         <div class="card" *ngFor="let comment of commentById">
                             <div class="row" class="card-body">
                                 <div *ngIf="comment">
+                                    <div *ngIf="user">
+                                        <p>{{user.nombre}}</p>
+                                    </div>
                                     <h5 class="text-heading">Comentario</h5>
                                     <div class="col-12 col-md-12">
                                         <span class="text-body">{{comment.contenido}}</span>

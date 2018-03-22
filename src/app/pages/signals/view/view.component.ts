@@ -13,6 +13,8 @@ import { SignalsService } from '../signals.service';
 export class ViewComponent implements OnInit {
 
   signal: any;
+  idSignal: any;
+  contentUser: any;
 
   constructor(
     private http: Http,
@@ -23,16 +25,25 @@ export class ViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.params.forEach((params: Params) => {
+      this.idSignal = params['signalId'];
+    });
     this.getSignalById();
+    this.getSignalWithUser();
   }
 
   getSignalById() {
-    this.route.params.forEach((params: Params) => {
-      let id = params['signalId'];
-      this.signalsService.getById(id).subscribe(
+    
+      this.signalsService.getById(this.idSignal).subscribe(
         signal => {
           signal ? this.signal = signal : '';
-        });
+        
     });
+  }
+
+  getSignalWithUser(){
+    this.signalsService.getUserBySignal(this.idSignal).subscribe(data => {
+      this.contentUser = data;
+    })
   }
 }

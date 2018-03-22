@@ -1,20 +1,20 @@
 <nb-card>
     <nb-card-header>
-        <div class="row">
+        <div class="row" *ngIf="contentUser">
             <div class="col-3 col-md-1">
                 <img src="../../../assets/images/jack.png" class="img-thumbnail foto_user" alt="Responsive image">
             </div>
             <div class="col-9 col-md-3">
-                <p class="font-w-light user">Juan Jose Perez Perez</p>
+                <p class="font-w-light user">{{contentUser.nombre}} {{contentUser.apellido}}</p>
             </div>
             <div class="col-4 col-md-1">
                 <h4>
-                    <span class="badge badge-primary font-w-light user">97 P</span>
+                    <span class="badge badge-primary font-w-light user">{{contentUser.precision}} P</span>
                 </h4>
             </div>
             <div class="col-4 col-md-1">
                 <h4>
-                    <span class="badge badge-success font-w-light user">51 P</span>
+                    <span class="badge badge-success font-w-light user">{{contentUser.puntos}} P</span>
                 </h4>
             </div>
             <div class="col-4 col-md-6">
@@ -42,8 +42,7 @@
             <div class="col-12 col-md-6">
                 <div class="row">
                     <h3 class="btn btn-hero-info col-12 col-md-12">Analisis fundamental</h3>
-                    <p>{{signal.AnalisisFundamental}}</p>
-
+                    <div [innerHTML]="signal.AnalisisFundamental"></div>
                 </div>
                 <div class="row">
                     <h3 class="btn btn-hero-info col-12 col-md-12">Estrategia de Inversion</h3>
@@ -121,7 +120,7 @@
             </div>
             <div class="col-12 col-md-6" *ngIf="signal">
                 <h3 class="btn btn-hero-info col-12 col-dm-11">Analisis tecnico</h3>
-                <p>{{signal.AnalisisTecnico}}</p>
+                <div [innerHTML]="signal.AnalisisTecnico"></div>
                 <div class="text-center">
                     <img src="https://es.tradingview.com/i/jNGFZIAD/" class="img-thumbnail" alt="Cinque Terre" width="304" height="236">
                 </div>

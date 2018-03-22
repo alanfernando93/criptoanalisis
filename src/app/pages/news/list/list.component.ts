@@ -28,14 +28,14 @@ export class ListComponent implements OnInit {
       data ? this.news = data : '';
       this.news.forEach((element, index) => {
         let newsId = this.news[index].id;
-        this.newsService.getNewsByUser(newsId).subscribe(data => {
+        this.newsService.getUserByNews(newsId).subscribe(data => {
           this.news[index].contentUser = [];
           this.news[index].contentUser.push(data);
           this.newsService.getNewsCommentCount(newsId).subscribe(data => {
             this.news[index].count = [];
             this.news[index].count.push(data);
           });
-        })
+        });
       });
     });
   }

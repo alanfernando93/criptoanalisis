@@ -9,7 +9,7 @@
                 <h4 [innerHTML]="news.titulo"></h4>
                 <p class="font-w-light user">{{content.nombre}} {{content.apellido}}</p>
                 <p class="badge badge-primary font-w-light user">{{content.precision}} P</p>
-                <p class="badge badge-success font-w-light user">{{content.puntos}} F</p>
+                <p class="badge badge-success font-w-light user">{{content.puntos}} P</p>
               </div>
             </a>
             <img src="../../../assets/images/kitten-cosmic.png" alt="Random first slide">
@@ -18,16 +18,16 @@
       </div>
       <div class="col-12 col-md-6" *ngIf="signals ; else otroTexto">
         <div class="list-group" *ngFor="let signals of signals">
-          <div class="list-group-item list-group-item-action flex-column align-items-start">
+          <div class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let content of signals.contentUser" >
             <div class="d-flex w-100 justify-content-between">
               <a [routerLink]="['/pages/signals/view', signals.id]" class="flex-column align-items-start">
                 <h6 class="mb-4 signal_user" [innerHTML]="signals.titulo"></h6>
               </a>
               <small class="text-muted">{{signals.FechaCreate | amTimeAgo}}</small>
             </div>
-            <small class="text-muted">Juan Jose Perez Perez</small>
-            <p class="badge badge-primary font-w-light user">97 P</p>
-            <p class="badge badge-success font-w-light user">51 F</p>
+            <small class="text-muted">{{content.nombre}} {{content.apellido}}</small>
+            <p class="badge badge-primary font-w-light user">{{content.precision}} P</p>
+            <p class="badge badge-success font-w-light user">{{content.puntos}} P</p>
           </div>
         </div>
       </div>

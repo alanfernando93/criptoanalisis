@@ -16,9 +16,7 @@ export class ViewComponent implements OnInit {
 
   idUser = environment.userId;
   news: any;
-  user: any;
   commentById: any = [];
-  answers: any;
   contentAnswer: any;
   count: any;
   idNews: any;
@@ -26,7 +24,6 @@ export class ViewComponent implements OnInit {
   like: number;
   dislike: number;
   position: string;
-  userComment: any = [];
 
   comment: any = {};
   answer: any = {};
@@ -57,13 +54,10 @@ export class ViewComponent implements OnInit {
 
   getNewsCommentById() {
     this.newsService.getNewsComment(this.idNews).subscribe(data => {
-      this.commentById = data;
+      data ? this.commentById = data : '';
       this.commentById.forEach((element, index) => {
-        this.position = index;
         let commentId = this.commentById[index].id;
-        let contentUserId = this.commentById[index].userId;
         this.newsService.getNewsAnswer(commentId).subscribe(data => {
-          this.answers = data;
           this.commentById[index].res = [];
           this.commentById[index].res = data;
         });
@@ -78,11 +72,10 @@ export class ViewComponent implements OnInit {
   }
 
   getNewsWithUser() {
-    this.newsService.getNewsByUser(this.idNews).subscribe(data => {
+    this.newsService.getUserByNews(this.idNews).subscribe(data => {
       this.contentUser = data;
     });
   }
-
 
   sendDislike() {
     this.newsService.postDislikes(this.idNews).subscribe(data => {

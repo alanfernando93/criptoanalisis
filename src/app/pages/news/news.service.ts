@@ -40,7 +40,7 @@ export class NewsService {
       .map((res: Response) => res.json());
   }
 
-  getNewsByUser(id) {
+  getUserByNews(id) {
     return this.http.get(this.baseUrl + 'noticias/' + id + '/usuario')
       .map((res: Response) => res.json());
   }
