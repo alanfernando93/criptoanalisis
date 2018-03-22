@@ -7,7 +7,7 @@
     "validateUpsert": true
   },
   "properties": {
-    "titulo": {
+    "tipo": {
       "type": "Boolean",
       "required": true
     },
@@ -29,13 +29,14 @@
     },
     "FechaCreate": {
       "type": "date",
-      "required": false
+      "required": false,
+      "default": "$now"
     },
     "estado": {
       "type": "Boolean"
     },
     "visible": {
-      "type": "string"
+      "type": "Boolean"
     }
   },
   "validations": [],
