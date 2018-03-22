@@ -40,6 +40,11 @@ export class NewsService {
       .map((res: Response) => res.json());
   }
 
+  getNewsByUser(id) {
+    return this.http.get(this.baseUrl + 'noticias/' + id + '/usuario')
+      .map((res: Response) => res.json());
+  }
+
   postNewsComment(id, comments) {
     return this.http.post(this.baseUrl + 'noticias/' + id + '/comentarioNoticia', comments)
       .map((res: Response) => res.json());
@@ -50,8 +55,8 @@ export class NewsService {
       .map((res: Response) => res.json());
   }
 
-  getUserById(id){
-    return this.http.get(this.baseUrl + 'usuarios/' +id)
+  getUserById(id) {
+    return this.http.get(this.baseUrl + 'usuarios/' + id)
       .map((res: Response) => res.json());
   }
 

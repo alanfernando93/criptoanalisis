@@ -31,6 +31,14 @@ export class DashboardComponent implements OnInit {
     this.newsService.getAll().subscribe(
       news => {
         news ? this.news = news : '';
+        this.news.forEach((element, index) => {
+          let newsId = this.news[index].id;
+          this.newsService.getNewsByUser(newsId).subscribe(data => {
+            this.news[index].contentUser = [];
+            this.news[index].contentUser.push(data);
+            console.log(this.news);
+          });
+        });
       }
     );
   }
@@ -42,4 +50,5 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
+
 }

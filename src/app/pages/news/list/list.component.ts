@@ -12,7 +12,6 @@ import { UserService } from "../../../@core/data/users.service";
 export class ListComponent implements OnInit {
 
   news: any;
-  count: any = [];
 
   constructor(
     private http: Http,
@@ -25,15 +24,18 @@ export class ListComponent implements OnInit {
   }
 
   getNews() {
-    this.newsService.getAll().subscribe(news => {
-      news ? this.news = news : '';
+    this.newsService.getAll().subscribe(data => {
+      data ? this.news = data : '';
       this.news.forEach((element, index) => {
         let newsId = this.news[index].id;
-        this.newsService.getNewsCommentCount(newsId).subscribe(data => {
-          this.news[index].count = []
-          this.news[index].count.push(data)
-          console.log(this.news);
-        });
+        this.newsService.getNewsByUser(newsId).subscribe(data => {
+          this.news[index].contentUser = [];
+          this.news[index].contentUser.push(data);
+          this.newsService.getNewsCommentCount(newsId).subscribe(data => {
+            this.news[index].count = [];
+            this.news[index].count.push(data);
+          });
+        })
       });
     });
   }

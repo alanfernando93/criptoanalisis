@@ -25,8 +25,9 @@ export class ViewComponent implements OnInit {
   contentUser: any;
   like: number;
   dislike: number;
-  position:string;
-  
+  position: string;
+  userComment: any = [];
+
   comment: any = {};
   answer: any = {};
 
@@ -45,6 +46,7 @@ export class ViewComponent implements OnInit {
     this.getNewsById();
     this.getNewsCommentById();
     this.getNewsCommentCount();
+    this.getNewsWithUser();
   }
 
   getNewsById() {
@@ -59,38 +61,25 @@ export class ViewComponent implements OnInit {
       this.commentById.forEach((element, index) => {
         this.position = index;
         let commentId = this.commentById[index].id;
-        let contentId = this.commentById[index].userId;
+        let contentUserId = this.commentById[index].userId;
         this.newsService.getNewsAnswer(commentId).subscribe(data => {
           this.answers = data;
           this.commentById[index].res = [];
           this.commentById[index].res = data;
         });
-        /*
-        this.userService.getById(contentId).subscribe(data => {
-          this.contentUser = data;
-        });
-        */
       });
-    });
-  }
-
-  sendAnswer(event) {
-    this.contentAnswer = event.target.parentNode.parentNode.childNodes[3].value;
-    let id = event.target.parentNode.parentNode.childNodes[3].id;
-    let index = event.target.parentNode.parentNode.childNodes[3].name;
-    this.answer.comentarioNoticiaId = id;
-    this.answer.userId = this.idUser;
-    this.answer.contenido = this.contentAnswer;
-    this.newsService.postNewsAnswer(this.answer.comentarioNoticiaId, this.answer).subscribe(data => {
-      this.commentById[index].res.push(data);
-      //console.log(this.commentById[index].res)
     });
   }
 
   getNewsCommentCount() {
     this.newsService.getNewsCommentCount(this.idNews).subscribe(data => {
       this.count = data;
-      //console.log(this.count);
+    });
+  }
+
+  getNewsWithUser() {
+    this.newsService.getNewsByUser(this.idNews).subscribe(data => {
+      this.contentUser = data;
     });
   }
 
@@ -109,11 +98,23 @@ export class ViewComponent implements OnInit {
     });
   }
 
+  sendAnswer(event) {
+    this.contentAnswer = event.target.parentNode.parentNode.childNodes[3].value;
+    let id = event.target.parentNode.parentNode.childNodes[3].id;
+    let index = event.target.parentNode.parentNode.childNodes[3].name;
+    this.answer.comentarioNoticiaId = id;
+    this.answer.userId = this.idUser;
+    this.answer.contenido = this.contentAnswer;
+    this.newsService.postNewsAnswer(this.answer.comentarioNoticiaId, this.answer).subscribe(data => {
+      this.commentById[index].res.push(data);
+    });
+  }
+
   sendComent() {
     this.comment.userId = this.idUser;
     this.comment.noticiaId = this.idNews;
     this.newsService.postNewsComment(this.comment.noticiaId, this.comment).subscribe(data => {
-      document.getElementById('comments').value = "";
+      //document.getElementById('comments').innerHTML. = "";
     });
   }
 

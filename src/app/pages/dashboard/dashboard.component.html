@@ -5,11 +5,11 @@
         <ngb-carousel>
           <ng-template ngbSlide *ngFor="let news of news">
             <a [routerLink]="['/pages/news/view', news.id]">
-              <div class="carousel-caption">
+              <div class="carousel-caption" *ngFor="let content of news.contentUser">
                 <h4 [innerHTML]="news.titulo"></h4>
-                <p class="font-w-light user">Juan Jose Perez Perez</p>
-                <p class="badge badge-primary font-w-light user">97 P</p>
-                <p class="badge badge-success font-w-light user">51 F</p>
+                <p class="font-w-light user">{{content.nombre}} {{content.apellido}}</p>
+                <p class="badge badge-primary font-w-light user">{{content.precision}} P</p>
+                <p class="badge badge-success font-w-light user">{{content.puntos}} F</p>
               </div>
             </a>
             <img src="../../../assets/images/kitten-cosmic.png" alt="Random first slide">
