@@ -108,30 +108,27 @@ export class SignalComponent implements OnInit {
             this.coins = resp;
         });
 
-        this.type = 'error'
-        this.content = 'Se produjo un error con señales'
-        this.showToast(this.type, this.title, this.content);
+        // this.type = 'error'
+        // this.content = 'Se produjo un error con señales'
+        // this.showToast(this.type, this.title, this.content);
     }
 
     onSave() {
-        this.signal.visible = "true";
-        this.signal.titulo = this.tipoSignal.key;
+        this.signal.visible = true;
+        this.signal.tipo = this.tipoSignal.key;
         this.signal.count="";
         this.signalsService.add(this.signal).subscribe(resp => {
-            console.log(resp)
             let id = resp.id;
             this.positions.forEach((value, key) => {
                 this.positions[key].signalId = id
-                this.signalsService.setPosition(this.positions[key]).subscribe(respo => { 
-                    this.type = 'success'
-                    this.content = 'Se guardo con exito!!!'
-                    this.showToast(this.type, this.title, this.content);
-                })
+                this.signalsService.setPosition(this.positions[key]).subscribe(respo => { })
+                this.type = 'success'
+                this.content = 'Se guardo con exito!!!'
             }, erro => {
                 this.type = 'error'
                 this.content = 'Se produjo un error con los puntos'
-                this.showToast(this.type, this.title, this.content);
             });
+            this.showToast(this.type, this.title, this.content);
         }, error => {
             this.type = 'error'
             this.content = 'Se produjo un error con señales'
