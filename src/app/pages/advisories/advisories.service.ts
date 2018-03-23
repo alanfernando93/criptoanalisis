@@ -19,61 +19,57 @@ import 'rxjs/add/operator/map';
     }
 
     getAdvisories(){
-        return this.http.get('http://localhost:3000/api/' + 'asesoria_personals')
+        return this.http.get(this.baseUrl + 'asesoria_personals')
         .map((res: Response) => res.json())
     }
 
     getAdvisoriesId(id){
-        return this.http.get('http://localhost:3000/api/' + 'asesoria_personals/' + id )
+        return this.http.get(this.baseUrl + 'asesoria_personals/' + id )
         .map((res: Response) => res.json())
     }
 
     getAdvisoriesIntruccion(id){
-        return this.http.get('http://localhost:3000/api/' + 'asesoria_personals/' + id +'/instruccions')
+        return this.http.get(this.baseUrl + 'asesoria_personals/' + id +'/instruccions')
         .map((res: Response) => res.json())
         
     }
     getAdvisoriesPago(id){
-        return this.http.get('http://localhost:3000/api/' + 'asesoria_personals/' + id +'/pagos')
+        return this.http.get(this.baseUrl + 'asesoria_personals/' + id +'/pagos')
         .map((res: Response) => res.json())
         
     }
     getAdvisoriesDisputa(id){
-        return this.http.get('http://localhost:3000/api/' + 'asesoria_personals/' + id +'/disputa')
+        return this.http.get(this.baseUrl + 'asesoria_personals/' + id +'/disputa')
         .map((res: Response) => res.json())
         
     }
     getAdvisoriesComentarios(id){
-        return this.http.get('http://localhost:3000/api/' + 'asesoria_personals/' + id +'/comments')
+        return this.http.get(this.baseUrl + 'asesoria_personals/' + id +'/comments')
         .map((res: Response) => res.json())
         
     }
     getAdvisoriesComentarioscont(id){
-        return this.http.get('http://localhost:3000/api/' + 'asesoria_personals/' + id +'/comments'+'/count')
+        return this.http.get(this.baseUrl + 'asesoria_personals/' + id +'/comments'+'/count')
         .map((res: Response) => res.json())
         
     }
     getAdvisoriesComentariosRespuestas(id){
-        return this.http.get('http://localhost:3000/api/' + 'comentario_asesoria/' + id +'/answers')
+        return this.http.get(this.baseUrl + 'comentario_asesoria/' + id +'/answers')
         .map((res: Response) => res.json())
         
     }
-    //http://192.168.0.17:3000/api/    
 
     postDislikes(id){
-        return this.http.get('http://localhost:3000/api/' + 'asesoria_personals/' + id + '/dislike?userId=' + this.userId)
+        return this.http.get(this.baseUrl + 'asesoria_personals/' + id + '/dislike?userId=' + this.userId)
             .map((res:Response) => res.json());
       }
     
       postLikes(id){
-        return this.http.get('http://localhost:3000/api/' + 'asesoria_personals/' + id + '/like?userId=' + this.userId)
+        return this.http.get(this.baseUrl + 'asesoria_personals/' + id + '/like?userId=' + this.userId)
             .map((res:Response) => res.json());
       }
 
-      postadvisorieComment(id, comments) {
-        return this.http.post(this.baseUrl + 'asesoria_personals/' + id + '/comments', comments)
-          .map((res: Response) => res.json());
-    }
+     
       
     
     
