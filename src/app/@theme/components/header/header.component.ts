@@ -70,7 +70,7 @@ export class HeaderComponent implements OnInit {
     //   },500)
     // });
     this.userService.logout().subscribe(success => {
-      this.router.navigateByUrl("/auth/logout", {skipLocationChange: true}).then(r => {
+      this.router.navigateByUrl("/pages/dashboard", {skipLocationChange: true}).then(r => {
         localStorage.clear()
         this.router.navigate(["/"])
       })

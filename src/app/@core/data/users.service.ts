@@ -51,4 +51,5 @@ export class UserService {
   getAuth() {
     return "?access_token=" + this.token
   }
+  
 }
