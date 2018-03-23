@@ -34,17 +34,16 @@ module.exports = function(Usuario) {
       returns: {arg: 'status', type: 'string'},
     }
   );
-  Usuario.afterRemote('findById', function(ctx, usuario, next) {
+  Usuario.observe('loaded', function(ctx, next) {
     var homedir = (process.platform == 'win32') ? process.env.HOMEPATH : process.env.HOME;
-    base64Img.base64(homedir + /loop/ + ctx.result.id + '/perfil.png', (err, data)=>{
+    base64Img.base64(homedir + /loop/ + ctx.data.id + '/perfil.png', (err, data)=>{
       if (err)
         console.log('aun no tiene imagen');
-      ctx.result.perfil = data;
+      ctx.data.perfil = data;
       next();
     });
   });
   Usuario.beforeRemote('create', function(ctx, user, next) {
-    ctx.req.body.fecha_registro = Date.now();
     if (ctx.req.body.realm == null) {
       ctx.req.body.realm = 'normal';
     }
