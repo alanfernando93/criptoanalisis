@@ -14,7 +14,7 @@ export class CoinsService{
     private table = "monedas";
 
     constructor(private http:Http){
-        
+        console.log(this.token);
     }
 
     getCoins(){

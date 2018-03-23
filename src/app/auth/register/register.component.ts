@@ -26,20 +26,60 @@ import { NbRegisterComponent } from '@nebular/auth';
         </div>
 
         <div class="form-group">
+          <input type="text" name="firstName" [(ngModel)]="user.nombre" #firstName="ngModel"
+                  class="form-control fullname" placeholder="First Name"
+                  [class.form-control-danger]="firstName.invalid && firstName.touched"
+                  [required]="getConfigValue('forms.validation.firstName.required')"
+                  [minlength]="getConfigValue('forms.validation.firstName.minLength')"
+                  [maxlength]="getConfigValue('forms.validation.firstName.maxLength')"
+                  autofocus>
+          <small class="form-text error" *ngIf="firstName.invalid && firstName.touched && firstName.errors?.required">
+            Name is required!
+          </small>
+          <small
+            class="form-text error"
+            *ngIf="firstName.invalid && firstName.touched && (firstName.errors?.minlength || firstName.errors?.maxlength)">
+            Full name should contains
+            from {{getConfigValue('forms.validation.password.minLength')}}
+            to {{getConfigValue('forms.validation.password.maxLength')}}
+            characters
+          </small>
+
+          <input type="text" name="lastName" [(ngModel)]="user.apellido" #lastName="ngModel"
+                  class="form-control fullname" placeholder="Last Name"
+                  [class.form-control-danger]="lastName.invalid && lastName.touched"
+                  [required]="getConfigValue('forms.validation.lastName.required')"
+                  [minlength]="getConfigValue('forms.validation.lastName.minLength')"
+                  [maxlength]="getConfigValue('forms.validation.lastName.maxLength')"
+                  autofocus>
+          <small class="form-text error" *ngIf="lastName.invalid && lastName.touched && lastName.errors?.required">
+            Name is required!
+          </small>
+          <small
+            class="form-text error"
+            *ngIf="lastName.invalid && lastName.touched && (lastName.errors?.minlength || lastName.errors?.maxlength)">
+            Full name should contains
+            from {{getConfigValue('forms.validation.password.minLength')}}
+            to {{getConfigValue('forms.validation.password.maxLength')}}
+            characters
+          </small>
+        </div>
+
+        <div class="form-group">
           <label for="input-name" class="sr-only">Full name</label>
-          <input name="fullName" [(ngModel)]="user.username" id="input-name" #fullName="ngModel"
-                 class="form-control" placeholder="Full name"
-                 [class.form-control-danger]="fullName.invalid && fullName.touched"
-                 [required]="getConfigValue('forms.validation.fullName.required')"
-                 [minlength]="getConfigValue('forms.validation.fullName.minLength')"
-                 [maxlength]="getConfigValue('forms.validation.fullName.maxLength')"
+          <input name="userName" [(ngModel)]="user.username" id="input-name" #userName="ngModel"
+                 class="form-control" placeholder="UserName"
+                 [class.form-control-danger]="userName.invalid && userName.touched"
+                 [required]="getConfigValue('forms.validation.username.required')"
+                 [minlength]="getConfigValue('forms.validation.username.minLength')"
+                 [maxlength]="getConfigValue('forms.validation.username.maxLength')"
                  autofocus>
-          <small class="form-text error" *ngIf="fullName.invalid && fullName.touched && fullName.errors?.required">
+          <small class="form-text error" *ngIf="userName.invalid && userName.touched && userName.errors?.required">
             Full name is required!
           </small>
           <small
             class="form-text error"
-            *ngIf="fullName.invalid && fullName.touched && (fullName.errors?.minlength || fullName.errors?.maxlength)">
+            *ngIf="userName.invalid && userName.touched && (userName.errors?.minlength || userName.errors?.maxlength)">
             Full name should contains
             from {{getConfigValue('forms.validation.password.minLength')}}
             to {{getConfigValue('forms.validation.password.maxLength')}}
