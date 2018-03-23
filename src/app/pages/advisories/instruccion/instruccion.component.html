@@ -1,53 +1,49 @@
 <nb-card>
-        <nb-card-body style="padding-top:0px;padding-left:0px;padding-right:0px;">
-      
-          <div class="row ">
-           <div class="col-12">
-            <button type="button" class="btn btn-info btn-lg btn-block">Instrucciones - couching</button>
-           </div>        
-            
-          </div>
-          <div class="row">
-              <div class="col-12 text-center" style="padding-top:20px;">
-                  <h4><strong>COUCHING VIRTUAL MINERIA</strong></h4>
-              </div>
-          </div>
-          <div class="row">
-                <div class="col-12 " style="padding-top:15px;padding-left:35px;">
-                        <h6><strong>como contratar el couching</strong></h6>
-                    </div>
-          </div>
-          <div class="row">
-              <div class="col-12" style="padding-left:35px;padding-right:8px;">
-                  <p>Paso 1: Proceda al pago de al menos 1 hora del curso</p>
-                  <p>Paso 2: Se mostraran los datos de contacto Coucher</p>
-                  <p>Paso 3: Pongase en contacto y coordine su couching</p>
-              </div>
-          </div>
-          <div class="row">
-                <div class="col-12 " style="padding-top:15px;padding-left:35px;">
-                        <h6><strong>Terminos del Couchin de Samosan:</strong></h6>
-                    </div>
-          </div>
-          <div class="row">
-                <div class="col-12" style="padding-left:35px;padding-right:35px;">
-                    <ul *ngFor="let terminos of advisory.instruccions.terminos">
-                        <li>Lo mas pronto posible, despues de recibir el pago,</li>
-                        
-                    </ul>
-                </div>
+    <nb-card-body>
+        <div class="row ">
+            <div class="col-12">
+                <button type="button" class="btn btn-info btn-lg btn-block">Instrucciones - couching</button>
             </div>
-            <div class="row">
-                <div class="col-12 text-center">
-                    <button class="btn btn-danger btn-sm"> previous</button>
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center" style="padding-top:20px;">
+                <h4>
+                    <strong>COUCHING VIRTUAL MINERIA</strong>
+                </h4>
             </div>
-              
-                     
-          
-        </nb-card-body>
-      
-      
-      </nb-card>
-      
-      
+        </div>
+        <div class="row">
+            <div class="col-12 " style="padding-top:15px;padding-left:35px;">
+                <h6>
+                    <strong>como contratar el couching </strong>
+                </h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" style="padding-left:35px;padding-right:8px;">
+                <p>Paso 1: Proceda al pago de al menos 1 hora del curso</p>
+                <p>Paso 2: Se mostraran los datos de contacto Coucher</p>
+                <p>Paso 3: Pongase en contacto y coordine su couching</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 " style="padding-top:15px;padding-left:35px;">
+                <h6>
+                    <strong>Terminos del Couchin de Samosan:</strong>
+                </h6>
+            </div>
+        </div>
+        <div class="row" *ngIf="advisory">
+            <div class="col-12" style="padding-left:35px;padding-right:35px;">
+                <ul *ngFor="let termino of advisory.terminos">
+                    <li>{{termino}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                <button class="btn btn-danger btn-sm"> previous</button>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>

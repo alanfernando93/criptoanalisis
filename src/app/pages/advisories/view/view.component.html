@@ -1,170 +1,251 @@
 <nb-card>
-
-    <nb-card-body style="padding-top:0px;padding-left:0px;padding-right:0px;">
-        <!-- Example row of columns -->
-        <div class="row">
-
-            <div class="col-12">
-                <button type="button" class="btn btn-info btn-lg btn-block">Asesoria Personal Couching</button>
-            </div>
+    <div class="row">
+        <div class="col-12">
+            <button type="button" class="btn btn-info btn-lg btn-block">Asesoria Personal Couching</button>
         </div>
-        <div class="row" *ngIf="advisory">
-            <div class="card">
-                <img class="card-img-top" src="https://es.tradingview.com/i/jNGFZIAD/" alt="Card image">
 
-                <div class="card-block" style="background-color:skyblue">
-                    <h4 class="card-title" style="padding-bottom:0px;padding-left:25px">
-                        <strong>{{advisory.titulo}}</strong>
-                    </h4>
-                    <p class="card-text" style="padding-top:0px;padding-left:25px">
-                        <i class="fa fa-map-marker fa-1x"></i>
-                        <span class="text-white">{{advisory.ubicacion}}</span>
-                    </p>
+    </div>
+</nb-card>
+
+<nb-card>
+
+    <img class="card-img-top" *ngIf="advisory" src="https://es.tradingview.com/i/jNGFZIAD/" alt="Card image">
+    <div class="card-block" style="background-color:skyblue">
+        <h4 class="card-title" style="padding:5px 5px 5px 15px">
+            <strong>{{advisory.titulo}}</strong>
+        </h4>
+        <p class="card-text" style="padding-top:0px;padding-left:15px;padding-bottom:5px;">
+            <i class="fa fa-map-marker fa-1x"></i>
+            <span class="text-white">{{advisory.ubicacion}}</span>
+        </p>
+    </div>
+
+</nb-card>
+<nb-card>
+
+    <div class="row pad-top  mar-top" style="padding-left:10px;padding-right:20px">
+        <div class="col-6">
+            <small class="text-muted">
+                <h5>8 $ctk / hr</h5>
+            </small>
+        </div>
+        <div class="col-2">
+            <span class="socials">
+                <i class="fa fa-file-text-o">13</i>
+            </span>
+        </div>
+        <div class="col-2 ">
+            <a class="font-w-light up" (click)="sendLike()">
+                <span class="socials">
+                    <i class="fa fa-thumbs-up fa-1x">{{advisory.likes.total}}</i>
+                </span>
+            </a>
+        </div>
+        <div class="col-2">
+            <a class="font-w-light up" (click)="sendDislike()">
+                <span class="socials">
+                    <i class="fa fa-thumbs-down">{{advisory.dislikes.total}}</i>
+                </span>
+            </a>
+        </div>
+    </div>
+</nb-card>
+
+<nb-card>
+    <div class="row pad-top" style="padding-left:10px;">
+        <div class="col-8">
+            <h5>Temas de Asesoria</h5>
+        </div>
+        <div class="col-12 pad-le" *ngIf="advisory">
+            <ul *ngFor="let temas of advisory.temas_asesoria">
+                <li>
+                    {{temas}}
+
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="row" style="padding-left:10px;padding-right:20px">
+        <div class="col-12">
+            <h5>Ventajas Adicionales</h5>
+        </div>
+        <div class="pad-le">
+            Tengo experiencia en Forex por 2 años tengo un alto nivel de didactica, doy clases a grupos
+        </div>
+
+    </div>
+    <div class="row  pad-top" style="padding-left:10px;padding-right:20px">
+        <div class="col-12">
+            <h5>Horarios</h5>
+        </div>
+        <div class="col-12">
+            Lunes a Viernes: 18:00 - 22:00
+        </div>
+    </div>
+
+</nb-card>
+<nb-card>
+    <div class="row  pad-top" style="padding-left:10px;padding-right:20px">
+        <div class="col-12">
+            <h5>Acerca del Couch</h5>
+            <div class="row">
+                <div class="col-2">
+
+                    <img class="card-img " src="http://oi58.tinypic.com/24bq7es.jpg" alt="Card image" />
+
                 </div>
-
-
-
-
-
-            </div>
-
-
-
-        </div>
-
-        <div class="row pad-top bor-dot-t bor-dot-b mar-top" style="padding-left:10px;padding-right:20px">
-            <div class="col-8">
-                <small class="text-muted">
-                    <h5>8 $ctk / hr</h5>
-                </small>
-            </div>
-            <div class="col-2 ">
-                <span class="socials">
-                    <i class="fa fa-thumbs-up fa-1x">45</i>
-                </span>
-            </div>
-            <div class="col-2">
-                <span class="socials">
-                    <i class="fa fa-thumbs-down">74</i>
-                </span>
+                <div class="col-8">
+                    <p>tiene verificacion de identidad</p>
+                    <p>5 es su nivel de ETHEREUM</p>
+                    <p>3 es su precision para PREDICCIONES</p>
+                </div>
             </div>
         </div>
-        <div class="row pad-top" style="padding-left:10px;">
-            <div class="col-8">
-                <h5>Temas de Asesoria</h5>
-            </div>
-            <div class="col-12 pad-le" *ngIf="advisory">
-                <ul *ngFor="let temas of advisory.temas_asesoria">
-                    <li>
-                        {{temas}}
+    </div>
+</nb-card>
+<nb-card>
+    <div class="row" style="padding-bottom:15px;margin: 15px 0px !important">
 
-                        </li>
-                    
+        <div class="col-12 col-md-6 pad-top text-center">
+            <a class="btn  btn-dark btn-block  btn-sm" [routerLink]="['/pages/advisories/view',id,'instruccion']">
+                Instrucciones para contratar
+            </a>
+
+        </div>
+        <div class="col-12 col-md-6  pad-top text-center">
+            <button type="button" class="btn btn-sm btn-warning btn-block">contactar a samosan</button>
+        </div>
+        <div class="col-12 col-md-6 pad-top text-center">
+
+            <a [routerLink]="['/pages/advisories/view',id,'disputa']">
+                <button type="button" class="btn  btn-danger btn-sm btn-block">iniciar disputa </button>
+            </a>
+        </div>
+        <div class="col-12 col-md-6 pad-top text-center">
+
+            <a [routerLink]="['/pages/advisories/view',id,'pago']">
+
+                <button type="button" class="btn  btn-success btn-sm btn-block">pagar </button>
+            </a>
+        </div>
+
+    </div>
+</nb-card>
+
+<nb-card>
+    <div class="row pad-top" style="padding-bottom:15px;margin: 15px 0px !important">
+        <div class="col-12 col-md-6">
+
+            <div class="dropdown  ghost-dropdown" ngbDropdown style="padding-top:5px">
+                <button class="btn" type="button" ngbDropdownToggle>
+                    mas sobre samosan
+                </button>
+                <ul class="dropdown-menu" ngbDropdownMenu>
+                    <li class="dropdown-item">Icon Button 4</li>
+                    <li class="dropdown-item">Hero Button</li>
+                    <li class="dropdown-item">Default</li>
                 </ul>
             </div>
         </div>
-        <div class="row bor-dot-b" style="padding-left:10px;padding-right:20px">
-            <div class="col-12">
-                <h5>Ventajas Adicionales</h5>
-            </div>
-            <div class="pad-le">
-                Tengo experiencia en Forex por 2 años tengo un alto nivel de didactica, doy clases a grupos
-            </div>
-
-        </div>
-        <div class="row bor-dot-b pad-top" style="padding-left:10px;padding-right:20px">
-            <div class="col-12">
-                <h5>Horarios</h5>
-            </div>
-            <div class="col-12">
-                Lunes a Viernes: 18:00 - 22:00
-            </div>
-        </div>
-        <div class="row bor-dot-b pad-top" style="padding-left:10px;padding-right:20px">
-            <div class="col-12">
-                <h5>Acerca del Couch</h5>
-                <div class="row">
-                    <div class="col-2">
-
-                        <img class="card-img " src="http://oi58.tinypic.com/24bq7es.jpg" alt="Card image" />
-
-                    </div>
-                    <div class="col-8">
-                        <p>tiene verificacion de identidad</p>
-                        <p>5 es su nivel de ETHEREUM</p>
-                        <p>3 es su precision para PREDICCIONES</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row bor-dot-b" style="padding-bottom:15px;">
-
-            <div class="col-12 pad-top text-center">
-                <a [routerLink]="['/pages/advisories/instruccion']">
-                    <button type="button" class="btn  btn-dark btn-sm">Instrucciones para contratar</button>
-                </a>
-
-            </div>
-            <div class="col-12 pad-top text-center">
-                <button type="button" class="btn btn-sm btn-warning">contactar a samosan</button>
-
-
-            </div>
-            <div class="col-12 pad-top text-center">
-
-                <a [routerLink]="['/pages/advisories/disputa']">
-                    <button type="button" class="btn  btn-danger btn-sm">iniciar disputa </button>
-                </a>
-                <a [routerLink]="['/pages/advisories/pago']">
-                    <button type="button" class="btn  btn-success btn-sm">pagar </button>
-                </a>
+        <div class="col-12 col-md-6">
+            <div class="dropdown ghost-dropdown" ngbDropdown style="padding-top:5px">
+                <button class="btn " type="button" ngbDropdownToggle>
+                    mas sobre solidity
+                </button>
+                <ul class="dropdown-menu" ngbDropdownMenu>
+                    <li class="dropdown-item">Icon Button 4</li>
+                    <li class="dropdown-item">Hero Button</li>
+                    <li class="dropdown-item">Default</li>
+                </ul>
             </div>
 
         </div>
-        <div class="row pad-top">
-            <div class="col-12">
-                <div class="dropdown">
-                    <button class="btn btn-secondary  btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        mas sobre mineria
+        <div class="row pad-top  mar-top text-center" style="padding-left:10px;padding-right:20px">
+            <div class="col-4">
+                <small class="text-muted">
+                    <h6>compartir</h6>
+                </small>
+            </div>
+            <div class="col-1 ">
+                <span class="socials">
+                    <i class="fa fa-facebook-f fa-1x"></i>
+                </span>
+            </div>
+            <div class="col-1">
+                <span class="socials">
+                    <i class="fa fa-twitter"></i>
+                </span>
+            </div>
+            <div class="col-1">
+                <span class="socials">
+                    <i class="fa fa-tumblr"></i>
+                </span>
+            </div>
+            <div class="col-1">
+                <button class="btn btn-info btn-tn">otros</button>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+</nb-card>
+
+
+
+<nb-card>
+    <nb-card-body>
+        <div class="row" *ngIf="coment">
+            <div class="col-12" >
+                <div class="dropdown" ngbDropdown>
+                    <button type="button" class="btn btn-hero-info btn-block" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
+                        aria-controls="collapseExample" ngbDropdownToggle *ngIf="cont">
+                        {{cont.count}} Comentarios
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                    <div id="collapseExample" [ngbCollapse]="!isCollapsed" >
+                        <div class="card" *ngFor="let co of coment">
+                            <div class="card-body">
+                                {{co.contenido}}
+                                
+                            </div>
+                            
+                            <div class="card" *ngFor="let ans    of co.res">
+                                <div class="pull-right text-body" *ngIf="ans">
+                                    {{ans.contenido}}
+                                </div>
+                            </div>
+
+
+                            <div class="card-footer" *ngIf="answer">
+                                
+                                    
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" class="form-control" placeholder="Escribe una respuesta" />
+                                    </div>
+                                
+                                <button type="submit" class="btn btn-primary btn-tn">Publicar</button>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-tn pull-right" (click)="answer = !answer">Responder</button>
+                            </div>
+                        </div>
                     </div>
+                    <nb-card >
+                        <nb-card-body>
+                            <form>
+                                <div class="form-group">
+                                    <textarea class="form-control" ng-model="myTextarea" placeholder="Escribe un Comentario" ></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-success pull-right btn-sm" >Publicar</button>
+                            </form>
+                            <span class="btn-outline-primary btn-sm">Comentarios</span>
+                        </nb-card-body>
+                    </nb-card>
                 </div>
-                <div class="dropdown bor-dot-b">
-                    <button class="btn btn-secondary  btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        mas sobre samosan
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col-5" style="padding-left:40px;">compartir</div>
-            <div class="col-1" style="padding-left:0px">
-                <i class="fa fa-facebook-f"></i>
-            </div>
-            <div class="col-1" style="padding-left:0px">
-                <i class="fa fa-twitter"></i>
-            </div>
-            <div class="col-1" style="padding-left:0px">
-                <i class="fa fa-tumblr"></i>
-            </div>
-            <div class="col-2" style="padding-left:0px">
-                <button class="btn btn-sm"> otros</button>
             </div>
         </div>
-
-
     </nb-card-body>
 </nb-card>

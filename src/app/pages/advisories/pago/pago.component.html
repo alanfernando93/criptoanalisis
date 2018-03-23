@@ -1,56 +1,89 @@
 <nb-card>
-  <nb-card-body style="padding-top:0px;padding-left:0px;padding-right:0px;">
-
-    <div class="row ">
-     <div class="col-12">
-      <button type="button" class="btn btn-info btn-lg btn-block">Pagar samosan</button>
-     </div>        
-      <div class="col-12 pad-text"> <h5>Pagar :</h5></div>  
-    </div>
-    <div class="row" style="padding-left:15px;padding-right:60px">
-        <div class="col-6">
-          <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"/>
-
-        </div>
-        <div class="col-6">
-
-          <div class="row" >
-              <div class="col-6">
-                <input type="text" class="form-control he-input" aria-label="Small"/>
-              </div>
-              <div class="col-4">
-                  <button type="button" class="btn btn-info btn-sm">pagar</button>
-              </div>
-              
-          </div>
-          <div class="row">
-              <div class="col-12">
-                  <h6> <strong>Total:</strong>8 $ctk </h6>
-              </div>
-          </div>
-          
-        </div>
-        
-               
-    </div>
     <div class="row">
-        <div class="col-12 pad-text"> <h5>Pagos Anteriores</h5></div>  
-      </div>
-      <div class="row pad-text">
-         <div class="col-4"> <h5><strong>id</strong></h5></div>
-         <div class="col-4"><h5><strong>Detalle</strong></h5></div>
-         <div class="col-4"><h5><strong>valor</strong></h5></div>
+        <div class="col-12">
+            <button type="button" class="btn btn-info btn-lg btn-block">Pago samosan</button>
+        </div>
 
-      </div>
-      <div class="row pad-text">
-          <div class="col-4"> <h6>1244</h6></div>
-          <div class="col-4"><h6>Pago por contacto previo con el trader</h6></div>
-          <div class="col-4"><h6>13 $ctk</h6></div>
- 
-       </div>
-
-  </nb-card-body>
-
-
+    </div>
 </nb-card>
 
+
+<nb-card>
+
+        <nb-card-body>
+    <div class="row">
+        <div class="col-12 pad-text">
+            <h5><strong>Pagar :</strong></h5>
+        </div>
+    </div>
+
+
+    <div class="row" style="padding-left:15px;padding-right:60px">
+        <div class="col-6">
+            <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="porque esta pagando?" />
+
+        </div>
+        <div class="col-6">
+
+            <div class="row">
+                <div class="col-6">
+                    <input type="text" class="form-control he-input" aria-label="Small" placeholder="00:00 Hrs" />
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-info btn-tn">pagar</button>
+                </div>
+
+            </div>
+            <div class="row" *ngIf="advisory">
+                <div class="col-12" style="padding-top:10px">
+                    <h6>
+                        <strong>Total:</strong>{{advisory.total}} $ctk </h6>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    </nb-card-body>
+</nb-card>
+<nb-card>
+        <nb-card-body>
+    <div class="row">
+        <div class="col-12 pad-text">
+            <h5><strong>Pagos Anteriores</strong></h5>
+        </div>
+    </div>
+    <div class="row pad-text">
+        <div class="col-4">
+            <h5>
+                <strong>id</strong>
+            </h5>
+        </div>
+        <div class="col-4">
+            <h5>
+                <strong>Detalle</strong>
+            </h5>
+        </div>
+        <div class="col-4">
+            <h5>
+                <strong>valor</strong>
+            </h5>
+        </div>
+
+    </div>
+    <div class="row pad-text">
+        <div class="col-4">
+            <h6>1244</h6>
+        </div>
+        <div class="col-4">
+            <h6>Pago por contacto previo con el trader</h6>
+        </div>
+        <div class="col-4">
+            <h6>13 $ctk</h6>
+        </div>
+
+    </div>
+</nb-card-body>
+
+</nb-card>

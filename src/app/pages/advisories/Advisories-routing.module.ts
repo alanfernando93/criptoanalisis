@@ -28,7 +28,7 @@ const routes: Routes = [{
        component: InstruccionComponent,
     },
     {
-        path: 'instruccion/:advisoryId',
+        path: 'view/:advisoryId/instruccion',
        component: InstruccionComponent,
     },
     {
@@ -36,9 +36,17 @@ const routes: Routes = [{
        component: PagoComponent,
     },
     {
+        path: 'view/:advisoryId/pago',
+       component: PagoComponent,
+    },
+    {
         path: 'disputa',
        component: DisputaComponent,
     },
+    {
+        path: 'view/:advisoryId/disputa' ,
+       component: DisputaComponent,
+    }
     
     ]
 }];

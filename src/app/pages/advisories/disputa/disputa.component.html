@@ -1,15 +1,43 @@
+
+
+    <div class="row">
+      <div class="col-12">
+        <button type="button" class="btn btn-info btn-lg btn-block">disputa samosan</button>
+      </div>
+  
+    </div>
+  
+  
+
+
 <nb-card>
-    <nb-card-body style="padding-top:0px;padding-left:0px;padding-right:0px;">
+    <nb-card-body>
   
       <div class="row ">
-       <div class="col-12">
-        <button type="button" class="btn btn-info btn-lg btn-block">Disputa samosan</button>
-       </div>        
+               
         <div class="col-12 pad-text" style="padding-left:30px;padding-top:15px;"> <h6>Favor elijar por cual de los pagos aneriores desea inicar
                 una disputa:</h6></div>  
       </div>
+
+    </nb-card-body>
+  
+  
+  </nb-card>
+
+  <nb-card>
+      <nb-card-body>
+    
+  
+
       <div class="row" style="padding-left:15px;">
-          <div class="col-12 pad-text"> <h6><strong>Pagos Anteriores</strong></h6></div>  
+          <div class="col-12 pad-text"> <h6><strong>Pagos Anteriores</strong></h6></div>
+          
+          <ul *ngIf="advisory">
+
+            <ul *ngFor="let termino of advisory.pagos_anteriores">
+              <li>{{termino}}</li>
+          </ul>
+          </ul>
         </div>
         <div class="row " style="padding-left:10px;">
           <div class="col-2">   </div>         
@@ -32,10 +60,6 @@
                 <div class="col-2" style="padding-left:0px">12 $ctk</div>
        
              </div>
-  
-    </nb-card-body>
-  
-  
-  </nb-card>
-  
+</nb-card-body>  
+     </nb-card>
   

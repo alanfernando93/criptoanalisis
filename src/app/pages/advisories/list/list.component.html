@@ -1,97 +1,139 @@
-
 <nb-card>
-  <nb-card-body style="padding-top:0px;padding-left:0px;padding-right:0px;">
-      <div class="row">
-                
-          <div class="col-12">
-                  <button type="button" class="btn btn-info btn-lg btn-block">Asesoria Personal - Couching</button>
-                 </div> 
-           </div>
-    <div class="row">
-        <div class="col-12 col-md-6"style="padding-bottom:20px;" *ngFor="let advisory of advisories">
+  <div class="row">
+    <div class="col-12">
+      <button type="button" class="btn btn-info btn-lg btn-block">Asesoria Personal Couching</button>
+    </div>
 
-      
-      
-            <div class="card" style="background-color:palegoldenrod">
-             
-            
-            <div class="row" style="padding-left:20px;">
-              <div class="col-4 col-md-2">
-                  <a [routerLink]="['/pages/advisories/view', advisory.id ]">
-                  <img src="https://es.tradingview.com/i/jNGFZIAD/" alt="card image" class="card-img-top pad-t">
-                </a>
-              </div>
-              <div class="col-8 col-md-8">
-                <div class="row">
-                  <div class="col-12 pad-ltitulo">
-                        <h4 class="card-title pad-t">
-                          <strong class="item text-elegant">{{advisory.titulo}}</strong>
-                        </h4>
-                  </div>
+  </div>
+</nb-card>
 
-                </div>
+    <nb-card>
 
-                <div class="row">
-                   <div class="col-12 pad-ltitulo">
-                      {{advisory.idiomas}}
-                          <span class="badge badge-pill badge-primary small">virtual</span>
-                          <span class="badge badge-pill badge-danger small">presencial</span>
-                   </div>
-                
-                
-                  
-                  
-
-                </div>
-                <div class="row">
-                  <div class="col-12 col-md-8 pad-t pad-ltitulo">
-                      <i class="fa fa-map-marker fa-1x"></i>
-                      <span class="text-success">{{advisory.ubicacion}}</span>
-                      
-                  </div >
-                 </div>
-                 
-                 
-
-              </div>
-            
-
-            </div>
-            <div class="row  pad-t pad-bot" style="padding-left:25px;" >
-              <div class="col-12 pad-luser text-info">Juan jose perez
-                <span class="badge badge-pill badge-secondary">7P</span>
-                <span class="badge badge-pill badge-info">3E</span></div>
+        <nb-tabset>
+             <nb-tab tabTitle="lista">
+                mis anuncios
+              </nb-tab>
+              <nb-tab tabTitle="mis anuncios">
+                  anuncios
+                </nb-tab>
               
-           </div>
-           <div class="row pad-t pad-bot" style="padding-left:30px;padding-right:15px;">
-              <div class="col-6">
-                <small class="text-muted"><h5>{{advisory.costo}} $ctk / hr</h5></small>
-              </div>
-              <div class="col-2">
-                <span class="socials">
-                  <i class="fa fa-file-text-o"></i>
-                </span>
-              </div>
-              <div class="col-2">
-                <span class="socials">
-                  <i class="fa fa-thumbs-up fa-2">45</i>
-                </span>
-              </div>
-              <div class="col-2">
-                <span class="socials">
-                  <i class="fa fa-thumbs-down">74</i>
-                </span>
-              </div>
-            </div>
+              <nb-tab tabTitle="Notificaciones">
+                  mis notificaciones
+                </nb-tab>
+             </nb-tabset> 
+    </nb-card>
+       
+         
+     
 
-
-          
-        
-            
-          
+  <div class="row" style="padding-bottom:15px">
+    <div class="col-6">
+        <div class="dropdown" ngbDropdown >
+            <button class="btn btn-secondary btn-tn " type="button" ngbDropdownToggle>
+                mas cercanos
+            </button>
+            <ul class="dropdown-menu" ngbDropdownMenu>
+                <li class="dropdown-item">Icon Button 4</li>
+                <li class="dropdown-item">Hero Button</li>
+                <li class="dropdown-item">Default</li>
+            </ul>
         </div>
+        </div>
+        <div class="col-6">
+            <div class="dropdown" ngbDropdown >
+                <button class="btn btn btn-secondary btn-tn" type="button" ngbDropdownToggle>
+                    solidity
+                </button>
+                <ul class="dropdown-menu" ngbDropdownMenu>
+                    <li class="dropdown-item">Icon Button 4</li>
+                    <li class="dropdown-item">Hero Button</li>
+                    <li class="dropdown-item">Default</li>
+                </ul>
+            </div>
+    
+        
+    </div>
+    </div>
+    
+
+
+
+<nb-card class="col-12 col-md-6" style="padding-bottom:20px;" *ngFor="let advisory of advisories">
+
+
+  <div class="row">
+    <div class="col-4 col-md-2">
+      <a [routerLink]="['/pages/advisories/view', advisory.id ]">
+        <img src="https://es.tradingview.com/i/jNGFZIAD/" alt="card image" class="card-img-top pad-t">
+      </a>
+    </div>
+    <div class="col-8 col-md-8">
+      <div class="row">
+        <div class="col-12 pad-ltitulo">
+          <h4 class="card-title pad-t">
+            <strong class="item text-elegant">{{advisory.titulo}}</strong>
+          </h4>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-12 pad-ltitulo">
+          {{advisory.idiomas}}
+
         </div>
       </div>
-    
-  </nb-card-body>
+
+      <div class="row pad-titulo" style="padding-top:20px;">
+        <div class="col-12 pad-ltitulo">
+          <span class="badge badge-pill badge-primary small">virtual</span>&nbsp;&nbsp;
+          <span class="badge badge-pill badge-danger small">presencial</span>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-12 col-md-8 pad-t pad-ltitulo">
+          <i class="fa fa-map-marker fa-1x"></i>
+          <span class="text-success">{{advisory.ubicacion}}</span>
+
+        </div>
+      </div>
+      <div class="row " >
+          <div class="col-12 pad-ltitulo text-info pad-t">Juan jose perez
+            <span class="badge badge-pill badge-secondary">7P</span>
+            <span class="badge badge-pill badge-info">3E</span>
+          </div>
+      
+        </div>
+
+
+
+    </div>
+
+
+  </div>
+  
+  <div class="row" style="padding-top:25px">
+    <div class="col-6">
+      <small class="text-muted">
+        <h5>{{advisory.costo}} $ctk / hr</h5>
+      </small>
+    </div>
+    <div class="col-2">
+      <span class="socials">
+        <i class="fa fa-file-text-o"></i>
+      </span>
+    </div>
+    <div class="col-2">
+      <span class="socials">
+        <i class="fa fa-thumbs-up fa-2">45</i>
+      </span>
+    </div>
+    <div class="col-2">
+      <span class="socials">
+        <i class="fa fa-thumbs-down">74</i>
+      </span>
+    </div>
+  </div>
 </nb-card>

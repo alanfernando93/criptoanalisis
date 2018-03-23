@@ -13,19 +13,19 @@ import { AdvisoriesService } from '../advisories.service';
 export class ListComponent implements OnInit {
     advisories: any;
     constructor(
-        private http:Http,
+        private http: Http,
         private AdvisoriesService: AdvisoriesService,
-        
-    ){
-        
+
+    ) {
+
     }
 
-    ngOnInit(){
+    ngOnInit() {
         this.getAdvisories()
     }
-    getAdvisories(){
+    getAdvisories() {
         this.AdvisoriesService.getAdvisories().subscribe(data => {
-          this.advisories = data;
+            this.advisories = data;
         });
-      }
+    }
 }

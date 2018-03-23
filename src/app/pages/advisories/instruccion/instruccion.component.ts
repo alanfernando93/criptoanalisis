@@ -12,22 +12,24 @@ import { AdvisoriesService } from '../advisories.service';
 })
 export class InstruccionComponent implements OnInit {
 
-  advisory:any;
+  advisory: any;
+  id: any;
 
   constructor(private http: Http, private route: ActivatedRoute, private advisoriesService: AdvisoriesService) {
-      
+
   }
 
-    ngOnInit() {
-      this.getAdvisoryById()
-    }
+  ngOnInit() {
+    this.getAdvisoryinstruccionById()
+  }
 
-    getAdvisoryById(){
-      this.route.params.forEach((params: Params) => {
-        let id = params['advisoryIduser'];
-        this.advisoriesService.getAdvisoriesId(id).subscribe((advisories) => {
-          this.advisory = advisories;
-        });
+  getAdvisoryinstruccionById() {
+    this.route.params.forEach((params: Params) => {
+      this.id = params['advisoryId'];
+      ///let idview =params['idView'];
+      this.advisoriesService.getAdvisoriesIntruccion(this.id).subscribe((advisories) => {
+        this.advisory = advisories;
       });
-    }
+    });
+  }
 }

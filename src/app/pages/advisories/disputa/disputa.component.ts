@@ -13,19 +13,21 @@ import { AdvisoriesService } from '../advisories.service';
 export class DisputaComponent implements OnInit {
 
   advisory:any;
+  id;
 
+ 
   constructor(private http: Http, private route: ActivatedRoute, private advisoriesService: AdvisoriesService) {
       
   }
 
     ngOnInit() {
-      this.getAdvisoryById()
+      this.getAdvisorydisputaById()
     }
 
-    getAdvisoryById(){
+    getAdvisorydisputaById(){
       this.route.params.forEach((params: Params) => {
-        let id = params['advisoryIduser'];
-        this.advisoriesService.getAdvisoriesId(id).subscribe((advisories) => {
+        this.id = params['advisoryId'];
+        this.advisoriesService.getAdvisoriesDisputa(this.id).subscribe((advisories) => {
           this.advisory = advisories;
         });
       });

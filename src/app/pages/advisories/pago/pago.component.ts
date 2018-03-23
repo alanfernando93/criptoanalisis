@@ -13,20 +13,22 @@ import { AdvisoriesService } from '../advisories.service';
 export class PagoComponent implements OnInit {
 
   advisory:any;
+  id;
 
   constructor(private http: Http, private route: ActivatedRoute, private advisoriesService: AdvisoriesService) {
       
   }
 
     ngOnInit() {
-      this.getAdvisoryById()
+      this.getAdvisorypagoById()
     }
 
-    getAdvisoryById(){
+    getAdvisorypagoById() {
       this.route.params.forEach((params: Params) => {
-        let id = params['advisoryIduser'];
-        this.advisoriesService.getAdvisoriesId(id).subscribe((advisories) => {
-          this.advisory = advisories;
+        this.id = params['advisoryId'];
+        ///let idview =params['idView'];
+        this.advisoriesService.getAdvisoriesPago(this.id).subscribe((advisories) => {
+          this.advisory = advisories[this.id-1];
         });
       });
     }
