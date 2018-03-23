@@ -1,25 +1,17 @@
 <nb-card>
     <nb-card-header>
         <div class="row" *ngIf="contentUser">
-            <div class="col-3 col-md-1">
-                <img src="../../../assets/images/jack.png" class="img-thumbnail foto_user" alt="Responsive image">
-            </div>
-            <div class="col-9 col-md-3">
-                <p class="font-w-light user">{{contentUser.nombre}} {{contentUser.apellido}}</p>
+            <div class="col-9 col-md-4">
+                <nb-user [menu]="" [name]="contentUser?.username" [picture]="contentUser?.perfil"></nb-user>
             </div>
             <div class="col-4 col-md-1">
                 <h5>
                     <span class="badge badge-primary font-w-light user">{{contentUser.precision}} P</span>
                 </h5>
             </div>
-            <div class="col-4 col-md-1">
+            <div class="col-4 col-md-7">
                 <h5>
-                    <span class="badge badge-success font-w-light user">{{contentUser.puntos}} P</span>
-                </h5>
-            </div>
-            <div class="col-4 col-md-6">
-                <h5>
-                    <span class="badge badge-info font-w-light user">ETH</span>
+                    <span class="badge badge-info font-w-light user">{{contentUser.fama}} F</span>
                 </h5>
             </div>
         </div>
@@ -106,9 +98,6 @@
                         <div class="card" *ngFor="let comment of commentById">
                             <div class="row" class="card-body">
                                 <div *ngIf="comment">
-                                    <div *ngIf="user">
-                                        <p>{{user.nombre}}</p>
-                                    </div>
                                     <h5 class="text-heading">Comentario</h5>
                                     <div class="col-12 col-md-12">
                                         <span class="text-body">{{comment.contenido}}</span>
@@ -122,23 +111,20 @@
                                 </div>
                             </div>
                             <div class="card-footer">
+                                <!--
                                 <div class="input-group input-group-sm mb-3">
                                     <div class="input-group-prepend">
-                                        <!--
-                                        <button type="submit" class="btn btn-primary btn-sm" (click)="sendAnswer()">Responder</button>
-                                    
-                                        -->
                                         <button class="input-group-text btn btn-primary btn-tn" id="inputGroup-sizing-sm" (click)="sendAnswer($event)">Responder</button>
-                                    
-                                        </div>
-                                    
-                                        <!--
-                                        <textarea class="form-control" id="answers" placeholder="Escribe una respuesta" [(ngModel)]="answer.contenido"></textarea>
-                                
-                                    -->
-                                    <input type="text" id="{{comment.id}}" name="{{position}}" class="form-control" placeholder="Escribe una respuesta" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                
+                                    </div>
+                                    <input type="text" id="{{comment.id}}" name="{{position}}" class="form-control" placeholder="Escribe una respuesta" aria-label="Small"
+                                        aria-describedby="inputGroup-sizing-sm">
                                 </div>
+                            -->
+                                <div class="form-group">
+                                    <input class="form-control" id="answer" placeholder="Escribe una Respuesta" [(ngModel)]="answer.contenido" cols="30" rows="1"
+                                    />
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-tn" (click)="Answer()">Responder</button>
                             </div>
                         </div>
                     </div>

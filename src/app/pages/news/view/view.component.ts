@@ -23,7 +23,7 @@ export class ViewComponent implements OnInit {
   contentUser: any;
   like: number;
   dislike: number;
-  position: string;
+  commentId: number;
 
   comment: any = {};
   answer: any = {};
@@ -56,8 +56,8 @@ export class ViewComponent implements OnInit {
     this.newsService.getNewsComment(this.idNews).subscribe(data => {
       data ? this.commentById = data : '';
       this.commentById.forEach((element, index) => {
-        let commentId = this.commentById[index].id;
-        this.newsService.getNewsAnswer(commentId).subscribe(data => {
+        this.commentId = this.commentById[index].id;
+        this.newsService.getNewsAnswer(this.commentId).subscribe(data => {
           this.commentById[index].res = [];
           this.commentById[index].res = data;
         });
@@ -100,6 +100,15 @@ export class ViewComponent implements OnInit {
     this.answer.contenido = this.contentAnswer;
     this.newsService.postNewsAnswer(this.answer.comentarioNoticiaId, this.answer).subscribe(data => {
       this.commentById[index].res.push(data);
+      this.commentById = '';
+    });
+  }
+
+  Answer() {
+    this.answer.userId = this.idUser;
+    this.answer.comentarioNoticiaId = this.commentId;
+    this.newsService.postNewsAnswer(this.answer.comentarioNoticiaId, this.answer).subscribe(data => {
+      this.commentById.push(data);
     });
   }
 
@@ -107,7 +116,7 @@ export class ViewComponent implements OnInit {
     this.comment.userId = this.idUser;
     this.comment.noticiaId = this.idNews;
     this.newsService.postNewsComment(this.comment.noticiaId, this.comment).subscribe(data => {
-      //document.getElementById('comments').innerHTML. = "";
+      this.comment = '';
     });
   }
 
