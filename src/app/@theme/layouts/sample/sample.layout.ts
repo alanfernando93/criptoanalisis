@@ -8,6 +8,7 @@ import {
   NbSidebarService,
   NbThemeService
 } from "@nebular/theme";
+import { NbAuthJWTToken, NbAuthService } from "@nebular/auth";
 
 import { StateService } from "../../../@core/data/state.service";
 import { UserService } from "../../../@core/data/users.service";
@@ -66,7 +67,7 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
             <i class="ion ion-social-github"></i> <span>Support Us</span>
           </a>
           -->
-        </nb-sidebar-header>        
+        </nb-sidebar-header>
 
         <nb-sidebar-header *ngIf="!user" class="d-block d-sm-none">
           <nb-action>
@@ -80,7 +81,7 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
             </a>
           </nb-action>
         </nb-sidebar-header>
-        
+
         <!-- <ng-content select="nb-menu"></ng-content> -->
         <nb-menu [items]="menu"></nb-menu>
       </nb-sidebar>
@@ -94,15 +95,13 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
         <ngx-footer></ngx-footer>
       </nb-layout-footer>
 
-     
+
     </nb-layout>
   `
 })
 export class SampleLayoutComponent implements OnDestroy, OnInit {
   menu = MENU_ITEMS;
-  id;
   user;
-  token;
 
   subMenu: NbMenuItem[] = [
     {
@@ -159,7 +158,8 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
     protected bpService: NbMediaBreakpointsService,
     protected sidebarService: NbSidebarService,
     protected userService: UserService,
-    protected router: Router
+    protected router: Router,
+    private authService: NbAuthService
   ) {
     this.layoutState$ = this.stateService
       .onLayoutState()
@@ -188,11 +188,12 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
       );
   }
 
-  ngOnInit() {
-    this.token = localStorage.getItem("auth_app_token");
-    let id = Number.parseInt(localStorage.getItem("userId"));
-    this.userService.getById(id).subscribe(usuario => {
-      this.user = usuario;
+  ngOnInit(){
+    this.authService.onTokenChange().subscribe((token: NbAuthJWTToken) => {
+      if (token.getValue() && localStorage.length != 0) {
+        let id = localStorage.getItem("userId")
+        this.userService.getById(id).subscribe(resp=> this.user = resp)
+      }
     });
   }
 

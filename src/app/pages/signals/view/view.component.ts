@@ -23,7 +23,7 @@ export class ViewComponent implements OnInit {
     private signalsService: SignalsService) {
 
   }
-
+  
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
       this.idSignal = params['signalId'];

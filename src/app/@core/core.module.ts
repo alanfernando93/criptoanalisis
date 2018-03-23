@@ -24,7 +24,7 @@ const NB_CORE_PROVIDERS = [
             endpoint: 'usuarios/login',
             method: 'post',
             redirect: {
-              success: '/pages/forms/inputs',
+              success: '/pages/dashboard',
               failure: null,
             },
             defaultErrors: ['Login/Email combination is not correct, please try again.'],
@@ -46,19 +46,7 @@ const NB_CORE_PROVIDERS = [
             },
             defaultErrors: ['Signed Up is not correct, please try again'],
             defaultMessages: ['you have been successfully signed up']
-          },
-          logout: {
-            redirectDelay: 500,
-            alwaysFail: false,
-            endpoint: 'usuarios/logout',
-            method: 'post',
-            redirect: {
-              success: '/',
-              failure: null,
-            },
-            defaultErrors: ['Something went wrong, please try again.'],
-            defaultMessages: ['You have been successfully logged out.'],
-          },  
+          }
         },
       },
     },

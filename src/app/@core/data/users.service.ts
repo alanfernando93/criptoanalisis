@@ -28,17 +28,17 @@ export class UserService {
    * 
    * @returns Objeto : any
    */
-  getSession() {
-    return this.http.get(this.baseUrl + "usuarios/" + this.userId + this.getAuth())
-      .map(resp => resp.json());
+  getCurrentUser() {
+    return this.http.get(this.baseUrl + "usuarios/" + this.userId)
+      .map(resp => resp.json())
   }
-
+  
   update(itemToUpdate) {
     return this.http.put(this.baseUrl + "usuarios/" + this.userId + this.getAuth(), itemToUpdate)
       .map(resp => resp.json());
   }
 
-  makeFileRequest(file: any) {
+  imageFileUpload(file: any) {
     return this.http.post(this.baseUrl + "usuarios/" + this.userId + "/upload" + this.getAuth(), file)
       .map(resp => resp.json());
   }

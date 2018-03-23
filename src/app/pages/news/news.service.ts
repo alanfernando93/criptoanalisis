@@ -14,7 +14,7 @@ export class NewsService {
   constructor(private http: Http) {
 
   }
-
+  
   getAll() {
     return this.http.get(this.baseUrl + 'noticias')
       .map((res: Response) => res.json());
@@ -24,7 +24,7 @@ export class NewsService {
     return this.http.get(this.baseUrl + 'noticias/' + id)
       .map((res: Response) => res.json());
   }
-
+  
   getNewsComment(id) {
     return this.http.get(this.baseUrl + 'noticias/' + id + '/comentarioNoticia')
       .map((res: Response) => res.json());

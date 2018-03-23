@@ -1,0 +1,97 @@
+<nb-card-body>
+  <div class="container">
+    <div class="row col inputgroup">
+      <input type="text" placeholder="Titulo de la noticia" [(ngModel)]="newsPublish.titulo" class="form-control">
+    </div>
+    <div class="row col input-group">
+      <div class="dropdown" ngbDropdown>
+        <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{selectedView.name}} </button>
+        <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
+          <li class="dropdown-item" *ngFor="let coin of coins" (click)="this.selectedView = coin">{{coin.name}}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="row col inputgroup">
+      <label for="inputContenNews">Contenido de la noticia</label>
+      <ngx-tiny-mce [height]="150" (onEditorKeyup)="keyupHandlerFunction($event,'C')">
+      </ngx-tiny-mce>
+    </div>
+    <div class="row col inputgroup">
+      <label>Conjeturas sobre el precio</label>
+      <ngx-tiny-mce [height]="90" (onEditorKeyup)="keyupHandlerFunction($event,'CP')">
+      </ngx-tiny-mce>
+    </div>
+    <div class="row col inputgroup">
+      <label>Conjeturas sobre otras monedas (* Opcional)</label>
+      <ngx-tiny-mce [height]="90" (onEditorKeyup)="keyupHandlerFunction($event,'CM')">
+      </ngx-tiny-mce>
+    </div>
+  </div>
+</nb-card-body>
+<nb-card-footer>
+  <div class="row justify-content-between">
+    <div class="col-6">
+      <button class="btn btn-hero-secondary btn-demo"> Cancelar </button>
+      <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title">Modal title</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+          <nb-card>
+            <nb-card-header>
+                <div class="row">
+                  <div class="col-12 col-md-10">
+                      <h4 [innerHTML]="titulo"></h4>
+                  </div>
+                  <div class="col-6 col-md-2">
+                      <h1>
+                          <span class="badge badge-secondary">{{selectedView.name}}</span>
+                      </h1>
+                  </div>
+                  <div class="col-6 col-md-12">
+                      <!-- <span class=" text-primary date">{{news.fecha_create | amTimeAgo}}</span> -->
+                  </div>
+                </div>
+              </nb-card-header>
+              <nb-card-body>
+                  <div class="row">
+                      <div class="col-12 col-md-12 text-body" [innerHTML]="newsPublish.contenido"></div>
+                  </div>
+              </nb-card-body>
+              <nb-card-footer>
+                  <div class="row">
+                      <!-- <p class="col-md-6">Fuente : {{news.fuentes}}</p> -->
+                  </div>
+              </nb-card-footer>
+          </nb-card>
+          <nb-card>
+              <nb-card-body>
+                  <div class="row">
+                      <div class="col-12 col-md-6">
+                          <h2>Conjetura de precio :</h2>
+                          <span [innerHTML]="newsPublish.conj_precio"></span>
+                      </div>
+                      <div class="col-12 col-md-6">
+                          <h2>Confetura a otra Moneda :</h2>
+                          <span [innerHTML]="newsPublish.conj_moneda"></span>
+                      </div>
+                  </div>
+              </nb-card-body>
+          </nb-card>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="c('Close click')">Close</button>
+        </div>
+      </ng-template>
+      
+      <button class="btn btn-lg btn-primary" (click)="open(content)"> Vista Previa </button>
+    </div>
+    <div class="col-3">
+      <button class="btn btn-success" (click)="onSave()"> Publicar </button>
+    </div>
+  </div>
+  <ngb-alert *ngIf="successMessage" [type]="type" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+</nb-card-footer>
