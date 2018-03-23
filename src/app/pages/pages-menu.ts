@@ -6,6 +6,18 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-home',
     link: '/pages/dashboard',
     home: true,
+  },
+  {
+    title: 'Publish',
+    icon: 'fa fa-fire',
+    link: '/pages/publish',
+    home: true,
+  },
+  {
+    title: 'Asesoria Principiantes',
+    icon: 'nb-compose',
+    link: '/pages/dashboard',
+    home: true,
   },{
     title: 'Tutoriales',
     icon: 'nb-home',

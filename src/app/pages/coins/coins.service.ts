@@ -9,6 +9,9 @@ import 'rxjs/add/operator/map';
 export class CoinsService{
     
     private baseUrl = environment.apiUrl;
+    private token = environment.usertoken;
+    private userId = environment.userId;
+    private table = "monedas";
 
     constructor(private http:Http){
         
@@ -16,7 +19,21 @@ export class CoinsService{
 
     getCoins(){
         return this.http.get(this.baseUrl + 'monedas/nombres')
-        .map((res: Response) => res.json())
+        .map((res: Response) => res.json());
     }
 
+    getById(id) {
+        return this.http.get(this.baseUrl + this.table + "/" + id + this.getAuth())
+        .map((res:Response)=> res.json());
+    }
+
+    getAll() {
+        return this.http
+        .get(this.baseUrl + this.table + this.getAuth())
+        .map((res:Response)=> res.json());
+    }
+
+    getAuth(){
+        return "?access_token=" + this.token;
+    }
 }

@@ -1,21 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HeaderTwoComponent } from './headertwo.component';
+import { DashboardComponent } from './dashboard.component';
 
 const routes: Routes = [
     {
-        path: 'list/marketsId'
-    }
+        path: 'view/:newsId' 
+    },
+    {
+        path: 'view/:signalId'
+    }   
 ];
-
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
 
-export class HeaderTwoRoutingModule {}
+export class DashboardRoutingModule {}
 
 export const routedComponents = [
-  HeaderTwoComponent
+    DashboardComponent
 ];

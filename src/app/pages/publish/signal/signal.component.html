@@ -1,0 +1,168 @@
+<nb-card-body>
+    <toaster-container [toasterconfig]="config"></toaster-container>
+
+    <div class="container">        
+        <div class="row input-group">
+            <div class="col-3">
+                <div class="dropdown" ngbDropdown>
+                    <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{tipoSignal.title}} </button>
+                    <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
+                    <li class="dropdown-item" *ngFor="let t of tipos" (click)="this.tipoSignal = t">{{t.title}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="dropdown" ngbDropdown>
+                    <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{moneda1}} </button>
+                    <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
+                        <li class="dropdown-item" *ngFor="let coin of coins" (click)="this.moneda1 = coin.name">{{coin.name}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="dropdown" ngbDropdown>
+                    <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{moneda2}} </button>
+                    <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
+                        <li class="dropdown-item" *ngFor="let type of types" (click)="this.moneda2 = type.id">{{type.id}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="dropdown" ngbDropdown>
+                    <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+                    Dropup
+                    </button>
+                    <ul class="dropdown-menu" ngbDropdownMenu>
+                        <li class="dropdown-item">Icon Button 3</li>
+                        <li class="dropdown-item">Hero Button</li>
+                        <li class="dropdown-item">Default</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row col inputgroup">
+            <label>Contenido de la señal</label>
+            <ngx-tiny-mce 
+                [height]="150" 
+                (onEditorKeyup)="keyupHandlerFunction($event,'CS')">
+            </ngx-tiny-mce>
+        </div>
+        <div class="row col inputgroup">
+            <label>Analisis Tecnico</label>
+            <ngx-tiny-mce 
+                [height]="90"
+                (onEditorKeyup)="keyupHandlerFunction($event,'AT')">
+            </ngx-tiny-mce>
+        </div>
+        <div class="row col inputgroup">
+            <div class="col-6">
+                <div class="row col">
+                    <div class="row" style="width:100%">
+                        <h5>Puntos de entrada</h5>
+                    </div>
+                    <div class="row">
+                        <div class="contenedor input-group">
+                            <span class="input-group-addon">Punto {{pntEnt}}</span>
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Valor (USD)">
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="% Capital">
+                            <span class="input-group-btn">
+                                <button  class="btn btn-secondary" (click)="onClickPuntos($event,'puntEntr',pntEnt)">
+                                    Añadir
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row col">
+                    <div class="row" style="width:100%">
+                        <h5>Stop Loss</h5>
+                    </div>
+                    <div class="row">
+                        <div class="contenedor input-group">
+                            <span class="input-group-addon">Punto {{stopLoss}}</span>
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Valor (USD)">
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="% Capital">
+                            <span class="input-group-btn">
+                                <button  class="btn btn-secondary" (click)="onClickPuntos($event,'stopLoss',stopLoss)">
+                                    Añadir
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                    <div class="row" style="width:100%">
+                        <h5>Tipo de salido</h5>
+                    </div>
+                    <div class="row">
+                        <div class="dropdown" ngbDropdown>
+                            <button class="btn btn-primary" type="button" ngbDropdownToggle>
+                            {{ selectTipoSalida.title }}
+                            </button>
+                            <ul class="dropdown-menu" ngbDropdownMenu>
+                            <li class="dropdown-item" *ngFor="let v of TipoSalida" (click)="this.selectTipoSalida = v">{{ v.title }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div *ngIf="selectTipoSalida.key; else msg">
+                        <div class="row"> Puntos de salida: </div>
+                        <div class="row">
+                            <div class="contenedor input-group">
+                                <span class="input-group-addon">Punto {{tpSal}}</span>
+                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Valor (USD)">
+                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="% Capital">
+                                <span class="input-group-btn">
+                                    <button  class="btn btn-secondary" (click)="onClickPuntos($event,'tipSal',tpSal)">
+                                        Añadir
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <ng-template #msg>
+                        <div class="row">
+                            <nb-card>
+                                <nb-card-header>
+                                    Tome Nota
+                                </nb-card-header>
+                                <nb-card-body>
+                                    Por cada subida de precio, nuestro sistema
+                                    calculara puntos de salida condicional (stop profit).
+                                    Enviara al autor una notificacion de tales puntos, si lo desea puede modificarlos, 
+                                    de lo contrario, el sistema enviara una notificacion, 5 minutos despues, a los 
+                                    seguidores de la señal
+                                </nb-card-body>
+                            </nb-card>
+                        </div>
+                    </ng-template> 
+            </div>
+        </div>
+    </div>
+</nb-card-body>
+<nb-card-footer>
+    <div class="row justify-content-between">
+        <div class="col-6">
+            <button class="btn btn-hero-secondary btn-demo"> Cancelar </button>
+            <ng-template #content let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                    <h4 class="modal-title">Modal title</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body&hellip;</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="c('Close click')">Close</button>
+                </div>
+            </ng-template>
+            
+            <button class="btn btn-lg btn-primary" (click)="open(content)"> Vista Previa </button>
+        </div>
+        <div class="col-2">
+            <button class="btn btn-success" (click)="onSave()"> Publicar </button>
+        </div>
+    </div>
+</nb-card-footer>

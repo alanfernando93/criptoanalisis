@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { ThemeModule } from './../../@theme/theme.module';
 import { NewsRoutingModule, routedComponents } from './news-routing.module';
+import { MomentModule } from 'angular2-moment';
 
 import { NewsService } from './news.service';
 
@@ -9,6 +10,7 @@ import { NewsService } from './news.service';
   imports: [
     ThemeModule,
     NewsRoutingModule,
+    MomentModule
   ],
   declarations:[
     ...routedComponents,

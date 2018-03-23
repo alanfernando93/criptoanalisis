@@ -6,21 +6,33 @@ import { environment } from '../../../environments/environment';
 import 'rxjs/add/operator/map';
 
 @Injectable()
- export class SignalsService {
+export class SignalsService {
     private baseUrl = environment.apiUrl;
+    private userId = environment.userId;
     private token = environment.usertoken;
-    
-    constructor(private http: Http){
+    private userId = environment.userId;
+
+    constructor(private http: Http) {
 
     }
-
-    getSignals(){
+  
+    getAll() {
         return this.http.get(this.baseUrl + 'signals' + '?access_token=' + this.token)
-        .map((res: Response) => res.json())
+            .map((res: Response) => res.json())
     }
 
-    getSignalsId(id){
+    getById(id) {
         return this.http.get(this.baseUrl + 'signals/' + id + '?access_token=' + this.token)
-        .map((res: Response) => res.json())
+            .map((res: Response) => res.json())
     }
- }
+
+    getSignalsCommentCount(id) {
+        return this.http.get(this.baseUrl + 'signals/' + id + '/comments' + '/count' + '?access_token=' + this.token)
+            .map((res: Response) => res.json());
+    }
+
+    getUserBySignal(id) {
+        return this.http.get(this.baseUrl + 'signals/' + id + '/usuario' + '?access_token=' + this.token)
+            .map((res: Response) => res.json());
+    }
+}

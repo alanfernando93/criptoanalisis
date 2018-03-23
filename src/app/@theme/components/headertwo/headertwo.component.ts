@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http } from '@angular/http';
 
 import { NbMenuService, NbSidebarService } from '@nebular/theme';
 import { AnalyticsService } from '../../../@core/utils/analytics.service';
@@ -24,15 +24,17 @@ export class HeaderTwoComponent implements OnInit {
         private analyticsService: AnalyticsService,
         private authService: NbAuthService,
         private marketsService: MarketsService
-    ) { }
+    ){}
 
-    ngOnInit() {      
-        this.getMarket()
+    ngOnInit() {
+        this.getMarket();
     }
 
-    getMarket(){
-        this.marketsService.getMarkets().subscribe(data => {
-            this.markets = data;
-        });  
+    getMarket() {
+        this.marketsService.getMarkets().subscribe(
+            markets => {
+                markets ? this.markets = markets : '';
+            }
+        );
     }
 }

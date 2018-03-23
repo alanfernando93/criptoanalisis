@@ -1,20 +1,26 @@
 <nb-card>
     <nb-card-header>
-        <div class="row">
-            <div class="col-4 col-md-2">
-                <span class="fa fa-user"></span>
+        <div class="row" *ngIf="contentUser">
+            <div class="col-3 col-md-1">
+                <img src="../../../assets/images/jack.png" class="img-thumbnail foto_user" alt="Responsive image">
             </div>
-            <div class="col-8 col-md-4">
-                <span class="font-w-light">Juan Jose Perez</span>
+            <div class="col-9 col-md-3">
+                <p class="font-w-light user">{{contentUser.nombre}} {{contentUser.apellido}}</p>
             </div>
-            <div class="col-4 col-md-2">
-                <span class="font-w-light">30 P</span>
+            <div class="col-4 col-md-1">
+                <h4>
+                    <span class="badge badge-primary font-w-light user">{{contentUser.precision}} P</span>
+                </h4>
             </div>
-            <div class="col-4 col-md-2">
-                <span class="font-w-light">25 Eth</span>
+            <div class="col-4 col-md-1">
+                <h4>
+                    <span class="badge badge-success font-w-light user">{{contentUser.puntos}} P</span>
+                </h4>
             </div>
-            <div class="col-4 col-md-2">
-                <span class="font-w-light">80Xrp</span>
+            <div class="col-4 col-md-6">
+                <h3>
+                    <span class="badge badge-info font-w-light user">ETH</span>
+                </h3>
             </div>
         </div>
     </nb-card-header>
@@ -22,12 +28,12 @@
 <nb-card>
     <nb-card-header>
         <div class="row" *ngIf="signal">
-            <h5 class="col-12 col-md-9 text-primary">
-                <strong class="item">{{signal.titulo}}</strong>
-            </h5>
-            <p class="col-12 col-md-3 text-primary">
-                <small class="text-muted">Hace 15 minutos</small>
-            </p>
+            <div class="col-12 col-md-10">
+                <h4 class="text-body">{{signal.titulo}}</h4>
+            </div>
+            <div class="col-12 col-md-2">
+                <p class="text-body pull-right">{{signal.FechaCreate | amTimeAgo}}</p>
+            </div>
         </div>
     </nb-card-header>
     <nb-card-body>
@@ -36,8 +42,7 @@
             <div class="col-12 col-md-6">
                 <div class="row">
                     <h3 class="btn btn-hero-info col-12 col-md-12">Analisis fundamental</h3>
-                    <p>{{signal.AnalisisFundamental}}</p>
-
+                    <div [innerHTML]="signal.AnalisisFundamental"></div>
                 </div>
                 <div class="row">
                     <h3 class="btn btn-hero-info col-12 col-md-12">Estrategia de Inversion</h3>
@@ -115,52 +120,46 @@
             </div>
             <div class="col-12 col-md-6" *ngIf="signal">
                 <h3 class="btn btn-hero-info col-12 col-dm-11">Analisis tecnico</h3>
-                <p>{{signal.AnalisisTecnico}}</p>
+                <div [innerHTML]="signal.AnalisisTecnico"></div>
                 <div class="text-center">
-                    <img src="../../../assets/images/esla.png" class="rounded" alt="...">
+                    <img src="https://es.tradingview.com/i/jNGFZIAD/" class="img-thumbnail" alt="Cinque Terre" width="304" height="236">
                 </div>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
                     magna aliqua.</p>
                 <div class="text-center">
-                    <img src="../../../assets/images/esla.png" class="rounded" alt="...">
+                    <img src="https://es.tradingview.com/i/jNGFZIAD/" class="img-thumbnail" alt="Cinque Terre" width="304" height="236">
                 </div>
             </div>
         </div>
     </nb-card-body>
 </nb-card>
 <nb-card>
-        <nb-card-body>
-                <div class="row" *ngIf="news">
-                    <div class="col-md-5 col-sm-12 col-12">
-                        <h5>Compartir : </h5>
-                    </div>
-                    <div class="col-md-1 col-sm-2 col-2 facebook">
-                        <span class="font-w-light up">
-                            <i class="fa fa-facebook-f fa-2x"></i>
-                        </span>
-                    </div>
-                    <div class="col-md-1 col-sm-2 col-2 twitter">
-                        <span class="font-w-light up">
-                            <i class="fa fa-twitter fa-2x"></i>
-                        </span>
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-2 whatsapp">
-                        <span class="font-w-light up">
-                            <i class="fa fa-whatsapp fa-2x"></i>
-                        </span>
-                    </div>
-                    <div class="col-md-2 col-sm-2 col-3 socials">
-                        <a class="font-w-light up">
-                            <i class="fa fa-thumbs-up"></i>84</a>
-                    </div>
-                    <div class="col-md-1 col-sm-2 col-2 socials">
-                        <a class="font-w-light down">
-                            <i class="fa fa-thumbs-down"></i>12</a>
-                    </div>
+    <nb-card-body>
+            <div class="row">
+                    <div class="col-md-2 col-sm-12 col-12">
+                            <h5>Compartir : </h5>
+                        </div>
+                        <div class="col-md-1 col-sm-2 col-2 facebook">
+                            <span class="font-w-light up">
+                                <i class="fa fa-facebook-f fa-2x"></i>
+                            </span>
+                        </div>
+                        <div class="col-md-5 col-sm-2 col-2 twitter">
+                            <span class="font-w-light up">
+                                <i class="fa fa-twitter fa-2x"></i>
+                            </span>
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-4 socials">
+                            <a class="font-w-light up pull-right">
+                                <i class="fa fa-thumbs-up"></i>512</a>
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-4 socials">
+                            <a class="font-w-light down pull-right">
+                                <i class="fa fa-thumbs-down"></i>874</a>
+                        </div>
                 </div>
-            </nb-card-body>
+    </nb-card-body>
 </nb-card>
-
 <nb-card>
     <nb-card-body>
         <div class="row">
@@ -185,54 +184,57 @@
         </div>
     </nb-card-body>
 </nb-card>
-<div class="row">
-    <div class="col-12 col-md-6">
-        <div class="dropdown" ngbDropdown>
-            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
-                Señales
-            </button>
-            <ul class="dropdown-menu" ngbDropdownMenu>
-                <li class="dropdown-item">Icon Button 4</li>
-                <li class="dropdown-item">Hero Button</li>
-                <li class="dropdown-item">Default</li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-12 col-md-6">
-        <div class="dropdown" ngbDropdown>
-            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
-                Señales
-            </button>
-            <ul class="dropdown-menu" ngbDropdownMenu>
-                <li class="dropdown-item">Icon Button 4</li>
-                <li class="dropdown-item">Hero Button</li>
-                <li class="dropdown-item">Default</li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-12 col-md-6">
-        <div class="dropdown" ngbDropdown>
-            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
-                Tutoriales
-            </button>
-            <ul class="dropdown-menu" ngbDropdownMenu>
-                <li class="dropdown-item">Icon Button 4</li>
-                <li class="dropdown-item">Hero Button</li>
-                <li class="dropdown-item">Default</li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-12 col-md-6">
-        <div class="dropdown" ngbDropdown>
-            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
-                Dropdown
-            </button>
-            <ul class="dropdown-menu" ngbDropdownMenu>
-                <li class="dropdown-item">Icon Button 4</li>
-                <li class="dropdown-item">Hero Button</li>
-                <li class="dropdown-item">Default</li>
-            </ul>
-        </div>
-    </div>
-</div>
-
+<nb-card>
+    <nb-card-header>
+            <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="dropdown" ngbDropdown>
+                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+                                Señales
+                            </button>
+                            <ul class="dropdown-menu" ngbDropdownMenu>
+                                <li class="dropdown-item">Icon Button 4</li>
+                                <li class="dropdown-item">Hero Button</li>
+                                <li class="dropdown-item">Default</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="dropdown" ngbDropdown>
+                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+                                Señales
+                            </button>
+                            <ul class="dropdown-menu" ngbDropdownMenu>
+                                <li class="dropdown-item">Icon Button 4</li>
+                                <li class="dropdown-item">Hero Button</li>
+                                <li class="dropdown-item">Default</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="dropdown" ngbDropdown>
+                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+                                Tutoriales
+                            </button>
+                            <ul class="dropdown-menu" ngbDropdownMenu>
+                                <li class="dropdown-item">Icon Button 4</li>
+                                <li class="dropdown-item">Hero Button</li>
+                                <li class="dropdown-item">Default</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="dropdown" ngbDropdown>
+                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+                                Dropdown
+                            </button>
+                            <ul class="dropdown-menu" ngbDropdownMenu>
+                                <li class="dropdown-item">Icon Button 4</li>
+                                <li class="dropdown-item">Hero Button</li>
+                                <li class="dropdown-item">Default</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+    </nb-card-header>
+</nb-card>
