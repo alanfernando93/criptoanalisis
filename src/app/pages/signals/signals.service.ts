@@ -10,34 +10,29 @@ export class SignalsService {
     private baseUrl = environment.apiUrl;
     private userId = environment.userId;
     private token = environment.usertoken;
+    private userId = environment.userId;
 
     constructor(private http: Http) {
 
     }
-
-    getAlls() {
+  
+    getAll() {
         return this.http.get(this.baseUrl + 'signals' + '?access_token=' + this.token)
-            .map(res => res.json())
+            .map((res: Response) => res.json())
     }
 
     getById(id) {
         return this.http.get(this.baseUrl + 'signals/' + id + '?access_token=' + this.token)
-            .map(res => res.json())
+            .map((res: Response) => res.json())
     }
 
-    add(signal) {
-        signal.usuarioId = this.userId;
-        return this.http.post(this.baseUrl + 'signals?access_token=' + this.token, signal)
-            .map(resp => resp.json())
+    getSignalsCommentCount(id) {
+        return this.http.get(this.baseUrl + 'signals/' + id + '/comments' + '/count' + '?access_token=' + this.token)
+            .map((res: Response) => res.json());
     }
 
-    getPositionById(id) {
-        return this.http.get(this.baseUrl + 'positions/' + id + '?access_token=' + this.token)
-            .map(resp => resp.json())
-    }
-
-    setPosition(body) {
-        return this.http.post(this.baseUrl + 'positions?access_token=' + this.token, body)
-            .map(resp => resp.json())
+    getUserBySignal(id) {
+        return this.http.get(this.baseUrl + 'signals/' + id + '/usuario' + '?access_token=' + this.token)
+            .map((res: Response) => res.json());
     }
 }

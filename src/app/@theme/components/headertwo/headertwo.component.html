@@ -1,60 +1,53 @@
 <div class="header-container left">
-    <div class="container-btn d-block d-sm-none">
-        <a class="btn btn-secondary btn-sm">
+    <div class="container-btn d-block d-sm-block d-md-none">
+        <a class="btn btn-secondary btn-tn">
             <i class="nb-edit"></i>
         </a>
     </div>
-    <div class="container-btn d-block d-sm-none">
-        <a class="btn btn-secondary btn-sm">
+    <div class="container-btn d-block d-sm-block d-md-none">
+        <a class="btn btn-secondary btn-tn">
             <i class="nb-lightbulb"></i>
         </a>
     </div>
 
-    <div class="container-btn d-block d-sm-none">
-        <a class="btn btn-secondary btn-sm">
+    <div class="container-btn d-block d-sm-block d-md-none">
+        <a class="btn btn-secondary btn-tn">
             <i class="nb-compose"></i>
         </a>
     </div>
-
-    <!--
-    <div class="container-btn d-block d-sm-none">
-        <a class="btn btn-secondary btn-sm">
+    <div class="container-btn d-block d-sm-block d-md-none">
+        <a class="btn btn-secondary btn-tn">
             <i class="nb-plus-circled"></i>
         </a>
     </div>
+    <!--
     <div class="container-btn d-block d-sm-none">
-        <a class="btn btn-secondary">
+        <a class="btn btn-secondary btn-tn">
             Ico's
         </a>
     </div>
--->
-    <div class="container-btn d-block d-sm-none">
-        <a class="btn btn-secondary btn-sm">
+    -->
+    <div class="container-btn d-block d-sm-block d-md-none">
+        <a class="btn btn-secondary btn-tn">
             <i class="nb-rainy"></i>
         </a>
     </div>
     <ul class="nav left">
-        <nb-action>
-            <li class="nav-item">
-                <a class="nav-link d-none d-sm-block" href="#">
-                    <span>PUBLICAR</span>
-                </a>
-            </li>
-        </nb-action>
-        <nb-action>
-            <li class="nav-item">
-                <a class="nav-link d-none d-sm-block" href="#">
-                    <span>SEÑALES</span>
-                </a>
-            </li>
-        </nb-action>
-        <nb-action>
-            <li class="nav-item">
-                <a class="nav-link d-none d-sm-block" href="#">
-                    <span>NOTICIAS</span>
-                </a>
-            </li>
-        </nb-action>
+        <li class="nav-item">
+            <a class="nav-link d-none d-sm-none d-md-block" href="#">
+                <span>PUBLICAR</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link d-none d-sm-none d-md-block" href="#">
+                <span>SEÑALES</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link d-none d-sm-none d-md-block" href="#">
+                <span>NOTICIAS</span>
+            </a>
+        </li>
         <!--
         <nb-action>
             <div class="dropdown ghost-dropdown d-none d-sm-block" ngbDropdown>
@@ -70,43 +63,38 @@
             </div>
         </nb-action>
     -->
-        <nb-action>
-            <div class="dropdown ghost-dropdown" ngbDropdown>
-                <button class="btn btn-primary d-none d-sm-block" type="button" ngbDropdownToggle style="border: 0px;">
-                    Mercado
-                </button>
-                <ul class="dropdown-menu" ngbDropdownMenu style="width: 150%;">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Buscar">
-                    </div>
-                    <div class="dropdown-divider"></div>
-                    <li class="dropdown-submenu dropdown-item" *ngFor="let market of markets">
-						<a class="dropdown ghost-dropdown" ngbDropdown>{{market.nombre}}</a>
-						<ul class="dropdown-menu submenu" style="width: 150%">
-							<li class="dropdown-item">
-								<a>Action</a>
-							</li>
-							<li class="dropdown-item">
-								<a href="#">Action</a>
-							</li>
-							<li class="dropdown-item">
-								<a href="#">Action</a>
-							</li>
-						</ul>
-					</li>
-                </ul>
-            </div>
-        </nb-action>
-        <nb-action>
-            <li class="nav-item">
-                <a class="nav-link d-none d-sm-block">
-                    <span>CHAT</span>
-                </a>
-            </li>
-        </nb-action>
+        <div class="dropdown ghost-dropdown" ngbDropdown>
+            <button class="btn btn-primary d-none d-sm-none d-md-block" type="button" ngbDropdownToggle style="border: 0px;">
+                Mercado
+            </button>
+            <ul class="dropdown-menu" ngbDropdownMenu style="width: 150%;">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Buscar">
+                </div>
+                <div class="dropdown-divider"></div>
+                <li class="dropdown-submenu dropdown-item" *ngFor="let market of markets">
+                    <a class="dropdown ghost-dropdown" ngbDropdown>{{market.nombre}}</a>
+                    <ul class="dropdown-menu submenu" style="width: 150%">
+                        <li class="dropdown-item">
+                            <a>Action</a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a href="#">Action</a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a href="#">Action</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <li class="nav-item">
+            <a class="nav-link d-none d-sm-none d-md-block">
+                <span>CHAT</span>
+            </a>
+        </li>
     </ul>
 </div>
-
 <nb-actions size="medium" class="header-container right">
     <nb-action>
         <div class="d-none d-sm-block">

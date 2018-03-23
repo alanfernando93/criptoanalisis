@@ -39,11 +39,10 @@ export class ProfileComponent implements OnInit {
         this.router.navigate(['/']);
      });
     },error=>console.log("Error!!!"));
-
   }
 
   fileChangeEvent(files: any) {
     this.myFile = files[0];
     console.log(this.myFile);
   }
-}
+}auth/logout

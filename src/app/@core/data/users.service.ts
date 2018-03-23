@@ -32,7 +32,7 @@ export class UserService {
     return this.http.get(this.baseUrl + "usuarios/" + this.userId)
       .map(resp => resp.json())
   }
-
+  
   update(itemToUpdate) {
     return this.http.put(this.baseUrl + "usuarios/" + this.userId + this.getAuth(), itemToUpdate)
       .map(resp => resp.json());
@@ -49,6 +49,6 @@ export class UserService {
   }
 
   getAuth() {
-    return "?access_token=" + this.token
+    return "?access_token=" + this.token;
   }
 }
