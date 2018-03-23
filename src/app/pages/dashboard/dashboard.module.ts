@@ -19,11 +19,16 @@ import { PlayerComponent } from './rooms/player/player.component';
 import { TrafficComponent } from './traffic/traffic.component';
 import { TrafficChartComponent } from './traffic/traffic-chart.component';
 
+import { DashboardRoutingModule, routedComponents } from './dashboard-routing.module';
+
+import { MomentModule } from 'angular2-moment';
 
 @NgModule({
   imports: [
     ThemeModule,
     NgxEchartsModule,
+    DashboardRoutingModule,
+    MomentModule
   ],
   declarations: [
     DashboardComponent,
@@ -42,6 +47,8 @@ import { TrafficChartComponent } from './traffic/traffic-chart.component';
     SolarComponent,
     TrafficComponent,
     TrafficChartComponent,
+    ...routedComponents
   ],
+  
 })
 export class DashboardModule { }

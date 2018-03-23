@@ -38,7 +38,7 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
                    [right]="sidebar.id === 'left'">
 
         <nb-sidebar-header class="d-block d-sm-none" *ngIf="user">
-          <nb-user [menu]="" [name]="user?.username" [picture]="user?.picture" ></nb-user>
+          <nb-user [menu]="" [name]="user?.username" [picture]="user?.perfil" ></nb-user>
             <nb-action>
               <span class="badge badge-secondary">2 $CA</span>
             </nb-action>
@@ -177,22 +177,22 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
       .withLatestFrom(this.themeService.onMediaQueryChange())
       .delay(20)
       .subscribe(
-      ([item, [bpFrom, bpTo]]: [
-        any,
-        [NbMediaBreakpoint, NbMediaBreakpoint]
-      ]) => {
-        if (bpTo.width <= isBp.width) {
-          this.sidebarService.collapse("menu-sidebar");
+        ([item, [bpFrom, bpTo]]: [
+          any,
+          [NbMediaBreakpoint, NbMediaBreakpoint]
+        ]) => {
+          if (bpTo.width <= isBp.width) {
+            this.sidebarService.collapse("menu-sidebar");
+          }
         }
-      }
       );
   }
 
   ngOnInit() {
     this.token = localStorage.getItem("auth_app_token");
-    this.id = Number.parseInt(localStorage.getItem("userId"));
-    this.userService.getUser(this.id, this.token).then(usuario => {
-      this.user = JSON.parse(usuario["_body"]);
+    let id = Number.parseInt(localStorage.getItem("userId"));
+    this.userService.getById(id).subscribe(usuario => {
+      this.user = usuario;
     });
   }
 
@@ -215,7 +215,7 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
     this.user = null;
     this.router.navigate(["/"]);
   }
-  profile(){
+  profile() {
     this.router.navigate(["/user/profile"]);
   }
 }
