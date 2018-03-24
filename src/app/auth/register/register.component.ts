@@ -39,7 +39,7 @@ import { NbRegisterComponent } from '@nebular/auth';
           <small
             class="form-text error"
             *ngIf="firstName.invalid && firstName.touched && (firstName.errors?.minlength || firstName.errors?.maxlength)">
-            Full name should contains
+            First name should contains
             from {{getConfigValue('forms.validation.password.minLength')}}
             to {{getConfigValue('forms.validation.password.maxLength')}}
             characters
@@ -58,7 +58,7 @@ import { NbRegisterComponent } from '@nebular/auth';
           <small
             class="form-text error"
             *ngIf="lastName.invalid && lastName.touched && (lastName.errors?.minlength || lastName.errors?.maxlength)">
-            Full name should contains
+            Last name should contains
             from {{getConfigValue('forms.validation.password.minLength')}}
             to {{getConfigValue('forms.validation.password.maxLength')}}
             characters
