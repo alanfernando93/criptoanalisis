@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { Session } from '../../@core/data/session'
 import { environment } from '../../../environments/environment';
 
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class CoinsService{
+export class CoinsService extends Session{
     
     private baseUrl = environment.apiUrl;
-    private token = environment.usertoken;
-    private userId = environment.userId;
+    // private token = environment.usertoken;
+    // private userId = environment.userId;
     private table = "monedas";
 
     constructor(private http:Http){
-        console.log(this.token);
+        super()
     }
 
     getCoins(){
@@ -34,6 +35,6 @@ export class CoinsService{
     }
 
     getAuth(){
-        return "?access_token=" + this.token;
+        return "?access_token=" + this.getToken();
     }
 }
