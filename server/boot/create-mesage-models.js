@@ -12,4 +12,12 @@ module.exports = function(app) {
         console.log('mensaje insertado', data);
     });
   });
+  app.dataSources.db.automigrate('userMessage', function(err) {
+    if (err)
+      throw err;
+    app.models.userMessage.create({
+      'message': 'hola',
+      'idProper': 123,
+    });
+  });
 };

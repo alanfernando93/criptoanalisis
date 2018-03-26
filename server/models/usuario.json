@@ -21,7 +21,8 @@
     },
     "fecha_registro": {
       "type": "date",
-      "required": false
+      "required": false,
+      "default": "$now"
     },
     "redes_sociales": {
       "type": "string",
@@ -36,18 +37,12 @@
       "required": false
     },
     "fama": {
-      "type": "number",
+      "type": "string",
       "required": false
     }
   },
   "validations": [],
   "relations": {
-    "likes": {
-      "type": "hasMany",
-      "model": "signal",
-      "foreignKey": "UsuarioId",
-      "through": "LikeSignal"
-    },
     "comments": {
       "type": "hasMany",
       "model": "comment",
@@ -83,13 +78,38 @@
     },
     "message": {
       "type": "hasMany",
-      "model": "messageRoom",
-      "foreignkey": ""
+      "model": "usuario",
+      "foreignkey": "",
+      "through": "messageRoom"
     },
     "asesoriaPersonals": {
       "type": "hasMany",
       "model": "asesoria_personal",
       "foreignKey": ""
+    },
+    "MsgSender": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignkey": "senderId",
+      "through": "messageRoom"
+    },
+    "MsgRec":{
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignkey": "recieverId",
+      "through": "messageRoom"
+    },
+    "sender": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignKey": "senderId",
+      "through": "transaccion"
+    },
+    "reciever": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignKey": "recieverId",
+      "through": "transaccion"
     }
   },
   "acls": [
@@ -113,7 +133,8 @@
       "permission": "ALLOW",
       "property": [
         "upload",
-        "verPagaSeñal"
+        "verPagaSeñal",
+        "updateInfo"
       ]
     },
     {

@@ -48,11 +48,7 @@
     "dataSource": "db",
     "public": true
   },
-  "position": {
-    "dataSource": "db",
-    "public": true
-  },
-  "LikeSignal": {
+  "punto": {
     "dataSource": "db",
     "public": true
   },
@@ -108,11 +104,23 @@
     "dataSource": "db",
     "public": true
   },
+  "answer_noticia": {
+    "dataSource": "db",
+    "public": true
+  },
   "comentario_noticia": {
     "dataSource": "db",
     "public": true
   },
-  "answer_noticia": {
+  "userMessage": {
+    "dataSource": "db",
+    "public": true
+  },
+  "transaccion": {
+    "dataSource": "db",
+    "public": true
+  },
+  "position": {
     "dataSource": "db",
     "public": true
   }

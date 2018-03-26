@@ -7,8 +7,8 @@
     "validateUpsert": true
   },
   "properties": {
-    "titulo": {
-      "type": "string",
+    "tipo": {
+      "type": "Boolean",
       "required": true
     },
     "tipoInversion": {
@@ -29,13 +29,14 @@
     },
     "FechaCreate": {
       "type": "date",
-      "required": false
+      "required": false,
+      "default": "$now"
     },
     "estado": {
       "type": "Boolean"
     },
     "visible": {
-      "type": "string"
+      "type": "Boolean"
     }
   },
   "validations": [],
@@ -51,7 +52,7 @@
       "foreignKey": "SignalId",
       "through": "LikeSignal"
     },
-    "positions": {
+    "puntos": {
       "type": "hasMany",
       "model": "position",
       "foreignKey": ""
@@ -89,5 +90,15 @@
       "permission": "ALLOW"
     }
   ],
-  "methods": {}
+  "methods": {},
+  "mixins": {
+    "Likes": [
+        {
+          "method": "like",
+          "endpoint": "/:id/like",
+          "likes": "likes",
+          "userModel": "usuario"
+        }
+    ]
+}
 }
