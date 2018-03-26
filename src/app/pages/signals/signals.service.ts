@@ -34,4 +34,15 @@ export class SignalsService {
         return this.http.get(this.baseUrl + 'signals/' + id + '/usuario' + '?access_token=' + this.token)
             .map((res: Response) => res.json());
     }
+
+    postLikes(id) {
+        return this.http.get(this.baseUrl + 'signals/' + id + '/like?userId=' + this.userId + '&access_token=' + this.token)
+            .map((res: Response) => res.json());
+    }
+
+    postDislikes(id) {
+        return this.http.get(this.baseUrl + 'signals/' + id + '/dislike?userId=' + this.userId + '&access_token=' + this.token)
+            .map((res: Response) => res.json());
+    }
+
 }

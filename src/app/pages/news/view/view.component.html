@@ -100,11 +100,17 @@
                                 <div *ngIf="comment">
                                     <h5 class="text-heading">Comentario</h5>
                                     <div class="col-12 col-md-12">
+                                        <div *ngIf="comment.user">
+                                            <nb-user [menu]="" [name]="comment.user?.username" [picture]="comment.user?.perfil"></nb-user>
+                                        </div>
                                         <span class="text-body">{{comment.contenido}}</span>
                                     </div>
                                     <div class="card-body" *ngFor="let answer of comment.res">
-                                        <h5 class="text-heading">Respuestas</h5>
                                         <div *ngIf="answer">
+                                            <h5 class="text-heading">Respuestas</h5>
+                                            <div *ngIf="answer.anuser">
+                                                <nb-user [menu]="" [name]="answer.anuser?.username" [picture]="answer.anuser?.perfil"></nb-user>
+                                            </div>
                                             <span class="text-body">{{answer.contenido}}</span>
                                         </div>
                                     </div>
@@ -124,7 +130,7 @@
                                     <input class="form-control" id="answer" placeholder="Escribe una Respuesta" [(ngModel)]="answer.contenido" cols="30" rows="1"
                                     />
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-tn" (click)="Answer()">Responder</button>
+                                <button type="submit" class="btn btn-primary btn-tn" (click)="sendAnswer()">Responder</button>
                             </div>
                         </div>
                     </div>

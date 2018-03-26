@@ -30,7 +30,6 @@ export class ListComponent implements OnInit {
         this.signalsService.getUserBySignal(signalId).subscribe(data => {
           this.signals[index].contentUser = [];
           this.signals[index].contentUser.push(data);
-          console.log(signals);
           this.signalsService.getSignalsCommentCount(signalId).subscribe(data => {
             this.count = data;
           });

@@ -124,7 +124,7 @@
 </nb-card>
 <nb-card>
     <nb-card-body>
-        <div class="row">
+        <div class="row" *ngIf="signal">
             <div class="col-md-2 col-sm-12 col-12">
                 <h5>Compartir : </h5>
             </div>
@@ -139,12 +139,12 @@
                 </span>
             </div>
             <div class="col-md-2 col-sm-2 col-4 socials">
-                <a class="font-w-light up pull-right">
-                    <i class="fa fa-thumbs-up"></i>512</a>
+                <a class="font-w-light up pull-right" (click)="sendLike()">
+                    <i class="fa fa-thumbs-up"></i>{{signal.likes.total}}</a>
             </div>
             <div class="col-md-2 col-sm-2 col-4 socials">
-                <a class="font-w-light down pull-right">
-                    <i class="fa fa-thumbs-down"></i>874</a>
+                <a class="font-w-light down pull-right" (click)="sendDislike()">
+                    <i class="fa fa-thumbs-down"></i>{{signal.dislikes.total}}</a>
             </div>
         </div>
     </nb-card-body>

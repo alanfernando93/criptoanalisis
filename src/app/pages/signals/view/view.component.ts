@@ -15,6 +15,8 @@ export class ViewComponent implements OnInit {
   signal: any;
   idSignal: any;
   contentUser: any;
+  like: number;
+  dislike: number;
 
   constructor(
     private http: Http,
@@ -33,17 +35,33 @@ export class ViewComponent implements OnInit {
   }
 
   getSignalById() {
-    
-      this.signalsService.getById(this.idSignal).subscribe(
-        signal => {
-          signal ? this.signal = signal : '';
-        
-    });
+
+    this.signalsService.getById(this.idSignal).subscribe(
+      signal => {
+        signal ? this.signal = signal : '';
+
+      });
   }
 
-  getSignalWithUser(){
+  getSignalWithUser() {
     this.signalsService.getUserBySignal(this.idSignal).subscribe(data => {
       this.contentUser = data;
     })
+  }
+
+  sendLike() {
+    this.signalsService.postLikes(this.idSignal).subscribe(data => {
+      this.like = data;
+      console.log(this.like);
+      this.signal = data;
+    });
+  }
+
+  sendDislike() {
+    this.signalsService.postDislikes(this.idSignal).subscribe(data => {
+      this.dislike = data;
+      console.log(this.dislike);
+      this.signal = data;
+    });
   }
 }
