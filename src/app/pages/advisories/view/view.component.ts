@@ -12,10 +12,11 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./view.component.scss']
 })
 export class ViewComponent implements OnInit {
-
+  idUser = environment.userId;
   advisory: any;
   coment :any;
   comment : {};
+  comment2: any = {};
   comentar :any;
   cont:any;
   comentid :any;
@@ -25,17 +26,22 @@ export class ViewComponent implements OnInit {
   like:number;
   dislike:number;
   re:any;
+  contentuser:any;
   
-  constructor(private http: Http, private route: ActivatedRoute, private advisoriesService: AdvisoriesService) {
+  constructor(
+    private http: Http,
+     private route: ActivatedRoute,
+      private advisoriesService: AdvisoriesService      
+    ) {
 
   }
 
   ngOnInit() {
     this.getAdvisoryByIduser()
-    this.sendDislike(),
-    this.sendLike()
     this.getAdvisorycommentById()
     this.getAdvisorycommentcontById()
+    this.getAdvisoriesWithUser()
+
     
   }
 
@@ -76,7 +82,7 @@ export class ViewComponent implements OnInit {
       this.advisoriesService.getAdvisoriesComentarios(id).subscribe((advisories) => {
         this.coment = advisories;
            
-
+        
          
         this.coment.forEach((element, index) => {
           let commentId = this.coment[index].id;
@@ -84,6 +90,7 @@ export class ViewComponent implements OnInit {
             this.ans = data;
             this.coment[index].res = [];
             this.coment[index].res = data;
+            
           });
         });
 
@@ -100,7 +107,30 @@ export class ViewComponent implements OnInit {
     });
   }
 
-  
+
+  getAdvisoriesWithUser() {
+    this.route.params.forEach((params: Params) => {
+      let id = params['advisoryId'];
+      this.advisoriesService.getUserByAdvisories(this.id).subscribe((advisories) => {
+        this.contentuser = advisories;         
+      });
+    });
+  }
+  sendComent2() {
+    this.route.params.forEach((params: Params) => {
+      let id = params['advisoryId'];
+      this.comment2.userId = this.idUser;
+     this.comment2.asesoriaPersonalId = this.id;
+    
+      this.comment2.userId = this.idUser;
+
+      this.advisoriesService.postAdvisoriesComment(this.id, this.comment2.contenido).subscribe(data => {
+        //document.getElementById('comments').innerHTML. = "";
+        console.log("hoal " + this.comment2.contenido)
+      });  
+    
+    });
+  }
 
  
 }

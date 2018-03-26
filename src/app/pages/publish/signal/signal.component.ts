@@ -113,7 +113,7 @@ export class SignalComponent implements OnInit {
         // this.showToast(this.type, this.title, this.content);
     }
 
-    onSave() {
+    /*onSave() {
         this.signal.visible = true;
         this.signal.tipo = this.tipoSignal.key;
         this.signal.count="";
@@ -134,7 +134,7 @@ export class SignalComponent implements OnInit {
             this.content = 'Se produjo un error con señales'
             this.showToast(this.type, this.title, this.content);
         });
-    }
+    }*/
 
     keyupHandlerFunction(event, opc) {
         switch (opc) {

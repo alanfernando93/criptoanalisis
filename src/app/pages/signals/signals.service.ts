@@ -10,7 +10,6 @@ export class SignalsService {
     private baseUrl = environment.apiUrl;
     private userId = environment.userId;
     private token = environment.usertoken;
-    private userId = environment.userId;
 
     constructor(private http: Http) {
 

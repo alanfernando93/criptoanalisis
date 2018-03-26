@@ -87,18 +87,18 @@
 </nb-card>
 <nb-card>
     <div class="row  pad-top" style="padding-left:10px;padding-right:20px">
-        <div class="col-12">
+        <div class="col-12" *ngIf="contentuser">
             <h5>Acerca del Couch</h5>
             <div class="row">
                 <div class="col-2">
 
-                    <img class="card-img " src="http://oi58.tinypic.com/24bq7es.jpg" alt="Card image" />
-
+                    <img class="card-img" src="{{contentuser.perfil}}" alt="Card image" />
                 </div>
                 <div class="col-8">
+                        <p class="text-success">{{contentuser.nombre}}</p>
                     <p>tiene verificacion de identidad</p>
                     <p>5 es su nivel de ETHEREUM</p>
-                    <p>3 es su precision para PREDICCIONES</p>
+                    <p>{{contentuser.precision}} es su precision para PREDICCIONES</p>
                 </div>
             </div>
         </div>
@@ -198,14 +198,14 @@
 
 <nb-card>
     <nb-card-body>
-        <div class="row" *ngIf="coment">
+        <div class="row" >
             <div class="col-12" >
-                <div class="dropdown" ngbDropdown>
+                <div class="dropdown" ngbDropdown >
                     <button type="button" class="btn btn-hero-info btn-block" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
                         aria-controls="collapseExample" ngbDropdownToggle *ngIf="cont">
                         {{cont.count}} Comentarios
                     </button>
-                    <div id="collapseExample" [ngbCollapse]="!isCollapsed" >
+                    <div id="collapseExample" [ngbCollapse]="!isCollapsed" *ngIf="coment" >
                         <div class="card" *ngFor="let co of coment">
                             <div class="card-body">
                                 {{co.contenido}}
@@ -235,11 +235,11 @@
                     </div>
                     <nb-card >
                         <nb-card-body>
-                            <form>
+                            <form >
                                 <div class="form-group">
-                                    <textarea class="form-control" ng-model="myTextarea" placeholder="Escribe un Comentario" ></textarea>
+                                    <textarea class="form-control" id="comments" placeholder="Escribe un Comentario" [(ngModel)]="comment2.contenido"></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-success pull-right btn-sm" >Publicar</button>
+                                <button type="submit" class="btn btn-success pull-right btn-sm" (click)="sendComent2()" >Publicar</button>
                             </form>
                             <span class="btn-outline-primary btn-sm">Comentarios</span>
                         </nb-card-body>

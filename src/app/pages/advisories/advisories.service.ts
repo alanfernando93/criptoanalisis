@@ -70,7 +70,14 @@ import 'rxjs/add/operator/map';
       }
 
      
-      
+      getUserByAdvisories(id) {
+        return this.http.get(this.baseUrl + 'asesoria_personals/' + id + '/usuario')
+          .map((res: Response) => res.json());
+      }
+      postAdvisoriesComment(id, co) {
+        return this.http.post(this.baseUrl + 'asesoria_personals/' + id + '/comments', co)
+          .map((res: Response) => res.json());
+      } 
     
     
  }
