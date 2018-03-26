@@ -1,14 +1,20 @@
 <nb-card-body>
   <div class="container">
-    <div class="row col inputgroup">
-      <input type="text" placeholder="Titulo de la noticia" [(ngModel)]="newsPublish.titulo" class="form-control">
-    </div>
-    <div class="row col input-group">
-      <div class="dropdown" ngbDropdown>
-        <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{selectedView.name}} </button>
-        <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
-          <li class="dropdown-item" *ngFor="let coin of coins" (click)="this.selectedView = coin">{{coin.name}}</li>
-        </ul>
+    <div class="row">
+      <div class="col-md-5">
+        <div class="row inputgroup">
+          <input type="text" placeholder="Titulo de la noticia" [(ngModel)]="newsPublish.titulo" class="form-control">
+        </div>
+        <div class="row input-group">
+          <div class="dropdown" ngbDropdown>
+            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{selectedView.name}} </button>
+            <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
+              <li class="dropdown-item" *ngFor="let coin of coins" (click)="this.selectedView = coin">{{coin.name}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
       </div>
     </div>
     <div class="row col inputgroup">

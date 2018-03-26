@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
 
 
   onSave() {
-    delete this.user.profile;
+    delete this.user.perfil;
     let body = new FormData();
     body.append('Key',this.user.username);
     body.append('Value', this.myFile);

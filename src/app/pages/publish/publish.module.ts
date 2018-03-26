@@ -10,6 +10,7 @@ import { SignalComponent } from './signal/signal.component';
 import { NewsService } from '../news/news.service';
 import { CoinsService } from '../coins/coins.service';
 import { SignalsService } from '../signals/signals.service';
+import { InputFileModule } from 'ngx-input-file';
 
 @NgModule({
     imports: [

@@ -154,6 +154,12 @@ import { NbRegisterComponent } from '@nebular/auth';
       </form>
 
       <div class="links">
+
+        <div class="socials">
+          <a href="https://github.com/akveo" target="_blank" class="socicon-github"></a>
+          <a href="https://www.facebook.com/akveo/" target="_blank" class="socicon-facebook"></a>
+          <a href="https://twitter.com/akveo_inc" target="_blank" class="socicon-twitter"></a>
+        </div>
         <small class="form-text">
           Already have an account? <a routerLink="../login"><strong>Sign in</strong></a>
         </small>
