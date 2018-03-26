@@ -75,9 +75,23 @@ import 'rxjs/add/operator/map';
           .map((res: Response) => res.json());
       }
       postAdvisoriesComment(id, co) {
-        return this.http.post(this.baseUrl + 'asesoria_personals/' + id + '/comments', co)
+        return this.http.post(this.baseUrl + 'asesoria_personals/' + id + '/comments', 
+
+        {
+          "contenido": co,
+          "userId": this.userId,
+          
+          
+        }
+        
+        )
           .map((res: Response) => res.json());
       } 
+
+      getUserById(id) {
+        return this.http.get(this.baseUrl + 'usuarios/' + id)
+          .map((res: Response) => res.json());
+    }
     
     
  }

@@ -211,6 +211,9 @@
                                 {{co.contenido}}
                                 
                             </div>
+                            <div *ngIf="infouser">
+                                    {{infouser.nombre}}
+                            </div>
                             
                             <div class="card" *ngFor="let ans    of co.res">
                                 <div class="pull-right text-body" *ngIf="ans">
@@ -237,7 +240,8 @@
                         <nb-card-body>
                             <form >
                                 <div class="form-group">
-                                    <textarea class="form-control" id="comments" placeholder="Escribe un Comentario" [(ngModel)]="comment2.contenido"></textarea>
+                                    <textarea class="form-control" id="comments" placeholder="Escribe un Comentario" [(ngModel)]="comment2" 
+                                    [ngModelOptions]="{standalone: true}"></textarea>
                                 </div>
                                 <button type="submit" class="btn btn-success pull-right btn-sm" (click)="sendComent2()" >Publicar</button>
                             </form>

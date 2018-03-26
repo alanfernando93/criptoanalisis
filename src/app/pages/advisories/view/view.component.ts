@@ -16,7 +16,7 @@ export class ViewComponent implements OnInit {
   advisory: any;
   coment :any;
   comment : {};
-  comment2: any = {};
+  comment2: {} ;
   comentar :any;
   cont:any;
   comentid :any;
@@ -27,6 +27,7 @@ export class ViewComponent implements OnInit {
   dislike:number;
   re:any;
   contentuser:any;
+  infouser:any;
   
   constructor(
     private http: Http,
@@ -119,17 +120,22 @@ export class ViewComponent implements OnInit {
   sendComent2() {
     this.route.params.forEach((params: Params) => {
       let id = params['advisoryId'];
-      this.comment2.userId = this.idUser;
-     this.comment2.asesoriaPersonalId = this.id;
-    
-      this.comment2.userId = this.idUser;
-
-      this.advisoriesService.postAdvisoriesComment(this.id, this.comment2.contenido).subscribe(data => {
+      
+      this.advisoriesService.postAdvisoriesComment(this.id, this.comment2).subscribe(data => {
         //document.getElementById('comments').innerHTML. = "";
-        console.log("hoal " + this.comment2.contenido)
+        console.log("hoal " + this.comment2)
       });  
     
     });
+  }
+  getusername(){
+    this.route.params.forEach((params: Params) => {
+      let id = this.idUser;
+      this.advisoriesService.getUserById(this.id).subscribe((advisories) => {
+        this.infouser = advisories;         
+      });
+    });
+    
   }
 
  

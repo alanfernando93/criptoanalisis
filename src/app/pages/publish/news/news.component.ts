@@ -55,7 +55,7 @@ export class PublishNewsComponent implements OnInit {
       case 'CM': this.newsPublish.conj_moneda = event;break;
     }
   }
-/*
+ 
   onSave() {
     this.newsPublish.tipo_moneda = this.selectedView.name;
     this.newsPublish.usuarioId = this.usuarioId;
@@ -73,7 +73,7 @@ export class PublishNewsComponent implements OnInit {
       setTimeout(() => this.successMessage = null, 7000);
     });    
   }
-*/
+
   open(content) {
     this.modalService.open(content).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
