@@ -14,5 +14,10 @@ module.exports = function(app) {
   app.dataSources.db.automigrate('pago', function(err) {
     if (err) throw err;
   });
-  
+  app.dataSources.db.automigrate('comentario_asesoria', function(err) {
+    if (err) throw err;
+  });
+  app.dataSources.db.automigrate('answer_asesoria', function(err) {
+    if (err) throw err;
+  });
 };
