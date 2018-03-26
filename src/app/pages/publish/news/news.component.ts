@@ -61,16 +61,7 @@ export class PublishNewsComponent implements OnInit {
     this.newsPublish.usuarioId = this.usuarioId;
     console.log(this.newsPublish);
     this.newsService.insert(this.newsPublish).subscribe(resp => {
-      this.type = "success";
-      this.successMessage = "Se guardo correctamente!!!"
-      setTimeout(() => {
-        this.successMessage = null, 7000; 
         this.router.navigate(["/"]);
-      });
-    },err => {
-      this.type = "warning";
-      this.successMessage = "Se produjo un error!!!"
-      setTimeout(() => this.successMessage = null, 7000);
     });    
   }
 
