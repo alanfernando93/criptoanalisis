@@ -65,7 +65,7 @@ export class HeaderComponent implements OnInit {
     this.userService.logout().subscribe(success => {
       this.router.navigateByUrl("/auth/logout", {skipLocationChange: true}).then(r => {
         localStorage.clear()
-        this.router.navigate(["/"])
+        this.router.navigate(["/pages/dashboard"])
       })
     })
   }

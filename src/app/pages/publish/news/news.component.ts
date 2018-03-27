@@ -8,7 +8,6 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NewsService } from "../../news/news.service";
 // import { CoinsService } from "../../../services/coins.service";
 import { CoinsService } from "../../coins/coins.service";
-import { environment } from "../../../../environments/environment"; 
 
 @Component({
   selector: "ngx-publish-news",
@@ -18,13 +17,12 @@ import { environment } from "../../../../environments/environment";
 export class PublishNewsComponent implements OnInit {
   @Input() idNew: String = null;
 
-  image;
+  url = "https://mdbootstrap.com/img/Photos/Others/placeholder.jpg";
   closeResult: string;
   successMessage: string;
   type : String;
   newsPublish: any = {};
   coins: any = [];
-  usuarioId = environment.userId;
 
   selectedView = {
     name: "Seleccione Moneda"
@@ -59,8 +57,6 @@ export class PublishNewsComponent implements OnInit {
 
   onSave() {
     this.newsPublish.tipo_moneda = this.selectedView.name;
-    this.newsPublish.usuarioId = this.usuarioId;
-    console.log(this.newsPublish);
     this.newsService.insert(this.newsPublish).subscribe(resp => {
         this.router.navigate(["/"]);
     });    
@@ -84,4 +80,18 @@ export class PublishNewsComponent implements OnInit {
       }
   }
 
+  readUrl(event:any) {    
+    var img = new Image();
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+      
+      reader.onload = (e:any) => {
+        this.url = e.target.result;
+      }
+      img.src = this.url
+      console.log("ancho:"+img.width)
+      console.log("alto:" + img.height)
+      reader.readAsDataURL(event.target.files[0]);
+    }    
+  }
 }

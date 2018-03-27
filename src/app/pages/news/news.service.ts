@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+
+import { Session } from '../../@core/data/session'
 import { environment } from '../../../environments/environment';
 
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class NewsService {
+export class NewsService extends Session{
   private baseUrl = environment.apiUrl;
-  private token = environment.usertoken;
-  private userId = environment.userId;
 
   constructor(private http: Http) {
-
+    super()
   }
 
   getNews() {
@@ -26,21 +26,22 @@ export class NewsService {
   }
 
   insert(body) {
+    body.usuarioId = this.getUserId();
     return this.http.post(this.baseUrl + 'noticias', body).map((res: Response) => res.json());
   }
 
   postNews(id) {
-    return this.http.get(this.baseUrl + 'noticias/' + id + '/comment?userId' + this.userId)
+    return this.http.get(this.baseUrl + 'noticias/' + id + '/comment?userId' + this.getUserId())
       .map((res: Response) => res.json());
   }
 
   postDislikes(id) {
-    return this.http.get(this.baseUrl + 'noticias/' + id + '/dislike?userId=' + this.userId)
+    return this.http.get(this.baseUrl + 'noticias/' + id + '/dislike?userId=' + this.getUserId())
       .map((res: Response) => res.json());
   }
 
   postLikes(id) {
-    return this.http.get(this.baseUrl + 'noticias/' + id + '/like?userId=' + this.userId)
+    return this.http.get(this.baseUrl + 'noticias/' + id + '/like?userId=' + this.getUserId())
       .map((res: Response) => res.json());
   }
 
