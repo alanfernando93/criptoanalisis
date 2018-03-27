@@ -93,7 +93,7 @@
       "foreignkey": "senderId",
       "through": "messageRoom"
     },
-    "MsgRec":{
+    "MsgRec": {
       "type": "hasMany",
       "model": "usuario",
       "foreignkey": "recieverId",
