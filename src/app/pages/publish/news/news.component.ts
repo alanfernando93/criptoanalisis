@@ -18,6 +18,7 @@ import { environment } from "../../../../environments/environment";
 export class PublishNewsComponent implements OnInit {
   @Input() idNew: String = null;
 
+  image;
   closeResult: string;
   successMessage: string;
   type : String;
@@ -91,4 +92,5 @@ export class PublishNewsComponent implements OnInit {
           return `with: ${reason}`;
       }
   }
+
 }

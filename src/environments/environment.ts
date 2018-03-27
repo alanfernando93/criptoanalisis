@@ -10,10 +10,8 @@
 
 export const environment = {
   production: false,
-  // apiUrl: 'http://191.101.228.157:8080/api/',
-  apiUrl : 'http://192.168.100.105:3000/api/',
-  apiUrlDropbox : 'https://www.dropbox.com/request/VflEa7dG5hCUpIRNnnKa',
-  DropboxKey : 'NirdHiRLreAAAAAAAAAAL91BnFDs-233MnFtlFzMj3XuVuE43PdHPeJ1rfcTw43n',
+  apiUrl: 'http://191.101.228.157:8080/api/',
+  // apiUrl : 'http://192.168.100.105:3000/api/',
   usertoken: localStorage.getItem('auth_app_token'),
   userId: localStorage.getItem('userId')
 };
