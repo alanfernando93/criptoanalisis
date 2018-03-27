@@ -5,7 +5,7 @@
     "url": "",
     "database": "db_cripto",
     "password": "123",
-    "name": "database",
+    "name": "db",
     "user": "root",
     "connector": "mysql",
     "connectionLimit": 10

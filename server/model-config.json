@@ -52,10 +52,6 @@
     "dataSource": "db",
     "public": true
   },
-  "commentSignal": {
-    "dataSource": "db",
-    "public": true
-  },
   "Suscripcion": {
     "dataSource": "db",
     "public": true
@@ -121,6 +117,14 @@
     "public": true
   },
   "position": {
+    "dataSource": "db",
+    "public": true
+  },
+  "comentario_senal": {
+    "dataSource": "db",
+    "public": true
+  },
+  "answer-senal": {
     "dataSource": "db",
     "public": true
   }

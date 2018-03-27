@@ -1,5 +1,5 @@
 {
-  "name": "comentario_noticia",
+  "name": "answer-senal",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -20,14 +20,14 @@
   },
   "validations": [],
   "relations": {
-    "answerNoticia": {
-      "type": "hasMany",
-      "model": "answer_noticia",
+    "coment-senal": {
+      "type": "belongsTo",
+      "model": "comentario-senal",
       "foreignKey": ""
     },
-    "noticia": {
+    "comentarioSenal": {
       "type": "belongsTo",
-      "model": "noticia",
+      "model": "comentario_senal",
       "foreignKey": ""
     }
   },
