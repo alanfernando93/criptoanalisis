@@ -7,34 +7,31 @@ import { environment } from '../../../environments/environment';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class CoinsService extends Session{
-    
+export class CoinsService extends Session {
+
     private baseUrl = environment.apiUrl;
-    // private token = environment.usertoken;
-    // private userId = environment.userId;
     private table = "monedas";
 
-    constructor(private http:Http){
+    constructor(private http: Http) {
         super()
     }
 
-    getCoins(){
-        return this.http.get(this.baseUrl + 'monedas/nombres')
-        .map((res: Response) => res.json());
+    getCoinsName() {
+        return this.http.get(this.baseUrl + this.table + '/nombres' + this.getAuth())
+            .map((res: Response) => res.json());
     }
 
     getById(id) {
         return this.http.get(this.baseUrl + this.table + "/" + id + this.getAuth())
-        .map((res:Response)=> res.json());
+            .map((res: Response) => res.json());
     }
 
     getAll() {
-        return this.http
-        .get(this.baseUrl + this.table + this.getAuth())
-        .map((res:Response)=> res.json());
+        return this.http.get(this.baseUrl + this.table + this.getAuth())
+            .map((res: Response) => res.json());
     }
 
-    getAuth(){
+    getAuth() {
         return "?access_token=" + this.getToken();
     }
 }

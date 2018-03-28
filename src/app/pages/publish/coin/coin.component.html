@@ -1,0 +1,58 @@
+<nb-card-body>
+  <div class="container">
+    <div class="row col">
+      <div class="input-group">
+        <input id="typeahead-format" type="text" class="form-control" [(ngModel)]="coin" [ngbTypeahead]="searchCoins" [resultFormatter]="formatter" />
+        <div class="input-group-append" ngbDropdown>
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" ngbDropdownToggle>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu scroll-list" style="background-color:white;color:black"ngbDropdownMenu>
+            <li class="dropdown-item" *ngFor="let c of coins" (click)="this.coin = c">{{c}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row col">
+      <div class="input-group">
+        <input id="typeahead-format" type="text" class="form-control" [(ngModel)]="market" [ngbTypeahead]="searchMarkets" [resultFormatter]="formatter" />
+        <div class="input-group-append" ngbDropdown>
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" ngbDropdownToggle>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu scroll-list" style="background-color:white;color:black"ngbDropdownMenu>
+            <li class="dropdown-item" *ngFor="let m of markets" (click)="this.market = m">{{m}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row col">
+      <div class="input-group">
+        <div class="card">
+          <div class="card-header">
+            Featured
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row col">
+      <div class="input-group">
+        <div class="card">
+          <div class="card-header">
+            Featured
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nb-card-body>
