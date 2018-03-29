@@ -35,6 +35,7 @@ export class SignalComponent implements OnInit {
     @Input() idSignal: String = null;
     userId = environment.userId;
     closeResult: string;
+    url = "https://mdbootstrap.com/img/Photos/Others/placeholder.jpg";
 
     pntEnt = 1;
     tpSal = 1;
@@ -286,5 +287,20 @@ export class SignalComponent implements OnInit {
             bodyOutputType: BodyOutputType.TrustedHtml,
         };
         this.toasterService.popAsync(toast);
+    }
+
+    readUrl(event:any) {    
+    var img = new Image();
+    if (event.target.files && event.target.files[0]) {
+        var reader = new FileReader();
+        
+        reader.onload = (e:any) => {
+        this.url = e.target.result;
+        }
+        img.src = this.url
+        console.log("ancho:"+img.width)
+        console.log("alto:" + img.height)
+        reader.readAsDataURL(event.target.files[0]);
+    }    
     }
 }

@@ -83,7 +83,10 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
             var base64 = reader.result.split(",")[1];
             var blobInfo = blobCache.create(id, file, base64);
             blobCache.add(blobInfo);
+
+            // blobInfo.blobUri() => url de la imagen que sera insertada
             cb(blobInfo.blobUri(), { title: file.name });
+            console.log(blobInfo.blobUri())
           };
           reader.readAsDataURL(file);
         };
@@ -117,11 +120,12 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
         // formData = new FormData();
         // formData.append("file", blobInfo.blob().fileName(blobInfo));
         // xhr.send(formData);
-        let body = new  FormData()
-        body.append('file', blobInfo.blob().fileName(blobInfo));
-        this.userService.makeFileRequest(body).then(resp=>{
-          console.log(resp);
-        })
+        // let body = new  FormData()
+        // body.append('file', blobInfo.blob().fileName(blobInfo));
+        // this.userService.makeFileRequest(body).then(resp=>{
+        //   console.log(resp);
+        // })
+        console.log(blobInfo.filename())
         // console.log(blobInfo.blob());
       },
       height: this.height

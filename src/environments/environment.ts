@@ -13,5 +13,6 @@ export const environment = {
   apiUrl: 'http://191.101.228.157:8080/api/',
   // apiUrl : 'http://192.168.100.105:3000/api/',
   usertoken: localStorage.getItem('auth_app_token'),
-  userId: localStorage.getItem('userId')
+  userId: localStorage.getItem('userId'),
+  selectTab : localStorage.getItem('select')
 };

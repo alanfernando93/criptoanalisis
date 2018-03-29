@@ -50,11 +50,11 @@
 </nb-card-body>
 <nb-card-footer>
   <div class="row justify-content-between">
-    <div class="col-6">
+    <div class="col-md-6">
       <button class="btn btn-hero-secondary btn-demo"> Cancelar </button>
       <ng-template #content let-c="close" let-d="dismiss">
         <div class="modal-header">
-            <h4 class="modal-title">Modal title</h4>
+            <h4 class="modal-title">Preview News</h4>
             <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -62,7 +62,7 @@
         <div class="modal-body">
           <nb-card>
             <nb-card-header>
-                <div class="row">
+                <div class="row col">
                   <div class="col-12 col-md-10">
                       <h4 [innerHTML]="titulo"></h4>
                   </div>
@@ -77,19 +77,19 @@
                 </div>
               </nb-card-header>
               <nb-card-body>
-                  <div class="row">
+                  <div class="row col">
                       <div class="col-12 col-md-12 text-body" [innerHTML]="newsPublish.contenido"></div>
                   </div>
               </nb-card-body>
               <nb-card-footer>
-                  <div class="row">
+                  <div class="row col">
                       <!-- <p class="col-md-6">Fuente : {{news.fuentes}}</p> -->
                   </div>
               </nb-card-footer>
           </nb-card>
           <nb-card>
               <nb-card-body>
-                  <div class="row">
+                  <div class="row col">
                       <div class="col-12 col-md-6">
                           <h2>Conjetura de precio :</h2>
                           <span [innerHTML]="newsPublish.conj_precio"></span>
@@ -109,7 +109,7 @@
       
       <button class="btn btn-lg btn-primary" (click)="open(content)"> Vista Previa </button>
     </div>
-    <div class="col-2">
+    <div class="col-md-3">
       <button class="btn btn-success" (click)="onSave()"> Publicar </button>
     </div>
   </div>

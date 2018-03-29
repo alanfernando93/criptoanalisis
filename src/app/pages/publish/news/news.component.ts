@@ -34,7 +34,7 @@ export class PublishNewsComponent implements OnInit {
     private newsService: NewsService,
     private coinsService: CoinsService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     if (this.idNew != null) {

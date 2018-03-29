@@ -3,5 +3,20 @@
 @import '~@nebular/theme/styles/global/bootstrap/breakpoints';
 
 @include nb-install-component() {
+    .input-group{
+        padding-bottom: 15px; 
+    }
+    .input-group-append{
+        button{
+            height: 52px;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0; 
+        }
+    }
 
+    .rounded{
+        margin-bottom: 15px; 
+        width: 400px;
+        border-radius: 2.25rem !important;
+    }
 }
