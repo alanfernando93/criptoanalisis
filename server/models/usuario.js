@@ -18,10 +18,13 @@ module.exports = function(Usuario) {
   
   Usuario.upload = function(req, res, cb) {
     var Container = Usuario.app.models.Container;
-    var user = req.params.id;
-    Container.createContainer({name: user}, function(err, c) {
-      Container.upload(req, res, {container: user}, cb);
-    });
+    var id = req.params.id;
+    Usuario.findById(id)
+    .then(user=>{
+      Container.createContainer({name: user.username}, function(err, c) {
+        Container.upload(req, res, {container: user.username}, cb);
+      });
+    });    
   };
   Usuario.remoteMethod(
        'upload',
@@ -36,11 +39,20 @@ module.exports = function(Usuario) {
   );
   Usuario.observe('loaded', function(ctx, next) {
     var homedir = (process.platform == 'win32') ? process.env.HOMEPATH : process.env.HOME;
-    base64Img.base64(homedir + /loop/ + ctx.data.id + '/perfil.png', (err, data)=>{
-      if (err)
-        console.log('aun no tiene imagen');
-      ctx.data.perfil = data;
-      next();
+    var container = Usuario.app.models.Container;
+    container.getFiles(ctx.data.username, (err, data)=>{
+      if (data.length > 0) {
+        data.map(function(f) {
+          base64Img.base64(homedir + /loop/ + ctx.data.username + '/' + f.getMetadata().name, (err, data)=>{
+            if (err)
+              console.log('aun no tiene imagen');
+            ctx.data.perfil = data;
+            next();
+          });
+        });
+      } else {
+        next();
+      }
     });
   });
   Usuario.beforeRemote('create', function(ctx, user, next) {

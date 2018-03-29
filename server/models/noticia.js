@@ -13,7 +13,28 @@ var _async = require('async');
 var _async2 = _interopRequireDefault(_async);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-module.exports = function(Noticia,ctx,ctx2) {
+
+module.exports = function(Noticia, ctx, ctx2) {
+
+  Noticia.upload = function(req, res, cb) {
+    var Container = Noticia.app.models.Container;
+    var id = req.params.id;
+    Container.createContainer({name: 'news' + id}, function(err, c) {
+      Container.upload(req, res, {container: 'news' + id}, cb);
+    });
+  };
+  Noticia.remoteMethod(
+       'upload',
+    {
+      http: {path: '/:id/upload', verb: 'post'},
+      accepts: [
+           {arg: 'req', type: 'object', 'http': {source: 'req'}},
+           {arg: 'res', type: 'object', 'http': {source: 'res'}},
+      ],
+      returns: {arg: 'status', type: 'string'},
+    }
+  );
+
   const HttpErrors = require('http-errors');
 //ctx para dislike
   ctx = (0, _assign2.default)({
