@@ -5,6 +5,12 @@ module.exports = function(app) {
     if (err)
       throw err;
     else
-      console.log(data);
+    app.models.transaccion.create([{
+      monto: 100,
+      activo: true,
+      senderId: 2,
+      recieverId: 1,
+    },
+    ]);
   });
 };

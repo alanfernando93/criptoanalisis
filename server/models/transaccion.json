@@ -21,6 +21,9 @@
     },
     "costo": {
       "type": "string"
+    },
+    "activo":{
+      "type": "boolean"
     }
   },
   "validations": [],
