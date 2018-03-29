@@ -45,4 +45,9 @@ export class NewsService extends Session{
       .map((res: Response) => res.json());
   }
 
+  imageFileUpload(idNews,file){
+    return this.http.post(this.baseUrl + 'noticias/' + idNews + '/upload',file)
+      .map(resp => resp.json())
+  }
+
 }

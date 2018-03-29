@@ -18,6 +18,7 @@ export class PublishNewsComponent implements OnInit {
   @Input() idNew: String = null;
 
   url = "https://mdbootstrap.com/img/Photos/Others/placeholder.jpg";
+  myFile:File;
   closeResult: string;
   successMessage: string;
   type : String;
@@ -34,7 +35,7 @@ export class PublishNewsComponent implements OnInit {
     private newsService: NewsService,
     private coinsService: CoinsService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     if (this.idNew != null) {
@@ -57,8 +58,13 @@ export class PublishNewsComponent implements OnInit {
 
   onSave() {
     this.newsPublish.tipo_moneda = this.selectedView.name;
+    let body = new FormData();
+    body.append('', this.myFile);
     this.newsService.insert(this.newsPublish).subscribe(resp => {
+      this.newsService.imageFileUpload(resp.id,body).subscribe(r => {
+        // console.log(r)
         this.router.navigate(["/"]);
+      })
     });    
   }
 
@@ -80,9 +86,10 @@ export class PublishNewsComponent implements OnInit {
       }
   }
 
-  readUrl(event:any) {    
+  readUrl(files) {    
     var img = new Image();
-    if (event.target.files && event.target.files[0]) {
+    if (files && files[0]) {
+      this.myFile = files[0]
       var reader = new FileReader();
       
       reader.onload = (e:any) => {
@@ -91,7 +98,7 @@ export class PublishNewsComponent implements OnInit {
       img.src = this.url
       console.log("ancho:"+img.width)
       console.log("alto:" + img.height)
-      reader.readAsDataURL(event.target.files[0]);
+      reader.readAsDataURL(files[0]);
     }    
   }
 }
