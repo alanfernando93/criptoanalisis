@@ -15,6 +15,7 @@ module.exports = function(app) {
     ],
     maxFileSize: 2000000,
   });
-  var container = ds.createModel('Container');
+  var container = ds.createModel('Container',
+    {base: 'model'});
   app.model(container);
 };
