@@ -6,6 +6,16 @@
   "options": {
     "validateUpsert": true
   },
+  "mixins": {
+    "Likes": [
+      {
+        "method": "like",
+        "endpoint": "/:id/like",
+        "likes": "likes",
+        "userModel": "usuario"
+      }
+    ]
+  },
   "properties": {
     "tipo": {
       "type": "Boolean",
@@ -57,11 +67,10 @@
       "model": "position",
       "foreignKey": ""
     },
-    "comments": {
+    "comentarioSenals": {
       "type": "hasMany",
-      "model": "usuario",
-      "foreignkey": "signalId",
-      "through": "commentSignal"
+      "model": "comentario_senal",
+      "foreignKey": ""
     }
   },
   "acls": [
@@ -90,15 +99,5 @@
       "permission": "ALLOW"
     }
   ],
-  "methods": {},
-  "mixins": {
-    "Likes": [
-        {
-          "method": "like",
-          "endpoint": "/:id/like",
-          "likes": "likes",
-          "userModel": "usuario"
-        }
-    ]
-}
+  "methods": {}
 }
