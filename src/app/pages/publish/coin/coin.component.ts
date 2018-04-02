@@ -25,6 +25,8 @@ export class CoinComponent implements OnInit {
   coin: any;
   market: any;
 
+  email;
+
   file:File;
 
   constructor(
