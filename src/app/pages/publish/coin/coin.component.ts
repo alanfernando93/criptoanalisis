@@ -15,8 +15,9 @@ import 'rxjs/add/operator/distinctUntilChanged';
 })
 export class CoinComponent implements OnInit {
 
-  public coins: any = []
-  public markets: any = []
+  coins: any = []
+  markets: any = []
+  titles: any = [];
   coin: any;
   market: any;
 
@@ -35,6 +36,13 @@ export class CoinComponent implements OnInit {
       data.forEach(element => {
         this.markets.push(element.nombre)
       });
+    })
+    this.coinsService.getTitle().subscribe(data => {
+      data.forEach(element => {
+        if(!element.correspondencia)
+          this.titles.push(element)
+      });
+      console.log(this.titles)
     })
   }
 

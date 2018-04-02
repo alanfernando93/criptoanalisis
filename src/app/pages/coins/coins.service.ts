@@ -34,4 +34,9 @@ export class CoinsService extends Session {
     getAuth() {
         return "?access_token=" + this.getToken();
     }
+
+    getTitle(){
+        return this.http.get(this.baseUrl + "titulos" + this.getAuth())
+            .map(resp => resp.json())
+    }
 }

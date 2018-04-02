@@ -61,8 +61,7 @@ export class PublishNewsComponent implements OnInit {
     let body = new FormData();
     body.append('', this.myFile);
     this.newsService.insert(this.newsPublish).subscribe(resp => {
-      this.newsService.imageFileUpload(resp.id,body).subscribe(r => {
-        // console.log(r)
+      this.newsService.imageFileUpload(resp.id,body).subscribe((r:Response) => {
         this.router.navigate(["/"]);
       })
     });    
