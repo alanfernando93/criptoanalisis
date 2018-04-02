@@ -2,12 +2,13 @@
   <div class="container">
     <div class="row col">
       <div class="input-group">
-        <input id="typeahead-format" type="text" class="form-control" [(ngModel)]="coin" [ngbTypeahead]="searchCoins" [resultFormatter]="formatter" />
+        <input id="typeahead-format" type="text" class="form-control" [(ngModel)]="coin" [ngbTypeahead]="searchCoins" [resultFormatter]="formatter"
+        />
         <div class="input-group-append" ngbDropdown>
           <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" ngbDropdownToggle>
             <span class="sr-only">Toggle Dropdown</span>
           </button>
-          <ul class="dropdown-menu scroll-list" style="background-color:white;color:black"ngbDropdownMenu>
+          <ul class="dropdown-menu scroll-list" style="background-color:white;color:black" ngbDropdownMenu>
             <li class="dropdown-item" *ngFor="let c of coins" (click)="this.coin = c">{{c}}</li>
           </ul>
         </div>
@@ -15,12 +16,13 @@
     </div>
     <div class="row col">
       <div class="input-group">
-        <input id="typeahead-format" type="text" class="form-control" [(ngModel)]="market" [ngbTypeahead]="searchMarkets" [resultFormatter]="formatter" />
+        <input id="typeahead-format" type="text" class="form-control" [(ngModel)]="market" [ngbTypeahead]="searchMarkets" [resultFormatter]="formatter"
+        />
         <div class="input-group-append" ngbDropdown>
           <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" ngbDropdownToggle>
             <span class="sr-only">Toggle Dropdown</span>
           </button>
-          <ul class="dropdown-menu scroll-list" style="background-color:white;color:black"ngbDropdownMenu>
+          <ul class="dropdown-menu scroll-list" style="background-color:white;color:black" ngbDropdownMenu>
             <li class="dropdown-item" *ngFor="let m of markets" (click)="this.market = m">{{m}}</li>
           </ul>
         </div>
@@ -33,13 +35,17 @@
             Favor especifique los detalles para esta moneda, hagalo de forma secuencial:
           </div>
           <div class="card-body">
-            <p class="card-text text-center">
-              <button class="rounded btn btn-primary">Editar contenido para idea del proyecto</button>
-              <button class="rounded btn btn-primary">Nuevo contenido para redes sociales</button>
-              <button class="rounded btn btn-primary">Nuevo contenido para Oferta y demanda</button>
-              <button class="rounded btn btn-primary">Nuevo contenido para Equipo de lideres</button>
-              <button class="rounded btn btn-primary">Nuevo contenido para Conclusiones</button>
-            </p>
+            <div class="card-text text-center" *ngFor="let title of titles">
+              <button class="rounded title btn btn-primary" (click)="title.isCollapsed = !title.isCollapsed" [attr.aria-expanded]="!title.isCollapsed"
+                aria-controls="collapseExample">{{title.nombre}}</button>
+              <div id="collapseExample" [ngbCollapse]="title.isCollapsed" *ngIf="title.subtitles.length > 0">
+                <div class="card">
+                  <div class="card-body">
+                    <button class="rounded sub btn btn-secondary" *ngFor="let subtitle of title.subtitles" (click)="open(content)">{{subtitle.nombre}} </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -60,4 +66,30 @@
       </div>
     </div>
   </div>
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Preview News</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+      </div>
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="c('Close click')">Close</button>
+    </div>
+  </ng-template>
 </nb-card-body>

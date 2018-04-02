@@ -14,9 +14,13 @@
         }
     }
 
-    .rounded{
+    .title{
         margin-bottom: 15px; 
         width: 400px;
+        border-radius: 2.25rem !important;
+    }
+    .sub{ 
+        margin-bottom: 15px; 
         border-radius: 2.25rem !important;
     }
 }

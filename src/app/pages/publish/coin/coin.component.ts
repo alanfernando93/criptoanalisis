@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+
 import { CoinsService } from '../../coins/coins.service'
 import { MarketsService } from '../../markets/markets.service'
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
+import { isNumber } from '@ng-bootstrap/ng-bootstrap/util/util';
 
 @Component({
   selector: 'ngx-publish-coin',
@@ -14,6 +17,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
   styleUrls: ['./coin.component.scss']
 })
 export class CoinComponent implements OnInit {
+  closeResult: string;
 
   coins: any = []
   markets: any = []
@@ -21,7 +25,10 @@ export class CoinComponent implements OnInit {
   coin: any;
   market: any;
 
+  file:File;
+
   constructor(
+    private modalService: NgbModal,
     private coinsService: CoinsService,
     private marketService: MarketsService
   ) { }
@@ -38,12 +45,25 @@ export class CoinComponent implements OnInit {
       });
     })
     this.coinsService.getTitle().subscribe(data => {
+      let subs = []
       data.forEach(element => {
-        if(!element.correspondencia)
+        if (!isNumber(element.correspondencia)) {
+          element.subtitles = []
+          element.isCollapsed = true
           this.titles.push(element)
+        } else
+          subs.push(element)
       });
-      console.log(this.titles)
+      this.titles.forEach((element, index) => {
+        subs.forEach(data => {
+          if (element.id === data.correspondencia) {
+            delete data.correspondencia
+            element.subtitles.push(data)
+          }
+        })
+      });
     })
+    console.log(this.markets)
   }
 
   formatter = (result: string) => result.toUpperCase();
@@ -61,4 +81,22 @@ export class CoinComponent implements OnInit {
       .distinctUntilChanged()
       .map(term => term === '' ? []
         : this.markets.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
+
+  open(content) {
+    this.modalService.open(content).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
 }
