@@ -1,8 +1,8 @@
 <nb-card [size]="medium">
   <nb-tabset fullWidth>
     <nb-tab tabTitle="Contactos">
-      <a class="contact" (click)="chatRoom(c.id)" *ngFor="let c of contacts">
-         <nb-user [name]="c.username" [title]="hola" size="large" ></nb-user>
+      <a class="contact" (click)="chatRoom(c.username,c.id)" *ngFor="let c of contacts">
+         <nb-user [picture]="c.perfil" [name]="c.username" [title]="hola" size="large" ></nb-user>
       </a>
     </nb-tab>
     <nb-tab tabTitle="Salas">

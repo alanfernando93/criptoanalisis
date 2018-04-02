@@ -36,11 +36,14 @@ export class ContactsComponent implements OnInit, OnDestroy {
     });
     this.chatService.getUsers().subscribe(data =>{
       this.contacts = data;
+      console.log(this.contacts);
     });
   }
-  chatRoom(Room: string){
-    this.onChat.emit(Room);
-    console.log('cambiando chat',Room);
+  chatRoom(Name: string,id:number){
+    this.onChat.emit({
+      nombre:Name,
+      id: id
+    });
   }
   ngOnDestroy() {
     this.themeSubscription.unsubscribe();

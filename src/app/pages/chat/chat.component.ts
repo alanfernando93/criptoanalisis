@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { NgModel } from '@angular/forms';
 import { ChatService} from './chat.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
@@ -14,7 +15,10 @@ export class ChatComponent implements OnInit {
   messages = [];
   connection;
   users =[];
- chatId : string;
+  chatId : number;
+  chatType: string;
+  payMsg : boolean = false;
+  chatName: string;
   rooms : any;
   showMsg: boolean = true;
   showRoom: boolean = true;
@@ -23,36 +27,68 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
     this.connection = this.chatService.getMessages().subscribe(message =>{
       this.messages.push(message);
+      console.log(message);
     });
+    this.connection=this.chatService.getErrors().subscribe(message=>{
+      this.messages.push(message);
+    })
   }
 
-  sendMsg(msg){
-     this.chatService.sendMessage(msg,this.chatId);
-     console.log(msg)
-     this.msg ='';
+  sendMsg(){
+    if(this.chatId != undefined ){
+      this.chatService.sendMessage(this.msg,this.chatId,this.chatType);
+      this.msg ='';
+    } else {
+      this.chatService.sendMessage(this.msg,this.chatName,this.chatType);
+      this.msg ='';
+    }
   }
-  ChatRoom(Room: string){
-    if(this.chatId!=Room){
-      this.leave(this.chatId);
-      this.chatId= Room;
-      this.chatService.join(this.chatId);
-      this.messages = [];
-      this.getoldMessages(Room);
-      console.log('uniendo a sala: ', this.chatId);
+  ChatRoom(Room: any){
+    if(this.chatName!=Room.nombre){
+      this.ChatGen(Room);
+      if(Room.id!=undefined){
+        //flujo de chat personal
+        this.closewindows(2);
+        this.chatService.joinRoom(Room.id);
+        this.getoldMessages(Room.id);
+      } else {
+        //flujo sala de chat
+        this.chatService.joinRoom(this.chatName);
+        this.getoldMessages(Room.nombre);
+        this.closewindows(1);
       }
+    }
+  }
+  //flujo general al cambiar de sala
+  ChatGen(Room: any){
+    if(this.chatId!=undefined){
+      this.leave(this.chatId);
+    }
+    else{
+      this.leave(this.chatName);
+    }
+    if(Room.id != undefined){
+      this.chatId=Room.id;
+    }
+    this.chatName=Room.nombre;
+    this.messages = [];
   }
 
   leave(room){
-    this.chatService.leave(this.chatId);
-    console.log('sala abandonada', this.chatId);
-    this.chatId="";
+    this.chatService.leave(room);
+      this.chatId=undefined;
+  }
+  setType(){
+      this.chatType= 'pay';
+      this.closewindows(1); 
   }
 
-
-  getoldMessages(room:string){
+  getoldMessages(room: any){
     this.chatService.getoldMessages(room).subscribe(data =>{
-      this.messages = data.room;
-      console.log(data);
+      if(data.room != undefined)
+        this.messages = data.room;
+      else
+        this.messages = data.messages;
     })
   }
   
@@ -75,6 +111,25 @@ export class ChatComponent implements OnInit {
       this.showMsg=!this.showMsg;
       this.showRoom=!this.showRoom;
     }
+  }
+  closewindows(x: number){
+    switch(x){
+      case 1:{
+        this.showMsg=true;
+        this.payMsg=false;
+        break;
+      }
+      case 2:{ 
+        this.showMsg=false;
+        this.payMsg = true;
+        break;
+      }
+
+    }
+  }
+  getuserId(){
+    console.log(localStorage.getItem('userId'));
+    return localStorage.getItem('userId');
   }
 
   ngOnDestroy(){
