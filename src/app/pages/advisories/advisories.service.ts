@@ -86,6 +86,12 @@ import 'rxjs/add/operator/map';
         
         )
           .map((res: Response) => res.json());
+      }
+      postAdvisoriesAnswer(id, answers) {
+        return this.http.post(this.baseUrl + 'comentario_asesoria/' + id + '/answers',answers 
+    
+        )
+          .map((res: Response) => res.json());
       } 
 
       getUserById(id) {

@@ -57,6 +57,7 @@ export class ViewComponent implements OnInit {
       data ? this.commentById = data : '';
       this.commentById.forEach((element, index) => {
         let commentId = this.commentById[index].id;
+        this.position=index;
         this.newsService.getNewsAnswer(commentId).subscribe(data => {
           this.commentById[index].res = [];
           this.commentById[index].res = data;
@@ -95,6 +96,7 @@ export class ViewComponent implements OnInit {
     this.contentAnswer = event.target.parentNode.parentNode.childNodes[3].value;
     let id = event.target.parentNode.parentNode.childNodes[3].id;
     let index = event.target.parentNode.parentNode.childNodes[3].name;
+    console.log()
     this.answer.comentarioNoticiaId = id;
     this.answer.userId = this.idUser;
     this.answer.contenido = this.contentAnswer;
