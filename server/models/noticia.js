@@ -15,6 +15,7 @@ var _async2 = _interopRequireDefault(_async);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 module.exports = function(Noticia, ctx, ctx2) {
+
   Noticia.upload = function(req, res, cb) {
     var Container = Noticia.app.models.Container;
     var id = req.params.id;
@@ -22,10 +23,30 @@ module.exports = function(Noticia, ctx, ctx2) {
       Container.upload(req, res, {container: 'news' + id}, cb);
     });
   };
+
   Noticia.remoteMethod(
        'upload',
     {
       http: {path: '/:id/upload', verb: 'post'},
+      accepts: [
+           {arg: 'req', type: 'object', 'http': {source: 'req'}},
+           {arg: 'res', type: 'object', 'http': {source: 'res'}},
+      ],
+      returns: {arg: 'status', type: 'string'},
+    }
+  );
+
+  Noticia.galery = function(req, res, cb) {
+    var Container = Noticia.app.models.Container;
+    console.log(res.data);
+    Container.createContainer({name: 'galery'}, function(err, c) {
+      Container.upload(req, res, {container: 'galery'}, cb);
+    });
+  };
+  Noticia.remoteMethod(
+       'galery',
+    {
+      http: {path: '/galery', verb: 'post'},
       accepts: [
            {arg: 'req', type: 'object', 'http': {source: 'req'}},
            {arg: 'res', type: 'object', 'http': {source: 'res'}},
