@@ -131,9 +131,31 @@ module.exports = function (Signal, ctx, ctx2) {
       include: ['positions', 'comments'],
     }, cb);
   };
+
   Signal.remoteMethod('verGratis', {
     returns: { arg: 'señales', type: 'array' },
     http: { path: '/ver_Gratis', verb: 'get' },
   });
+
+  Signal.upload = function(req, res, cb) {
+    var Container = Signal.app.models.Container;
+    var id = req.params.id;
+    Container.createContainer({name: 'signal' + id}, function(err, c) {
+      Container.upload(req, res, {container: 'signal' + id}, cb);
+    });
+  };
+
+  Signal.remoteMethod(
+       'upload',
+    {
+      http: {path: '/:id/upload', verb: 'post'},
+      accepts: [
+           {arg: 'req', type: 'object', 'http': {source: 'req'}},
+           {arg: 'res', type: 'object', 'http': {source: 'res'}},
+      ],
+      returns: {arg: 'status', type: 'string'},
+    }
+  );
+
 };
 

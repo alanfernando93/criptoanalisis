@@ -6,6 +6,6 @@ module.exports = function(app) {
         var parts = origFilename.split('.'),
         extension = parts[parts.length-1];
         var newFilename = Date.now() + '.' + extension;
-        return newFilename;
+        return origFilename;
       };
 };

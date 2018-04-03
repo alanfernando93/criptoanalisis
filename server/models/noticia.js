@@ -15,6 +15,7 @@ var _async2 = _interopRequireDefault(_async);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 module.exports = function(Noticia, ctx, ctx2) {
+
   Noticia.upload = function(req, res, cb) {
     var Container = Noticia.app.models.Container;
     var id = req.params.id;
@@ -22,6 +23,7 @@ module.exports = function(Noticia, ctx, ctx2) {
       Container.upload(req, res, {container: 'news' + id}, cb);
     });
   };
+
   Noticia.remoteMethod(
        'upload',
     {
