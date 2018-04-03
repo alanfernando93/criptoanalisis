@@ -12,6 +12,8 @@ module.exports = function(app) {
       'image/jpg',
       'image/jpeg',
       'image/png',
+      'text/plain',
+      'text/html',
     ],
     maxFileSize: 2000000,
   });

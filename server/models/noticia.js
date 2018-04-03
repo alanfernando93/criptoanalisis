@@ -36,25 +36,6 @@ module.exports = function(Noticia, ctx, ctx2) {
     }
   );
 
-  Noticia.galery = function(req, res, cb) {
-    var Container = Noticia.app.models.Container;
-    console.log(res.data);
-    Container.createContainer({name: 'galery'}, function(err, c) {
-      Container.upload(req, res, {container: 'galery'}, cb);
-    });
-  };
-  Noticia.remoteMethod(
-       'galery',
-    {
-      http: {path: '/galery', verb: 'post'},
-      accepts: [
-           {arg: 'req', type: 'object', 'http': {source: 'req'}},
-           {arg: 'res', type: 'object', 'http': {source: 'res'}},
-      ],
-      returns: {arg: 'status', type: 'string'},
-    }
-  );
-
   const HttpErrors = require('http-errors');
   //ctx para dislike
   ctx = (0, _assign2.default)({
