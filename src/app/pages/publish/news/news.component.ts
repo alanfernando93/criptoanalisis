@@ -95,8 +95,6 @@ export class PublishNewsComponent implements OnInit {
         this.url = e.target.result;
       }
       img.src = this.url
-      console.log("ancho:"+img.width)
-      console.log("alto:" + img.height)
       reader.readAsDataURL(files[0]);
     }    
   }

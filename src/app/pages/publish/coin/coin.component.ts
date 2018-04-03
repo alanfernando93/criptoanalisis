@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { CoinsService } from '../../coins/coins.service'
 import { MarketsService } from '../../markets/markets.service'
@@ -12,12 +12,46 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import { isNumber } from '@ng-bootstrap/ng-bootstrap/util/util';
 
 @Component({
+  selector: 'ngbd-modal-content',
+  template: `
+    <div class="modal-header">
+      <h4 class="modal-title">Hi there!</h4>
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div id="content" class="modal-body">
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+    </div>
+  `
+})
+export class NgbdModalContent implements OnInit{
+  @Input() file;
+  form:any = {};
+  
+  constructor(
+    public activeModal: NgbActiveModal,
+    private coinsService: CoinsService,
+  ) { }
+
+  ngOnInit(){
+    var div = document.getElementById('content');    
+    this.coinsService.getTextForm(this.file).subscribe(data => {
+      div.innerHTML = data['_body'];
+    })
+  }
+}
+
+@Component({
   selector: 'ngx-publish-coin',
   templateUrl: './coin.component.html',
   styleUrls: ['./coin.component.scss']
 })
 export class CoinComponent implements OnInit {
-  closeResult: string;
+
+  form:any = {};
 
   coins: any = []
   markets: any = []
@@ -25,14 +59,10 @@ export class CoinComponent implements OnInit {
   coin: any;
   market: any;
 
-  email;
-
-  file:File;
-
   constructor(
     private modalService: NgbModal,
     private coinsService: CoinsService,
-    private marketService: MarketsService
+    private marketService: MarketsService,
   ) { }
 
   ngOnInit() {
@@ -65,7 +95,12 @@ export class CoinComponent implements OnInit {
         })
       });
     })
-    console.log(this.markets)
+  }
+
+  open(file) {
+    const modalRef = this.modalService.open(NgbdModalContent);
+    modalRef.componentInstance.file = file.toLowerCase();
+    console.log(modalRef)
   }
 
   formatter = (result: string) => result.toUpperCase();
@@ -83,22 +118,4 @@ export class CoinComponent implements OnInit {
       .distinctUntilChanged()
       .map(term => term === '' ? []
         : this.markets.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
-
-  open(content) {
-    this.modalService.open(content).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
 }
