@@ -39,7 +39,7 @@ export class CoinsService extends Session {
         return this.http.get(this.baseUrl + "titulos" + this.getAuth())
             .map(resp => resp.json())
     }
-//192.168.100.105:3000/api/containers/forms/download/1.txt
+    
     getTextForm(file){
         return this.http.get(this.baseUrl + "containers/forms/download/"+ file )
             .map(resp => resp)

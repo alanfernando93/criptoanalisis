@@ -7,7 +7,7 @@ import { ToasterModule } from 'angular2-toaster';
 import { PublishComponent } from './publish.component';
 import { PublishNewsComponent } from './news/news.component';
 import { SignalComponent } from './signal/signal.component';
-import { CoinComponent, NgbdModalContent } from './coin/coin.component';
+import { CoinComponent } from './coin/coin.component';
 
 import { NewsService } from '../news/news.service';
 import { CoinsService } from '../coins/coins.service';
@@ -23,10 +23,9 @@ import { SignalsService } from '../signals/signals.service';
         PublishComponent,
         PublishNewsComponent,
         SignalComponent,
-        CoinComponent,
-        NgbdModalContent
+        CoinComponent
     ],
-    entryComponents: [NgbdModalContent],
+    entryComponents: [],
     providers: [NewsService,CoinsService,SignalsService,MarketsService],
 })
 export class PublishModule { }

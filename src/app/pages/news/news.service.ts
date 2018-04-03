@@ -51,7 +51,7 @@ export class NewsService extends Session{
   }
 
   fullUploadFileImage(file){
-    return this.http.post(this.baseUrl + 'noticias/galery', file)
+    return this.http.post(this.baseUrl + 'Containers/galery/upload', file)
       .map(resp => resp.json())
   }
 
