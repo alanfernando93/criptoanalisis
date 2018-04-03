@@ -14,6 +14,9 @@ export class NewsService {
   constructor(private http: Http) {
 
   }
+  insert(body) {
+    return this.http.post(this.baseUrl + 'noticias', body).map((res: Response) => res.json());
+}
   
   getAll() {
     return this.http.get(this.baseUrl + 'noticias')

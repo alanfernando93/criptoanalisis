@@ -43,6 +43,5 @@ export class ProfileComponent implements OnInit {
 
   fileChangeEvent(files: any) {
     this.myFile = files[0];
-    console.log(this.myFile);
   }
-}auth/logout
+}

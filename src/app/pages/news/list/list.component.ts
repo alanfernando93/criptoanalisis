@@ -17,15 +17,6 @@ export class ListComponent implements OnInit {
     private http: Http,
     private newsService: NewsService
   ) { }
-  
-  getNews(){
-    this.newsService.getNews().subscribe(
-      res => this.news = !res?null:res,
-      error => {
-        console.log(<any>error);
-        console.log("la conexion no fue posible");
-      }
-    );
     
   ngOnInit() {
     this.getNews();

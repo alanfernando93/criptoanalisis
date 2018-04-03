@@ -14,7 +14,7 @@ const routes: Routes = [{
   },
   {
     path: 'view',
-    redirectTo: 'pages'
+    component: ViewComponent,
   },
   {
     path: 'view/:signalId',

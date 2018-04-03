@@ -10,12 +10,11 @@ export class SignalsService {
     private baseUrl = environment.apiUrl;
     private userId = environment.userId;
     private token = environment.usertoken;
-    private userId = environment.userId;
 
     constructor(private http: Http) {
 
     }
-  
+
     getAll() {
         return this.http.get(this.baseUrl + 'signals' + '?access_token=' + this.token)
             .map((res: Response) => res.json())
@@ -34,5 +33,19 @@ export class SignalsService {
     getUserBySignal(id) {
         return this.http.get(this.baseUrl + 'signals/' + id + '/usuario' + '?access_token=' + this.token)
             .map((res: Response) => res.json());
+    }
+    add(signal) {
+        signal.usuarioId = this.userId;
+        return this.http.post(this.baseUrl + 'signals?access_token=' + this.token, signal)
+            .map(resp => resp.json())
+    }
+    getPositionById(id) {
+        return this.http.get(this.baseUrl + 'positions/' + id + '?access_token=' + this.token)
+            .map(resp => resp.json())
+    }
+
+    setPosition(body) {
+        return this.http.post(this.baseUrl + 'positions?access_token=' + this.token, body)
+            .map(resp => resp.json())
     }
 }
