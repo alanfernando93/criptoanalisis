@@ -55,7 +55,7 @@ export class PublishNewsComponent implements OnInit {
       case 'CM': this.newsPublish.conj_moneda = event;break;
     }
   }
-
+ 
   onSave() {
     this.newsPublish.tipo_moneda = this.selectedView.name;
     let body = new FormData();

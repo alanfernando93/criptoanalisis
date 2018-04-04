@@ -10,21 +10,30 @@ import { MarketsService } from '../markets.service';
 })
 export class ListComponent {
 
-    market:any;
+    market: any;
 
     constructor(
         private http: Http,
         private marketsService: MarketsService
-    ){    
+    ) {
     }
 
-    ngOnInit(){
-        this.getMarket()
+    ngOnInit() {
+        this.getMarket();
     }
 
-    getMarket(){
-        this.marketsService.getMarkets().subscribe(data => {
-            this.market = data;
-        });
+    getMarket() {
+        this.marketsService.getMarkets().subscribe(
+            res => {
+                if (!res) {
+
+                } else {
+                    this.market = res;
+                }
+            },
+            error => {
+                console.log("no pudo cargar los mercados");
+            }
+        );
     }
 }

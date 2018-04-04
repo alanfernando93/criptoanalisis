@@ -1,63 +1,68 @@
 <nb-card>
-  <nb-card-body>
-    <div class="row">
-      <div class="col-12 col-md-6" *ngFor="let signal of signals">
-        <div class="card">
-          <div class="card-header">
-            <div class="row">
-              <div class="col-4 col-md-2">
-                
-                <i class="fa fa fa-user"></i>
-              </div>
-              <div class="col-8 col-md-4">
-                <i class="font-w-light">Juan Jose Perez</i>
-              </div>
-              <div class="col-4 col-md-2">
-                <i class="font-w-light">30P</i>
-              </div>
-              <div class="col-4 col-md-2">
-                <i class="font-w-light">37eth</i>
-              </div>
-              <div class="col-4 col-md-2">
-                <i class="font-w-light">40xrp</i>
+    <nb-card-header>
+      <div class="text-body">
+        Lista de Señales
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-12 col-md-6" *ngFor="let signal of signals">
+          <div class="card">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-3 col-md-2">
+                  <img src="../../../assets/images/jack.png" class="img-thumbnail foto_user" alt="Responsive image">
+                </div>
+                <div class="col-9 col-md-4">
+                  <p class="font-w-light user">Juan Jose Perez Perez</p>
+                </div>
+                <div class="col-4 col-md-2">
+                  <h5>
+                    <span class="badge badge-primary font-w-light user">97 P</span>
+                  </h5>
+                </div>
+                <div class="col-4 col-md-2">
+                  <h5>
+                    <span class="badge badge-success font-w-light user">51 F</span>
+                  </h5>
+                </div>
+                <div class="col-4 col-md-2">
+                  <h5>
+                    <span class="badge badge-info font-w-light user">ETH</span>
+                  </h5>
+                </div>
               </div>
             </div>
-          </div>
-          <a [routerLink]="['/pages/signals/view', signal.id]">
-            <img src="https://es.tradingview.com/i/jNGFZIAD/" alt="card image" class="card-img-top d-none d-sm-block">
-          </a>
-          <div class="card-body">
-            <h4 class="card-title">
-              <strong class="item text-success" [routerLink]="['/pages/signals/view', signal.id]">{{signal.titulo}}</strong>
-            </h4>
-            <a class="card-text d-none d-sm-block" [routerLink]="['/pages/signals/view', signal.id]">
-              {{signal.AnalisisFundamental}}
+            <a [routerLink]="['/pages/signals/view', signal.id]">
+              <img src="https://es.tradingview.com/i/jNGFZIAD/" alt="card image" class="card-img-top d-none d-sm-block">
             </a>
-          </div>
-          <div class="card-footer text-muted">
-            <div class="row">
-              <div class="col-6">
-                <small class="text-muted">Last updated 3 mins ago</small>
-              </div>
-              <div class="col-2">
-                <span class="socials">
-                  <i class="fa fa-file-text-o"></i>
-                </span>
-              </div>
-              <div class="col-2">
-                <span class="socials">
-                  <i class="fa fa-thumbs-up fa-2">45</i>
-                </span>
-              </div>
-              <div class="col-2">
-                <span class="socials">
-                  <i class="fa fa-thumbs-down">74</i>
-                </span>
+            <div class="card-body">
+              <a class="card-text" [routerLink]="['/pages/signals/view', signal.id]">
+                {{signal.titulo}}
+              </a>
+            </div>
+            <div class="card-footer">
+              <div class="row">
+                <div class="col-12 col-md-6">
+                  <p class="text-body">{{signal.FechaCreate | amTimeAgo}}</p>
+                </div>
+                <div class="col-6 col-md-2" *ngIf="count">
+                  <p class="text-body">{{count.count}} Com</p>
+                </div>
+                <div class="col-3 col-md-2">
+                  <span class="font-w-light up pull-right">
+                    <i class="fa fa-thumbs-up up">15</i>
+                  </span>
+                </div>
+                <div class="col-3 col-md-2">
+                  <span class="font-w-light dowm pull-right">
+                    <i class="fa fa-thumbs-down down">74</i>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </nb-card-body>
-</nb-card>
+    </nb-card-body>
+  </nb-card>

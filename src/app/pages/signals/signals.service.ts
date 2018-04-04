@@ -24,12 +24,20 @@ export class SignalsService extends Session{
             .map(res => res.json())
     }
 
+    getSignalsCommentCount(id) {
+        return this.http.get(this.baseUrl + 'signals/' + id + '/comments' + '/count' + '?access_token=' + this.getToken())
+            .map((res: Response) => res.json());
+    }
+
+    getUserBySignal(id) {
+        return this.http.get(this.baseUrl + 'signals/' + id + '/usuario' + '?access_token=' + this.getToken())
+            .map((res: Response) => res.json());
+    }
     add(signal) {
         signal.usuarioId = this.getUserId();
         return this.http.post(this.baseUrl + 'signals?access_token=' + this.getToken(), signal)
             .map(resp => resp.json())
     }
-
     getPositionById(id) {
         return this.http.get(this.baseUrl + 'positions/' + id + '?access_token=' + this.getToken())
             .map(resp => resp.json())

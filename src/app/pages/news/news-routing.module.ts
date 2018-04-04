@@ -10,7 +10,7 @@ const routes: Routes = [{
   component: NewsComponent,
   children: [{
     path: 'list',
-    component: ListComponent,
+    component: ListComponent
   },
   {
     path: 'view',
@@ -18,7 +18,7 @@ const routes: Routes = [{
   },
   {
     path: 'view/:newsId',
-    component: ViewComponent,
+    component: ViewComponent
   },
   ],
 }];

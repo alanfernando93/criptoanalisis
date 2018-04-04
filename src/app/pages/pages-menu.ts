@@ -110,6 +110,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/news/list',
       },
     ],
+  },
+  {
+    title: 'Advisory',
+    icon: 'nb-layout-sidebar-right',
+    children: [
+      {
+        title: 'List advisory',
+        link: '/pages/advisories/list',
+      },
+    ],
   },{
     title: 'Markets',
     icon: 'nb-title',

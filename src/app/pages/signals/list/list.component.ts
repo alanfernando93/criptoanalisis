@@ -11,17 +11,32 @@ import { SignalsService } from '../signals.service';
 export class ListComponent implements OnInit {
 
   signals: any;
+  count: any;
 
-  constructor(private http: Http, private signalsService: SignalsService) {
+  constructor(
+    private http: Http,
+    private signalsService: SignalsService) {
   }
 
   ngOnInit() {
-    this.getSignals()
+    this.getSignals();
   }
-
-  getSignals(){
-    this.signalsService.getAlls().subscribe(data => {
-      this.signals = data;
+  
+  getSignals() {
+    this.signalsService.getAll().subscribe(signals => {
+      signals ? this.signals = signals : '';
+      this.signals.forEach((element, index) => {
+        let signalId = this.signals[index].id;
+        this.signalsService.getUserBySignal(signalId).subscribe(data => {
+          this.signals[index].contentUser = [];
+          this.signals[index].contentUser.push(data);
+          console.log(signals);
+          this.signalsService.getSignalsCommentCount(signalId).subscribe(data => {
+            this.count = data;
+          });
+        })
+      });
     });
   }
+
 }
