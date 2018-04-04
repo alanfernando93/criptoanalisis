@@ -62,13 +62,12 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.userService.logout().subscribe(()=>{
-      localStorage.clear();
-      this.router.navigateByUrl("/auth/logout");
-      setTimeout(()=>{
-        this.router.navigate(["/"])
-      },500)
-    });
+    this.userService.logout().subscribe(success => {
+      this.router.navigateByUrl("/auth/logout", {skipLocationChange: true}).then(r => {
+        localStorage.clear()
+        this.router.navigate(["/pages/dashboard"])
+      })
+    })
   }
 
   signin() {

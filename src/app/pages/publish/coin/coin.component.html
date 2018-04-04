@@ -1,0 +1,87 @@
+<nb-card-body>
+  <div class="container">
+    <div class="row col">
+      <div class="input-group">
+        <input id="typeahead-format" type="text" class="form-control" [(ngModel)]="coin" [ngbTypeahead]="searchCoins" [resultFormatter]="formatter"
+        />
+        <div class="input-group-append" ngbDropdown>
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" ngbDropdownToggle>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu scroll-list" style="background-color:white;color:black" ngbDropdownMenu>
+            <li class="dropdown-item" *ngFor="let c of coins" (click)="this.coin = c">{{c}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row col">
+      <div class="input-group">
+        <input id="typeahead-format" type="text" class="form-control" [(ngModel)]="market" [ngbTypeahead]="searchMarkets" [resultFormatter]="formatter"
+        />
+        <div class="input-group-append" ngbDropdown>
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" ngbDropdownToggle>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu scroll-list" style="background-color:white;color:black" ngbDropdownMenu>
+            <li class="dropdown-item" *ngFor="let m of markets" (click)="this.market = m">{{m}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row col">
+      <div class="input-group">
+        <div class="card">
+          <div class="card-header">
+            Favor especifique los detalles para esta moneda, hagalo de forma secuencial:
+          </div>
+          <div class="card-body">
+            <div class="card-text text-center" *ngFor="let title of titles">
+              <button class="rounded title btn btn-primary" (click)="title.isCollapsed = !title.isCollapsed" [attr.aria-expanded]="!title.isCollapsed"
+                aria-controls="collapseExample">{{title.nombre}}</button>
+              <div id="collapseExample" [ngbCollapse]="title.isCollapsed" *ngIf="title.subtitles.length > 0">
+                <div class="card">
+                  <div class="card-body">
+                    <button class="rounded sub btn btn-secondary" *ngFor="let subtitle of title.subtitles" (click)="open(subtitle.enlace)">{{subtitle.nombre}} </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row col">
+      <div class="input-group">
+        <div class="card">
+          <div class="card-header">
+            Quiere sugerir algun capitulo adicional?
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">
+            </p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="content">
+    <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Preview News</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="c('Close click')">Close</button>
+      </div>
+    </ng-template>
+  </div>
+
+</nb-card-body>

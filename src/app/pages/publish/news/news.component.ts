@@ -8,7 +8,6 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NewsService } from "../../news/news.service";
 // import { CoinsService } from "../../../services/coins.service";
 import { CoinsService } from "../../coins/coins.service";
-import { environment } from "../../../../environments/environment"; 
 
 @Component({
   selector: "ngx-publish-news",
@@ -18,12 +17,13 @@ import { environment } from "../../../../environments/environment";
 export class PublishNewsComponent implements OnInit {
   @Input() idNew: String = null;
 
+  url = "https://mdbootstrap.com/img/Photos/Others/placeholder.jpg";
+  myFile:File;
   closeResult: string;
   successMessage: string;
   type : String;
   newsPublish: any = {};
   coins: any = [];
-  usuarioId = environment.userId;
 
   selectedView = {
     name: "Seleccione Moneda"
@@ -58,19 +58,12 @@ export class PublishNewsComponent implements OnInit {
  
   onSave() {
     this.newsPublish.tipo_moneda = this.selectedView.name;
-    this.newsPublish.usuarioId = this.usuarioId;
-    console.log(this.newsPublish);
+    let body = new FormData();
+    body.append('', this.myFile);
     this.newsService.insert(this.newsPublish).subscribe(resp => {
-      this.type = "success";
-      this.successMessage = "Se guardo correctamente!!!"
-      setTimeout(() => {
-        this.successMessage = null, 7000; 
+      this.newsService.imageFileUpload(resp.id,body).subscribe((r:Response) => {
         this.router.navigate(["/"]);
-      });
-    },err => {
-      this.type = "warning";
-      this.successMessage = "Se produjo un error!!!"
-      setTimeout(() => this.successMessage = null, 7000);
+      })
     });    
   }
 
@@ -90,5 +83,19 @@ export class PublishNewsComponent implements OnInit {
       } else {
           return `with: ${reason}`;
       }
+  }
+
+  readUrl(files) {    
+    var img = new Image();
+    if (files && files[0]) {
+      this.myFile = files[0]
+      var reader = new FileReader();
+      
+      reader.onload = (e:any) => {
+        this.url = e.target.result;
+      }
+      img.src = this.url
+      reader.readAsDataURL(files[0]);
+    }    
   }
 }
