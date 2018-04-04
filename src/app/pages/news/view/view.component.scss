@@ -1,11 +1,48 @@
 .socials {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     a {
-        padding: 0.4rem;
-        color: nb-theme(color-fg);
-        transition: color ease-out 0.1s;
-        &:hover {
-            color: nb-theme(color-fg-heading);
-        }
+      color: #a4abb3;
+      text-decoration: none;
+      cursor: pointer;
+
+      &:hover {
+        color: steelblue !important;
+      }
     }
+  }
+.whatsapp{
+  span{
+    font-size: 0.8rem;
+    color: #25d366;
+    &:hover{
+      color: #2a2a2a;;
+    }
+  }
+}
+.twitter{
+  span{
+    font-size: 0.8rem;
+    color: #00acee;
+    &:hover{
+      color: #2a2a2a;;
+    }
+  }
+}
+.facebook{
+  span{
+    font-size: 0.8rem;
+    color: #3b5998;
+    &:hover{
+      color: #2a2a2a;;
+    }
+  }
+}
+.date{
+  line-height: 1.8em;  
+}
+.foto_user{
+  border-radius: 3.25rem;;
+}
+.user{
+  margin-top: 15px !important;
 }

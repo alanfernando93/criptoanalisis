@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Http } from '@angular/http';
 
 import { NbMenuService, NbSidebarService } from '@nebular/theme';
 import { AnalyticsService } from '../../../@core/utils/analytics.service';
-import { MarketService } from '../../../pages/market/market.service';
+import { MarketsService } from '../../../pages/markets/markets.service';
 
 import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
 
@@ -11,7 +11,7 @@ import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
     selector: "ngx-headertwo",
     styleUrls: ["./headertwo.component.scss"],
     templateUrl: "./headertwo.component.html",
-    providers: [MarketService]
+    providers: [MarketsService]
 })
 export class HeaderTwoComponent implements OnInit {
     @Input() position = "normal";
@@ -22,18 +22,19 @@ export class HeaderTwoComponent implements OnInit {
         private sidebarService: NbSidebarService,
         private menuService: NbMenuService,
         private analyticsService: AnalyticsService,
-        private marketService: MarketService,
         private authService: NbAuthService,
-        private router: Router
-    ) { }
+        private marketsService: MarketsService
+    ){}
 
-    ngOnInit() {      
-        this.getMarket()
+    ngOnInit() {
+        this.getMarket();
     }
 
-    getMarket(){
-        this.marketService.getMarkets().subscribe(data => {
-            this.markets = data;
-        });  
+    getMarket() {
+        this.marketsService.getMarkets().subscribe(
+            markets => {
+                markets ? this.markets = markets : '';
+            }
+        );
     }
 }

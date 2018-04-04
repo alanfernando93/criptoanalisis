@@ -7,6 +7,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { CoreModule } from './@core/core.module';
 
@@ -29,8 +30,9 @@ import { NB_AUTH_TOKEN_WRAPPER_TOKEN, NbAuthJWTToken } from '@nebular/auth';
     BrowserModule,
     BrowserAnimationsModule,
     HttpModule,
+    FormsModule,
     AppRoutingModule,
-
+    
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),

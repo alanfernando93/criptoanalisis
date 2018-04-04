@@ -6,7 +6,14 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-home',
     link: '/pages/dashboard',
     home: true,
-  },{
+  },
+  {
+    title: 'Publish',
+    icon: 'fa fa-fire',
+    link: '/pages/publish',
+    home: true,
+  },
+  {
     title: 'Asesoria Principiantes',
     icon: 'nb-compose',
     link: '/pages/dashboard',
@@ -73,8 +80,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/ui-features/tabs',
       },
     ],
-  },
-  {
+  },{
     title: 'Forms',
     icon: 'nb-compose',
     children: [
@@ -87,8 +93,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/forms/layouts',
       },
     ],
-  },
-  {
+  },{
     title: 'Components',
     icon: 'nb-gear',
     children: [
@@ -109,6 +114,25 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/news/list',
       },
     ],
+  },
+  {
+    title: 'Advisory',
+    icon: 'nb-layout-sidebar-right',
+    children: [
+      {
+        title: 'List advisory',
+        link: '/pages/advisories/list',
+      },
+    ],
+  },{
+    title: 'Markets',
+    icon: 'nb-title',
+    children: [
+      {
+        title: 'List Markets',
+        link: '/pages/markets/list'
+      },
+    ],
   },{
     title: 'Coins',
     icon: 'nb-plus-circled',
@@ -118,14 +142,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/coins/list'
       },
     ],
-  },
-  {
-    title: 'Tables',
-    icon: 'nb-tables',
+  },{
+    title: 'Signals',
+    icon: 'nb-paper-plane',
     children: [
       {
-        title: 'Smart Table',
-        link: '/pages/tables/smart-table',
+        title: 'List Signals',
+        link: '/pages/signals/list',
       },
     ],
   },

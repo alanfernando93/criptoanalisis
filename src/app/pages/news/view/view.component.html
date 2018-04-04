@@ -1,145 +1,215 @@
 <nb-card>
-  <nb-card-header>
-    <div class="row">
-      <div class="col-6 col-sm-2">
-        <span class="fa fa-user"></span>
-      </div>
-      <div class="col-6 col-sm-4">
-        <span class="font-w-light">Juan Jose Perez</span>
-      </div>
-      <div class="col-4 col-sm-3">
-        <span class="font-w-light">715 P</span>
-      </div>
-      <div class="col-4 col-sm-2">
-        <span class="font-w-light">25 f</span>
-      </div>
-      <div class="col-4 col-sm-1">
-        <span class="font-w-light">ETH</span>
-      </div>
-    </div>
-  </nb-card-header>
-</nb-card>
-<nb-card>
-  <nb-card-header>
-    <div class="row">
-        <h4 class="col-12 col-lg-12 text-primary">titulo</h4>
-        <span class="col-12 col-lg-12 text-primary">fecha</span>
-    </div>
-  </nb-card-header>
-  <nb-card-body>
-    <div class="row">
-      <div class="col-md-12 text-body">
-          contenido
-      </div>
-        <p class="col-md-6">Fuente : fuente</p>
-        <p class="col-md-6">Tipo de Modena moneda</p>
-    </div>
-  </nb-card-body>
-</nb-card>
-<nb-card>
-  <nb-card-body>
-    <div class="row">  
-      <p class="col-md-6 col-12">Conjetura de otra Modena : otra moneda</p>
-      <p class="col-md-6 col-12">Confetura de precio : precio</p>
-    </div>
-  </nb-card-body>
-</nb-card>
-<nb-card>
-  <nb-card-body>
-    <div class="row">
-      <div class="col-md-3 col-sm-12 col-12">
-        <label>Compartir : </label>
-      </div>
-      <div class="col-md-1 col-sm-2 col-2 socials">
-        <a href="#" class="ion ion-social-facebook"></a>
-      </div>
-      <div class="col-md-1 col-sm-2 col-2 socials">
-          <a href="#" class="ion ion-social-twitter"></a>
-      </div>
-      <div class="col-md-1 col-sm-2 col-2 socials">
-          <a href="#" class="ion ion-social-whatsapp"></a>
-      </div>
-      <div class="col-md-2 col-sm-2 col-3 socials">
-          <a href="#" class="fa fa-thumbs-up">45</a>
-      </div>
-      <div class="col-md-2 col-sm-2 col-3 socials">
-          <a href="#" class="fa fa-thumbs-down">74</a>
-      </div>
-    </div>
-  </nb-card-body>
-</nb-card>
-
-<nb-card>
-  <nb-card-body>
-    <div class="row">
-      <div class="col-12">
-          <div class="dropdown" ngbDropdown>
-              <button class="btn btn-hero-info btn-block" type="button" ngbDropdownToggle>
-                  451 Comentarios
-              </button>
-              <nb-card>
-               <nb-card-body>
-                    <form>
-                      <div class="form-group">
-                        <textarea class="form-control" placeholder="Escribe un Comentario"></textarea>
-                      </div>
-                      <button type="submit" class="btn btn-success">Publicar</button>
-                    </form>
-                        <span class="btn-outline-primary">Comentarios</span>
-                  </nb-card-body>
-                </nb-card>
+    <nb-card-header>
+        <div class="row" *ngIf="contentUser">
+            <div class="col-3 col-md-1">
+                <img src="../../../assets/images/jack.png" class="img-thumbnail foto_user" alt="Responsive image">
+            </div>
+            <div class="col-9 col-md-3">
+                <p class="font-w-light user">{{contentUser.nombre}} {{contentUser.apellido}}</p>
+            </div>
+            <div class="col-4 col-md-1">
+                <h5>
+                    <span class="badge badge-primary font-w-light user">{{contentUser.precision}} P</span>
+                </h5>
+            </div>
+            <div class="col-4 col-md-1">
+                <h5>
+                    <span class="badge badge-success font-w-light user">{{contentUser.puntos}} P</span>
+                </h5>
+            </div>
+            <div class="col-4 col-md-6">
+                <h5>
+                    <span class="badge badge-info font-w-light user">ETH</span>
+                </h5>
             </div>
         </div>
-    </div>
-  </nb-card-body>
+    </nb-card-header>
 </nb-card>
-    <div class="row">
-      <div class="col-xl-6 col-md-6 col-12">
-        <div class="dropdown" ngbDropdown>
-          <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
-            Señales
-          </button>
-          <ul class="dropdown-menu" ngbDropdownMenu>
-            <li class="dropdown-item">Icon Button 4</li>
-            <li class="dropdown-item">Hero Button</li>
-            <li class="dropdown-item">Default</li>
-          </ul>
+<nb-card>
+    <nb-card-header>
+        <div class="row" *ngIf="news">
+            <div class="col-12 col-md-10">
+                <h4 [innerHTML]="news.titulo"></h4>
+            </div>
+            <div class="col-12 col-md-2">
+                <h3>
+                    <span class="badge badge-secondary">{{news.tipo_moneda}}</span>
+                </h3>
+            </div>
+            <div class="col-12 col-md-12">
+                <span class="text-body date">{{news.fecha_create | amTimeAgo}}</span>
+            </div>
         </div>
-      </div>
-      <div class="col-xl-6 col-md-6 col-12">
-        <div class="dropdown" ngbDropdown>
-          <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
-            Señales
-          </button>
-          <ul class="dropdown-menu" ngbDropdownMenu>
-            <li class="dropdown-item">Icon Button 4</li>
-            <li class="dropdown-item">Hero Button</li>
-            <li class="dropdown-item">Default</li>
-          </ul>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="row" *ngIf="news">
+            <div class="col-12 col-md-12 text-body" [innerHTML]="news.contenido"></div>
         </div>
-      </div>
-      <div class="col-xl-6 col-md-6 col-12">
-        <div class="dropdown" ngbDropdown>
-          <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
-            Tutoriales
-          </button>
-          <ul class="dropdown-menu" ngbDropdownMenu>
-            <li class="dropdown-item">Icon Button 4</li>
-            <li class="dropdown-item">Hero Button</li>
-            <li class="dropdown-item">Default</li>
-          </ul>
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="row" *ngIf="news">
+            <p class="col-md-6">Fuente : {{news.fuentes}}</p>
         </div>
-      </div>
-      <div class="col-xl-6 col-md-6 col-12">
-        <div class="dropdown" ngbDropdown>
-          <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
-            Dropdown
-          </button>
-          <ul class="dropdown-menu" ngbDropdownMenu>
-            <li class="dropdown-item">Icon Button 4</li>
-            <li class="dropdown-item">Hero Button</li>
-            <li class="dropdown-item">Default</li>
-          </ul>
+    </nb-card-footer>
+</nb-card>
+<nb-card>
+    <nb-card-body>
+        <div class="row" *ngIf="news">
+            <div class="col-12 col-md-6">
+                <h4>Conjetura de precio :</h4>
+                <span [innerHTML]="news.conj_moneda"></span>
+            </div>
+            <div class="col-12 col-md-6">
+                <h4>Confetura a otra Moneda :</h4>
+                <span [innerHTML]="news.conj_precio"></span>
+            </div>
         </div>
-      </div>
-    </div>
+    </nb-card-body>
+</nb-card>
+<nb-card>
+    <nb-card-body>
+        <div class="row" *ngIf="news">
+            <div class="col-md-2 col-sm-12 col-12">
+                <h5>Compartir : </h5>
+            </div>
+            <div class="col-md-1 col-sm-2 col-2 facebook">
+                <span class="font-w-light up">
+                    <i class="fa fa-facebook-f fa-2x"></i>
+                </span>
+            </div>
+            <div class="col-md-5 col-sm-2 col-2 twitter">
+                <span class="font-w-light up">
+                    <i class="fa fa-twitter fa-2x"></i>
+                </span>
+            </div>
+            <div class="col-md-2 col-sm-2 col-4 socials">
+                <a class="font-w-light up pull-right" (click)="sendLike()">
+                    <i class="fa fa-thumbs-up"></i>{{news.likes.total}}</a>
+            </div>
+            <div class="col-md-2 col-sm-2 col-4 socials">
+                <a class="font-w-light down pull-right" (click)="sendDislike()">
+                    <i class="fa fa-thumbs-down"></i>{{news.dislikes.total}}</a>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>
+<nb-card>
+    <nb-card-body>
+        <div class="row" *ngIf="news">
+            <div class="col-12 col-md-12">
+                <div class="dropdown" ngbDropdown>
+                    <button type="button" class="btn btn-hero-info btn-block" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
+                        aria-controls="collapseExample" ngbDropdownToggle *ngIf="count">
+                        {{count.count}} Comentarios
+                    </button>
+                    <div id="collapseExample" [ngbCollapse]="isCollapsed">
+                        <div class="card" *ngFor="let comment of commentById">
+                            <div class="row" class="card-body">
+                                <div *ngIf="comment">
+                                    <div *ngIf="user">
+                                        <p>{{user.nombre}}</p>
+                                    </div>
+                                    <h5 class="text-heading">Comentario</h5>
+                                    <div class="col-12 col-md-12">
+                                        <span class="text-body">{{comment.contenido}}</span>
+                                    </div>
+                                    <div class="card-body" *ngFor="let answer of comment.res">
+                                        <h5 class="text-heading">Respuestas</h5>
+                                        <div *ngIf="answer">
+                                            <span class="text-body">{{answer.contenido}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend">
+                                        <!--
+                                        <button type="submit" class="btn btn-primary btn-sm" (click)="sendAnswer()">Responder</button>
+                                    
+                                        -->
+                                        <button class="input-group-text btn btn-primary btn-tn" id="inputGroup-sizing-sm" (click)="sendAnswer($event)">Responder</button>
+                                    
+                                        </div>
+                                    
+                                        <!--
+                                        <textarea class="form-control" id="answers" placeholder="Escribe una respuesta" [(ngModel)]="answer.contenido"></textarea>
+                                
+                                    -->
+                                    <input type="text" id="{{comment.id}}" name="{{position}}" class="form-control" placeholder="Escribe una respuesta" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <nb-card>
+                        <nb-card-body>
+                            <div>
+                                <div class="form-group">
+                                    <textarea class="form-control" id="comments" placeholder="Escribe un Comentario" [(ngModel)]="comment.contenido"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-success pull-right btn-sm" (click)="sendComent()">Publicar</button>
+                            </div>
+                        </nb-card-body>
+                    </nb-card>
+                </div>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>
+<nb-card>
+    <nb-card-header>
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="dropdown" ngbDropdown>
+                    <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+                        Mas Noticias
+                    </button>
+                    <ul class="dropdown-menu" ngbDropdownMenu>
+                        <li class="dropdown-item">
+                            <a href="">Icon Button 4</a>
+                        </li>
+                        <li class="dropdown-item">Hero Button</li>
+                        <li class="dropdown-item">Default</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="dropdown" ngbDropdown>
+                    <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+                        Señales
+                    </button>
+                    <ul class="dropdown-menu" ngbDropdownMenu>
+                        <li class="dropdown-item">Icon Button 4</li>
+                        <li class="dropdown-item">Hero Button</li>
+                        <li class="dropdown-item">Default</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="dropdown" ngbDropdown>
+                    <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+                        Tutoriales
+                    </button>
+                    <ul class="dropdown-menu" ngbDropdownMenu>
+                        <li class="dropdown-item">Icon Button 4</li>
+                        <li class="dropdown-item">Hero Button</li>
+                        <li class="dropdown-item">Default</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="dropdown" ngbDropdown>
+                    <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+                        Dropdown
+                    </button>
+                    <ul class="dropdown-menu" ngbDropdownMenu>
+                        <li class="dropdown-item">Icon Button 4</li>
+                        <li class="dropdown-item">Hero Button</li>
+                        <li class="dropdown-item">Default</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nb-card-header>
+</nb-card>

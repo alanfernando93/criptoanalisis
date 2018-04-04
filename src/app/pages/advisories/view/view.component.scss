@@ -1,0 +1,50 @@
+.thumbnail {
+    position: relative;
+}
+
+.caption {
+    position: absolute;
+    top: 80%;
+    bottom: 50;
+    left: 0%;
+    width: 100%;
+    padding-top: 5px;
+
+    background-color: beige;
+    opacity: 0.9;
+    filter: alpha(opacity=90);
+
+}
+
+.pad-ri{
+    padding-right: 0px;
+}
+.pad-le{
+    padding-left: 20px;
+}
+
+.pad-top{
+
+    padding-top: 15px;
+}
+
+.mar-top{
+    margin-top: 10px;
+}
+.bor-dot-t{
+    
+    border-top:2px dotted rgba(0,81,168,0.25);
+    
+    
+}
+.bor-dot-b{
+    border-bottom:2px dotted rgba(0,81,168,0.25);
+}
+
+.pad-tit{
+    margin-top: 60px;
+
+}
+.pad-top2{
+    padding-top: 30px;
+}

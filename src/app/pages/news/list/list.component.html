@@ -1,31 +1,66 @@
 <nb-card>
   <nb-card-header>
-    List News
+    <div class="text-body">
+      Lista de Noticias
+    </div>
   </nb-card-header>
-
+</nb-card>
+<nb-card *ngFor="let news of news">
+  <nb-card-header>
+    <div class="row" *ngFor="let content of news.contentUser">
+      <div class="col-3 col-md-1">
+        <img src="../../../assets/images/jack.png" class="img-thumbnail foto_user" alt="Responsive image">
+      </div>
+      <div class="col-9 col-md-3">
+        <p class="font-w-light user">{{content.nombre}} {{content.apellido}}</p>
+      </div>
+      <div class="col-4 col-md-1">
+        <h5>
+          <span class="badge badge-primary font-w-light user">{{content.precision}} P</span>
+        </h5>
+      </div>
+      <div class="col-4 col-md-1">
+        <h5>
+          <span class="badge badge-success font-w-light user">{{content.puntos}} P</span>
+        </h5>
+      </div>
+      <div class="col-4 col-md-6">
+        <h5>
+          <span class="badge badge-info font-w-light user">ETH</span>
+        </h5>
+      </div>
+    </div>
+  </nb-card-header>
   <nb-card-body>
-    <div class="list-group">
-      <a [routerLink]="['/pages/news/view']" class="list-group-item flex-column align-items-start" >
-        <div class="font-row font-main">
-          <div class="header">
-            <div class="name">Roboto - 25 F <i class="fa fa-binoculars fa-lg"></i>  <i class="fa fa-diamond fa-lg"></i></div>
-
-            <div class="variants">
-              <span class="font-w-light">ETH</span>
-            </div>
-          </div>
-          <div class="body" >
-            <p> contenido </p>
-          </div>
-          <div class="footer">
-            <div class="blockquote-footer name">fecha </div>
-            <div class="variants">
-              <span class="font-w-light up"><i class="fa fa-thumbs-up fa-lg"></i> 15</span>
-              <span class="font-w-light down"><i class="fa fa-thumbs-down fa-lg"></i> 25</span>
-            </div>
-          </div>
-        </div>
-      </a>
+    <div class="row">
+      <div class="col-12 col-md-10">
+        <h3 class="title">
+          <a class="text-body" [routerLink]="['/pages/news/view', news.id]" [innerHTML]="news.titulo"></a>
+        </h3>
+      </div>
+      <div class="col-md-2">
+        <img src="../../../assets/images/cover1.jpg" class="img-thumbnail" alt="Responsive image" width="" height="">
+      </div>
     </div>
   </nb-card-body>
+  <nb-card-footer *ngFor="let count of news.count">
+    <div class="row">
+      <div class="col-12 col-md-8">
+        <p class="text-body">{{news.fecha_create | amTimeAgo}}</p>
+      </div>
+      <div class="col-6 col-md-2">
+        <p class="text-body">{{count.count}} Comentarios</p>
+      </div>
+      <div class="col-3 col-md-1 hands">
+        <span class="font-w-light up pull-right">
+          <i class="fa fa-thumbs-up up">{{news.likes.total}}</i>
+        </span>
+      </div>
+      <div class="col-3 col-md-1 hands">
+        <span class="font-w-light down pull-right">
+          <i class="fa fa-thumbs-down down">{{news.dislikes.total}}</i>
+        </span>
+      </div>
+    </div>
+  </nb-card-footer>
 </nb-card>

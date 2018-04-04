@@ -1,0 +1,21 @@
+<nb-card>
+    <nb-card-body>
+        <ngb-tabset [activeId]="select" (tabChange)="Select($event)">
+            <ngb-tab title="News" [id]="1">
+                <ng-template ngbTabContent>
+                    <ngx-publish-news [idNew]="idNew"></ngx-publish-news>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Signal" [id]="2">
+                <ng-template ngbTabContent>
+                    <ngx-publish-signal></ngx-publish-signal>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Coin" [id]="3">
+                <ng-template ngbTabContent>
+                    <ngx-publish-coin></ngx-publish-coin>
+                </ng-template>
+            </ngb-tab>
+        </ngb-tabset>
+    </nb-card-body>
+</nb-card>

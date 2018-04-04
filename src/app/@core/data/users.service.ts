@@ -1,50 +1,55 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Http } from '@angular/http';
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs/Observable";
+import { Http } from "@angular/http";
 
-import { environment } from '../../../environments/environment';
+import { Session } from "./session"
 
-import 'rxjs/add/observable/of';
+import { environment } from "../../../environments/environment";
+
+import "rxjs/add/observable/of";
 
 let counter = 0;
 
 @Injectable()
-export class UserService {
+export class UserService extends Session{
+  private baseUrl = environment.apiUrl;
 
-   private baseUrl = environment.apiUrl;
+  constructor(
+    private http: Http,
+  ) { super() }
 
-   private users = {
-      nick: { name: 'Nick Jones', picture: 'assets/images/nick.png' }
-   };
+  getById(id) {
+    return this.http.get(this.baseUrl + "usuarios/" + id)
+      .map(resp => resp.json());
+  }
 
-   private userArray: any[];
+  /**
+   * Retorna el usuario logeado o en actual session
+   * 
+   * @returns Objeto : any
+   */
+  getCurrentUser() {
+    return this.http.get(this.baseUrl + "usuarios/" + this.getUserId())
+      .map(resp => resp.json())
+  }
+  
+  update(itemToUpdate) {
+    return this.http.put(this.baseUrl + "usuarios/" + this.getUserId() + "/updateInfo" + this.getAuth(), itemToUpdate)
+      .map(resp => resp.json());
+  }
 
-   constructor(private http: Http) {
-      // this.userArray = Object.values(this.users);
-      // this.http.get(this.baseUrl + 'usuarios/1').toPromise();
-   }
+  imageFileUpload(file: any) {
+    return this.http.post(this.baseUrl + "usuarios/" + this.getUserId() + "/upload" + this.getAuth(), file)
+      .map(resp => resp.json());
+  }
 
-   getUsers(): Observable<any> {
-      return Observable.of(this.users);
-   }
+  logout() {
+    return this.http.post(this.baseUrl + "usuarios/logout" + this.getAuth(), {})
+      .map(resp => resp.json());
+  }
 
-   getUserArray(): Observable<any[]> {
-      return Observable.of(this.userArray);
-   }
-
-   getUser(idUser: Number, token: String): any {
-      return this.http.get(this.baseUrl + 'usuarios/' + idUser + '?access_token=' + token).toPromise();
-   }
-
-   update(id: Number, token: String, itemToUpdate) { 
-      return this.http.put(this.baseUrl + "usuarios/" + id + "?access_token=" + token, itemToUpdate).toPromise();
-   }
-
-   makeFileRequest(file: any, id, token: String) {
-    return this.http.post(this.baseUrl + "usuarios/" + id + "/upload?access_token=" + token, file).toPromise();
-    }
-
-    logout(token){
-        return this.http.post(this.baseUrl + "usuarios/logout?access_token="+token,{}).toPromise();
-    }
+  getAuth() {
+    return "?access_token=" + this.getToken()
+  }
+  
 }
