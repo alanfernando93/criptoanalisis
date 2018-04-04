@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
 import { NbThemeService, NbMediaBreakpoint, NbMediaBreakpointsService } from '@nebular/theme';
 import { ChatService } from '../chat.service';
-
+import { forEach } from '@angular/router/src/utils/collection';
 @Component({
   selector: 'ngx-contacts',
   styleUrls: ['./contacts.component.scss'],
@@ -11,6 +11,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
 
   contacts: any[];
   rooms: any[];
+  requests: any[];
   breakpoint: NbMediaBreakpoint;
   breakpoints: any;
   themeSubscription: any;
@@ -36,7 +37,9 @@ export class ContactsComponent implements OnInit, OnDestroy {
     });
     this.chatService.getUsers().subscribe(data =>{
       this.contacts = data;
-      console.log(this.contacts);
+    });
+    this.chatService.getrequests().subscribe(data =>{
+      this.requests = data.requests;
     });
   }
   chatRoom(Name: string,id:number){
@@ -47,5 +50,27 @@ export class ContactsComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.themeSubscription.unsubscribe();
+  }
+  getStatus(id: number){
+    if(id == parseInt(localStorage.getItem('userId')))
+      return 'pendiente'
+    else
+    return 'solicitado'
+  }
+  ReqResponse(id: number, state: boolean){
+    this.requests.forEach((element,index)=>{
+      if(id == element.id){
+        if(state){
+          this.chatService.AcceptRequest(element.id).subscribe(data =>{
+            console.log(data);
+          });
+        } else {
+          this.chatService.RejectRequest(element.id).subscribe(data =>{
+            console.log(data);
+          });
+        }
+        this.requests.splice(index,1);
+      }
+    });
   }
 }

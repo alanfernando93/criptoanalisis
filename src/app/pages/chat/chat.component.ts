@@ -27,7 +27,6 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
     this.connection = this.chatService.getMessages().subscribe(message =>{
       this.messages.push(message);
-      console.log(message);
     });
     this.connection=this.chatService.getErrors().subscribe(message=>{
       this.messages.push(message);
@@ -48,7 +47,14 @@ export class ChatComponent implements OnInit {
       this.ChatGen(Room);
       if(Room.id!=undefined){
         //flujo de chat personal
-        this.closewindows(2);
+        this.chatService.findRequest(Room.id).subscribe(data=>{
+          if(data.requests.length>0){
+            this.closewindows(1);
+            this.messages.push({message: 'tiene un chat gratuito disponible'});
+          } else{
+            this.closewindows(2);
+          }
+        });
         this.chatService.joinRoom(Room.id);
         this.getoldMessages(Room.id);
       } else {
@@ -78,11 +84,10 @@ export class ChatComponent implements OnInit {
     this.chatService.leave(room);
       this.chatId=undefined;
   }
-  setType(){
-      this.chatType= 'pay';
+  setType(type: string){
+      this.chatType= type;
       this.closewindows(1); 
   }
-
   getoldMessages(room: any){
     this.chatService.getoldMessages(room).subscribe(data =>{
       if(data.room != undefined)
@@ -128,10 +133,14 @@ export class ChatComponent implements OnInit {
     }
   }
   getuserId(){
-    console.log(localStorage.getItem('userId'));
+
     return localStorage.getItem('userId');
   }
-
+  sendRequest(){
+    this.chatService.CreateRequest(this.chatId).subscribe(data=>{
+      console.log('peticion enviada');
+    });
+  }
   ngOnDestroy(){
     this.connection.unsubscribe();
   }

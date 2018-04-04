@@ -4,13 +4,14 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {Http, Response} from '@angular/http';
 import {environment} from '../../../environments/environment';
-
+import { Session } from '../../@core/data/session';
 @Injectable()
-export class ChatService {
+export class ChatService extends Session{
   private baseUrl= environment.apiUrl;
   private chatId = 0;
 
   constructor(private socket: Socket, private http: Http) {
+    super();
    }
   
    getMessages(){
@@ -91,5 +92,26 @@ export class ChatService {
     return this.http.get(this.baseUrl + 'usuarios?filter[fields][id]=true&filter[fields][username]=true&filter[fields][perfil]=true')
     .map((res: Response) => res.json())
    }
-
+   getrequests(){
+     return this.http.get(this.baseUrl + 'solicitudes/' + this.getUserId() + '/pendientes')
+     .map((res: Response)=> res.json());
+   }
+   AcceptRequest(id: number){
+    return this.http.post(this.baseUrl + 'solicitudes/' +id+'/AcceptReq',{})
+    .map((res: Response)=> res.json());
+   }
+   RejectRequest(id: number){
+     return this.http.delete(this.baseUrl+'solicitudes/'+id)
+     .map((res: Response)=> res.json());
+   }
+   CreateRequest(reciever: number){
+     return this.http.post(this.baseUrl+'solicitudes/CrearReq',{
+       senderId: this.getUserId(),
+       recieverId: reciever
+     }).map((res: Response)=> res.json());
+   }
+   findRequest(reciever: number){
+     return this.http.get(this.baseUrl+'solicitudes/'+this.getUserId()+'/'+reciever+'/findSol')
+     .map((res: Response)=>res.json());
+   }
 }
