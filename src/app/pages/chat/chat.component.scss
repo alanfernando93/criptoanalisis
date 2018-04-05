@@ -1,0 +1,23 @@
+@import '~@nebular/theme/styles/global/bootstrap/buttons';
+.msg-wrap
+{
+	padding:10px;
+	height: 350px;
+	max-height: 400px;
+	overflow: auto;
+}
+.owner {
+	float:right;
+	background:white;
+	width: 50%;
+}
+.msgtr {
+	width: 100%;
+}
+.othermsg{
+	background: whitesmoke;
+	width: 50%;
+}
+.macro{
+    margin-top:5px;width:60%;border-radius:5px;padding:5px;display:flex;
+}

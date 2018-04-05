@@ -15,6 +15,10 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+
+const config: SocketIoConfig = { url:'http://191.101.228.157:8080', options:{}};
+
 
 import { AuthGuard } from './auth-guard.service';
 
@@ -32,6 +36,7 @@ import { NB_AUTH_TOKEN_WRAPPER_TOKEN, NbAuthJWTToken } from '@nebular/auth';
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
+    SocketIoModule.forRoot(config)
   ],
   bootstrap: [AppComponent],
   providers: [
