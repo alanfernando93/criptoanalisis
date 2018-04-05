@@ -65,5 +65,24 @@ export class SignalsService extends Session {
         return this.http.get(this.baseUrl + 'signals/' + id + '/dislike?userId=' + this.getUserId() + '&access_token=' + this.getToken())
             .map((res: Response) => res.json());
     }
+    add(signal) {
+        signal.usuarioId = this.getUserId();
+        return this.http.post(this.baseUrl + 'signals?access_token=' + this.getToken(), signal)
+            .map(resp => resp.json())
+    }
+    getPositionById(id) {
+        return this.http.get(this.baseUrl + 'positions/' + id + '?access_token=' + this.getToken())
+            .map(resp => resp.json())
+    }
+
+    setPosition(body) {
+        return this.http.post(this.baseUrl + 'positions?access_token=' + this.getToken(), body)
+            .map(resp => resp.json())
+    }
+
+    imageFileUpload(idNews, file) {
+        return this.http.post(this.baseUrl + 'signals/' + idNews + '/upload?access_token=' + this.getToken(), file)
+            .map(resp => resp.json())
+    }
 
 }

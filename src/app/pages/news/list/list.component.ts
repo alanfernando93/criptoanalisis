@@ -16,9 +16,8 @@ export class ListComponent implements OnInit {
   constructor(
     private http: Http,
     private newsService: NewsService
-  ) {
-  }
-
+  ) { }
+    
   ngOnInit() {
     this.getNews();
   }

@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NbAuthJWTToken, NbAuthService } from "@nebular/auth";
 
 import { NbMenuService, NbSidebarService } from "@nebular/theme";
 import { UserService } from "../../../@core/data/users.service";
 import { AnalyticsService } from "../../../@core/utils/analytics.service";
-
-import { NbAuthJWTToken, NbAuthService } from "@nebular/auth";
+import { overrideComponentView } from '@angular/core/src/view/entrypoint';
 
 @Component({
   selector: "ngx-header",
@@ -13,12 +13,10 @@ import { NbAuthJWTToken, NbAuthService } from "@nebular/auth";
   templateUrl: "./header.component.html"
 })
 export class HeaderComponent implements OnInit {
+
   @Input() position = "normal";
 
   user: any = null;
-
-  userId;
-  token;
 
   userMenu = [
     { title: "Profile", link: "/user/profile" },
@@ -30,21 +28,19 @@ export class HeaderComponent implements OnInit {
     private menuService: NbMenuService,
     private userService: UserService,
     private analyticsService: AnalyticsService,
-    private authService: NbAuthService,
-    private router: Router
-  ) {}
-
-  ngOnInit() {
+    private router: Router,
+    private authService: NbAuthService
+  ) {
     this.authService.onTokenChange().subscribe((token: NbAuthJWTToken) => {
-      if (token.getValue()) {
-        let userId = Number.parseInt(localStorage.getItem("userId"));
-        this.userService.getById(userId).subscribe(usuario => {
-          this.user = usuario;
-        });
+      if (token.getValue() && localStorage.length != 0) {
+        let id = localStorage.getItem("userId")
+        this.userService.getById(id).subscribe(resp=> this.user = resp)
       }
     });
-    // this.userService.getUsers()
-    //   .subscribe((users: any) => this.user = users.nick);
+  }
+
+  ngOnInit() {    
+    
   }
 
   toggleSidebar(): boolean {
@@ -66,14 +62,12 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    localStorage.clear();
-    this.user = null;    
-    this.userService.logout().subscribe(()=>{
-      this.router.navigateByUrl("/auth/logout");
-      setTimeout(()=>{
+    this.userService.logout().subscribe(success => {
+      this.router.navigateByUrl("/auth/logout", {skipLocationChange: true}).then(r => {
+        localStorage.clear()
         this.router.navigate(["/pages/dashboard"])
-      },500)
-    });    
+      })
+    })
   }
 
   signin() {

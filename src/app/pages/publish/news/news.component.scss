@@ -1,0 +1,24 @@
+@import '../../../@theme/styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/bootstrap/breakpoints';
+
+@include nb-install-component() {
+    .inputgroup {
+        padding-top: 15px;
+        width: 100%;
+        padding-bottom: 15px;
+        label {
+            width: 100%;
+        }
+    }
+
+    .form-group label {
+        padding: 0 0 0.75rem;
+      }
+    
+    .scroll-lists{
+        height: 50px;
+        overflow-y: scroll;
+    }
+    
+}

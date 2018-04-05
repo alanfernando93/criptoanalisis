@@ -11,10 +11,8 @@ import { UserService } from "../../@core/data/users.service";
 })
 export class ProfileComponent implements OnInit {
   user: any = {};
-  userId;
-  token;
 
-  name:string; 
+  name:string;
   myFile:File;
 
   constructor(
@@ -24,25 +22,24 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    let userId = Number.parseInt(localStorage.getItem("userId"));
-    this.token = localStorage.getItem("auth_app_token");
-    this.userService.getById(userId).subscribe(usuario => {
-      this.user = usuario;
-    });
+    if(localStorage.length != 0){
+      let id = localStorage.getItem("userId")
+      this.userService.getById(id).subscribe(resp => this.user =resp );
+    }
   }
 
 
   onSave() {
-    delete this.user.profile;
+    delete this.user.perfil;
     let body = new FormData();
     body.append('Key',this.user.username);
     body.append('Value', this.myFile);
     this.userService.update(this.user).subscribe(resp => {
       this.userService.imageFileUpload(body).subscribe((resp) => {
-        this.router.navigate(['/user/profile']);
-     });   
+        this.router.navigate(['/']);
+     });
     });
-    
+
   }
 
   fileChangeEvent(files: any) {

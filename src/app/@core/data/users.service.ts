@@ -32,7 +32,7 @@ export class UserService extends Session{
     return this.http.get(this.baseUrl + "usuarios/" + this.getUserId())
       .map(resp => resp.json())
   }
-
+  
   update(itemToUpdate) {
     return this.http.put(this.baseUrl + "usuarios/" + this.getUserId() + "/updateInfo" + this.getAuth(), itemToUpdate)
       .map(resp => resp.json());

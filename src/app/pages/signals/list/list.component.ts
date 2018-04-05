@@ -21,7 +21,7 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     this.getSignals();
   }
-
+  
   getSignals() {
     this.signalsService.getAll().subscribe(data => {
       data ? this.signals = data : '';

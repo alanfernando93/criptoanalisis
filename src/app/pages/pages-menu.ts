@@ -6,6 +6,22 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-home',
     link: '/pages/dashboard',
     home: true,
+  },
+  {
+    title: 'Publish',
+    icon: 'fa fa-fire',
+    link: '/pages/publish',
+    home: true,
+  },
+  {
+    title: 'Asesoria Principiantes',
+    icon: 'nb-compose',
+    link: '/pages/dashboard',
+    home: true,
+  },{
+    title: 'chat',
+    icon: 'ion-paper-airplane',
+    link: '/pages/chat'
   },{
     title: 'Tutoriales',
     icon: 'nb-home',
@@ -87,7 +103,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       }, {
         title: 'Notifications',
         link: '/pages/components/notifications',
-      },
+      }
     ],
   },{
     title: 'News',
@@ -96,6 +112,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'List News',
         link: '/pages/news/list',
+      },
+    ],
+  },
+  {
+    title: 'Advisory',
+    icon: 'nb-layout-sidebar-right',
+    children: [
+      {
+        title: 'List advisory',
+        link: '/pages/advisories/list',
       },
     ],
   },{
@@ -147,5 +173,5 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/auth/reset-password',
       },
     ],
-  },
+  }
 ];
