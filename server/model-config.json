@@ -120,6 +120,10 @@
     "dataSource": "db",
     "public": true
   },
+  "solicitud": {
+    "dataSource": "db",
+    "public": true
+  },
   "comentario_senal": {
     "dataSource": "db",
     "public": true
