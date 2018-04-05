@@ -43,7 +43,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getSignals() {
-    this.signalsService.getAlls().subscribe(
+    this.signalsService.getAll().subscribe(
       signals => {
         signals ? this.signals = signals : '';
         this.signals.forEach((element, index) => {

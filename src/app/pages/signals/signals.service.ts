@@ -14,7 +14,7 @@ export class SignalsService extends Session{
         super()
     }
 
-    getAlls() {
+    getAll() {
         return this.http.get(this.baseUrl + 'signals' + '?access_token=' + this.getToken())
             .map(res => res.json())
     }
