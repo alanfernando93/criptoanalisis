@@ -12,9 +12,20 @@ module.exports = function(app) {
       'image/jpg',
       'image/jpeg',
       'image/png',
+      'text/plain',
+      'text/html',
     ],
     maxFileSize: 2000000,
   });
-  var container = ds.createModel('Container');
+  var container = ds.createModel('Container',
+    {base: 'model'});
   app.model(container);
+  app.models.Container.createContainer({"name":"galery"},(err, data)=>{
+    if (err) throw err;
+    console.log('created container');
+  });
+  app.models.Container.createContainer({"name":"forms"},(err, data)=>{
+    if (err) throw err;
+    console.log('created container');
+  });
 };

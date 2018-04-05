@@ -11,6 +11,11 @@
     },
     "userId": {
       "type": "number"
+    },
+    "fecha_registro": {
+      "type": "date",
+      "required": false,
+      "default": "$now"
     }
   },
   "validations": [],

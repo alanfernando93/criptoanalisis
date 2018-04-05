@@ -11,9 +11,6 @@ module.exports = function(app) {
       descripcion: 'stoploss',
     }]);
   });
-  app.dataSources.db.autoupdate('commentSignal', function(err) {
-    if (err) throw err;
-  });
   app.dataSources.db.autoupdate('position', function(err) {
     if (err) throw err;
   });
