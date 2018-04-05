@@ -21,11 +21,9 @@ module.exports = function(app) {
     {base: 'model'});
   app.model(container);
   app.models.Container.createContainer({"name":"galery"},(err, data)=>{
-    if (err) throw err;
     console.log('created container');
   });
   app.models.Container.createContainer({"name":"forms"},(err, data)=>{
-    if (err) throw err;
     console.log('created container');
   });
 };
