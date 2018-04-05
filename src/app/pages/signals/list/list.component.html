@@ -5,22 +5,22 @@
     </div>
   </nb-card-header>
 </nb-card>
-<nb-card>
-  <nb-card-body>
-    <div class="row">
-      <div class="col-12 col-md-6" *ngFor="let signal of signals">
+<div class="row">
+  <div class="col-12 col-md-6" *ngFor="let signal of signals">
+    <nb-card>
+      <nb-card-body>
         <div class="card">
           <div class="card-header">
             <div class="row" *ngFor="let content of signal.contentUser">
-              <div class="col-3 col-md-5">
+              <div class="col-6 col-md-5">
                 <nb-user [menu]="" [name]="content?.username" [picture]="content?.perfil"></nb-user>
               </div>
-              <div class="col-4 col-md-2">
+              <div class="col-3 col-md-2">
                 <h5>
                   <span class="badge badge-primary font-w-light user">{{content.precision}} P</span>
                 </h5>
               </div>
-              <div class="col-4 col-md-5">
+              <div class="col-3 col-md-5">
                 <h5>
                   <span class="badge badge-info font-w-light user">{{content.fama}} F</span>
                 </h5>
@@ -28,27 +28,31 @@
             </div>
           </div>
           <a [routerLink]="['/pages/signals/view', signal.id]">
-            <img src="https://es.tradingview.com/i/jNGFZIAD/" alt="card image" class="card-img-top d-none d-sm-block">
-          </a>
-          <div class="card-body" *ngIf="signal.tipo == true; else otro">
-            <h4 class="text-success">
-              Comprar
-            </h4>
-          </div>
-          <ng-template #otro>
-            <div class="body">
-              <h4 class="text-danger">
-                Vender
+            <img src="../../../assets/images/kitten-cosmic.png" alt="card image" class="card-img-top d-none d-sm-block">
+            <div class="card-body" *ngIf="signal.tipo == true; else otro">
+              <h4 class="text-success">
+                Comprar
               </h4>
             </div>
-          </ng-template>
+            <ng-template #otro>
+              <div class="card-body">
+                <h4 class="text-danger">
+                  Vender
+                </h4>
+              </div>
+            </ng-template>
+          </a>
           <div class="card-footer">
             <div class="row">
               <div class="col-12 col-md-6">
-                <p class="text-body">{{signal.FechaCreate | amTimeAgo}}</p>
+                <span class="text-hint">{{signal.FechaCreate | amTimeAgo}}</span>
               </div>
-              <div class="col-6 col-md-2" *ngIf="count">
-                <p class="text-body">{{count.count}} Com</p>
+              <div class="col-6 col-md-2" *ngFor="let count of signal.count">
+                <div class="text-body">
+                  <span>{{count.count}}
+                    <i class="fa fa fa-book"></i>
+                  </span>
+                </div>
               </div>
               <div class="col-3 col-md-2">
                 <span class="font-w-light up pull-right">
@@ -63,7 +67,7 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </nb-card-body>
-</nb-card>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

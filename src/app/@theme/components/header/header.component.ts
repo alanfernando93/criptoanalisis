@@ -71,7 +71,7 @@ export class HeaderComponent implements OnInit {
     this.userService.logout().subscribe(()=>{
       this.router.navigateByUrl("/auth/logout");
       setTimeout(()=>{
-        this.router.navigate(["/"])
+        this.router.navigate(["/pages/dashboard"])
       },500)
     });    
   }

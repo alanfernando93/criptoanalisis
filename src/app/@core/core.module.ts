@@ -24,7 +24,7 @@ const NB_CORE_PROVIDERS = [
             endpoint: 'usuarios/login',
             method: 'post',
             redirect: {
-              success: '/pages/forms/inputs',
+              success: '/pages/dashboard',
               failure: null,
             },
             defaultErrors: ['Login/Email combination is not correct, please try again.'],

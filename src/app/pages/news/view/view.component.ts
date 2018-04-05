@@ -4,8 +4,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { NewsService } from '../news.service';
 import { UserService } from '../../../@core/data/users.service';
+import * as nbUser from '@nebular/theme/components/user/user.component'
 
-import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'ngx-view',
@@ -14,19 +14,16 @@ import { environment } from '../../../../environments/environment';
 })
 export class ViewComponent implements OnInit {
 
-  idUser = environment.userId;
   news: any;
   commentById: any = [];
-  answerById: any = [];
-  count: any;
+  count: number;
   idNews: any;
   contentUser: any;
+  answerUser: any;
   like: number;
   dislike: number;
-  commentId: number;
-  userByComment: number;
-  userByAnswer: Number;
   comment: any = {};
+  respond: any = {};
   answer: any = {};
 
   constructor(
@@ -35,7 +32,6 @@ export class ViewComponent implements OnInit {
     private router: Router,
     private newsService: NewsService,
     private userService: UserService) {
-
   }
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
@@ -56,7 +52,21 @@ export class ViewComponent implements OnInit {
 
   getNewsCommentById() {
     this.newsService.getNewsComment(this.idNews).subscribe(data => {
-      data ? this.commentById = data : '';
+      data ? this.commentById = data : {};
+      this.commentById.forEach((element, index) => {
+        let commentId = this.commentById[index].id;
+        this.newsService.getNewsAnswer(commentId).subscribe(data => {
+          data.user = {}
+          this.commentById[index].res = [];
+          this.commentById[index].res = data;
+          this.commentById[index].res.forEach((element, index1) => {
+            let userByAnswer = this.commentById[index].res[index1].userId;
+            this.userService.getById(userByAnswer).subscribe(data => {
+              this.commentById[index].res[index1].user = data;
+            });
+          });
+        });
+      });
     });
   }
 
@@ -64,24 +74,10 @@ export class ViewComponent implements OnInit {
     this.newsService.getNewsComment(this.idNews).subscribe(data => {
       data ? this.commentById = data : '';
       this.commentById.forEach((element, index) => {
-        this.commentId = this.commentById[index].id;
-        this.userByComment = this.commentById[index].userId;
-        this.userService.getById(this.userByComment).subscribe(data => {
+        let userByComment = this.commentById[index].userId;
+        this.userService.getById(userByComment).subscribe(data => {
           this.commentById[index].user = [];
           this.commentById[index].user = data;
-          this.newsService.getNewsAnswer(this.commentId).subscribe(data => {
-            this.commentById[index].res = [];
-            this.commentById[index].res = data;
-            /*
-            this.commentById.forEach((element, index) => {
-              this.userByAnswer = this.commentById[index].userId;
-              this.userService.getById(this.userByAnswer).subscribe(data => {
-                this.commentById[index].anuser = [];
-                this.commentById[index].anuser = data;
-              });
-            });
-            */
-          });
         });
       });
     });
@@ -99,6 +95,13 @@ export class ViewComponent implements OnInit {
     });
   }
 
+  sendLike() {
+    this.newsService.postLikes(this.idNews).subscribe(data => {
+      this.like = data;
+      this.news = data;
+    });
+  }
+
   sendDislike() {
     this.newsService.postDislikes(this.idNews).subscribe(data => {
       this.dislike = data;
@@ -106,28 +109,33 @@ export class ViewComponent implements OnInit {
     });
   }
 
-  sendLike() {
-    this.newsService.postLikes(this.idNews).subscribe(data => {
-      this.like = data;
-      this.news = data;
-      console.log(this.like);
-    });
-  }
-
-  sendAnswer() {
-    this.answer.userId = this.idUser;
-    this.answer.comentarioNoticiaId = this.commentId;
-    this.newsService.postNewsAnswer(this.answer.comentarioNoticiaId, this.answer).subscribe(data => {
-      this.answer = '';
-    });
-  }
-
   sendComent() {
-    this.comment.userId = this.idUser;
     this.comment.noticiaId = this.idNews;
     this.newsService.postNewsComment(this.comment.noticiaId, this.comment).subscribe(data => {
-      this.comment = '';
+      this.commentById.push(data);
+      this.getNewsCommentCount();
+      this.getCommentWithUser();
+      this.getNewsCommentById();
+      this.comment = {};
     });
   }
 
+  sendAnswer(event) {
+    this.respond.comentarioNoticiaId = event.target.parentNode.parentNode.childNodes[3].childNodes[1].childNodes[1].id;
+    this.respond.contenido = event.target.parentNode.parentNode.childNodes[3].childNodes[1].childNodes[1].value;
+    this.newsService.postNewsAnswer(this.respond.comentarioNoticiaId, this.respond).subscribe(data => {
+      this.commentById.push(data);
+      this.getNewsCommentById();
+      this.getCommentWithUser();
+      this.respond = {};
+    });
+  }
+
+  getInitials(name) {
+    if (name) {
+        var names = name.split(' ');
+        return names.map(function (n) { return n.charAt(0); }).splice(0, 2).join('').toUpperCase();
+    }
+    return '';
+  }
 }
