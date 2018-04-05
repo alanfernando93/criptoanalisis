@@ -17,7 +17,7 @@ import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 
-const config: SocketIoConfig = { url:'http://localhost:3000', options:{}};
+const config: SocketIoConfig = { url:'http://191.101.228.157:8080', options:{}};
 
 
 import { AuthGuard } from './auth-guard.service';
