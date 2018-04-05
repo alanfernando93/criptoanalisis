@@ -123,5 +123,9 @@
   "position": {
     "dataSource": "db",
     "public": true
+  },
+  "solicitud": {
+    "dataSource": "db",
+    "public": true
   }
 }

@@ -13,4 +13,17 @@ module.exports = function(app) {
     },
     ]);
   });
+  app.dataSources.db.autoupdate('solicitud', function(err, data) {
+    if (err)
+      throw err;
+    else
+    app.models.solicitud.create([{
+      activo: true,
+      aceptacion: false,
+      duracion: Date.now(),
+      senderId: 3,
+      recieverId: 1,
+    },
+    ]);
+  });
 };

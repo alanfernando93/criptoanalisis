@@ -1,29 +1,28 @@
 {
-  "name": "transaccion",
+  "name": "solicitud",
+  "plural": "solicitudes",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "tipo": {
-      "type": "string"
+    "activo": {
+      "type": "boolean",
+      "required": true,
+      "default": true
     },
-    "monto": {
-      "type": "number",
-      "datatype": "decimal",
-      "presition": 7,
-      "scale": 3
+    "aceptacion": {
+      "type": "boolean",
+      "required": true,
+      "default": false
     },
     "fecha": {
       "type": "date",
       "default": "$now"
     },
-    "costo": {
-      "type": "string"
-    },
-    "activo": {
-      "type": "boolean"
+    "duracion": {
+      "type": "date"
     }
   },
   "validations": [],

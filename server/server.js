@@ -55,27 +55,59 @@ function transfiere(senderId, receptorId, type, costo) {
     }, {activo: true}]},
   }).then(transfer=>{
     // obtencion del solicitante y aumento de creditos en caso verdadero
-    console.log(transfer);
-    if (senderId == transfer[0].senderId) {
+    if (transfer.length > 0) {
       modPuntos(senderId, -costo);
-      if (transfer.length > 0) {
+      if (senderId == transfer[0].senderId) {
       // flujo de aumento de creditos
-        app.models.transaccion.updateAll({id: transfer[0].id}, {monto: transfer[0].monto + costo});
+        app.models.transaccion.updateAll({id: transfer[0].id},
+           {monto: transfer[0].monto + costo});
       } else {
-        app.models.transaccion.create([{
-          tipo: type,
-          monto: costo,
-          senderId: senderId,
-          recieverId: receptorId,
-        }], (err, data)=>{
-          console.log('transferido', data);
-        });
+        console.log('el mensaje es gratuito');
       };
     } else {
-      console.log('el mensaje es gratuito');
+      app.models.transaccion.create([{
+        tipo: type,
+        monto: costo,
+        senderId: senderId,
+        recieverId: receptorId,
+        activo: true,
+      }], (err, data)=>{
+        console.log('transferido', data);
+      });
     };
   });
 }
+// chat gratis usuario (tipo objeto)
+function chatGratis(usuario, idchat, path) {
+  app.models.solicitud.find({
+    where: {and: [{or:
+    [{and: [
+        {senderId: usuario.senderId},
+        {recieverId: usuario.receptorId},
+    ]}, {and: [
+        {senderId: usuario.receptorId},
+        {recieverId: usuario.senderId},
+    ]}],
+    }, {activo: true}, {aceptacion: true}]},
+  }).then(data=>{
+    console.log(data);
+    if (data.length > 0) {
+      sendmessage(usuario, idchat, path);
+    } else {
+      path.to(idchat).emit('fail', {'message': 'la solicitud caduco o aun no esta aceptada'});
+    }
+  });
+}
+function sendmessage(message, idchat, path) {
+  app.models.userMessage.create({
+    'idProper': idchat,
+    'message': message.message,
+    'senderId': message.senderId,
+    'recieverId': message.receptorId,
+  }).then(data=>{
+    path.to(idchat).emit('user says', message);
+  });
+};
 
 boot(app, __dirname, function(err) {
   if (err) throw err;
@@ -119,28 +151,31 @@ boot(app, __dirname, function(err) {
         app.models.usuario.findById(message.senderId, {
           fields: {id: true, username: true, puntos: true},
         }, (err, sender)=> {
-          if (sender.puntos >= costo && costo > 0) {
-            app.models.userMessage.create([{
-              'idProper': idChat,
-              'message': message.message,
-              'senderId': message.senderId,
-              'recieverId': message.receptorId,
-            }])
-            .then(mensaje => {
-              console.log('insertado', mensaje);
+          if (message.chatType === 'free') {
+            // flujo en caso de chat gratuito
+            chatGratis({
+              message: message.message,
+              senderId: message.senderId,
+              username: sender.username,
+              hora: Date.now(),
+              costo: costo,
+            }, idChat, app.io);
+          } else {
+            // flujo en caso de chat de paga
+            if (sender.puntos >= costo && costo > 0) {
               transfiere(message.senderId, message.receptorId, 'pay', costo);
-              app.io.to(idChat).emit('user says', {
+              sendmessage({
                 message: message.message,
                 senderId: message.senderId,
                 username: sender.username,
-                hora: mensaje.fechaEnvio,
+                hora: Date.now(),
                 costo: costo,
+              }, idChat, app.io);
+            } else {
+              app.io.to(idChat).emit('fail', {
+                'message': 'no tiene saldo suficiente para enviar este mensaje',
               });
-            });
-          } else {
-            app.io.to(idChat).emit('fail', {
-              'message': 'no tiene saldo suficiente para enviar este mensaje',
-            });
+            }
           }
         });
       });
