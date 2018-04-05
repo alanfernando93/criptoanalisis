@@ -6,7 +6,6 @@ import { NewsService } from '../news.service';
 import { UserService } from '../../../@core/data/users.service';
 import * as nbUser from '@nebular/theme/components/user/user.component'
 
-
 @Component({
   selector: 'ngx-view',
   templateUrl: './view.component.html',

@@ -172,7 +172,8 @@
                                         <div class="media">
                                             <img class="mr-3" src="{{comment.user.perfil}}" alt="Generic placeholder image">
                                             <div class="media-body">
-                                                <h5 class="mt-0 text-center">{{comment.user.username}}</h5>
+                                                <h5 class="mt-0 text-center">{{comment.user.username}}
+                                                </h5>
                                                 <div class="text-center">
                                                     <h6>
                                                         <span class="badge badge-primary font-w-light">{{comment.user.precision}} P</span>
@@ -201,7 +202,10 @@
                                         </a>
                                     </div>
                                     <div class="media-body">
-                                        <h5 class="mt-0" *ngIf="comment.user">{{comment.user.username}}</h5>
+                                        <h5 class="mt-0" *ngIf="comment.user">{{comment.user.username}}
+                                            <span class="badge badge-primary">{{comment.user.precision}} P</span>
+                                            <span class="badge badge-info">{{comment.user.fama}} F</span>
+                                        </h5>
                                         <p>{{comment.contenido}}</p>
                                         <p class="text-hint">{{comment.fecha_registro | amTimeAgo}}</p>
                                         <h5>Respuesta</h5>
@@ -215,7 +219,10 @@
                                                         </div>
                                                     </a>
                                                     <div class="media-body">
-                                                        <h5 class="mt-0">{{answer.user.username}}</h5>
+                                                        <h5 class="mt-0">{{answer.user.username}}
+                                                            <span class="badge badge-primary">{{answer.user.precision}} P</span>
+                                                            <span class="badge badge-info">{{answer.user.fama}} F</span>
+                                                        </h5>
                                                         <p>{{answer.contenido}}</p>
                                                         <p class="text-hint">{{answer.fecha_registro | amTimeAgo}}</p>
                                                     </div>
@@ -253,7 +260,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                             <div class="card-footer">
                                 <div class="form-group">

@@ -109,7 +109,7 @@
                                     <ng-template #popContentComment>
                                         <div *ngIf="comment.user">
                                             <div class="media">
-                                                <img *ngIf="comment.user.perfil" class="mr-3" src="{{comment.user.perfil}}" alt="Generic placeholder image">
+                                                <img *ngIf="comment.user.perfil" class="mr-3" src="{{comment.user.perfil}}">
                                                 <div *ngIf="!comment.user.perfil" class="user-picture background" [style.background-color]="color">
                                                     <ng-container>
                                                         <img src="../../../../assets/images/image.png" alt="">
@@ -145,7 +145,10 @@
                                             </a>
                                         </div>
                                         <div class="media-body">
-                                            <h5 class="mt-0" *ngIf="comment.user">{{comment.user.username}}</h5>
+                                            <h5 class="mt-0" *ngIf="comment.user">{{comment.user.username}}
+                                                <span class="badge badge-primary">{{comment.user.precision}} P</span>
+                                                <span class="badge badge-info">{{comment.user.fama}} F</span>
+                                            </h5>
                                             <p>{{comment.contenido}}</p>
                                             <p class="text-hint">{{comment.fecha_registro | amTimeAgo}}</p>
                                             <h5>Respuesta</h5>
@@ -159,7 +162,10 @@
                                                             </div>
                                                         </a>
                                                         <div class="media-body">
-                                                            <h5 class="mt-0">{{answer.user.username}}</h5>
+                                                            <h5 class="mt-0">{{answer.user.username}}
+                                                                <span class="badge badge-primary">{{answer.user.precision}} P</span>
+                                                                <span class="badge badge-info">{{answer.user.fama}} F</span>
+                                                            </h5>
                                                             <p>{{answer.contenido}}</p>
                                                             <p class="text-hint">{{answer.fecha_registro | amTimeAgo}}</p>
                                                         </div>
@@ -208,12 +214,10 @@
                     </div>
                     <nb-card>
                         <nb-card-body>
-                            <div>
-                                <div class="form-group">
-                                    <textarea class="form-control" id="comments" placeholder="Escribe un Comentario" [(ngModel)]="comment.contenido"></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-success pull-right btn-sm" (click)="sendComent()">Publicar</button>
+                            <div class="form-group">
+                                <textarea class="form-control" id="comments" name="comments" placeholder="Escribe un Comentario" [(ngModel)]="comment.contenido"></textarea>
                             </div>
+                            <button type="submit" class="btn btn-success pull-right btn-sm" (click)="sendComent()">Publicar</button>
                         </nb-card-body>
                     </nb-card>
                 </div>
