@@ -4,8 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { NewsService } from '../news.service';
 import { UserService } from '../../../@core/data/users.service';
-
-import { environment } from '../../../../environments/environment';
+import * as nbUser from '@nebular/theme/components/user/user.component'
 
 @Component({
   selector: 'ngx-view',
@@ -14,18 +13,16 @@ import { environment } from '../../../../environments/environment';
 })
 export class ViewComponent implements OnInit {
 
-  idUser = environment.userId;
   news: any;
   commentById: any = [];
-  contentAnswer: any;
-  count: any;
+  count: number;
   idNews: any;
   contentUser: any;
+  answerUser: any;
   like: number;
   dislike: number;
-  position: string;
-
   comment: any = {};
+  respond: any = {};
   answer: any = {};
 
   constructor(
@@ -34,7 +31,6 @@ export class ViewComponent implements OnInit {
     private router: Router,
     private newsService: NewsService,
     private userService: UserService) {
-
   }
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
@@ -44,6 +40,7 @@ export class ViewComponent implements OnInit {
     this.getNewsCommentById();
     this.getNewsCommentCount();
     this.getNewsWithUser();
+    this.getCommentWithUser();
   }
 
   getNewsById() {
@@ -54,13 +51,32 @@ export class ViewComponent implements OnInit {
 
   getNewsCommentById() {
     this.newsService.getNewsComment(this.idNews).subscribe(data => {
-      data ? this.commentById = data : '';
+      data ? this.commentById = data : {};
       this.commentById.forEach((element, index) => {
         let commentId = this.commentById[index].id;
-        this.position=index;
         this.newsService.getNewsAnswer(commentId).subscribe(data => {
+          data.user = {}
           this.commentById[index].res = [];
           this.commentById[index].res = data;
+          this.commentById[index].res.forEach((element, index1) => {
+            let userByAnswer = this.commentById[index].res[index1].userId;
+            this.userService.getById(userByAnswer).subscribe(data => {
+              this.commentById[index].res[index1].user = data;
+            });
+          });
+        });
+      });
+    });
+  }
+
+  getCommentWithUser() {
+    this.newsService.getNewsComment(this.idNews).subscribe(data => {
+      data ? this.commentById = data : '';
+      this.commentById.forEach((element, index) => {
+        let userByComment = this.commentById[index].userId;
+        this.userService.getById(userByComment).subscribe(data => {
+          this.commentById[index].user = [];
+          this.commentById[index].user = data;
         });
       });
     });
@@ -78,13 +94,6 @@ export class ViewComponent implements OnInit {
     });
   }
 
-  sendDislike() {
-    this.newsService.postDislikes(this.idNews).subscribe(data => {
-      this.dislike = data;
-      this.news = data;
-    });
-  }
-
   sendLike() {
     this.newsService.postLikes(this.idNews).subscribe(data => {
       this.like = data;
@@ -92,25 +101,40 @@ export class ViewComponent implements OnInit {
     });
   }
 
-  sendAnswer(event) {
-    this.contentAnswer = event.target.parentNode.parentNode.childNodes[3].value;
-    let id = event.target.parentNode.parentNode.childNodes[3].id;
-    let index = event.target.parentNode.parentNode.childNodes[3].name;
-    console.log()
-    this.answer.comentarioNoticiaId = id;
-    this.answer.userId = this.idUser;
-    this.answer.contenido = this.contentAnswer;
-    this.newsService.postNewsAnswer(this.answer.comentarioNoticiaId, this.answer).subscribe(data => {
-      this.commentById[index].res.push(data);
+  sendDislike() {
+    this.newsService.postDislikes(this.idNews).subscribe(data => {
+      this.dislike = data;
+      this.news = data;
     });
   }
 
   sendComent() {
-    this.comment.userId = this.idUser;
     this.comment.noticiaId = this.idNews;
     this.newsService.postNewsComment(this.comment.noticiaId, this.comment).subscribe(data => {
-      //document.getElementById('comments').innerHTML. = "";
+      this.commentById.push(data);
+      this.getNewsCommentCount();
+      this.getCommentWithUser();
+      this.getNewsCommentById();
+      this.comment = {};
     });
   }
 
+  sendAnswer(event) {
+    this.respond.comentarioNoticiaId = event.target.parentNode.parentNode.childNodes[3].childNodes[1].childNodes[1].id;
+    this.respond.contenido = event.target.parentNode.parentNode.childNodes[3].childNodes[1].childNodes[1].value;
+    this.newsService.postNewsAnswer(this.respond.comentarioNoticiaId, this.respond).subscribe(data => {
+      this.commentById.push(data);
+      this.getNewsCommentById();
+      this.getCommentWithUser();
+      this.respond = {};
+    });
+  }
+
+  getInitials(name) {
+    if (name) {
+        var names = name.split(' ');
+        return names.map(function (n) { return n.charAt(0); }).splice(0, 2).join('').toUpperCase();
+    }
+    return '';
+  }
 }

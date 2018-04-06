@@ -1,10 +1,12 @@
+a{
+  cursor: pointer !important;
+}
 .socials {
   font-size: 1.2rem;
   a {
     color: #a4abb3;
     text-decoration: none;
-    cursor: pointer;
-
+ 
     &:hover {
       color: steelblue !important;
     }
@@ -44,4 +46,34 @@
 
 .user{
   margin-top: 10px;
+}
+
+.user_data {
+  line-height: 37px;
+}
+
+.content_image{
+  width: 5%; 
+  height: 15%;
+}
+
+.image_user {
+  width: 85%;
+}
+
+.image_useranswer{
+  width: 100%;
+}
+
+.design_user {
+  color: #a4abb3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5rem;
+  width: 2.5rem;
+  background: #ffffff;
+  border: solid 2px #bcc3cc;
+  border-radius: 50%;
+  flex-shrink: 0;
 }

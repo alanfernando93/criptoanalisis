@@ -55,12 +55,14 @@ export class NewsService extends Session{
   }
 
   postNewsComment(id, comments) {
+    comments.userId = this.getUserId();
     return this.http.post(this.baseUrl + 'noticias/' + id + '/comentarioNoticia', comments)
       .map((res: Response) => res.json());
   }
 
-  postNewsAnswer(id, answers) {
-    return this.http.post(this.baseUrl + 'comentario_noticia/' + id + '/answerNoticia', answers)
+  postNewsAnswer(id, respond) {
+    respond.userId = this.getUserId();
+    return this.http.post(this.baseUrl + 'comentario_noticia/' + id + '/answerNoticia', respond)
       .map((res: Response) => res.json());
   }
 

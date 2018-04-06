@@ -8,25 +8,17 @@
 <nb-card *ngFor="let news of news">
   <nb-card-header>
     <div class="row" *ngFor="let content of news.contentUser">
-      <div class="col-3 col-md-1">
-        <img src="../../../assets/images/jack.png" class="img-thumbnail foto_user" alt="Responsive image">
-      </div>
-      <div class="col-9 col-md-3">
-        <p class="font-w-light user">{{content.nombre}} {{content.apellido}}</p>
+      <div class="col-12 col-md-2">
+        <nb-user [menu]="" [name]="content?.username" [picture]="content?.perfil" ></nb-user>  
       </div>
       <div class="col-4 col-md-1">
         <h5>
           <span class="badge badge-primary font-w-light user">{{content.precision}} P</span>
         </h5>
       </div>
-      <div class="col-4 col-md-1">
+      <div class="col-8 col-md-9">
         <h5>
-          <span class="badge badge-success font-w-light user">{{content.puntos}} P</span>
-        </h5>
-      </div>
-      <div class="col-4 col-md-6">
-        <h5>
-          <span class="badge badge-info font-w-light user">ETH</span>
+          <span class="badge badge-info font-w-light user">{{content.fama}} F</span>
         </h5>
       </div>
     </div>
@@ -34,9 +26,9 @@
   <nb-card-body>
     <div class="row">
       <div class="col-12 col-md-10">
-        <h3 class="title">
+        <h5 class="title">
           <a class="text-body" [routerLink]="['/pages/news/view', news.id]" [innerHTML]="news.titulo"></a>
-        </h3>
+        </h5>
       </div>
       <div class="col-md-2">
         <img src="../../../assets/images/cover1.jpg" class="img-thumbnail" alt="Responsive image" width="" height="">
@@ -46,7 +38,7 @@
   <nb-card-footer *ngFor="let count of news.count">
     <div class="row">
       <div class="col-12 col-md-8">
-        <p class="text-body">{{news.fecha_create | amTimeAgo}}</p>
+        <p class="text-hint">{{news.fecha_create | amTimeAgo}}</p>
       </div>
       <div class="col-6 col-md-2">
         <p class="text-body">{{count.count}} Comentarios</p>

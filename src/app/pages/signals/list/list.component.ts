@@ -23,18 +23,18 @@ export class ListComponent implements OnInit {
   }
   
   getSignals() {
-    this.signalsService.getAll().subscribe(signals => {
-      signals ? this.signals = signals : '';
+    this.signalsService.getAll().subscribe(data => {
+      data ? this.signals = data : '';
       this.signals.forEach((element, index) => {
         let signalId = this.signals[index].id;
         this.signalsService.getUserBySignal(signalId).subscribe(data => {
           this.signals[index].contentUser = [];
           this.signals[index].contentUser.push(data);
-          console.log(signals);
           this.signalsService.getSignalsCommentCount(signalId).subscribe(data => {
-            this.count = data;
-          });
-        })
+            this.signals[index].count = [];
+            this.signals[index].count.push(data);
+          })
+        });
       });
     });
   }

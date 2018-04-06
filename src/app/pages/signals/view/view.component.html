@@ -1,26 +1,18 @@
 <nb-card>
     <nb-card-header>
         <div class="row" *ngIf="contentUser">
-            <div class="col-3 col-md-1">
-                <img src="../../../assets/images/jack.png" class="img-thumbnail foto_user" alt="Responsive image">
+            <div class="col-12 col-md-4">
+                <nb-user [menu]="" [name]="contentUser?.username" [picture]="contentUser?.perfil"></nb-user>
             </div>
-            <div class="col-9 col-md-3">
-                <p class="font-w-light user">{{contentUser.nombre}} {{contentUser.apellido}}</p>
-            </div>
-            <div class="col-4 col-md-1">
-                <h4>
+            <div class="col-4 col-md-2">
+                <h5>
                     <span class="badge badge-primary font-w-light user">{{contentUser.precision}} P</span>
-                </h4>
+                </h5>
             </div>
-            <div class="col-4 col-md-1">
-                <h4>
-                    <span class="badge badge-success font-w-light user">{{contentUser.puntos}} P</span>
-                </h4>
-            </div>
-            <div class="col-4 col-md-6">
-                <h3>
-                    <span class="badge badge-info font-w-light user">ETH</span>
-                </h3>
+            <div class="col-8 col-md-6">
+                <h5>
+                    <span class="badge badge-info font-w-light user">{{contentUser.fama}} F</span>
+                </h5>
             </div>
         </div>
     </nb-card-header>
@@ -28,24 +20,30 @@
 <nb-card>
     <nb-card-header>
         <div class="row" *ngIf="signal">
-            <div class="col-12 col-md-10">
-                <h4 class="text-body">{{signal.titulo}}</h4>
+            <div *ngIf="signal.tipo == true; else otro" class="col-12 col-md-10">
+                <h4 class="text-success">COMPRAR</h4>
             </div>
+            <ng-template #otro>
+                <div class="col-12 col-md-10">
+                    <h4 class="text-danger">VENDER</h4>
+                </div>
+            </ng-template>
             <div class="col-12 col-md-2">
-                <p class="text-body pull-right">{{signal.FechaCreate | amTimeAgo}}</p>
+                <span class="text-hint pull-right">{{signal.FechaCreate | amTimeAgo}}</span>
             </div>
         </div>
     </nb-card-header>
     <nb-card-body>
-        <!-- Example row of columns -->
         <div class="row" *ngIf="signal">
             <div class="col-12 col-md-6">
                 <div class="row">
-                    <h3 class="btn btn-hero-info col-12 col-md-12">Analisis fundamental</h3>
-                    <div [innerHTML]="signal.AnalisisFundamental"></div>
+                    <h3 class="btn btn-hero-primary col-12 col-md-12">Analisis fundamental</h3>
+                    <div class="col-12 col-md-12">
+                        <span class="text-body" [innerHTML]="signal.AnalisisFundamental"></span>
+                    </div>
                 </div>
                 <div class="row">
-                    <h3 class="btn btn-hero-info col-12 col-md-12">Estrategia de Inversion</h3>
+                    <h3 class="btn btn-hero-primary col-12 col-md-12">Estrategia de Inversion</h3>
                     <div class="col-12 col-md-7" style="float: left;">
                         <table class="table table-bordered">
                             <thead>
@@ -119,15 +117,9 @@
                 </div>
             </div>
             <div class="col-12 col-md-6" *ngIf="signal">
-                <h3 class="btn btn-hero-info col-12 col-dm-11">Analisis tecnico</h3>
-                <div [innerHTML]="signal.AnalisisTecnico"></div>
-                <div class="text-center">
-                    <img src="https://es.tradingview.com/i/jNGFZIAD/" class="img-thumbnail" alt="Cinque Terre" width="304" height="236">
-                </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                    magna aliqua.</p>
-                <div class="text-center">
-                    <img src="https://es.tradingview.com/i/jNGFZIAD/" class="img-thumbnail" alt="Cinque Terre" width="304" height="236">
+                <h3 class="btn btn-hero-primary col-12 col-dm-12">Analisis tecnico</h3>
+                <div class="col-12 col-dm-12">
+                    <span class="text-body" [innerHTML]="signal.AnalisisTecnico"></span>
                 </div>
             </div>
         </div>
@@ -135,48 +127,156 @@
 </nb-card>
 <nb-card>
     <nb-card-body>
-            <div class="row">
-                    <div class="col-md-2 col-sm-12 col-12">
-                            <h5>Compartir : </h5>
-                        </div>
-                        <div class="col-md-1 col-sm-2 col-2 facebook">
-                            <span class="font-w-light up">
-                                <i class="fa fa-facebook-f fa-2x"></i>
-                            </span>
-                        </div>
-                        <div class="col-md-5 col-sm-2 col-2 twitter">
-                            <span class="font-w-light up">
-                                <i class="fa fa-twitter fa-2x"></i>
-                            </span>
-                        </div>
-                        <div class="col-md-2 col-sm-2 col-4 socials">
-                            <a class="font-w-light up pull-right">
-                                <i class="fa fa-thumbs-up"></i>512</a>
-                        </div>
-                        <div class="col-md-2 col-sm-2 col-4 socials">
-                            <a class="font-w-light down pull-right">
-                                <i class="fa fa-thumbs-down"></i>874</a>
-                        </div>
-                </div>
+        <div class="row" *ngIf="signal">
+            <div class="col-md-2 col-sm-12 col-12">
+                <h5>Compartir : </h5>
+            </div>
+            <div class="col-md-1 col-sm-2 col-2 facebook">
+                <span class="font-w-light up">
+                    <i class="fa fa-facebook-f fa-2x"></i>
+                </span>
+            </div>
+            <div class="col-md-5 col-sm-2 col-2 twitter">
+                <span class="font-w-light up">
+                    <i class="fa fa-twitter fa-2x"></i>
+                </span>
+            </div>
+            <div class="col-md-2 col-sm-2 col-4 socials">
+                <a class="font-w-light up pull-right" (click)="sendLike()">
+                    <i class="fa fa-thumbs-up"></i>{{signal.likes.total}}</a>
+            </div>
+            <div class="col-md-2 col-sm-2 col-4 socials">
+                <a class="font-w-light down pull-right" (click)="sendDislike()">
+                    <i class="fa fa-thumbs-down"></i>{{signal.dislikes.total}}</a>
+            </div>
+        </div>
     </nb-card-body>
 </nb-card>
 <nb-card>
     <nb-card-body>
-        <div class="row">
-            <div class="col-12">
+        <div class="row" *ngIf="signal">
+            <div class="col-12 col-md-12">
                 <div class="dropdown" ngbDropdown>
-                    <button class="btn btn-hero-info btn-block" type="button" ngbDropdownToggle>
-                        451 Comentarios
+                    <button type="button" class="btn btn-hero-info btn-block" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="isCollapsed"
+                        aria-controls="collapseExample" ngbDropdownToggle *ngIf="count">
+                        {{count.count}} Comentarios
                     </button>
+                    <div id="collapseExample" [ngbCollapse]="!isCollapsed">
+                        <div class="card" *ngFor="let comment of commentById; let i = index">
+                            <div class="row" class="card-body">
+                                <div class="">
+                                    <h5 class="text-heading">Comentario</h5>
+                                </div>
+                                <ng-template #popContentComment>
+                                    <div *ngIf="comment.user">
+                                        <div class="media">
+                                            <img class="mr-3" src="{{comment.user.perfil}}" alt="Generic placeholder image">
+                                            <div class="media-body">
+                                                <h5 class="mt-0 text-center">{{comment.user.username}}
+                                                </h5>
+                                                <div class="text-center">
+                                                    <h6>
+                                                        <span class="badge badge-primary font-w-light">{{comment.user.precision}} P</span>
+                                                        <span class="badge badge-info font-w-light">{{comment.user.fama}} F</span>
+                                                    </h6>
+                                                </div>
+                                                <div [(ngModel)]="dividedButtonGroupOne" ngbRadioGroup class="btn-group btn-divided-group btn-outline-divided-group btn-group-full-width col-md-12">
+                                                    <label ngbButtonLabel class="btn btn-outline-primary btn-tn">
+                                                        <input ngbButton type="radio" value="left"> Mensaje
+                                                    </label>
+                                                    <label ngbButtonLabel class="btn btn-outline-success btn-tn">
+                                                        <input ngbButton type="radio" value="middle"> Seguir
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <div class="media">
+                                    <div *ngIf="comment.user" class="content_image">
+                                        <a placement="right" [ngbPopover]="popContentComment" triggers="mouseover">
+                                            <img *ngIf="comment.user.perfil" class="mr-3 image_user rounded-circle" src="{{comment.user.perfil}}">
+                                            <div *ngIf="!comment.user.perfil" class="user-picture background design_user" [style.background-color]="color">
+                                                <ng-container> {{ getInitials(comment.user.username) }} </ng-container>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h5 class="mt-0" *ngIf="comment.user">{{comment.user.username}}
+                                            <span class="badge badge-primary">{{comment.user.precision}} P</span>
+                                            <span class="badge badge-info">{{comment.user.fama}} F</span>
+                                        </h5>
+                                        <p>{{comment.contenido}}</p>
+                                        <p class="text-hint">{{comment.fecha_registro | amTimeAgo}}</p>
+                                        <h5>Respuesta</h5>
+                                        <div *ngFor="let answer of comment.res">
+                                            <div *ngIf="answer.user">
+                                                <div class="media mt-3">
+                                                    <a class="pr-3 content_image" placement="right" [ngbPopover]="popContentAnswer" triggers="mouseover">
+                                                        <img *ngIf="answer.user.perfil" src="{{answer.user.perfil}}" alt="Generic placeholder image" class="image_useranswer rounded-circle">
+                                                        <div *ngIf="!answer.user.perfil" class="user-picture background design_user" [style.background-color]="color">
+                                                            <ng-container> {{ getInitials(answer.user.username) }} </ng-container>
+                                                        </div>
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <h5 class="mt-0">{{answer.user.username}}
+                                                            <span class="badge badge-primary">{{answer.user.precision}} P</span>
+                                                            <span class="badge badge-info">{{answer.user.fama}} F</span>
+                                                        </h5>
+                                                        <p>{{answer.contenido}}</p>
+                                                        <p class="text-hint">{{answer.fecha_registro | amTimeAgo}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <ng-template #popContentAnswer>
+                                                <div *ngIf="answer.user">
+                                                    <div class="media">
+                                                        <img *ngIf="answer.user.perfil" class="mr-3" src="{{answer.user.perfil}}" alt="Generic placeholder image">
+                                                        <div *ngIf="!answer.user.perfil" class="user-picture background" [style.background-color]="color">
+                                                            <ng-container>
+                                                                <img src="../../../../assets/images/image.png" alt="">
+                                                            </ng-container>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <h5 class="mt-0 text-center">{{answer.user.username}}</h5>
+                                                            <div class="text-center">
+                                                                <h6>
+                                                                    <span class="badge badge-primary">{{answer.user.precision}} P</span>
+                                                                    <span class="badge badge-info">{{answer.user.fama}} F</span>
+                                                                </h6>
+                                                            </div>
+                                                            <div [(ngModel)]="dividedButtonGroupOne" ngbRadioGroup class="btn-group btn-divided-group btn-outline-divided-group btn-group-full-width col-md-12">
+                                                                <label ngbButtonLabel class="btn btn-outline-primary btn-tn">
+                                                                    <input ngbButton type="radio" value="left"> Mensaje
+                                                                </label>
+                                                                <label ngbButtonLabel class="btn btn-outline-success btn-tn">
+                                                                    <input ngbButton type="radio" value="middle"> Seguir
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="form-group">
+                                    <input class="form-control" id="{{comment.id}}" name="{{i}}" placeholder="Escribe una Respuesta" cols="30" rows="0.5" />
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-tn" (click)="sendAnswer($event)">Responder</button>
+                            </div>
+                        </div>
+                    </div>
                     <nb-card>
                         <nb-card-body>
-                            <form>
+                            <div>
                                 <div class="form-group">
-                                    <textarea class="form-control" placeholder="Escribe un Comentario"></textarea>
+                                    <textarea class="form-control" id="comments" placeholder="Escribe un Comentario" [(ngModel)]="comment.contenido"></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-success pull-right btn-sm">Publicar</button>
-                            </form>
-                            <span class="btn-outline-primary btn-sm">Comentarios</span>
+                                <button type="submit" class="btn btn-success pull-right btn-sm" (click)="sendComment()">Publicar</button>
+                            </div>
                         </nb-card-body>
                     </nb-card>
                 </div>
@@ -186,55 +286,55 @@
 </nb-card>
 <nb-card>
     <nb-card-header>
-            <div class="row">
-                    <div class="col-12 col-md-6">
-                        <div class="dropdown" ngbDropdown>
-                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
-                                Señales
-                            </button>
-                            <ul class="dropdown-menu" ngbDropdownMenu>
-                                <li class="dropdown-item">Icon Button 4</li>
-                                <li class="dropdown-item">Hero Button</li>
-                                <li class="dropdown-item">Default</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="dropdown" ngbDropdown>
-                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
-                                Señales
-                            </button>
-                            <ul class="dropdown-menu" ngbDropdownMenu>
-                                <li class="dropdown-item">Icon Button 4</li>
-                                <li class="dropdown-item">Hero Button</li>
-                                <li class="dropdown-item">Default</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="dropdown" ngbDropdown>
-                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
-                                Tutoriales
-                            </button>
-                            <ul class="dropdown-menu" ngbDropdownMenu>
-                                <li class="dropdown-item">Icon Button 4</li>
-                                <li class="dropdown-item">Hero Button</li>
-                                <li class="dropdown-item">Default</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="dropdown" ngbDropdown>
-                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
-                                Dropdown
-                            </button>
-                            <ul class="dropdown-menu" ngbDropdownMenu>
-                                <li class="dropdown-item">Icon Button 4</li>
-                                <li class="dropdown-item">Hero Button</li>
-                                <li class="dropdown-item">Default</li>
-                            </ul>
-                        </div>
-                    </div>
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="dropdown" ngbDropdown>
+                    <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+                        Señales
+                    </button>
+                    <ul class="dropdown-menu" ngbDropdownMenu>
+                        <li class="dropdown-item">Icon Button 4</li>
+                        <li class="dropdown-item">Hero Button</li>
+                        <li class="dropdown-item">Default</li>
+                    </ul>
                 </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="dropdown" ngbDropdown>
+                    <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+                        Señales
+                    </button>
+                    <ul class="dropdown-menu" ngbDropdownMenu>
+                        <li class="dropdown-item">Icon Button 4</li>
+                        <li class="dropdown-item">Hero Button</li>
+                        <li class="dropdown-item">Default</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="dropdown" ngbDropdown>
+                    <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+                        Tutoriales
+                    </button>
+                    <ul class="dropdown-menu" ngbDropdownMenu>
+                        <li class="dropdown-item">Icon Button 4</li>
+                        <li class="dropdown-item">Hero Button</li>
+                        <li class="dropdown-item">Default</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="dropdown" ngbDropdown>
+                    <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+                        Dropdown
+                    </button>
+                    <ul class="dropdown-menu" ngbDropdownMenu>
+                        <li class="dropdown-item">Icon Button 4</li>
+                        <li class="dropdown-item">Hero Button</li>
+                        <li class="dropdown-item">Default</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </nb-card-header>
 </nb-card>
