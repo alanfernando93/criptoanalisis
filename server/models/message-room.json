@@ -20,7 +20,7 @@
   },
   "validations": [],
   "relations": {
-    "usuario": {
+    "sender": {
       "type": "belongsTo",
       "model": "usuario"
     }

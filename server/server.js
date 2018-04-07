@@ -19,10 +19,18 @@ app.start = function() {
 };
 // Bootstrap the application, configure models, datasources and middleware.
 // Sub-apps like REST API are mounted via boot scripts.
-function countWords(mensaje) {
-  return mensaje.length;
+// devuelve el monto a cobrarse sin contar palabras de dos letras
+function countWords(message) {
+  var x = message.split(' ');
+  var monto = 0;
+  x.forEach(element => {
+    if (element.length > 2) {
+      monto += element.length * 0.3;
+    }
+  });
+  return monto;
 }
-
+// modifica los puntos de un usuario de acuerdo a lo gastado
 function modPuntos(id, monto) {
   app.models.usuario.findById(id)
   .then(data=>{
@@ -32,28 +40,74 @@ function modPuntos(id, monto) {
     });
   });
 }
-
-function verifica(senderId, receptorId, message) {
-  var costo = message.length;
-  console.log(costo + ' palabras enviadas con un costo de ' + costo * 0.3);
-  return app.models.usuario.findById(senderId)
-  .then(data=>{
-    console.log(data.puntos);
-    if (data.puntos > costo * 0.3) {
-      modPuntos(senderId, -(costo * 0.3));
+// realiza la transaccion de dinero en caso de ser el receptor
+function transfiere(senderId, receptorId, type, costo) {
+  // obtencion de una tranzaccion activa entre los usuarios
+  app.models.transaccion.find({
+    where: {and: [{or:
+    [{and: [
+      {senderId: senderId},
+      {recieverId: receptorId},
+    ]}, {and: [
+      {senderId: receptorId},
+      {recieverId: senderId},
+    ]}],
+    }, {activo: true}]},
+  }).then(transfer=>{
+    // obtencion del solicitante y aumento de creditos en caso verdadero
+    if (transfer.length > 0) {
+      modPuntos(senderId, -costo);
+      if (senderId == transfer[0].senderId) {
+      // flujo de aumento de creditos
+        app.models.transaccion.updateAll({id: transfer[0].id},
+           {monto: transfer[0].monto + costo});
+      } else {
+        console.log('el mensaje es gratuito');
+      };
+    } else {
       app.models.transaccion.create([{
-        tipo: 'pay',
-        monto: costo * 0.3,
+        tipo: type,
+        monto: costo,
         senderId: senderId,
         recieverId: receptorId,
+        activo: true,
       }], (err, data)=>{
-        modPuntos(receptorId, costo * 0.3);
+        console.log('transferido', data);
       });
-      return true;
-    }
-    return false;
+    };
   });
 }
+// chat gratis usuario (tipo objeto)
+function chatGratis(usuario, idchat, path) {
+  app.models.solicitud.find({
+    where: {and: [{or:
+    [{and: [
+        {senderId: usuario.senderId},
+        {recieverId: usuario.receptorId},
+    ]}, {and: [
+        {senderId: usuario.receptorId},
+        {recieverId: usuario.senderId},
+    ]}],
+    }, {activo: true}, {aceptacion: true}]},
+  }).then(data=>{
+    console.log(data);
+    if (data.length > 0) {
+      sendmessage(usuario, idchat, path);
+    } else {
+      path.to(idchat).emit('fail', {'message': 'la solicitud caduco o aun no esta aceptada'});
+    }
+  });
+}
+function sendmessage(message, idchat, path) {
+  app.models.userMessage.create({
+    'idProper': idchat,
+    'message': message.message,
+    'senderId': message.senderId,
+    'recieverId': message.receptorId,
+  }).then(data=>{
+    path.to(idchat).emit('user says', message);
+  });
+};
 
 boot(app, __dirname, function(err) {
   if (err) throw err;
@@ -77,41 +131,53 @@ boot(app, __dirname, function(err) {
       socket.on('room message', message => {
         app.models.messageRoom.create([
           {
-            'usuarioId': message.usuarioId,
+            'senderId': message.usuarioId,
             'message': message.message,
             'RoomId': message.room,
           },
         ]).then(mensaje=>{
           console.log('mensaje insertado:', mensaje);
           app.models.usuario.findById(message.usuarioId).then(resp=>{
-            message.username = resp.username;
-            app.io.to(message.room).emit('user says', message);
+            mensaje.username = resp.username;
+            app.io.to(message.room).emit('user says', mensaje[0]);
           });
         });
       });
       socket.on('personal message', message => {
-        var idChat;
+        var idChat, costo;
         (message.senderId > message.receptorId) ? idChat = message.receptorId * 10 + message.senderId : idChat = message.senderId * 10 + message.receptorId;
-        console.log(idChat);
-        console.log(message);
-        if (verifica(message.senderId, message.receptorId, message.message)) {
-          app.models.userMessage.create([
-            {
-              'idProper': idChat,
-              'message': message.message,
-              'senderId': message.senderId,
-              'recieverId': message.receptorId,
-            },
-          ]).then(mensaje=>{
-            console.log('mensaje insertado:', mensaje);
-            app.models.usuario.findById(message.senderId).then(resp=>{
-              message.username = resp.username;
-              app.io.to(idChat).emit('user says', message);
-            });
-          });
-        } else {
-          console.log('no tiene saldo suficiente ');
-        }
+        costo = countWords(message.message);
+        console.log('tendra un costo de ', costo);
+        app.models.usuario.findById(message.senderId, {
+          fields: {id: true, username: true, puntos: true},
+        }, (err, sender)=> {
+          if (message.chatType === 'free') {
+            // flujo en caso de chat gratuito
+            chatGratis({
+              message: message.message,
+              senderId: message.senderId,
+              username: sender.username,
+              hora: Date.now(),
+              costo: costo,
+            }, idChat, app.io);
+          } else {
+            // flujo en caso de chat de paga
+            if (sender.puntos >= costo && costo > 0) {
+              transfiere(message.senderId, message.receptorId, 'pay', costo);
+              sendmessage({
+                message: message.message,
+                senderId: message.senderId,
+                username: sender.username,
+                hora: Date.now(),
+                costo: costo,
+              }, idChat, app.io);
+            } else {
+              app.io.to(idChat).emit('fail', {
+                'message': 'no tiene saldo suficiente para enviar este mensaje',
+              });
+            }
+          }
+        });
       });
       socket.on('disconnect', () => {
         console.log('Ha salido un usuario del Chat');

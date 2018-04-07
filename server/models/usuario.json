@@ -110,6 +110,18 @@
       "model": "usuario",
       "foreignKey": "recieverId",
       "through": "transaccion"
+    },
+    "Solsender": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignKey": "senderId",
+      "through": "solicitud"
+    },
+    "Solreciever": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignKey": "recieverId",
+      "through": "solicitud"
     }
   },
   "acls": [
