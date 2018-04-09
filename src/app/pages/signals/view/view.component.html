@@ -170,10 +170,14 @@
                                 <ng-template #popContentComment>
                                     <div *ngIf="comment.user">
                                         <div class="media">
-                                            <img class="mr-3" src="{{comment.user.perfil}}" alt="Generic placeholder image">
+                                            <img *ngIf="comment.user.perfil" class="mr-3" src="{{comment.user.perfil}}" alt="">
+                                            <div *ngIf="!comment.user.perfil" class="user-picture background" [style.background-color]="color">
+                                                <ng-container>
+                                                    <img src="../../../../assets/images/image.png" alt="">
+                                                </ng-container>
+                                            </div>
                                             <div class="media-body">
-                                                <h5 class="mt-0 text-center">{{comment.user.username}}
-                                                </h5>
+                                                <h5 class="mt-0 text-center">{{comment.user.username}}</h5>
                                                 <div class="text-center">
                                                     <h6>
                                                         <span class="badge badge-primary font-w-light">{{comment.user.precision}} P</span>
@@ -263,7 +267,7 @@
                             </div>
                             <div class="card-footer">
                                 <div class="form-group">
-                                    <input class="form-control" id="{{comment.id}}" name="{{i}}" placeholder="Escribe una Respuesta" cols="30" rows="0.5" />
+                                    <input class="form-control" id="{{comment.id}}" name="answer" placeholder="Escribe una Respuesta" cols="30" rows="0.5" required="required"/>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-tn" (click)="sendAnswer($event)">Responder</button>
                             </div>
@@ -271,11 +275,18 @@
                     </div>
                     <nb-card>
                         <nb-card-body>
-                            <div>
-                                <div class="form-group">
-                                    <textarea class="form-control" id="comments" placeholder="Escribe un Comentario" [(ngModel)]="comment.contenido"></textarea>
+                            <div class="form-group">
+                                <textarea class="form-control" #contenido="ngModel" placeholder="Escribe un Comentario" [(ngModel)]="comment.contenido" minlength="4"></textarea>
+                                <br>
+                                <div *ngIf="contenido.invalid && (contenido.dirty || contenido.touched)" class="alert alert-danger">
+                                    <span *ngIf="contenido.errors.required">
+                                        El comentario no puede estar vacio.
+                                    </span>
+                                    <span *ngIf="contenido.errors.minlength">
+                                        El comentario debe tener al menos 4 caracteres.
+                                    </span>
                                 </div>
-                                <button type="submit" class="btn btn-success pull-right btn-sm" (click)="sendComment()">Publicar</button>
+                                <button type="submit" [disabled]="submitted || !contenido.valid" [class.btn-pulse]="submitted" class="btn btn-success pull-right btn-sm" (click)="sendComment()">Publicar</button>
                             </div>
                         </nb-card-body>
                     </nb-card>

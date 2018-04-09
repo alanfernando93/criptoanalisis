@@ -32,8 +32,8 @@ export class ViewComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private signalsService: SignalsService,
-    private userService: UserService,) {
-    }
+    private userService: UserService, ) {
+  }
 
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
@@ -134,8 +134,8 @@ export class ViewComponent implements OnInit {
 
   getInitials(name) {
     if (name) {
-        var names = name.split(' ');
-        return names.map(function (n) { return n.charAt(0); }).splice(0, 2).join('').toUpperCase();
+      var names = name.split(' ');
+      return names.map(function (n) { return n.charAt(0); }).splice(0, 2).join('').toUpperCase();
     }
     return '';
   }

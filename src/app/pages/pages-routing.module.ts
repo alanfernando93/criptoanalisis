@@ -14,9 +14,12 @@ const routes: Routes = [{
    children: [{
        path:'chat',
        component:ChatComponent,
-   },{
+   }, {
       path: 'dashboard',
       component: DashboardComponent,
+   }, {
+      path: 'publish',
+      component: PublishComponent,
    }, {
       path: 'ui-features',
       loadChildren: './ui-features/ui-features.module#UiFeaturesModule',
