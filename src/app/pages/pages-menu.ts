@@ -123,6 +123,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'List advisory',
         link: '/pages/advisories/list',
       },
+      {
+        title: 'Tab advisory',
+        link: '/pages/advisories/tab',
+      }
     ],
   },{
     title: 'Markets',
