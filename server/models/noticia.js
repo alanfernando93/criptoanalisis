@@ -14,25 +14,25 @@ var _async2 = _interopRequireDefault(_async);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-module.exports = function(Noticia, ctx, ctx2) {
+module.exports = function (Noticia, ctx, ctx2) {
 
-  Noticia.upload = function(req, res, cb) {
+  Noticia.upload = function (req, res, cb) {
     var Container = Noticia.app.models.Container;
     var id = req.params.id;
-    Container.createContainer({name: 'news' + id}, function(err, c) {
-      Container.upload(req, res, {container: 'news' + id}, cb);
+    Container.createContainer({ name: 'news' + id }, function (err, c) {
+      Container.upload(req, res, { container: 'news' + id }, cb);
     });
   };
 
   Noticia.remoteMethod(
-       'upload',
+    'upload',
     {
-      http: {path: '/:id/upload', verb: 'post'},
+      http: { path: '/:id/upload', verb: 'post' },
       accepts: [
-           {arg: 'req', type: 'object', 'http': {source: 'req'}},
-           {arg: 'res', type: 'object', 'http': {source: 'res'}},
+        { arg: 'req', type: 'object', 'http': { source: 'req' } },
+        { arg: 'res', type: 'object', 'http': { source: 'res' } },
       ],
-      returns: {arg: 'status', type: 'string'},
+      returns: { arg: 'status', type: 'string' },
     }
   );
 
@@ -159,5 +159,18 @@ module.exports = function(Noticia, ctx, ctx2) {
       return next(new HttpErrors.BadRequest('El contenido debe tener como maximo 5000 caracteres'));
     }
     next();
+  });
+
+  Noticia.afterRemote('create', (ctx, user, next) => {
+    let userNews = ctx.result.usuarioId;
+    Noticia.app.models.usuario.findById(userNews)
+      .then(data => {
+        Noticia.app.models.usuario.updateAll(
+          {id: userNews}, {puntos: data.puntos + 1})
+          .then(data => {
+            console.log('cambiado');
+            next();
+          });
+      });
   });
 };
