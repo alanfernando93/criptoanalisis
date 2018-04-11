@@ -43,7 +43,8 @@
       "default": "$now"
     },
     "estado": {
-      "type": "Boolean"
+      "type": "string",
+      "default": "pasivo"
     },
     "visible": {
       "type": "Boolean"
@@ -55,12 +56,6 @@
       "type": "belongsTo",
       "model": "usuario",
       "foreignKey": ""
-    },
-    "likes": {
-      "type": "hasMany",
-      "model": "usuario",
-      "foreignKey": "SignalId",
-      "through": "LikeSignal"
     },
     "puntos": {
       "type": "hasMany",
