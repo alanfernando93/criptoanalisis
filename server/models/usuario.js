@@ -145,27 +145,21 @@ module.exports = function (Usuario) {
             name: coinType,
           },
         }, (err, moneda) => {
-          if (data.fama != null){
-            var fama = data.fama.find(element => {
-              return element.name == moneda.name ? element : null;
-            });
-            console.log(fama);
-            if (fama) {
-              fama.valor += 1;
-            } else {
-              data.fama.push({ 'name': moneda.name, 'valor': 1 });
-            }
+          if (data.fama == null) {
+            data.fama = [{id: moneda[0].id, valor: 5}];
           } else {
-            fama = [{'name': moneda.name, 'valor': 1}];
+            var element = data.fama.find(element => element.id === moneda[0].id);
+            if (element === undefined)
+              data.fama.push({id: moneda[0].id, valor: 5});
+            else
+              data.fama[data.fama.indexOf(element)].valor += 5;
           }
-          
-          console.log(data);
-          // tratar array
-          Usuario.updateAll({ id: userId }, {
-            puntos: data.puntos + punto, fama: data.fama,
-          })
-            .then(data => {
-            });
+
+          Usuario.updateAll({id: userId}, {
+            puntos: data.puntos + punto,
+            fama: data.fama,
+          }).then(data => {
+          });
         });
       });
   };
