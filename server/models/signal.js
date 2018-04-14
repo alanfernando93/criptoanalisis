@@ -156,6 +156,5 @@ module.exports = function (Signal, ctx, ctx2) {
       returns: {arg: 'status', type: 'string'},
     }
   );
-
 };
 
