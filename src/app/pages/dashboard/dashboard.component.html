@@ -12,13 +12,13 @@
                 <p class="badge badge-success font-w-light user">{{content.fama}} F</p>
               </div>
             </a>
-            <img src="../../../assets/images/kitten-cosmic.png" alt="Random first slide">
+            <img src="../../../assets/images/camera1.jpg" alt="Random first slide">
           </ng-template>
         </ngb-carousel>
       </div>
       <div class="col-12 col-md-6" *ngIf="signals ; else otroTexto">
         <div class="list-group" *ngFor="let signals of signals">
-          <div class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let content of signals.contentUser" >
+          <div class="list-group-item list-group-item-action flex-column align-items-start" >
             <div class="d-flex w-100 justify-content-between">
               <a [routerLink]="['/pages/signals/view', signals.id]" class="flex-column align-items-start">
                 <div *ngIf="signals.tipo == true; else otro">
@@ -34,9 +34,12 @@
               </a>
               <small class="text-muted">{{signals.FechaCreate | amTimeAgo}}</small>
             </div>
-            <small class="text-muted">{{content.username}}</small>
-            <p class="badge badge-primary font-w-light user">{{content.precision}} P</p>
-            <p class="badge badge-success font-w-light user">{{content.puntos}} P</p>
+           <!--<div *ngFor="let content of signals.contentUser">
+              <small class="text-muted">{{content.username}}</small>
+              <p class="badge badge-primary font-w-light user">{{content.precision}} P</p>
+              <p class="badge badge-success font-w-light user">{{content.puntos}} P</p>
+            </div>
+          -->
           </div>
         </div>
       </div>

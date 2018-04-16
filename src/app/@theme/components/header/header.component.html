@@ -1,4 +1,5 @@
 <div class="header-container left">
+        <toaster-container [toasterconfig]="config"></toaster-container>
         <div class="logo-containter">
             <a (click)="toggleSidebar()" href="#" class="navigation d-block d-sm-block d-md-block d-lg-none">
                 <i class="nb-menu"></i>
@@ -30,8 +31,26 @@
     <nb-action class="d-sm-none d-md-block">
         <nb-user [menu]="userMenu" [name]="user?.username" [picture]="user?.perfil" (menuClick)="logout()"></nb-user>
     </nb-action>
-    <nb-action class="control-item" icon="nb-notifications"></nb-action>
-    <nb-action class="control-item" icon="nb-email"></nb-action>
+    <nb-action class="control-item" [ngbPopover]="notification" placement="bottom">
+    <!-- <span class="counter">10</span> -->
+    <h2>
+        <i class ="nb-notifications"></i>
+    </h2>
+    <ng-template #notification>
+        <div *ngFor="let not of notifications">
+            <nb-card>
+                <nb-user [picture]="not.picture" [name]="not.username" [title]="not.tipo">
+                </nb-user>  
+            </nb-card>
+ 
+        </div>
+    </ng-template>
+    </nb-action>
+    <nb-action>
+        <h2>
+            <i class ="nb-email"></i>
+        </h2>
+    </nb-action>
     <nb-action>
         <span class="badge badge-default">2 $CA</span>
     </nb-action>
@@ -52,3 +71,4 @@
     </div>
   </nb-action>
 </nb-actions>
+

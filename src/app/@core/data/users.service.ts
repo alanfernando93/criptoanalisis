@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Http } from "@angular/http";
-
+import {Socket} from 'ng-socket-io';
 import { Session } from "./session"
 
 import { environment } from "../../../environments/environment";
@@ -16,6 +16,7 @@ export class UserService extends Session{
 
   constructor(
     private http: Http,
+    private socket: Socket
   ) { super() }
 
   getById(id) {
@@ -50,6 +51,20 @@ export class UserService extends Session{
 
   getAuth() {
     return "?access_token=" + this.getToken()
+  }
+  connect(){
+    this.socket.emit('join', this.getUserId());
+  }
+  Request(){
+    let observable = new Observable(observer =>{
+      this.socket.on('request', (data)=>{
+        observer.next(data);
+      });
+      return ()=>{
+        this.socket.disconnect();
+      }
+    })
+    return observable;
   }
   
 }

@@ -2,6 +2,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToasterModule } from 'angular2-toaster';
 
 import {
   NbActionsModule,
@@ -31,7 +32,7 @@ import {
 } from './layouts';
 import { DEFAULT_THEME } from './styles/theme.default';
 
-const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
+const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule, ToasterModule];
 
 const NB_MODULES = [
   NbCardModule,
