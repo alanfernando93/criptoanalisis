@@ -13,9 +13,14 @@ export class SignalsService extends Session {
     constructor(private http: Http) {
         super()
     }
-
+    
     getAll() {
         return this.http.get(this.baseUrl + 'signals' + '?access_token=' + this.getToken())
+            .map((res: Response) => res.json())
+    }
+
+    getAllLimit(count, inc) {
+        return this.http.get(this.baseUrl + 'signals' + '?access_token=' + this.getToken() + '&filter[order]=FechaCreate%20DESC&filter[limit]=' + count +'&filter[skip]='+ inc )
             .map((res: Response) => res.json())
     }
 

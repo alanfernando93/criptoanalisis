@@ -14,10 +14,15 @@ export class NewsService extends Session{
   constructor(private http: Http) {
     super()
   }
-  
+
   getAll() {
     return this.http.get(this.baseUrl + 'noticias')
       .map((res: Response) => res.json());
+  }
+
+  getAllLimit(count, inc) {
+    return this.http.get(this.baseUrl + 'noticias' + '?filter[order]=fecha_create%20DESC&filter[limit]=' + count +'&filter[skip]='+ inc)
+        .map((res: Response) => res.json());
   }
 
   getById(id) {
@@ -32,7 +37,8 @@ export class NewsService extends Session{
 
   insert(body) {
     body.usuarioId = this.getUserId();
-    return this.http.post(this.baseUrl + 'noticias', body).map((res: Response) => res.json());
+    return this.http.post(this.baseUrl + 'noticias', body)
+    .map((res: Response) => res.json());
   }
 
   postNews(id) {

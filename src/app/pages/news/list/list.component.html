@@ -8,17 +8,17 @@
 <nb-card *ngFor="let news of news">
   <nb-card-header>
     <div class="row" *ngFor="let content of news.contentUser">
-      <div class="col-12 col-md-2">
-        <nb-user [menu]="" [name]="content?.username" [picture]="content?.perfil" ></nb-user>  
+      <div class="col-5 col-md-2">
+        <nb-user [menu]="" [name]="content?.username" [picture]="content?.perfil" ></nb-user>
       </div>
-      <div class="col-4 col-md-1">
+      <div class="col-3 col-md-1">
         <h5>
-          <span class="badge badge-primary font-w-light user">{{content.precision}} P</span>
+          <span class="badge badge-primary font-w-light user">{{content.puntos}} P</span>
         </h5>
       </div>
-      <div class="col-8 col-md-9">
+      <div class="col-4 col-md-9">
         <h5>
-          <span class="badge badge-info font-w-light user">{{content.fama}} F</span>
+          <span class="badge badge-info font-w-light user">56 F</span>
         </h5>
       </div>
     </div>
@@ -31,7 +31,7 @@
         </h5>
       </div>
       <div class="col-md-2">
-        <img src="../../../assets/images/cover1.jpg" class="img-thumbnail" alt="Responsive image" width="" height="">
+        <img src="../../../assets/images/cover1.jpg" class="img-thumbnail" alt="Responsive image">
       </div>
     </div>
   </nb-card-body>
@@ -55,4 +55,13 @@
       </div>
     </div>
   </nb-card-footer>
+</nb-card>
+<nb-card>
+  <nb-card-body>
+    <div class="row block-level-buttons">
+      <div class="col-md-12">
+        <button type="button" class="btn btn-outline-primary btn-block" (click)="Upload()">Ver mas</button>
+      </div>
+    </div>
+  </nb-card-body>
 </nb-card>

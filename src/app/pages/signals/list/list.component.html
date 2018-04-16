@@ -16,14 +16,14 @@
                 <nb-user [menu]="" [name]="content?.username" [picture]="content?.perfil"></nb-user>
               </div>
               <div class="col-3 col-md-2">
-                <h5>
+                <h6>
                   <span class="badge badge-primary font-w-light user">{{content.precision}} P</span>
-                </h5>
+                </h6>
               </div>
               <div class="col-3 col-md-5">
-                <h5>
+                <h6>
                   <span class="badge badge-info font-w-light user">{{content.fama}} F</span>
-                </h5>
+                </h6>
               </div>
             </div>
           </div>
@@ -71,3 +71,12 @@
     </nb-card>
   </div>
 </div>
+<nb-card>
+  <nb-card-body>
+    <div class="row block-level-buttons">
+      <div class="col-md-12">
+        <button type="button" class="btn btn-outline-primary btn-block" (click)="Upload()">Ver mas</button>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

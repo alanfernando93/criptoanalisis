@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
   getNews() {
     this.newsService.getAll().subscribe(
       news => {
-        news ? this.news = news : '';
+        news ? this.news = news : {};
         this.news.forEach((element, index) => {
           let newsId = this.news[index].id;
           this.newsService.getUserByNews(newsId).subscribe(data => {
@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
   getSignals() {
     this.signalsService.getAll().subscribe(
       signals => {
-        signals ? this.signals = signals : '';
+        signals ? this.signals = signals : {};
         this.signals.forEach((element, index) => {
           let signalId = this.signals[index].id;
           this.signalsService.getUserBySignal(signalId).subscribe(data => {

@@ -12,6 +12,8 @@ export class ListComponent implements OnInit {
 
   signals: any;
   count: any;
+  limit: number = 10;
+  increment: number = 0;
 
   constructor(
     private http: Http,
@@ -21,9 +23,9 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     this.getSignals();
   }
-  
+
   getSignals() {
-    this.signalsService.getAll().subscribe(data => {
+    this.signalsService.getAllLimit(this.limit, this.increment).subscribe(data => {
       data ? this.signals = data : '';
       this.signals.forEach((element, index) => {
         let signalId = this.signals[index].id;
@@ -36,6 +38,26 @@ export class ListComponent implements OnInit {
           })
         });
       });
+
+      this.increment += this.limit;
+    });
+  }
+
+  Upload() {
+    this.signalsService.getAllLimit(this.limit, this.increment).subscribe(data => {
+      data.forEach(element => {
+        let idSignal = element.id;
+        this.signalsService.getUserBySignal(idSignal).subscribe(data => {
+          element.contentUser = [];
+          element.contentUser.push(data);
+          this.signalsService.getSignalsCommentCount(idSignal).subscribe(data => {
+            element.count = [];
+            element.count.push(data);
+          });
+        });
+        this.signals.push(element);
+      });
+      this.increment += this.limit;
     });
   }
 

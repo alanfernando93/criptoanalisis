@@ -12,19 +12,21 @@ import { UserService } from "../../../@core/data/users.service";
 export class ListComponent implements OnInit {
 
   news: any;
+  limit: number = 10;
+  increment: number = 0;
 
   constructor(
     private http: Http,
     private newsService: NewsService
   ) { }
-    
+
   ngOnInit() {
     this.getNews();
   }
 
   getNews() {
-    this.newsService.getAll().subscribe(data => {
-      data ? this.news = data : '';
+    this.newsService.getAllLimit(this.limit, this.increment).subscribe(data => {
+      data ? this.news = data : {};
       this.news.forEach((element, index) => {
         let newsId = this.news[index].id;
         this.newsService.getUserByNews(newsId).subscribe(data => {
@@ -36,6 +38,25 @@ export class ListComponent implements OnInit {
           });
         });
       });
+      this.increment += this.limit;
+    });
+  }
+
+  Upload() {
+    this.newsService.getAllLimit(this.limit, this.increment).subscribe(data => {
+      data.forEach(element => {
+        let idNews = element.id;
+        this.newsService.getUserByNews(idNews).subscribe(data => {
+          element.contentUser = [];
+          element.contentUser.push(data);
+          this.newsService.getNewsCommentCount(idNews).subscribe(data => {
+            element.count = [];
+            element.count.push(data);
+          });
+        });
+        this.news.push(element);
+      });
+      this.increment += this.limit;
     });
   }
 
