@@ -126,7 +126,7 @@
       </div>
     </nb-card>
    </nb-tab>
-  <nb-tab tabTitle="mis Asesorias">
+  <nb-tab tabTitle="mis Asesorias" *ngIf="user">
       <nb-card>
           <div class="row">
             <div class="col-12">
@@ -249,7 +249,7 @@
           </div>
         </nb-card>
   </nb-tab>
-  <nb-tab tabTitle="not">
+  <nb-tab tabTitle="not" *ngIf="user">
     <span>Content #3</span>
   </nb-tab>
 </nb-tabset>
