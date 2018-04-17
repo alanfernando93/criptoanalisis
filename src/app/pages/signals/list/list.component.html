@@ -12,7 +12,7 @@
         <div class="card">
           <div class="card-header">
             <div class="row" *ngFor="let content of signal.contentUser">
-              <div class="col-6 col-md-5">
+              <div class="col-6 col-md-4">
                 <nb-user [menu]="" [name]="content?.username" [picture]="content?.perfil"></nb-user>
               </div>
               <div class="col-3 col-md-2">
@@ -20,9 +20,9 @@
                   <span class="badge badge-primary font-w-light user">{{content.precision}} P</span>
                 </h6>
               </div>
-              <div class="col-3 col-md-5">
+              <div class="col-3 col-md-1" *ngFor="let famaUser of content.fama">
                 <h6>
-                  <span class="badge badge-info font-w-light user">{{content.fama}} F</span>
+                  <span class="badge badge-info font-w-light user">{{famaUser.valor}} {{famaUser.symbol}}</span>
                 </h6>
               </div>
             </div>

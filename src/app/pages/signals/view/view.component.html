@@ -1,17 +1,17 @@
 <nb-card>
     <nb-card-header>
         <div class="row" *ngIf="contentUser">
-            <div class="col-12 col-md-4">
+            <div class="col-6 col-sm-9 col-md-2">
                 <nb-user [menu]="" [name]="contentUser?.username" [picture]="contentUser?.perfil"></nb-user>
             </div>
-            <div class="col-4 col-md-2">
+            <div class="col-3 col-sm-4 col-md-1">
                 <h5>
-                    <span class="badge badge-primary font-w-light user">{{contentUser.precision}} P</span>
+                    <span class="badge badge-primary font-w-light user_data">{{contentUser.precision}} P</span>
                 </h5>
             </div>
-            <div class="col-8 col-md-6">
+            <div class="col-3 col-sm-4 col-md-1" *ngFor="let famaUser of contentUser.fama">
                 <h5>
-                    <span class="badge badge-info font-w-light user">{{contentUser.fama}} F</span>
+                    <span class="badge badge-info font-w-light user_data">{{famaUser.valor}} {{famaUser.symbol}}</span>
                 </h5>
             </div>
         </div>

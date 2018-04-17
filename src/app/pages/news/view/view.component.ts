@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { NewsService } from '../news.service';
 import { UserService } from '../../../@core/data/users.service';
+import { CoinsService } from '../../../pages/coins/coins.service';
 import * as nbUser from '@nebular/theme/components/user/user.component'
 
 @Component({
@@ -30,6 +31,7 @@ export class ViewComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private newsService: NewsService,
+    private coinsService: CoinsService,
     private userService: UserService) {
   }
   ngOnInit() {
@@ -71,7 +73,7 @@ export class ViewComponent implements OnInit {
 
   getCommentWithUser() {
     this.newsService.getNewsComment(this.idNews).subscribe(data => {
-      data ? this.commentById = data : '';
+      data ? this.commentById = data : {};
       this.commentById.forEach((element, index) => {
         let userByComment = this.commentById[index].userId;
         this.userService.getById(userByComment).subscribe(data => {
@@ -90,7 +92,7 @@ export class ViewComponent implements OnInit {
 
   getNewsWithUser() {
     this.newsService.getUserByNews(this.idNews).subscribe(data => {
-      this.contentUser = data;
+      data ? this.contentUser = data : {};
     });
   }
 
@@ -132,8 +134,8 @@ export class ViewComponent implements OnInit {
 
   getInitials(name) {
     if (name) {
-        var names = name.split(' ');
-        return names.map(function (n) { return n.charAt(0); }).splice(0, 2).join('').toUpperCase();
+      var names = name.split(' ');
+      return names.map(function (n) { return n.charAt(0); }).splice(0, 2).join('').toUpperCase();
     }
     return '';
   }

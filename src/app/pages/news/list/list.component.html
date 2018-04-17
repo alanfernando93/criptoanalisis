@@ -16,9 +16,9 @@
           <span class="badge badge-primary font-w-light user">{{content.puntos}} P</span>
         </h5>
       </div>
-      <div class="col-4 col-md-9">
+      <div class="col-4 col-md-1" *ngFor="let famaUser of content.fama">
         <h5>
-          <span class="badge badge-info font-w-light user">56 F</span>
+          <span class="badge badge-info font-w-light user">{{famaUser.valor}} {{famaUser.symbol}}</span>
         </h5>
       </div>
     </div>
