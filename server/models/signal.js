@@ -6,9 +6,10 @@ var _assign = require('babel-runtime/core-js/object/assign');
 var _assign2 = _interopRequireDefault(_assign);
 var _async = require('async');
 var _async2 = _interopRequireDefault(_async);
+var _variable = require('../variable');
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-module.exports = function (Signal, ctx, ctx2) {
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : {default: obj}; }
+module.exports = (Signal, ctx, ctx2) => {
   const HttpErrors = require('http-errors');
   // ctx para dislike
   ctx = (0, _assign2.default)({
@@ -20,7 +21,7 @@ module.exports = function (Signal, ctx, ctx2) {
   }, ctx);
 
   // agregando propiedad dislike a noticia
-  Signal.defineProperty(ctx.dislikes, { type: Object, default: { total: 0, users: [] } });
+  Signal.defineProperty(ctx.dislikes, {type: Object, default: {total: 0, users: []}});
 
   // dislike metodo remoto
   Signal[ctx.method] = (id, userId, finish) => {
@@ -74,42 +75,41 @@ module.exports = function (Signal, ctx, ctx2) {
 
   // Endpoint settings
   Signal.remoteMethod(ctx.method, {
-    accepts: [{ arg: 'id', type: 'string', required: true }, { arg: 'userId', type: 'string', required: true }],
-    returns: { root: true, type: 'object' },
-    http: { path: ctx.endpoint, verb: 'get' },
+    accepts: [{arg: 'id', type: 'string', required: true}, {arg: 'userId', type: 'string', required: true}],
+    returns: {root: true, type: 'object'},
+    http: {path: ctx.endpoint, verb: 'get'},
     description: ctx.description,
   });
 
   // hook para quitar dislike si le damos like
   Signal.afterRemote('like', (ctx, signal, next) => {
-
     var idn = ctx.req.params.id;
-    var id_user = ctx.req.query.userId;
-    var index = ctx.result.dislikes.users.indexOf(id_user);
+    var idUser = ctx.req.query.userId;
+    var index = ctx.result.dislikes.users.indexOf(idUser);
     if (index > -1) {
       var d = ctx.result.dislikes.users.splice(index, 1);
       var d2 = ctx.result.dislikes.total = ctx.result.dislikes.total - 1;
       var d = ctx.result.dislikes;
-      ctx.method.ctor.dislike(idn, id_user);
-
+      ctx.method.ctor.dislike(idn, idUser);
     }
+    signal.app.models.usuario.famaUser(idUser, _variable.rpl, idUser);
     next();
   });
 
   // hook para quitar like si le damos dislike
 
   Signal.afterRemote('dislike', (ctx, signal, next) => {
-
     var idn = ctx.req.params.id;
-    var id_user = ctx.req.query.userId;
-
-    var index = ctx.result.likes.users.indexOf(id_user);
+    var idUser = ctx.req.query.userId;
+    var coinNews = ctx.req.query.tipo_moneda;
+    var index = ctx.result.likes.users.indexOf(idUser);
 
     if (index > -1) {
       ctx.result.likes.users.splice(index, 1);
       ctx.result.likes.total = ctx.result.likes.total - 1;
-      ctx.method.ctor.like(idn, id_user);
+      ctx.method.ctor.like(idn, idUser);
     }
+    signal.app.models.usuario.famaUser(idUser, _variable.rpd, coinNews);
     next();
   });
 
@@ -133,8 +133,8 @@ module.exports = function (Signal, ctx, ctx2) {
   };
 
   Signal.remoteMethod('verGratis', {
-    returns: { arg: 'señales', type: 'array' },
-    http: { path: '/ver_Gratis', verb: 'get' },
+    returns: {arg: 'señales', type: 'array'},
+    http: {path: '/ver_Gratis', verb: 'get'},
   });
 
   Signal.upload = function(req, res, cb) {
@@ -156,5 +156,12 @@ module.exports = function (Signal, ctx, ctx2) {
       returns: {arg: 'status', type: 'string'},
     }
   );
+
+  Signal.afterRemote('create', (ctx, user, next) => {
+    let userId = ctx.result.usuarioId;
+    let coinSignal = ctx.result.tipo_moneda;
+    Signal.app.models.usuario.famaUser(userId, _variable.rps, coinSignal);
+    next();
+  });
 };
 

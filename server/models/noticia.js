@@ -12,10 +12,13 @@ var _async = require('async');
 
 var _async2 = _interopRequireDefault(_async);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : {default: obj}; }
+var _variable = require('../variable');
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {default: obj};
+}
 
 module.exports = (Noticia, ctx, ctx2) => {
-
   Noticia.upload = (req, res, cb) => {
     var Container = Noticia.app.models.Container;
     var id = req.params.id;
@@ -47,7 +50,7 @@ module.exports = (Noticia, ctx, ctx2) => {
   }, ctx);
 
   //agregando propiedad dislike a noticia
-  Noticia.defineProperty(ctx.dislikes, { type: Object, default: { total: 0, users: [] } });
+  Noticia.defineProperty(ctx.dislikes, {type: Object, default: {total: 0, users: []}});
 
   //dislike metodo remoto
   Noticia[ctx.method] = (id, userId, finish) => {
@@ -108,31 +111,31 @@ module.exports = (Noticia, ctx, ctx2) => {
 
   //hook para quitar dislike si le damos like
   Noticia.afterRemote('like', (ctx, noticia, next) => {
-
     var idn = ctx.req.params.id;
-    var id_user = ctx.req.query.userId;
-    var index = ctx.result.dislikes.users.indexOf(id_user);
+    var idUser = ctx.req.query.userId;
+    var coinNews = ctx.req.query.tipo_moneda;
+    var index = ctx.result.dislikes.users.indexOf(idUser);
     if (index > -1) {
       var d = ctx.result.dislikes.users.splice(index, 1);
       var d2 = ctx.result.dislikes.total = ctx.result.dislikes.total - 1;
       var d = ctx.result.dislikes;
-      ctx.method.ctor.dislike(idn, id_user);
+      ctx.method.ctor.dislike(idn, idUser);
     }
-    //Noticia.app.models.usuario.famaUser(id_user, 1);
+    Noticia.app.models.usuario.famaUser(idUser, _variable.rpl, coinNews);
     next();
   });
   //hook para quitar like si le damos dislike
   Noticia.afterRemote('dislike', (ctx, noticia, next) => {
-
     var idn = ctx.req.params.id;
-    var id_user = ctx.req.query.userId;
-    var index = ctx.result.likes.users.indexOf(id_user);
+    var idUser = ctx.req.query.userId;
+    var coinNews = ctx.req.query.tipo_moneda;
+    var index = ctx.result.likes.users.indexOf(idUser);
     if (index > -1) {
       ctx.result.likes.users.splice(index, 1);
       ctx.result.likes.total = ctx.result.likes.total - 1;
-      ctx.method.ctor.like(idn, id_user);
+      ctx.method.ctor.like(idn, idUser);
     }
-    //Noticia.app.models.usuario.famaUser(id_user, -1);
+    Noticia.app.models.usuario.famaUser(idUser, _variable.rpd, coinNews);
     next();
   });
 
@@ -158,7 +161,7 @@ module.exports = (Noticia, ctx, ctx2) => {
   Noticia.afterRemote('create', (ctx, user, next) => {
     let userId = ctx.result.usuarioId;
     let coinNews = ctx.result.tipo_moneda;
-    Noticia.app.models.usuario.famaUser(userId, 1, coinNews);
+    Noticia.app.models.usuario.famaUser(userId, _variable.rpn, coinNews);
     next();
   });
 };
