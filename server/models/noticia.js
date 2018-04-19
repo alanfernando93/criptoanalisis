@@ -12,27 +12,30 @@ var _async = require('async');
 
 var _async2 = _interopRequireDefault(_async);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _variable = require('../variable');
 
-module.exports = function (Noticia, ctx, ctx2) {
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {default: obj};
+}
 
-  Noticia.upload = function (req, res, cb) {
+module.exports = (Noticia, ctx, ctx2) => {
+  Noticia.upload = (req, res, cb) => {
     var Container = Noticia.app.models.Container;
     var id = req.params.id;
-    Container.createContainer({ name: 'news' + id }, function (err, c) {
-      Container.upload(req, res, { container: 'news' + id }, cb);
+    Container.createContainer({name: 'news' + id}, (err, c) => {
+      Container.upload(req, res, {container: 'news' + id}, cb);
     });
   };
 
   Noticia.remoteMethod(
     'upload',
     {
-      http: { path: '/:id/upload', verb: 'post' },
+      http: {path: '/:id/upload', verb: 'post'},
       accepts: [
-        { arg: 'req', type: 'object', 'http': { source: 'req' } },
-        { arg: 'res', type: 'object', 'http': { source: 'res' } },
+        {arg: 'req', type: 'object', 'http': {source: 'req'}},
+        {arg: 'res', type: 'object', 'http': {source: 'res'}},
       ],
-      returns: { arg: 'status', type: 'string' },
+      returns: {arg: 'status', type: 'string'},
     }
   );
 
@@ -47,20 +50,20 @@ module.exports = function (Noticia, ctx, ctx2) {
   }, ctx);
 
   //agregando propiedad dislike a noticia
-  Noticia.defineProperty(ctx.dislikes, { type: Object, default: { total: 0, users: [] } });
+  Noticia.defineProperty(ctx.dislikes, {type: Object, default: {total: 0, users: []}});
 
   //dislike metodo remoto
-  Noticia[ctx.method] = function (id, userId, finish) {
+  Noticia[ctx.method] = (id, userId, finish) => {
     // Verify that current model instance and user instances exists
-    return new _promise2.default(function (resolve, reject) {
+    return new _promise2.default((resolve, reject) => {
       _async2.default.parallel({
         modelInstance: function modelInstance(next) {
           return Noticia.findById(id, next);
         },
         userInstance: function userInstance(next) {
           return Noticia.dataSource.models[ctx.userModel].findById(userId, next);
-        }
-      }, function (err, results) {
+        },
+      }, (err, results) => {
         // Handle Errors
         if (err) {
           if (typeof finish === 'function') finish(err);
@@ -87,7 +90,7 @@ module.exports = function (Noticia, ctx, ctx2) {
           results.modelInstance[ctx.dislikes].users.splice(index, 1);
         }
         results.modelInstance[ctx.dislikes].total = results.modelInstance[ctx.dislikes].users.length;
-        results.modelInstance.save(function (saveerr, result) {
+        results.modelInstance.save((saveerr, result) => {
           if (saveerr) reject(saveerr);
           if (typeof finish === 'function') {
             finish(err, result);
@@ -100,50 +103,44 @@ module.exports = function (Noticia, ctx, ctx2) {
   };
   // Endpoint settings
   Noticia.remoteMethod(ctx.method, {
-    accepts: [{ arg: 'id', type: 'string', required: true }, { arg: 'userId', type: 'string', required: true }],
-    returns: { root: true, type: 'object' },
-    http: { path: ctx.endpoint, verb: 'get' },
+    accepts: [{arg: 'id', type: 'string', required: true}, {arg: 'userId', type: 'string', required: true}],
+    returns: {root: true, type: 'object'},
+    http: {path: ctx.endpoint, verb: 'get'},
     description: ctx.description,
   });
 
-
-
-
-
-
   //hook para quitar dislike si le damos like
-  Noticia.afterRemote('like', function (ctx, noticia, next) {
-
+  Noticia.afterRemote('like', (ctx, noticia, next) => {
     var idn = ctx.req.params.id;
-    var id_user = ctx.req.query.userId;
-    var index = ctx.result.dislikes.users.indexOf(id_user);
+    var idUser = ctx.req.query.userId;
+    var coinNews = ctx.req.query.tipo_moneda;
+    var index = ctx.result.dislikes.users.indexOf(idUser);
     if (index > -1) {
       var d = ctx.result.dislikes.users.splice(index, 1);
       var d2 = ctx.result.dislikes.total = ctx.result.dislikes.total - 1;
       var d = ctx.result.dislikes;
-      ctx.method.ctor.dislike(idn, id_user);
-
+      ctx.method.ctor.dislike(idn, idUser);
     }
+    Noticia.app.models.usuario.famaUser(idUser, _variable.rpl, coinNews);
     next();
   });
   //hook para quitar like si le damos dislike
-  Noticia.afterRemote('dislike', function (ctx, noticia, next) {
-
+  Noticia.afterRemote('dislike', (ctx, noticia, next) => {
     var idn = ctx.req.params.id;
-    var id_user = ctx.req.query.userId;
-
-    var index = ctx.result.likes.users.indexOf(id_user);
-
+    var idUser = ctx.req.query.userId;
+    var coinNews = ctx.req.query.tipo_moneda;
+    var index = ctx.result.likes.users.indexOf(idUser);
     if (index > -1) {
       ctx.result.likes.users.splice(index, 1);
       ctx.result.likes.total = ctx.result.likes.total - 1;
-      ctx.method.ctor.like(idn, id_user);
+      ctx.method.ctor.like(idn, idUser);
     }
+    Noticia.app.models.usuario.famaUser(idUser, _variable.rpd, coinNews);
     next();
   });
 
   // validacion campos de noticia  
-  Noticia.observe('before save', function (context, next) {
+  Noticia.observe('before save', (context, next) => {
     var tit = context.instance.titulo;
     var cont = context.instance.contenido;
     if (tit.length > 90) {
@@ -162,15 +159,9 @@ module.exports = function (Noticia, ctx, ctx2) {
   });
 
   Noticia.afterRemote('create', (ctx, user, next) => {
-    let userNews = ctx.result.usuarioId;
-    Noticia.app.models.usuario.findById(userNews)
-      .then(data => {
-        Noticia.app.models.usuario.updateAll(
-          {id: userNews}, {puntos: data.puntos + 1})
-          .then(data => {
-            console.log('cambiado');
-            next();
-          });
-      });
+    let userId = ctx.result.usuarioId;
+    let coinNews = ctx.result.tipo_moneda;
+    Noticia.app.models.usuario.famaUser(userId, _variable.rpn, coinNews);
+    next();
   });
 };
