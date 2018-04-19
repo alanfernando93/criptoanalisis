@@ -113,7 +113,7 @@ export class ViewComponent implements OnInit {
 
   sendComment() {
     this.comment.signalId = this.idSignal;
-    this.signalsService.postSignalsComment(this.idSignal, this.comment).subscribe(data => {
+    this.signalsService.postSignalsComment(this.comment).subscribe(data => {
       this.commentById.push(data);
       this.getSignalCommentCount();
       this.getCommentWithUser();

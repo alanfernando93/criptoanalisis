@@ -49,9 +49,9 @@ export class SignalsService extends Session {
             .map((res: Response) => res.json());
     }
 
-    postSignalsComment(id, comments) {
+    postSignalsComment(comments) {
         comments.userId = this.getUserId();
-        return this.http.post(this.baseUrl + 'signals/' + id + '/comentarioSenals' + '?access_token=' + this.getToken(), comments)
+        return this.http.post(this.baseUrl + '/comentario_senals' + '?access_token=' + this.getToken(), comments)
             .map((res: Response) => res.json());
     }
 

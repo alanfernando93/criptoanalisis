@@ -126,6 +126,7 @@ export class SignalComponent implements OnInit {
         // this.router.navigate(["/"]);
       })
       let id = resp.id;
+      console.log(this.positions);
       this.positions.forEach((value, key) => {
         this.positions[key].signalId = id
         this.signalsService.setPosition(this.positions[key]).subscribe(respo => { })

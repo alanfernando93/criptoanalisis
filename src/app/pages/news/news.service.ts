@@ -60,9 +60,9 @@ export class NewsService extends Session{
       .map((res: Response) => res.json());
   }
 
-  postNewsComment(id, comments) {
+  postNewsComment(comments) {
     comments.userId = this.getUserId();
-    return this.http.post(this.baseUrl + 'noticias/' + id + '/comentarioNoticia', comments)
+    return this.http.post(this.baseUrl + '/comentario_noticia', comments)
       .map((res: Response) => res.json());
   }
 

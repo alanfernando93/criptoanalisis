@@ -25,6 +25,8 @@ export class ViewComponent implements OnInit {
   comment: any = {};
   respond: any = {};
   answer: any = {};
+  last: any = [];
+  firsttwo: any = [];
 
   constructor(
     private http: Http,
@@ -93,6 +95,11 @@ export class ViewComponent implements OnInit {
   getNewsWithUser() {
     this.newsService.getUserByNews(this.idNews).subscribe(data => {
       data ? this.contentUser = data : {};
+      this.contentUser.fama.sort(function(a, b){
+        return a.valor < b.valor;
+      });      
+      this.firsttwo = this.contentUser.fama.splice(0, 2);
+      this.last = this.contentUser.fama.splice(0, this.contentUser.fama.length);
     });
   }
 
@@ -112,7 +119,7 @@ export class ViewComponent implements OnInit {
 
   sendComent() {
     this.comment.noticiaId = this.idNews;
-    this.newsService.postNewsComment(this.comment.noticiaId, this.comment).subscribe(data => {
+    this.newsService.postNewsComment(this.comment).subscribe(data => {
       this.commentById.push(data);
       this.getNewsCommentCount();
       this.getCommentWithUser();

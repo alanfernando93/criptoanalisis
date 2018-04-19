@@ -14,6 +14,8 @@ export class DashboardComponent implements OnInit {
 
   news: any;
   signals: any;
+  limit: number = 3;
+  increment: number = 0;
 
   constructor(
     private newsService: NewsService,
@@ -41,20 +43,17 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
-
-  getSignals() {
-    this.signalsService.getAll().subscribe(
-      signals => {
-        signals ? this.signals = signals : {};
-        this.signals.forEach((element, index) => {
-          let signalId = this.signals[index].id;
-          this.signalsService.getUserBySignal(signalId).subscribe(data => {
-            this.signals[index].contentUser = [];
-            this.signals[index].contentUser.push(data);
-          });
-        });
-      }
-    );
+  getSignals(){
+     this.signalsService.getAllLimit(this.limit, this.increment).subscribe(data => {
+       data ? this.signals = data : {};
+       this.signals.forEach((element, index) => {
+         let signalId = this.signals[index].id;
+         this.signalsService.getUserBySignal(signalId).subscribe(data => {
+           this.signals[index].contentUser = [];
+           this.signals[index].contentUser.push(data);
+         });
+       });
+     })
   }
 
 }

@@ -12,10 +12,10 @@
         <div class="card">
           <div class="card-header">
             <div class="row" *ngFor="let content of signal.contentUser">
-              <div class="col-6 col-md-4">
+              <div class="col-6 col-md-3">
                 <nb-user [menu]="" [name]="content?.username" [picture]="content?.perfil"></nb-user>
               </div>
-              <div class="col-3 col-md-2">
+              <div class="col-3 col-md-1">
                 <h6>
                   <span class="badge badge-primary font-w-light user">{{content.precision}} P</span>
                 </h6>
@@ -24,6 +24,13 @@
                 <h6>
                   <span class="badge badge-info font-w-light user">{{famaUser.valor}} {{famaUser.symbol}}</span>
                 </h6>
+              </div>
+              <div class="dropdown" ngbDropdown>
+                <button type="button" class="btn btn-primary btn-tn" ngbDropdownToggle> cargar mas </button>
+                <ul class="dropdown-menu" ngbDropdownMenu>
+                  <li class="dropdown-item" *ngFor="let famaUser of content.fama">{{famaUser.valor}} {{famaUser.symbol}}</li>
+                  <button type="button" class="btn btn-primary">ver mas</button>
+                </ul>
               </div>
             </div>
           </div>
