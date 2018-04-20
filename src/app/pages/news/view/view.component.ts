@@ -137,4 +137,10 @@ export class ViewComponent implements OnInit {
     }
     return '';
   }
+  follow(id: number){
+    this.newsService.followUser(id)
+    .subscribe(data=>{
+      console.log(data);
+    })
+  }
 }

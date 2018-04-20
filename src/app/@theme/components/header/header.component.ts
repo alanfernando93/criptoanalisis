@@ -26,7 +26,9 @@ export class HeaderComponent implements OnInit {
   config: ToasterConfig;
   req: any;
   notifications: any;
-
+  notNum: number = 0;
+  susc: any;
+  msgReq = ' quiere conectarse contigo';
   userMenu = [
     { title: "Profile", link: "/user/profile" },
     { title: "Log out" }
@@ -55,10 +57,10 @@ export class HeaderComponent implements OnInit {
     this.connection = this.userService.Request().subscribe(request =>{
       this.req = request;
       console.log(request);
-          this.showToast('solicitud de chat', this.req.sender + 'quiere conectarse');
-          this.setnotification(this.req.idSender,this.req.tipo);
+          this.setnotification(this.req.senderId,this.req.tipo);
     });
     this.getNotifications();
+    this.getsusc();
   }
 
   toggleSidebar(): boolean {
@@ -67,31 +69,108 @@ export class HeaderComponent implements OnInit {
   }
   getNotifications(){
     this.headerService.getNotifications().subscribe(data=>{
-      console.log(data);
       this.notifications = data;
       this.notifications.forEach((element,index) => {
-        this.headerService.getUser(element.senderId).subscribe(user=>{
-          this.notifications[index].username = user.username;
-          this.notifications[index].picture = user.perfil;
-        });
-        if(element.tipo == 'request')
-          this.notifications[index].tipo = 'quiere conectarse contigo'
+        if(!element.status)
+           this.notNum++;
+        switch(element.tipo){
+          case 'request':{
+            this.headerService.getUser(element.senderId).subscribe(user=>{
+              this.notifications[index].title = user.username;
+              this.notifications[index].picture = user.perfil;
+              this.notifications[index].content = this.msgReq;
+            });
+            break;
+          }
+          case 'news':{
+            this.headerService.findNews(element.senderId).subscribe(news=>{
+              this.notifications[index].title = news.tipo_moneda;
+              this.notifications[index].content = news.titulo;
+            });
+            break;
+          }
+          case 'signal':{
+            this.headerService.findsignal(element.senderId).subscribe(signal=>{
+              this.notifications[index].title = signal.signal.usuario.username;
+              this.notifications[index].content = (signal.signal.tipo)?  'compra de señal': 'publico una nueva de señal';
+              this.notifications[index].picture = signal.signal.usuario.perfil;
+            });
+            break;
+          }
+        }
       });
+      console.log(this.notifications);
     });
   }
   setnotification(id: number, tipo: string){
-    if(tipo=='request'){
-      this.headerService.getUser(id).subscribe(user=>{
-        let not = {
-          tipo: 'quieres conectarse contigo',
-          username: user.username,
-          usuarioId: user.id,
-          picture: user.perfil,
+     var not;
+    switch(tipo) {
+      case 'request':{
+        this.showToast('solicitud de chat', this.req.sender+this.msgReq);
+        this.headerService.getUser(id).subscribe(user=>{
+          not = {
+            content: this.msgReq,
+            title: user.username,
+            senderId: user.id,
+            picture: user.perfil,
+          }
+        this.notifications.push(not);
+        });
+        break;
+      }
+      case 'news':{
+        this.showToast(this.req.coin,this.req.title);
+        not ={
+          content: this.req.title,
+          title: this.req.coin,
+          senderId: this.req.id
         }
-      this.notifications.push(not);
-      });
+        this.notifications.push(not);
+        break;
+      }
+      case 'signal':{
+        this.headerService.findsignal(this.req.senderId).subscribe(sig=>{
+          let stat = (sig.signal.tipo)? 'compra de señal': 'publico una nueva señal'
+          this.showToast(sig.signal.usuario.username,stat);
+          not = {
+            content: stat,
+            title: sig.signal.usuario.username,
+            senderId: sig.signal.Id,
+            picture: sig.signal.usuario.perfil
+          }
+          this.notifications.push(not);
+        });
+        break;
+      }
+
     }
+    this.notNum++;
   }
+  seen(id: number){
+    var notif = this.notifications.find(not=>not.id==id);
+    switch(notif.tipo){
+      case 'request':{
+        this.router.navigate(["/pages/chat"]);
+        break;
+      }
+      case 'news':{
+        this.router.navigate(["/pages/news/view/"+notif.senderId])
+        break;
+      }
+      case 'signal':{
+        this.router.navigate(["/pages/signals/view/"+notif.senderId])
+        break;
+      }
+    }
+    if(!notif.status){
+      notif.status=true;
+      this.notNum--;
+      this.headerService.changeNotif(id)
+      .subscribe(data=>{
+        console.log(data);
+      })
+    }
+  };
   toggleSettings(): boolean {
     this.sidebarService.toggle(false, "settings-sidebar");
     return false;
@@ -140,5 +219,20 @@ export class HeaderComponent implements OnInit {
       bodyOutputType: BodyOutputType.TrustedHtml,
     };
     this.toasterService.popAsync(toast);
+  }
+  getlength(){
+    if(this.notifications.length()>0)
+      return true;
+    else
+      return false;
+  }
+  // habilitar suscripciones a canales noticias y señales usando el prefijo sus seguido del Id
+  getsusc(){
+    this.headerService.getSusc().subscribe(data=>{
+      this.susc = data;
+      this.susc.forEach(element => {
+        this.headerService.connect('sus'+element.posterId);
+      });
+    });
   }
 }
