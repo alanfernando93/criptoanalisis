@@ -146,7 +146,7 @@ module.exports = (Usuario) => {
           },
         }, (err, moneda) => {
           if (data.fama == null) {
-            //@dev valor : valor que tenga la moneda
+            // @dev valor : valor que tenga la moneda
             data.fama = [{
               id: moneda[0].id, valor: 3, symbol: moneda[0].symbol},
             ];
@@ -155,9 +155,9 @@ module.exports = (Usuario) => {
               element => element.id === moneda[0].id);
             if (element === undefined) {
               data.fama.push({
-                id: moneda[0].id, valor: 2, symbol: moneda[0].symbol});
+                id: moneda[0].id, valor: 3, symbol: moneda[0].symbol});
             } else {
-              //@dev valor que se autoincrementa para segun al valor de la moneda
+              // @dev valor que se autoincrementa para segun al valor de la moneda
               data.fama[data.fama.indexOf(element)].valor += punto * 3;
             }
           }
