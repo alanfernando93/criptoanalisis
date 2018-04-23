@@ -1,0 +1,25 @@
+{
+  "name": "followUser",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+  },
+  "validations": [],
+  "relations": {
+    "follower": {
+      "type": "belongsTo",
+      "model": "usuario",
+      "foreignkey": "followerId"
+    },
+    "poster": {
+      "type": "belongsTo",
+      "model": "usuario",
+      "foreignkey": "posterId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
