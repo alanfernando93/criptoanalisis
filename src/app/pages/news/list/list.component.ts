@@ -58,6 +58,13 @@ export class ListComponent implements OnInit {
         this.newsService.getUserByNews(idNews).subscribe(data => {
           element.contentUser = [];
           element.contentUser.push(data);
+          element.contentUser[0].fama.sort(function (a, b) {
+            return a.valor < b.valor;
+          });
+          element.contentUser[0].fama.firstTwo = [];
+          element.contentUser[0].fama.last = [];
+          element.contentUser[0].fama.firstTwo = element.contentUser[0].fama.splice(0, 2);
+          element.contentUser[0].fama.last = element.contentUser[0].fama.splice(0, element.contentUser[0].fama.length);
           this.newsService.getNewsCommentCount(idNews).subscribe(data => {
             element.count = [];
             element.count.push(data);

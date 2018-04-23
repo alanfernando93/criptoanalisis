@@ -8,21 +8,21 @@
 <nb-card *ngFor="let news of news">
   <nb-card-header>
     <div class="row" *ngFor="let content of news.contentUser">
-      <div class="col-5 col-md-2">
+      <div class="col-12 col-md-2">
         <nb-user [menu]="" [name]="content?.username" [picture]="content?.perfil" ></nb-user>
       </div>
-      <div class="col-2 col-md-1">
+      <div class="col-4 col-md-1">
         <h5>
           <span class="badge badge-primary font-w-light user">{{content.puntos}} P</span>
         </h5>
       </div>
-      <div class="col-2 col-md-1" *ngFor="let famaUser of content.fama.firstTwo">
+      <div class="col-4 col-md-1" *ngFor="let famaUser of content.fama.firstTwo">
         <h5>
           <span class="badge badge-info font-w-light user">{{famaUser.valor}} {{famaUser.symbol}}</span>
         </h5>
       </div>
-      <div class="dropdown" ngbDropdown>
-        <button type="button" class="btn btn-primary btn-tn" ngbDropdownToggle> ver mas fama</button>
+      <div class="d-none d-sm-block dropdown drop" ngbDropdown>
+        <button type="button" class="btn btn-primary btn-tn" ngbDropdownToggle>ver mas f</button>
         <ul class="dropdown-menu" ngbDropdownMenu>
             <li class="dropdown-item" *ngFor="let famaUser of content.fama.last">{{famaUser.valor}} {{famaUser.symbol}}</li>
         </ul>

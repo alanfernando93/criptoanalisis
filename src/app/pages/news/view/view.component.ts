@@ -25,8 +25,6 @@ export class ViewComponent implements OnInit {
   comment: any = {};
   respond: any = {};
   answer: any = {};
-  last: any = [];
-  firsttwo: any = [];
 
   constructor(
     private http: Http,
@@ -64,8 +62,13 @@ export class ViewComponent implements OnInit {
           this.commentById[index].res = data;
           this.commentById[index].res.forEach((element, index1) => {
             let userByAnswer = this.commentById[index].res[index1].userId;
-            this.userService.getById(userByAnswer).subscribe(data => {
+            this.userService.getById(userByAnswer).subscribe(data => {              
               this.commentById[index].res[index1].user = data;
+              this.commentById[index].res[index1].user.fama.sort(function(a, b){
+                return a.valor < b.valor;
+              });
+              this.commentById[index].res[index1].user.fama.firsttwo = [];
+              this.commentById[index].res[index1].user.fama.firsttwo = this.commentById[index].res[index1].user.fama.splice(0, 2);
             });
           });
         });
@@ -81,8 +84,26 @@ export class ViewComponent implements OnInit {
         this.userService.getById(userByComment).subscribe(data => {
           this.commentById[index].user = [];
           this.commentById[index].user = data;
+          this.commentById[index].user.fama.sort(function(a, b){
+            return a.valor < b.valor;
+          });
+          this.commentById[index].user.fama.firsttwo = [];
+          this.commentById[index].user.fama.firsttwo = this.commentById[index].user.fama.splice(0, 2);
         });
       });
+    });
+  }
+
+  getNewsWithUser() {
+    this.newsService.getUserByNews(this.idNews).subscribe(data => {
+      data ? this.contentUser = data : {};
+      this.contentUser.fama.sort(function(a, b){
+        return a.valor < b.valor;
+      });
+      this.contentUser.fama.firsttwo = [];
+      this.contentUser.fama.last = []      
+      this.contentUser.fama.firsttwo = this.contentUser.fama.splice(0, 2);
+      this.contentUser.fama.last = this.contentUser.fama.splice(0, this.contentUser.fama.length);
     });
   }
 
@@ -92,16 +113,6 @@ export class ViewComponent implements OnInit {
     });
   }
 
-  getNewsWithUser() {
-    this.newsService.getUserByNews(this.idNews).subscribe(data => {
-      data ? this.contentUser = data : {};
-      this.contentUser.fama.sort(function(a, b){
-        return a.valor < b.valor;
-      });      
-      this.firsttwo = this.contentUser.fama.splice(0, 2);
-      this.last = this.contentUser.fama.splice(0, this.contentUser.fama.length);
-    });
-  }
 
   sendLike() {
     this.newsService.postLikes(this.idNews).subscribe(data => {

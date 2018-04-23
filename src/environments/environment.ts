@@ -10,7 +10,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000/api/',   
+  apiUrl: 'http://191.101.228.157:8080/api/',   
   usertoken: localStorage.getItem('auth_app_token'),
   userId: localStorage.getItem('userId'),
   selectTab : localStorage.getItem('select')
