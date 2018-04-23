@@ -37,7 +37,9 @@
       "required": false
     },
     "fama": {
-      "type": "number",
+      "type": [
+        "object"
+      ],
       "required": false
     }
   },
