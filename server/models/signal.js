@@ -1,14 +1,23 @@
 'use strict';
 
 var _promise = require('babel-runtime/core-js/promise');
+
 var _promise2 = _interopRequireDefault(_promise);
+
 var _assign = require('babel-runtime/core-js/object/assign');
+
 var _assign2 = _interopRequireDefault(_assign);
+
 var _async = require('async');
+
 var _async2 = _interopRequireDefault(_async);
+
 var _variable = require('../variable');
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : {default: obj}; }
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {default: obj};
+}
+
 module.exports = (Signal, ctx, ctx2) => {
   const HttpErrors = require('http-errors');
   // ctx para dislike
@@ -85,6 +94,7 @@ module.exports = (Signal, ctx, ctx2) => {
   Signal.afterRemote('like', (ctx, signal, next) => {
     var idn = ctx.req.params.id;
     var idUser = ctx.req.query.userId;
+    var coinSignal = ctx.result.tipo_moneda;
     var index = ctx.result.dislikes.users.indexOf(idUser);
     if (index > -1) {
       var d = ctx.result.dislikes.users.splice(index, 1);
@@ -92,7 +102,7 @@ module.exports = (Signal, ctx, ctx2) => {
       var d = ctx.result.dislikes;
       ctx.method.ctor.dislike(idn, idUser);
     }
-    signal.app.models.usuario.famaUser(idUser, _variable.rpl, idUser);
+    signal.app.models.usuario.famaUser(idUser, _variable.rpl, coinSignal);
     next();
   });
 
@@ -101,9 +111,8 @@ module.exports = (Signal, ctx, ctx2) => {
   Signal.afterRemote('dislike', (ctx, signal, next) => {
     var idn = ctx.req.params.id;
     var idUser = ctx.req.query.userId;
-    var coinNews = ctx.req.query.tipo_moneda;
+    var coinNews = ctx.result.tipo_moneda;
     var index = ctx.result.likes.users.indexOf(idUser);
-
     if (index > -1) {
       ctx.result.likes.users.splice(index, 1);
       ctx.result.likes.total = ctx.result.likes.total - 1;

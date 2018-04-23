@@ -113,7 +113,7 @@ module.exports = (Noticia, ctx, ctx2) => {
   Noticia.afterRemote('like', (ctx, noticia, next) => {
     var idn = ctx.req.params.id;
     var idUser = ctx.req.query.userId;
-    var coinNews = ctx.req.query.tipo_moneda;
+    var coinNews = ctx.result.tipo_moneda;
     var index = ctx.result.dislikes.users.indexOf(idUser);
     if (index > -1) {
       var d = ctx.result.dislikes.users.splice(index, 1);
@@ -124,11 +124,13 @@ module.exports = (Noticia, ctx, ctx2) => {
     Noticia.app.models.usuario.famaUser(idUser, _variable.rpl, coinNews);
     next();
   });
-  //hook para quitar like si le damos dislike
+
+  // hook para quitar like si le damos dislike
+
   Noticia.afterRemote('dislike', (ctx, noticia, next) => {
     var idn = ctx.req.params.id;
     var idUser = ctx.req.query.userId;
-    var coinNews = ctx.req.query.tipo_moneda;
+    var coinNews = ctx.result.tipo_moneda;
     var index = ctx.result.likes.users.indexOf(idUser);
     if (index > -1) {
       ctx.result.likes.users.splice(index, 1);
