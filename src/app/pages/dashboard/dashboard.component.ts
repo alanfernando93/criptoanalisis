@@ -38,6 +38,11 @@ export class DashboardComponent implements OnInit {
           this.newsService.getUserByNews(newsId).subscribe(data => {
             this.news[index].contentUser = [];
             this.news[index].contentUser.push(data);
+            this.news[index].contentUser[0].fama.sort(function(a, b){
+              return a.valor < b.valor;
+            });
+            this.news[index].contentUser[0].fama.firstTwo = [];
+            this.news[index].contentUser[0].fama.firstTwo = this.news[index].contentUser[0].fama.splice(0, 2);
           });
         });
       }
@@ -51,9 +56,18 @@ export class DashboardComponent implements OnInit {
          this.signalsService.getUserBySignal(signalId).subscribe(data => {
            this.signals[index].contentUser = [];
            this.signals[index].contentUser.push(data);
+           this.signals[index].contentUser[0].fama.sort(function(a, b){
+            return a.valor < b.valor;
+          });
+          this.signals[index].contentUser[0].fama.firstTwo = [];
+            this.signals[index].contentUser[0].fama.firstTwo = this.signals[index].contentUser[0].fama.splice(0, 2);
          });
        });
      })
+  }
+
+  getImageNews(id){
+    return this.newsService.getApiRest() + 'Containers/news' + id + '/download/perfil.png';
   }
 
 }

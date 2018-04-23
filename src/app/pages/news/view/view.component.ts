@@ -113,7 +113,6 @@ export class ViewComponent implements OnInit {
     });
   }
 
-
   sendLike() {
     this.newsService.postLikes(this.idNews).subscribe(data => {
       this.like = data;

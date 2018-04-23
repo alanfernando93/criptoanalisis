@@ -76,4 +76,8 @@ export class ListComponent implements OnInit {
     });
   }
 
+  getImage(id){
+    return this.newsService.getApiRest() + 'Containers/news' + id + '/download/perfil.png';
+  }
+
 }
