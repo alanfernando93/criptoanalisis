@@ -28,6 +28,7 @@ module.exports = function(Solicitud) {
     http: {path: '/:id/Pendientes', verb: 'get'},
     returns: {arg: 'requests', type: 'array'},
   });
+  // aceptar solicitud de chat
   Solicitud.AcceptReq = function(req, res, cb) {
     Solicitud.updateAll({
       id: req.params.id,
@@ -43,6 +44,7 @@ module.exports = function(Solicitud) {
     ],
     returns: {arg: 'answer', type: 'object'},
   });
+  // crear solicitud de un usuario
   Solicitud.CrearReq = function(req, res, cb) {
     Solicitud.findOrCreate({
       where: {
@@ -65,6 +67,7 @@ module.exports = function(Solicitud) {
     ],
     returns: {arg: 'request', type: 'object'},
   });
+  // buscar solicitudes pendientes
   Solicitud.findSol = function(sender, reciever, cb) {
     Solicitud.find({
       where: {
@@ -84,5 +87,25 @@ module.exports = function(Solicitud) {
     {arg: 'reciever', type: 'string', required: true}],
     http: {path: '/:sender/:reciever/findsol', verb: 'get'},
     returns: {arg: 'requests', type: 'array'},
+  });
+  Solicitud.afterRemote('CrearReq', (ctx, request, next)=> {
+    var io = Solicitud.app.io;
+    Solicitud.app.models.usuario.findById(ctx.result.request.senderId, {
+      fields: {id: true, username: true, puntos: true},
+    }, (err, data)=>{
+      io.to(ctx.result.request.recieverId).emit('request', {
+        'tipo': 'request',
+        'sender': data.username,
+        'senderId': data.id,
+      });
+      // envia la notificiacion de la solicitud al usuario
+      Solicitud.app.models.notification.create({
+        'tipo': 'request',
+        'senderId': data.id,
+        'date': Date.now(),
+        'status': false,
+        'usuarioId': ctx.result.request.recieverId,
+      });
+    });
   });
 };
