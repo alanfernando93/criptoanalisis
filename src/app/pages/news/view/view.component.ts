@@ -31,16 +31,17 @@ export class ViewComponent implements OnInit {
     private router: Router,
     private newsService: NewsService,
     private userService: UserService) {
+      route.params.subscribe(val=>{
+        console.log(val);
+        this.idNews = val.newsId;
+        this.getNewsById();
+        this.getNewsCommentById();
+        this.getNewsCommentCount();
+        this.getNewsWithUser();
+        this.getCommentWithUser();
+      });
   }
   ngOnInit() {
-    this.route.params.forEach((params: Params) => {
-      this.idNews = params['newsId'];
-    });
-    this.getNewsById();
-    this.getNewsCommentById();
-    this.getNewsCommentCount();
-    this.getNewsWithUser();
-    this.getCommentWithUser();
   }
 
   getNewsById() {

@@ -56,7 +56,7 @@ export class HeaderComponent implements OnInit {
     this.userService.connect();
     this.connection = this.userService.Request().subscribe(request =>{
       this.req = request;
-      console.log(request);
+      console.log(this.req);
           this.setnotification(this.req.senderId,this.req.tipo);
     });
     this.getNotifications();
@@ -104,47 +104,61 @@ export class HeaderComponent implements OnInit {
   }
   setnotification(id: number, tipo: string){
      var not;
-    switch(tipo) {
-      case 'request':{
-        this.showToast('solicitud de chat', this.req.sender+this.msgReq);
-        this.headerService.getUser(id).subscribe(user=>{
-          not = {
-            content: this.msgReq,
-            title: user.username,
-            senderId: user.id,
-            picture: user.perfil,
-          }
-        this.notifications.push(not);
-        });
-        break;
-      }
-      case 'news':{
-        this.showToast(this.req.coin,this.req.title);
-        not ={
-          content: this.req.title,
-          title: this.req.coin,
-          senderId: this.req.id
+     this.headerService.findnotif(tipo,id).subscribe(notif=>{
+       console.log('se obtuvo la notificacion',notif[0]);
+       switch(tipo) {
+        case 'request':{
+          this.showToast('solicitud de chat', this.req.sender+this.msgReq);
+          this.headerService.getUser(id).subscribe(user=>{
+  
+              not = {
+                tipo: 'request',
+                content: this.msgReq,
+                title: user.username,
+                senderId: user.id,
+                status: false,
+                picture: user.perfil,
+                id:notif[0].id
+              }
+            this.notifications.push(not);
+          });
+          break;
         }
-        this.notifications.push(not);
-        break;
-      }
-      case 'signal':{
-        this.headerService.findsignal(this.req.senderId).subscribe(sig=>{
-          let stat = (sig.signal.tipo)? 'compra de señal': 'publico una nueva señal'
-          this.showToast(sig.signal.usuario.username,stat);
-          not = {
-            content: stat,
-            title: sig.signal.usuario.username,
-            senderId: sig.signal.Id,
-            picture: sig.signal.usuario.perfil
+        case 'news':{
+          this.showToast(this.req.coin,this.req.title);
+          not ={
+            tipo: 'news',
+            content: this.req.title,
+            title: this.req.coin,
+            senderId: id,
+            status: false,
+            id:notif[0].id
           }
           this.notifications.push(not);
-        });
-        break;
+          break;
+        }
+        case 'signal':{
+          this.headerService.findsignal(this.req.senderId).subscribe(sig=>{
+            let stat = (sig.signal.tipo)? 'compra de señal': 'publico una nueva señal'
+            this.showToast(sig.signal.usuario.username,stat);
+            not = {
+              tipo: 'signal',
+              content: stat,
+              title: sig.signal.usuario.username,
+              senderId: id,
+              picture: sig.signal.usuario.perfil,
+              status: false,
+              id:notif[0].id
+            }
+            this.notifications.push(not);
+          });
+          break;
+        }
+  
       }
-
-    }
+     });
     this.notNum++;
+    console.log(this.notifications);
   }
   seen(id: number){
     var notif = this.notifications.find(not=>not.id==id);
@@ -154,11 +168,11 @@ export class HeaderComponent implements OnInit {
         break;
       }
       case 'news':{
-        this.router.navigate(["/pages/news/view/"+notif.senderId])
+        this.router.navigate(["/pages/news/view/",notif.senderId])
         break;
       }
       case 'signal':{
-        this.router.navigate(["/pages/signals/view/"+notif.senderId])
+        this.router.navigate(["/pages/signals/view/",notif.senderId])
         break;
       }
     }

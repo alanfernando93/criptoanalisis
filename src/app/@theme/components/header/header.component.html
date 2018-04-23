@@ -38,7 +38,7 @@
     <span *ngIf="notNum>0" class="nav-counter">{{notNum}}</span>
     <ng-template #notification>
         <div *ngIf="notifications.length>0; else nothing" class="">
-            <a *ngFor="let not of notifications" [ngClass]="{'notification':true, 'notseen':!not.status}" (click)="seen(not.id)">
+            <a *ngFor="let not of notifications" [ngClass]="{'notification':true, 'notseen':!not.status}" (click)="seen(not.id);">
                 <nb-user [picture]="not.picture" [name]="not.title" [title]="not.content">
                 </nb-user> 
             </a>
