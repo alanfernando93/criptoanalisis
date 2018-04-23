@@ -161,7 +161,7 @@ module.exports = function (Noticia, ctx, ctx2) {
     next();
   });
 
-  Noticia.afterRemote('create', (ctx, user, next) => {
+  Noticia.afterRemote('create', (ctx, noticia, next) => {
     let userNews = ctx.result.usuarioId;
     Noticia.app.models.usuario.findById(userNews)
       .then(data => {
@@ -172,5 +172,34 @@ module.exports = function (Noticia, ctx, ctx2) {
             next();
           });
       });
+  });
+  // hook para enviar notificaciones de noticias suscritas
+  Noticia.afterRemote('create', (ctx, noticia, next)=>{
+    var io = Noticia.app.io;
+    var con = 'sus' + ctx.result.usuarioId;
+    console.log(ctx.result);
+    Noticia.app.models.followUser.find({
+      where: {
+        posterId: ctx.result.usuarioId,
+      },
+    }).then(data=>{
+      data.forEach(element => {
+        Noticia.app.models.notification.create({
+          'tipo': 'news',
+          'senderId': ctx.result.id,
+          'date': Date.now(),
+          'status': false,
+          'usuarioId': element.followerId,
+        });
+      });
+    });
+    console.log(con);
+    io.to(con).emit('request', {
+      tipo: 'news',
+      title: ctx.result.titulo,
+      senderId: ctx.result.id,
+      coin: ctx.result.tipo_moneda,
+    });
+    next();
   });
 };

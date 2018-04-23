@@ -122,6 +122,23 @@
       "model": "usuario",
       "foreignKey": "recieverId",
       "through": "solicitud"
+    },
+    "notifications": {
+      "type": "hasMany",
+      "model": "notification",
+      "foreignkey": ""
+    },
+    "follower": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignKey": "followerId",
+      "through": "followUser"
+    },
+    "poster": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignKey": "posterId",
+      "through": "posterId"
     }
   },
   "acls": [
