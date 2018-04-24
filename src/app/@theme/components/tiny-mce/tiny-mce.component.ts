@@ -67,11 +67,13 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
           const content = editor.getContent();
           this.onEditorKeyup.emit(content);
         });
+        // editor.shortcuts.add('ctrl+a', function() {console.log("ctrl+")});
       },
       image_description:false,
       image_title: true,
       automatic_uploads: true,
       file_picker_types: "image",
+      image_advtab: true,
       file_picker_callback: (cb, value, meta) => {
         var input = document.createElement("input");
         input.setAttribute("type", "file");
@@ -104,14 +106,13 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
         body.append('file', blobInfo.blob(), blobInfo.filename());
         this.newsService.fullUploadFileImage(body).subscribe(data=>{
           success(this.baseUrl + "containers/galery/download/" + blobInfo.filename())
-        })               
+        })                 
       },
       images_dataimg_filter: function(img) {
         console.log(img)
         return img.hasAttribute('internal-blob');
       },
       height: this.height,
-      images_reuse_filename: true
     });
   }
 
