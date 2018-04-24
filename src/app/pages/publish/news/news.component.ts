@@ -1,12 +1,8 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Router } from "@angular/router";
 import { Http, Response } from "@angular/http";
-
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-
-// import { NewsService } from "../../../services/news.service";
 import { NewsService } from "../../news/news.service";
-// import { CoinsService } from "../../../services/coins.service";
 import { CoinsService } from "../../coins/coins.service";
 
 @Component({
@@ -59,10 +55,10 @@ export class PublishNewsComponent implements OnInit {
   onSave() {
     this.newsPublish.tipo_moneda = this.selectedView.name;
     let body = new FormData();
-    body.append('', this.myFile);
+    body.append('', this.myFile, 'perfil.png');
     this.newsService.insert(this.newsPublish).subscribe(resp => {
       this.newsService.imageFileUpload(resp.id,body).subscribe((r:Response) => {
-        this.router.navigate(["/"]);
+      this.router.navigate(["/"]);
       })
     });    
   }

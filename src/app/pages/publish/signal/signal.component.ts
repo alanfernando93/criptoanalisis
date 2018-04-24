@@ -121,11 +121,12 @@ export class SignalComponent implements OnInit {
     this.signal.count = "";
     this.signalsService.add(this.signal).subscribe(resp => {
       let body = new FormData();
-      body.append('', this.myFile);
+      body.append('', this.myFile, 'perfil.png');
       this.signalsService.imageFileUpload(resp.id, body).subscribe((r: Response) => {
         // this.router.navigate(["/"]);
       })
       let id = resp.id;
+      console.log(this.positions);
       this.positions.forEach((value, key) => {
         this.positions[key].signalId = id
         this.signalsService.setPosition(this.positions[key]).subscribe(respo => { })
