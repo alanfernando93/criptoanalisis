@@ -1,0 +1,31 @@
+{
+  "name": "answer_noticia",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "contenido": {
+      "type": "string"
+    },
+    "userId": {
+      "type": "number"
+    },
+    "fecha_registro": {
+      "type": "date",
+      "required": false,
+      "default": "$now"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "comentarioNoticia": {
+      "type": "belongsTo",
+      "model": "comentario_noticia",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

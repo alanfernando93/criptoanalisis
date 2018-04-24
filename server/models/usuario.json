@@ -7,19 +7,179 @@
     "validateUpsert": true
   },
   "properties": {
-    "nickname": {
+    "nombre": {
       "type": "string",
-      "required": true
+      "required": false
+    },
+    "apellido": {
+      "type": "string",
+      "required": false
+    },
+    "fecha_nacimiento": {
+      "type": "date",
+      "required": false
+    },
+    "fecha_registro": {
+      "type": "date",
+      "required": false,
+      "default": "$now"
+    },
+    "redes_sociales": {
+      "type": "string",
+      "required": false
+    },
+    "puntos": {
+      "type": "number",
+      "required": false
+    },
+    "precision": {
+      "type": "number",
+      "required": false
+    },
+    "fama": {
+      "type": [
+        "object"
+      ],
+      "required": false
     }
   },
   "validations": [],
   "relations": {
-    "noticia": {
+    "comments": {
+      "type": "hasMany",
+      "model": "comment",
+      "foreignkey": "usuarioId",
+      "through": "commentSignal"
+    },
+    "signals": {
+      "type": "hasMany",
+      "model": "signal",
+      "foreignKey": ""
+    },
+    "seguidor": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignKey": "SeguidorId",
+      "through": "Suscripcion"
+    },
+    "trader": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignKey": "TraderId",
+      "through": "Suscripcion"
+    },
+    "Noticia": {
       "type": "hasMany",
       "model": "noticia",
+      "foreignkey": "UsuarioId"
+    },
+    "contenidoMoneda": {
+      "type": "hasMany",
+      "model": "contenidoMoneda",
+      "foreignkey": ""
+    },
+    "message": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignkey": "",
+      "through": "messageRoom"
+    },
+    "asesoriaPersonals": {
+      "type": "hasMany",
+      "model": "asesoria_personal",
       "foreignKey": ""
+    },
+    "MsgSender": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignkey": "senderId",
+      "through": "messageRoom"
+    },
+    "MsgRec": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignkey": "recieverId",
+      "through": "messageRoom"
+    },
+    "sender": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignKey": "senderId",
+      "through": "transaccion"
+    },
+    "reciever": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignKey": "recieverId",
+      "through": "transaccion"
+    },
+    "Solsender": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignKey": "senderId",
+      "through": "solicitud"
+    },
+    "Solreciever": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignKey": "recieverId",
+      "through": "solicitud"
+    },
+    "notifications": {
+      "type": "hasMany",
+      "model": "notification",
+      "foreignkey": ""
+    },
+    "follower": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignKey": "followerId",
+      "through": "followUser"
+    },
+    "poster": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignKey": "posterId",
+      "through": "posterId"
     }
   },
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW",
+      "property": "*"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": [
+        "upload",
+        "verPagaSeñal",
+        "updateInfo"
+      ]
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW"
+    }
+  ],
   "methods": {}
 }

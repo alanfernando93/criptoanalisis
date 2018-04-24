@@ -1,0 +1,43 @@
+{
+  "name": "solicitud",
+  "plural": "solicitudes",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "activo": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "aceptacion": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "fecha": {
+      "type": "date",
+      "default": "$now"
+    },
+    "duracion": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "sender": {
+      "type": "belongsTo",
+      "model": "usuario",
+      "foreignkey": "senderId"
+    },
+    "reciever": {
+      "type": "belongsTo",
+      "model": "usuario",
+      "foreignkey": "recieverId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

@@ -9,6 +9,7 @@
     "mixins": [
       "loopback/common/mixins",
       "loopback/server/mixins",
+      "../node_modules/loopback-likes-mixin/dist",
       "../common/mixins",
       "./mixins"
     ]
@@ -40,6 +41,102 @@
     "public": true
   },
   "noticia": {
+    "dataSource": "db",
+    "public": true
+  },
+  "signal": {
+    "dataSource": "db",
+    "public": true
+  },
+  "punto": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Suscripcion": {
+    "dataSource": "db",
+    "public": true
+  },
+  "moneda": {
+    "dataSource": "db",
+    "public": true
+  },
+  "titulo": {
+    "dataSource": "db",
+    "public": true
+  },
+  "contenidoMoneda": {
+    "dataSource": "db",
+    "public": true
+  },
+  "mercado": {
+    "dataSource": "db",
+    "public": true
+  },
+  "messageRoom": {
+    "dataSource": "db",
+    "public": true
+  },
+  "asesoria_personal": {
+    "dataSource": "db",
+    "public": true
+  },
+  "instruccion": {
+    "dataSource": "db",
+    "public": true
+  },
+  "pago": {
+    "dataSource": "db",
+    "public": true
+  },
+  "disputa": {
+    "dataSource": "db",
+    "public": true
+  },
+  "comentario_asesoria": {
+    "dataSource": "db",
+    "public": true
+  },
+  "answer_asesoria": {
+    "dataSource": "db",
+    "public": true
+  },
+  "answer_noticia": {
+    "dataSource": "db",
+    "public": true
+  },
+  "comentario_noticia": {
+    "dataSource": "db",
+    "public": true
+  },
+  "userMessage": {
+    "dataSource": "db",
+    "public": true
+  },
+  "transaccion": {
+    "dataSource": "db",
+    "public": true
+  },
+  "position": {
+    "dataSource": "db",
+    "public": true
+  },
+  "solicitud": {
+    "dataSource": "db",
+    "public": true
+  },
+  "comentario_senal": {
+    "dataSource": "db",
+    "public": true
+  },
+  "answer-senal": {
+    "dataSource": "db",
+    "public": true
+  },
+  "notification": {
+    "dataSource": "db",
+    "public": true
+  },
+  "followUser": {
     "dataSource": "db",
     "public": true
   }

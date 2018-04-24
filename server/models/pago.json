@@ -1,0 +1,26 @@
+{
+  "name": "pago",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "total": {
+      "type": "number"
+    },
+    "horas": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "asesoriaPersonal": {
+      "type": "belongsTo",
+      "model": "asesoria_personal",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

@@ -1,6 +1,6 @@
 {
-  "name": "noticia",
-  "plural": "noticias",
+  "name": "signal",
+  "plural": "signals",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -17,34 +17,37 @@
     ]
   },
   "properties": {
-    "titulo": {
-      "type": "string",
+    "tipo": {
+      "type": "Boolean",
       "required": true
     },
-    "contenido": {
-      "type": "string",
-      "required": true,
-      "dataType": "text"
-    },
-    "tipo_moneda": {
+    "tipoInversion": {
       "type": "string",
       "required": false
     },
-    "conj_moneda": {
+    "AnalisisFundamental": {
       "type": "string",
       "required": false
     },
-    "fecha_create": {
+    "AnalisisTecnico": {
+      "type": "string",
+      "required": false
+    },
+    "EstrategiaSalida": {
+      "type": "string",
+      "required": false
+    },
+    "FechaCreate": {
       "type": "date",
+      "required": false,
       "default": "$now"
     },
-    "conj_precio": {
+    "estado": {
       "type": "string",
-      "required": false
+      "default": "pasivo"
     },
-    "fuentes": {
-      "type": "string",
-      "required": false
+    "visible": {
+      "type": "Boolean"
     }
   },
   "validations": [],
@@ -54,13 +57,24 @@
       "model": "usuario",
       "foreignKey": ""
     },
-    "comentarioNoticia": {
+    "puntos": {
       "type": "hasMany",
-      "model": "comentario_noticia",
+      "model": "position",
+      "foreignKey": ""
+    },
+    "comentarioSenals": {
+      "type": "hasMany",
+      "model": "comentario_senal",
       "foreignKey": ""
     }
   },
   "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "DENY"
+    },
     {
       "accessType": "READ",
       "principalType": "ROLE",
@@ -70,24 +84,11 @@
     {
       "accessType": "WRITE",
       "principalType": "ROLE",
-      "principalId": "$owner",
+      "principalId": "$authenticated",
       "permission": "ALLOW"
     },
     {
-      "accessType": "READ",
-      "principalType": "ROLE",
-      "principalId": "$unauthenticated",
-      "permission": "ALLOW"
-    },
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "admin",
-      "permission": "ALLOW",
-      "property": "*"
-    },
-    {
-      "accessType": "*",
+      "accessType": "update",
       "principalType": "ROLE",
       "principalId": "$owner",
       "permission": "ALLOW"

@@ -1,0 +1,87 @@
+{
+  "name": "asesoria_personal",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "Likes": [
+      {
+        "method": "like",
+        "endpoint": "/:id/like",
+        "likes": "likes",
+        "userModel": "usuario"
+      }
+    ]
+  },
+  "properties": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "ubicacion": {
+      "type": "string",
+      "required": true
+    },
+    "modalidad": {
+      "type": [
+        "string"
+      ]
+    },
+    "temas_asesoria": {
+      "type": [
+        "string"
+      ]
+    },
+    "ventajas_adicionales": {
+      "type": "string"
+    },
+    "costo": {
+      "type": "number"
+    },
+    "idiomas": {
+      "type": [
+        "string"
+      ]
+    },
+    "horarios": {
+      "type": [
+        "string"
+      ]
+    },
+    "acerca_couch": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "usuario": {
+      "type": "belongsTo",
+      "model": "usuario",
+      "foreignKey": ""
+    },
+    "instruccions": {
+      "type": "hasOne",
+      "model": "instruccion",
+      "foreignKey": ""
+    },
+    "pagos": {
+      "type": "hasMany",
+      "model": "pago",
+      "foreignKey": ""
+    },
+    "disputa": {
+      "type": "hasMany",
+      "model": "disputa",
+      "foreignKey": ""
+    },
+    "comments": {
+      "type": "hasMany",
+      "model": "comentario_asesoria",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
