@@ -96,7 +96,7 @@ export class CoinComponent implements OnInit {
 
   getParamsForm(id) {
     let data = {};
-    let length = this.form.length;
+    length = this.form.length;
     for (let i = 0; i < length; i++) {
       if (this.form[i].type === 'checkbox' || this.form[i].type === 'radio') {
         data[this.form[i].name] = this.form[i].checked
