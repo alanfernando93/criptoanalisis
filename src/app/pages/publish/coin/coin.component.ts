@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 import { CoinsService } from '../../coins/coins.service'
-import { MarketsService } from '../../markets/markets.service' 
+import { MarketsService } from '../../markets/markets.service'
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
@@ -17,8 +17,8 @@ import { isNumber } from '@ng-bootstrap/ng-bootstrap/util/util';
   styleUrls: ['./coin.component.scss']
 })
 export class CoinComponent implements OnInit {
-  @ViewChild('content') content : TemplateRef<any>
-  
+  @ViewChild('content') content: TemplateRef<any>
+
   closeResult: string;
 
   coins: any = []
@@ -27,12 +27,13 @@ export class CoinComponent implements OnInit {
   coin: any;
   market: any;
 
-  form: any = {}
+  form: any;
+  forms: any = {};
 
   constructor(
     private modalService: NgbModal,
     private coinsService: CoinsService,
-    private marketService: MarketsService
+    private marketService: MarketsService,
   ) { }
 
   ngOnInit() {
@@ -68,15 +69,47 @@ export class CoinComponent implements OnInit {
   }
 
   open(enlace) {
-    this.coinsService.getTextForm(enlace.toLowerCase()).subscribe(data=>{
-      let div = document.getElementById('body')
-      div.innerHTML = data["_body"]
-    })
+    let div;
+    this.coinsService.getTextForm(enlace.toLowerCase()).subscribe(data => {
+      div = document.getElementById('body');
+      div.innerHTML = data['_body'];
+      this.form = document.getElementById('form');
+      if (this.forms[enlace]) {
+        length = this.form.length;
+        for (let i = 0; i < length; i++) {
+          if (this.form[i].type === 'checkbox' || this.form[i].type === 'radio') {
+            this.form[i].checked = this.forms[enlace][this.form[i].name]
+          } else {
+            this.form[i].value = this.forms[enlace][this.form[i].name]
+          }
+        }
+      }
+    });
     this.modalService.open(this.content).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
+      this.getParamsForm(enlace);
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      this.getParamsForm(enlace);
     });
+  }
+
+  getParamsForm(id) {
+    let data = {};
+    let length = this.form.length;
+    for (let i = 0; i < length; i++) {
+      if (this.form[i].type === 'checkbox' || this.form[i].type === 'radio') {
+        data[this.form[i].name] = this.form[i].checked
+      } else {
+        data[this.form[i].name] = this.form[i].value;
+      }
+    }
+    this.forms[id] = data;
+  }
+
+  submit() {
+    let aux;
+    aux = document.getElementById('form');
   }
 
   private getDismissReason(reason: any): string {

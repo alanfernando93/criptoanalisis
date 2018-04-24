@@ -66,7 +66,7 @@
       </div>
     </div>
   </div>
-
+  {{closeResult}}
   <div id="content">
     <ng-template #content let-c="close" let-d="dismiss">
       <div class="modal-header">
@@ -76,9 +76,10 @@
         </button>
       </div>
       <div class="modal-body" id="body">
-        
+
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="submit()">Guardar</button>
         <button type="button" class="btn btn-primary" (click)="c('Close click')">Close</button>
       </div>
     </ng-template>

@@ -14,12 +14,12 @@ import 'style-loader!angular2-toaster/toaster.css';
 
 class Pos {
   /**
-   * 
-   * @param moneda1 
-   * @param valor 
-   * @param moneda2 
-   * @param porcentajeCapital 
-   * @param puntoId 
+   *
+   * @param moneda1
+   * @param valor
+   * @param moneda2
+   * @param porcentajeCapital
+   * @param puntoId
    */
   constructor(moneda1: String, valor: String, moneda2: String, porcentajeCapital: String, puntoId: Number) {
   }
