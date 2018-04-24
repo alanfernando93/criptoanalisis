@@ -33,6 +33,7 @@ import { NB_AUTH_TOKEN_WRAPPER_TOKEN, NbAuthJWTToken } from '@nebular/auth';
     HttpModule,
     FormsModule,
     AppRoutingModule,
+    ShareButtonsModule,
     
     NgbModule.forRoot(),
     ThemeModule.forRoot(),

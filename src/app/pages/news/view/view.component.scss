@@ -9,10 +9,9 @@ a{
   text-decoration: none;
   margin: -4px 1px;
   border-radius: 18px;
-}
-
-.fa:hover {
+  &:hover{
     opacity: 0.7;
+  }
 }
 
 .fa-facebook {
@@ -71,7 +70,10 @@ a{
   flex-shrink: 0;
 }
 .drop{
-  left: 18px !important;
+  left: 1px !important;
+  left: 15px !important;
+  top: 8px;
+  padding: 0px;
 }
 .bton-seguir{
   padding-top: 10px;
@@ -82,4 +84,9 @@ a{
 }
 .image_pop{
   border: 1px solid #b7bec6;
+}
+.scrollable-menu {
+  height: auto;
+  max-height: 150px;
+  overflow-x: hidden;
 }

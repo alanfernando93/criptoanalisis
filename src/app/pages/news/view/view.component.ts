@@ -39,9 +39,9 @@ export class ViewComponent implements OnInit {
       this.idNews = params['newsId'];
     });
     this.getNewsById();
-    this.getNewsCommentById();
     this.getNewsCommentCount();
     this.getNewsWithUser();
+    this.getNewsCommentById();
     this.getCommentWithUser();
   }
 
