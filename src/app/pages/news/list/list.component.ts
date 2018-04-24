@@ -28,6 +28,7 @@ export class ListComponent implements OnInit {
   getNews() {
     this.newsService.getAllLimit(this.limit, this.increment).subscribe(data => {
       data ? this.news = data : {};
+      console.log(data);
       this.news.forEach((element, index) => {
         let newsId = this.news[index].id;
         this.newsService.getUserByNews(newsId).subscribe(data => {
