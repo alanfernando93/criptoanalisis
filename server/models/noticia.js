@@ -113,6 +113,7 @@ module.exports = (Noticia, ctx, ctx2) => {
   Noticia.afterRemote('like', (ctx, noticia, next) => {
     var idn = ctx.req.params.id;
     var idUser = ctx.req.query.userId;
+    var userId = ctx.result.usuarioId;
     var coinNews = ctx.result.tipo_moneda;
     var index = ctx.result.dislikes.users.indexOf(idUser);
     if (index > -1) {
@@ -121,7 +122,7 @@ module.exports = (Noticia, ctx, ctx2) => {
       var d = ctx.result.dislikes;
       ctx.method.ctor.dislike(idn, idUser);
     }
-    Noticia.app.models.usuario.famaUser(idUser, _variable.rpl, coinNews);
+    Noticia.app.models.usuario.famaUser(userId, _variable.rpl, coinNews);
     next();
   });
 
@@ -130,6 +131,7 @@ module.exports = (Noticia, ctx, ctx2) => {
   Noticia.afterRemote('dislike', (ctx, noticia, next) => {
     var idn = ctx.req.params.id;
     var idUser = ctx.req.query.userId;
+    var userId = ctx.result.usuarioId;
     var coinNews = ctx.result.tipo_moneda;
     var index = ctx.result.likes.users.indexOf(idUser);
     if (index > -1) {
@@ -137,7 +139,7 @@ module.exports = (Noticia, ctx, ctx2) => {
       ctx.result.likes.total = ctx.result.likes.total - 1;
       ctx.method.ctor.like(idn, idUser);
     }
-    Noticia.app.models.usuario.famaUser(idUser, _variable.rpd, coinNews);
+    Noticia.app.models.usuario.famaUser(userId, _variable.rpd, coinNews);
     next();
   });
 
