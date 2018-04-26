@@ -32,7 +32,7 @@ import { environment } from '../../../../environments/environment'
   <p style="text-align: center; font-size: 15px;"><img title="TinyMCE Logo" src="//www.tinymce.com/images/glyph-tinymce@2x.png" alt="TinyMCE Logo" width="110" height="97" />
   </p></textarea>
   `,
-  providers:[NewsService]
+  providers: [NewsService]
 })
 export class TinyMCEComponent implements OnDestroy, AfterViewInit {
   @Input() height: String = "320";
@@ -55,26 +55,33 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
       target: this.host.nativeElement,
       selector: 'textarea',
       menubar: false,
-      plugins: ['link image tradingview code', 'media table imagetools contextmenu'],
+      plugins: ['link image tradingview code', 'media table imagetools '],
       toolbar: 'undo redo | formatselect | bold italic backcolor underline | alignleft aligncenter alignright alignjustify | blockquote | bullist numlist | link image media | tradingview | table',
       skin_url: 'assets/skins/lightgray',
-      imagetools_toolbar: "rotateleft rotateright | flipv fliph | editimage imageoptions",
+      imagetools_toolbar: "rotateleft rotateright | editimage imageoptions",
       theme: 'modern',
       setup: editor => {
         this.editor = editor;
-        editor.on('init', cont => {
-          if (this.content) cont.target.setContent(this.content);
-        });
+        // editor.on('init', cont => {
+        //   if (this.content) cont.target.setContent(this.content);
+        // });
         editor.on('keyup change', () => {
           const content = editor.getContent();
           this.onEditorKeyup.emit(content);
         });
       },
+      images_dataimg_filter: function (img) {
+        return img.hasAttribute('internal-blob');
+      },
       image_description: false,
       image_title: true,
-      // automatic_uploads: true,
+      automatic_uploads: false,
+      paste_data_images: true,
+      image_advtab: true,
       file_picker_types: 'image',
       file_picker_callback: (cb, value, meta) => {
+        console.log(value);
+        console.log(meta);        
         let input = document.createElement('input');
         input.setAttribute('type', 'file');
         input.setAttribute('accept', 'image/*');
@@ -87,28 +94,30 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
             var base64 = reader.result.split(',')[1];
             var blobInfo = blobCache.create(id, myFile, base64);
             blobCache.add(blobInfo);
-
+            console.log(blobInfo.blob());
             // blobInfo.blobUri() => url de la imagen que sera insertada
             cb(blobInfo.blobUri(), { title: myFile.name });
 
           };
           reader.readAsDataURL(myFile);
-          
+
         };
         input.click();
       },
       images_upload_handler: (blobInfo, success, failure) => {
         let body = new FormData();
-        body.append('file', blobInfo.blob(), blobInfo.filename());
-        this.newsService.fullUploadFileImage(body).subscribe(data=>{
-          //success(this.baseUrl + "containers/galery/download/" + blobInfo.filename())
+        body.append('file', blobInfo.blob(), blobInfo.id());
+        this.newsService.fullUploadFileImage(body).subscribe(data => {
+          success(this.baseUrl + "containers/galery/download/" + blobInfo.id())
         })
       },
+      convert_urls: true,
       height: this.height,
       content_css: [
         '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
         '//www.tinymce.com/css/codepen.min.css'
-      ]
+      ],
+      // image_prepend_url: this.baseUrl + "containers/galery/download/",
     });
   }
 
