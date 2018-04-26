@@ -1,55 +1,42 @@
 a{
   cursor: pointer !important;
 }
-.socials {
-  font-size: 1.2rem;
-  a {
-    color: #a4abb3;
-    text-decoration: none;
- 
-    &:hover {
-      color: steelblue !important;
-    }
-  }
+.fa {
+  padding: 4px;
+  font-size: 24px;
+  width: 40px;
+  text-align: center;
+  text-decoration: none;
+  margin: -4px 1px;
+  border-radius: 18px;
 }
-.whatsapp{
-  span{
-    font-size: 0.8rem;
-    color: #25d366;
-    &:hover{
-      color: #a4abb3;
-    }
-  }
+
+.fa:hover {
+    opacity: 0.7;
 }
-.twitter{
-  span{
-    font-size: 0.8rem;
-    color: #00acee;
-    &:hover{
-      color: #a4abb3;
-    }
-  }
+
+.fa-facebook {
+  background: #3B5998;
+  color: white;
 }
-.facebook{
-  span{
-    font-size: 0.8rem;
-    color: #3b5998;
-    &:hover{
-      color: #a4abb3;
-    }
-  }
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.fa-google {
+  background: #dd4b39;
+  color: white;
 }
 
 .foto_user{
-  border-radius: 3.25rem;;
-}
-
-.user{
-  margin-top: 10px;
+  border-radius: 3.25rem;
+  width: 4%;
 }
 
 .user_data {
-  line-height: 37px;
+  margin-top: 9px;
 }
 
 .content_image{
@@ -76,4 +63,7 @@ a{
   border: solid 2px #bcc3cc;
   border-radius: 50%;
   flex-shrink: 0;
+}
+.bton-seguir{
+  padding-top: 10px;
 }

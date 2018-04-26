@@ -12,18 +12,24 @@
         <div class="card">
           <div class="card-header">
             <div class="row" *ngFor="let content of signal.contentUser">
-              <div class="col-6 col-md-5">
+              <div class="col-12 col-md-3">
                 <nb-user [menu]="" [name]="content?.username" [picture]="content?.perfil"></nb-user>
               </div>
-              <div class="col-3 col-md-2">
-                <h5>
+              <div class="col-4 col-md-1">
+                <h6>
                   <span class="badge badge-primary font-w-light user">{{content.precision}} P</span>
-                </h5>
+                </h6>
               </div>
-              <div class="col-3 col-md-5">
-                <h5>
-                  <span class="badge badge-info font-w-light user">{{content.fama}} F</span>
-                </h5>
+              <div class="col-4 col-md-2" *ngFor="let famaUser of content.fama.firstTwo">
+                <h6>
+                  <span class="badge badge-info font-w-light user">{{famaUser.valor}} {{famaUser.symbol}}</span>
+                </h6>
+              </div>
+              <div class="d-none d-sm-block dropdown" ngbDropdown>
+                <button class="btn btn-primary btn-tn" ngbDropdownToggle>ver mas fama</button>
+                <ul class="dropdown-menu" ngbDropdownMenu>
+                  <li class="dropdown-item" *ngFor="let famaUser of content.fama.last">{{famaUser.valor}} {{famaUser.symbol}}</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -71,3 +77,12 @@
     </nb-card>
   </div>
 </div>
+<nb-card>
+  <nb-card-body>
+    <div class="row block-level-buttons">
+      <div class="col-md-12">
+        <button type="button" class="btn btn-outline-primary btn-block" (click)="Upload()">Ver mas</button>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

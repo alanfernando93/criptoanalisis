@@ -9,18 +9,24 @@
   <nb-card-header>
     <div class="row" *ngFor="let content of news.contentUser">
       <div class="col-12 col-md-2">
-        <nb-user [menu]="" [name]="content?.username" [picture]="content?.perfil" ></nb-user>  
+        <nb-user [menu]="" [name]="content?.username" [picture]="content?.perfil" ></nb-user>
       </div>
       <div class="col-4 col-md-1">
         <h5>
-          <span class="badge badge-primary font-w-light user">{{content.precision}} P</span>
+          <span class="badge badge-primary font-w-light user">{{content.puntos}} P</span>
         </h5>
       </div>
-      <div class="col-8 col-md-9">
+      <div class="col-4 col-md-1" *ngFor="let famaUser of content.fama.firstTwo">
         <h5>
-          <span class="badge badge-info font-w-light user">{{content.fama}} F</span>
+          <span class="badge badge-info font-w-light user">{{famaUser.valor}} {{famaUser.symbol}}</span>
         </h5>
       </div>
+      <div class="d-none d-sm-block dropdown drop" ngbDropdown>
+        <button type="button" class="btn btn-info btn-tn" ngbDropdownToggle>ver mas fama</button>
+        <ul class="dropdown-menu scrollable-menu" ngbDropdownMenu>
+            <li class="dropdown-item" *ngFor="let famaUser of content.fama.last">{{famaUser.valor}} {{famaUser.symbol}}</li>
+        </ul>
+    </div>
     </div>
   </nb-card-header>
   <nb-card-body>
@@ -31,7 +37,7 @@
         </h5>
       </div>
       <div class="col-md-2">
-        <img src="../../../assets/images/cover1.jpg" class="img-thumbnail" alt="Responsive image" width="" height="">
+        <img src="{{getImage(news.id)}}" class="img-thumbnail">
       </div>
     </div>
   </nb-card-body>
@@ -55,4 +61,13 @@
       </div>
     </div>
   </nb-card-footer>
+</nb-card>
+<nb-card>
+  <nb-card-body>
+    <div class="row block-level-buttons">
+      <div class="col-md-12">
+        <button type="button" class="btn btn-outline-primary btn-block" (click)="Upload()">Ver mas</button>
+      </div>
+    </div>
+  </nb-card-body>
 </nb-card>
