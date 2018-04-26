@@ -58,6 +58,7 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
       plugins: ['link image tradingview code', 'media table imagetools contextmenu'],
       toolbar: 'undo redo | formatselect | bold italic backcolor underline | alignleft aligncenter alignright alignjustify | blockquote | bullist numlist | link image media | tradingview | table',
       skin_url: 'assets/skins/lightgray',
+      imagetools_toolbar: "rotateleft rotateright | flipv fliph | editimage imageoptions",
       theme: 'modern',
       setup: editor => {
         this.editor = editor;
@@ -101,7 +102,7 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
         body.append('file', blobInfo.blob(), blobInfo.filename());
         this.newsService.fullUploadFileImage(body).subscribe(data=>{
           //success(this.baseUrl + "containers/galery/download/" + blobInfo.filename())
-        })                 
+        })
       },
       height: this.height,
       content_css: [
