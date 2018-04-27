@@ -1,12 +1,51 @@
-import { Component, OnInit, Input, ViewChild } from "@angular/core";
+import { Component, OnInit, Input, ViewChild, TemplateRef } from "@angular/core";
 import { Router } from "@angular/router";
 import { Http, Response } from "@angular/http";
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NewsService } from "../../news/news.service";
 import { CoinsService } from "../../coins/coins.service";
 
+import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
 
-import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
+@Component({
+  selector: 'ngbd-modal-content',
+  templateUrl: "./croppermodal.component.html",
+})
+export class CropperModalContent {
+  @Input() name;
+  @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
+  cropperSettings: CropperSettings;
+
+  data: any;
+
+  constructor(public activeModal: NgbActiveModal) {
+      this.cropperSettings = new CropperSettings();
+      this.cropperSettings.noFileInput = true;
+
+      this.cropperSettings.width = 100;
+      this.cropperSettings.height = 100;
+      this.cropperSettings.croppedWidth = 100;
+      this.cropperSettings.croppedHeight = 100;
+      this.cropperSettings.canvasWidth = 400;
+      this.cropperSettings.canvasHeight = 300;
+
+      this.data = {};
+  }
+
+  fileChangeListener($event) {
+      var image: any = new Image();
+      var file: File = $event.target.files[0];
+      var myReader: FileReader = new FileReader();
+      var that = this;
+      myReader.onloadend = function (loadEvent: any) {
+          image.src = loadEvent.target.result;
+          that.cropper.setImage(image);
+
+      };
+
+      myReader.readAsDataURL(file);
+  }
+}
 
 @Component({
   selector: "ngx-publish-news",
@@ -15,12 +54,9 @@ import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
 })
 export class PublishNewsComponent implements OnInit {
   @Input() idNew: String = null;
-
-  data:any;
-
-  @ViewChild('cropper', undefined) cropper:ImageCropperComponent;
-  cropperSettings: CropperSettings;
-
+ 
+  @ViewChild('contentImag') content: TemplateRef<any>
+  
   url = "https://mdbootstrap.com/img/Photos/Others/placeholder.jpg";
   myFile:File;
   closeResult: string;
@@ -42,10 +78,6 @@ export class PublishNewsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.cropperSettings = new CropperSettings();
-    this.cropperSettings.noFileInput = true;
-    this.data = {};
-
     if (this.idNew != null) {
       this.newsService.getById(this.idNew).subscribe(resp => {
         this.newsPublish = resp;
@@ -83,6 +115,10 @@ export class PublishNewsComponent implements OnInit {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
+  openCropper() {
+    const modalRef = this.modalService.open(CropperModalContent);
+    modalRef.componentInstance.name = 'World';
+  }
   
   private getDismissReason(reason: any): string {
       if (reason === ModalDismissReasons.ESC) {
@@ -98,6 +134,7 @@ export class PublishNewsComponent implements OnInit {
     console.log(files[0]);
     var type:any = new Array("image/jpeg","image/jpg","image/png","image/bmp");
     var maximo = 5500000; //4.8 Mb esto es para probar 
+    //max y min 
     var img = new Image();
     if (files && files[0]) {
       this.myFile = files[0];
@@ -116,19 +153,5 @@ export class PublishNewsComponent implements OnInit {
       img.src = this.url
       reader.readAsDataURL(files[0]);
     }    
-  }
-
-  fileChangeListener($event) {
-    var image:any = new Image();
-    var file:File = $event.target.files[0];
-    var myReader:FileReader = new FileReader();
-    var that = this;
-    myReader.onloadend = function (loadEvent:any) {
-        image.src = loadEvent.target.result;
-        that.cropper.setImage(image);
-
-    };
-
-    myReader.readAsDataURL(file);
   }
 }

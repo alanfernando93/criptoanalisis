@@ -124,6 +124,7 @@ tinymce.PluginManager.add('image', function(editor) {
 
 			function waitLoad(imgElm) {
 				function selectImage() {
+					console.log("select")
 					imgElm.onload = imgElm.onerror = null;
 
 					if (editor.selection) {

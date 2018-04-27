@@ -5,46 +5,47 @@ import {
   Output,
   Input,
   EventEmitter,
-  ElementRef
-} from "@angular/core";
+  ElementRef,
+} from '@angular/core';
 
-import "tinymce";
 
-import "tinymce/themes/modern";
-import "tinymce/plugins/code";
-import "tinymce/plugins/link";
-import "tinymce/plugins/image";
-import "tinymce/plugins/media";
-import "tinymce/plugins/table";
-import "tinymce/plugins/imagetools";
+// A theme is also required
+import 'tinymce/themes/modern/theme';
+
+import 'tinymce/plugins/code';
+import 'tinymce/plugins/link';
+// import 'tinymce/plugins/image';
+import 'tinymce/plugins/media';
+import 'tinymce/plugins/table';
+// import 'tinymce/plugins/imagetools';
 import 'tinymce/plugins/contextmenu';
 
-import "../../../../assets/plugins/tradingview";
+import '../../../../assets/plugins/tradingview';
+import '../../../../assets/plugins/image';
+import '../../../../assets/plugins/imagetools';
 
-import { NewsService } from "../../../pages/news/news.service";
+import { NewsService } from '../../../pages/news/news.service';
 import { environment } from '../../../../environments/environment'
 
-// declare var tinymce: any;
+declare var tinymce: any;
 
 @Component({
-  selector: "ngx-tiny-mce",
-  template: `<textarea>
-  <p style="text-align: center; font-size: 15px;">
-  <img title="TinyMCE Logo" src="//www.tinymce.com/images/glyph-tinymce@2x.png" alt="TinyMCE Logo" width="110" height="97" />
-  </p></textarea>
+  selector: 'ngx-tiny-mce',
+  template: `<textarea></textarea>
   `,
   providers: [NewsService]
 })
 export class TinyMCEComponent implements OnDestroy, AfterViewInit {
-  @Input() height: String = "320";
+  @Input() height: String = '320';
   @Input() innerHTML: String;
 
-  css = [
+  style = [
     '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
     '//www.tinymce.com/css/codepen.min.css'
   ];
 
   @Output() onEditorKeyup = new EventEmitter<any>();
+  @Output() getCollectionImages = new EventEmitter<any>();
 
   editor;
   baseUrl = environment.apiUrl;
@@ -73,14 +74,16 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
           this.onEditorKeyup.emit(content);
         });
       },
-      // image_description: false,
-      // image_title: true,
+      image_description: false,
+      image_title: false,
+      image_size: false,
       // paste_data_images: true,
       // file_picker_types: 'image',
       height: this.height,
-      content_css: this.css,
+      content_css: this.style,
       // image_prepend_url: this.baseUrl + "containers/galery/download/",
       file_picker_callback: this.file_picker,
+      // file_browser_callback: this.file_browser,
       //images_upload_handler: this.upload,
       // init_instance_callback: this.editorEvent,
     });
@@ -127,21 +130,6 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
 
     };
     input.click();
-  }
-
-  file_browser = (field_name, url, type, win) => {
-    var filebrowser = "filebrowser.php";
-    filebrowser += (filebrowser.indexOf("?") < 0) ? "?type=" + type : "&type=" + type;
-    tinymce.activeEditor.windowManager.open({
-      title: "Insertar fichero",
-      width: 520,
-      height: 400,
-      url: filebrowser
-    }, {
-        window: win,
-        input: field_name
-      });
-    return false;
   }
 
   ngOnDestroy() {
