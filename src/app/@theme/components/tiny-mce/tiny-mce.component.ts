@@ -38,7 +38,7 @@ import { environment } from '../../../../environments/environment'
 export class TinyMCEComponent implements OnDestroy, AfterViewInit {
   @Input() height: String = "320";
   @Input() innerHTML: String;
-  
+
   css = [
     '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
     '//www.tinymce.com/css/codepen.min.css'
@@ -80,9 +80,9 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
       height: this.height,
       content_css: this.css,
       // image_prepend_url: this.baseUrl + "containers/galery/download/",
-      file_picker_callback: this.browser,
+      file_picker_callback: this.file_picker,
       //images_upload_handler: this.upload,
-      init_instance_callback: this.editorEvent,
+      // init_instance_callback: this.editorEvent,
     });
   }
 
@@ -105,19 +105,19 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
     })
   }
 
-  browser = (cb, value, meta) => {
+  file_picker = (cb, value, meta) => {
     let input = document.createElement('input');
     input.setAttribute('type', 'file');
     input.setAttribute('accept', 'image/*');
     input.onchange = event => {
       let myFile = event['target']['files'][0];
-      let reader = new FileReader();      
+      let reader = new FileReader();
       reader.onload = () => {
         console.log(myFile);
         var id = 'blobid' + new Date().getTime();
         var blobCache = tinymce.activeEditor.editorUpload.blobCache;
         var base64 = reader.result.split(',')[1];
-        var blobInfo = blobCache.create(id, myFile);
+        var blobInfo = blobCache.create(id, myFile, base64);
         blobCache.add(blobInfo);
         // blobInfo.blobUri() => url de la imagen que sera insertada
         cb(blobInfo.blobUri(), { title: myFile.name });
@@ -127,6 +127,21 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
 
     };
     input.click();
+  }
+
+  file_browser = (field_name, url, type, win) => {
+    var filebrowser = "filebrowser.php";
+    filebrowser += (filebrowser.indexOf("?") < 0) ? "?type=" + type : "&type=" + type;
+    tinymce.activeEditor.windowManager.open({
+      title: "Insertar fichero",
+      width: 520,
+      height: 400,
+      url: filebrowser
+    }, {
+        window: win,
+        input: field_name
+      });
+    return false;
   }
 
   ngOnDestroy() {

@@ -94,13 +94,23 @@ export class PublishNewsComponent implements OnInit {
       }
   }
 
-  readUrl(files) {    
+  readUrl(files) {
+    console.log(files[0]);
+    var type:any = new Array("image/jpeg","image/jpg","image/png","image/bmp");
+    var maximo = 5500000; //4.8 Mb esto es para probar 
     var img = new Image();
     if (files && files[0]) {
-      this.myFile = files[0]
+      this.myFile = files[0];
+      // console.log(getimagesize(this.myFile));
+      if (type.find(element => element === this.myFile.type) === undefined && this.myFile.size > maximo) return;
+
       var reader = new FileReader();
       
       reader.onload = (e:any) => {
+        
+        var imagen = new Image();
+        imagen.src = e.target.result;
+        console.log(imagen.height + 'px X ' + imagen.width + "px");
         this.url = e.target.result;
       }
       img.src = this.url
