@@ -14,6 +14,8 @@ import { CoinsService } from '../coins/coins.service';
 import { MarketsService } from "../markets/markets.service";
 import { SignalsService } from '../signals/signals.service';
 
+import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
+
 @NgModule({
     imports: [
         ThemeModule,
@@ -23,7 +25,8 @@ import { SignalsService } from '../signals/signals.service';
         PublishComponent,
         PublishNewsComponent,
         SignalComponent,
-        CoinComponent
+        CoinComponent,
+        ImageCropperComponent
     ],
     entryComponents: [],
     providers: [NewsService,CoinsService,SignalsService,MarketsService],

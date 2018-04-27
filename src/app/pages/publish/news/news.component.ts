@@ -1,9 +1,12 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { Http, Response } from "@angular/http";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NewsService } from "../../news/news.service";
 import { CoinsService } from "../../coins/coins.service";
+
+
+import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
 
 @Component({
   selector: "ngx-publish-news",
@@ -12,6 +15,11 @@ import { CoinsService } from "../../coins/coins.service";
 })
 export class PublishNewsComponent implements OnInit {
   @Input() idNew: String = null;
+
+  data:any;
+
+  @ViewChild('cropper', undefined) cropper:ImageCropperComponent;
+  cropperSettings: CropperSettings;
 
   url = "https://mdbootstrap.com/img/Photos/Others/placeholder.jpg";
   myFile:File;
@@ -34,6 +42,10 @@ export class PublishNewsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.cropperSettings = new CropperSettings();
+    this.cropperSettings.noFileInput = true;
+    this.data = {};
+
     if (this.idNew != null) {
       this.newsService.getById(this.idNew).subscribe(resp => {
         this.newsPublish = resp;
@@ -53,6 +65,7 @@ export class PublishNewsComponent implements OnInit {
   }
  
   onSave() {
+    console.log(this.newsPublish.contenido);
     this.newsPublish.tipo_moneda = this.selectedView.name;
     let body = new FormData();
     body.append('', this.myFile, 'perfil.png');
@@ -93,5 +106,19 @@ export class PublishNewsComponent implements OnInit {
       img.src = this.url
       reader.readAsDataURL(files[0]);
     }    
+  }
+
+  fileChangeListener($event) {
+    var image:any = new Image();
+    var file:File = $event.target.files[0];
+    var myReader:FileReader = new FileReader();
+    var that = this;
+    myReader.onloadend = function (loadEvent:any) {
+        image.src = loadEvent.target.result;
+        that.cropper.setImage(image);
+
+    };
+
+    myReader.readAsDataURL(file);
   }
 }

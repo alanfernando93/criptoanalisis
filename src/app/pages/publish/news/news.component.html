@@ -18,7 +18,7 @@
           <div class="file-field">
               <label>Seleccione imagen pricipal</label>
               <div class="z-depth-1-half mb-4" style="width:300px;height:200px">
-                  <img [src]="url" class="img-fluid">
+                  <img [src]="url" class="img-fluid" id="image">
                   <!-- <img id="img" class="img-fluid" #input-id> -->
               </div>
               <div class="d-flex justify-content-center">
@@ -31,6 +31,17 @@
           </div>
       </div>
     </div>
+
+    <div class="file-upload">
+        <span class="text">upload</span>
+        <input id="custom-input" type="file" (change)="fileChangeListener($event)">
+    </div>
+    <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+    <br>
+    <span class="result rounded" *ngIf="data.image" >
+        <img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
+    </span>
+    
     <div class="row col inputgroup">
       <label for="inputContenNews">Contenido de la noticia</label>
       <ngx-tiny-mce [height]="150" (onEditorKeyup)="keyupHandlerFunction($event,'C')">

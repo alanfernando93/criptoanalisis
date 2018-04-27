@@ -29,7 +29,8 @@ import { environment } from '../../../../environments/environment'
 @Component({
   selector: "ngx-tiny-mce",
   template: `<textarea>
-  <p style="text-align: center; font-size: 15px;"><img title="TinyMCE Logo" src="//www.tinymce.com/images/glyph-tinymce@2x.png" alt="TinyMCE Logo" width="110" height="97" />
+  <p style="text-align: center; font-size: 15px;">
+  <img title="TinyMCE Logo" src="//www.tinymce.com/images/glyph-tinymce@2x.png" alt="TinyMCE Logo" width="110" height="97" />
   </p></textarea>
   `,
   providers: [NewsService]
@@ -37,8 +38,11 @@ import { environment } from '../../../../environments/environment'
 export class TinyMCEComponent implements OnDestroy, AfterViewInit {
   @Input() height: String = "320";
   @Input() innerHTML: String;
-  @Input() content: String;
-  @Input() place;
+  
+  css = [
+    '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+    '//www.tinymce.com/css/codepen.min.css'
+  ];
 
   @Output() onEditorKeyup = new EventEmitter<any>();
 
@@ -58,7 +62,6 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
       plugins: ['link image tradingview code', 'media table imagetools '],
       toolbar: 'undo redo | formatselect | bold italic backcolor underline | alignleft aligncenter alignright alignjustify | blockquote | bullist numlist | link image media | tradingview | table',
       skin_url: 'assets/skins/lightgray',
-      imagetools_toolbar: "rotateleft rotateright | editimage imageoptions",
       theme: 'modern',
       setup: editor => {
         this.editor = editor;
@@ -70,55 +73,60 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
           this.onEditorKeyup.emit(content);
         });
       },
-      images_dataimg_filter: function (img) {
-        return img.hasAttribute('internal-blob');
-      },
-      image_description: false,
-      image_title: true,
-      automatic_uploads: false,
-      paste_data_images: true,
-      image_advtab: true,
-      file_picker_types: 'image',
-      file_picker_callback: (cb, value, meta) => {
-        console.log(value);
-        console.log(meta);        
-        let input = document.createElement('input');
-        input.setAttribute('type', 'file');
-        input.setAttribute('accept', 'image/*');
-        input.onchange = event => {
-          let myFile = event['target']['files'][0];
-          let reader = new FileReader();
-          reader.onload = () => {
-            var id = 'blobid' + new Date().getTime();
-            var blobCache = tinymce.activeEditor.editorUpload.blobCache;
-            var base64 = reader.result.split(',')[1];
-            var blobInfo = blobCache.create(id, myFile, base64);
-            blobCache.add(blobInfo);
-            console.log(blobInfo.blob());
-            // blobInfo.blobUri() => url de la imagen que sera insertada
-            cb(blobInfo.blobUri(), { title: myFile.name });
-
-          };
-          reader.readAsDataURL(myFile);
-
-        };
-        input.click();
-      },
-      images_upload_handler: (blobInfo, success, failure) => {
-        let body = new FormData();
-        body.append('file', blobInfo.blob(), blobInfo.id());
-        this.newsService.fullUploadFileImage(body).subscribe(data => {
-          success(this.baseUrl + "containers/galery/download/" + blobInfo.id())
-        })
-      },
-      convert_urls: true,
+      // image_description: false,
+      // image_title: true,
+      // paste_data_images: true,
+      // file_picker_types: 'image',
       height: this.height,
-      content_css: [
-        '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
-        '//www.tinymce.com/css/codepen.min.css'
-      ],
+      content_css: this.css,
       // image_prepend_url: this.baseUrl + "containers/galery/download/",
+      file_picker_callback: this.browser,
+      //images_upload_handler: this.upload,
+      init_instance_callback: this.editorEvent,
     });
+  }
+
+  editorEvent = (editor) => {
+    editor.on('GetContent', function (e) {
+      e.content += 'My custom content!';
+      console.log('My custom content!');
+    });
+    editor.on('focus', function (e) {
+      console.log(e)
+      console.log('Editor got focus!');
+    });
+  }
+
+  upload = (blobInfo, success, failure) => {
+    let body = new FormData();
+    body.append('file', blobInfo.blob(), blobInfo.id());
+    this.newsService.fullUploadFileImage(body).subscribe(data => {
+      success(this.baseUrl + "containers/galery/download/" + blobInfo.id())
+    })
+  }
+
+  browser = (cb, value, meta) => {
+    let input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.onchange = event => {
+      let myFile = event['target']['files'][0];
+      let reader = new FileReader();      
+      reader.onload = () => {
+        console.log(myFile);
+        var id = 'blobid' + new Date().getTime();
+        var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+        var base64 = reader.result.split(',')[1];
+        var blobInfo = blobCache.create(id, myFile);
+        blobCache.add(blobInfo);
+        // blobInfo.blobUri() => url de la imagen que sera insertada
+        cb(blobInfo.blobUri(), { title: myFile.name });
+
+      };
+      reader.readAsDataURL(myFile);
+
+    };
+    input.click();
   }
 
   ngOnDestroy() {
