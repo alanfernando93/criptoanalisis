@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ImageCropperComponent, CropperSettings, Bounds } from 'ng2-img-cropper';
+import { StringUtils } from '../../../common/strings';
+import { ConfigSettings } from '../../../common/config';
+import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 
 @Component({
   selector: 'ngbd-modal-content',
@@ -12,9 +15,20 @@ import { ImageCropperComponent, CropperSettings, Bounds } from 'ng2-img-cropper'
         </button>
       </div>
       <div class="modal-body">
-        <div class="file-upload">
+        
+        <div class="container">
           <div class="row justify-content-center">
-            <div class="col-7">
+            <div class="col-11">
+              <img-cropper id="cropper" #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+            </div>
+          </div>
+        </div>
+        <br>
+      </div>
+      <div class="modal-footer">
+        <div class="container">
+          <div class="row justify-content-between">
+            <div class="col-8">
               <input id="custom-input" type="file" name="file-1[]" id="file-1" class="inputfile inputfile-1" data-multiple-caption="{count} files selected"
                   multiple="" (change)="fileChangeListener($event)">
               <label for="file-1">
@@ -24,18 +38,13 @@ import { ImageCropperComponent, CropperSettings, Bounds } from 'ng2-img-cropper'
                 <span>Choose a file…</span>
               </label>
             </div>
+            <div class="col-4">
+              <button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Insertar</button>
+            </div>
           </div>
         </div>
-        <div class="row justify-content-center">
-          <div class="col-12">
-            <img-cropper id="cropper" #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
-          </div>
-        </div>
-        <br>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Insertar</button>
       </div>`,
+  providers: [StringUtils]
 })
 export class CropperModalComponent {
   @Input() name;
@@ -44,15 +53,21 @@ export class CropperModalComponent {
 
   data: any;
 
-  croppedWidth: number;
-  croppedHeight: number;
+  config: ToasterConfig;
+  title = null;
+  content = `I'm cool toaster!`;
+  type = 'default';
 
-  constructor(public activeModal: NgbActiveModal) {
+  constructor(
+    private strings: StringUtils,
+    public activeModal: NgbActiveModal,
+    private toasterService: ToasterService
+  ) {
     this.cropperSettings = new CropperSettings();
     this.cropperSettings.noFileInput = true;
 
-    this.cropperSettings.width = 200;
-    this.cropperSettings.height = 150;
+    this.cropperSettings.width = 310;
+    this.cropperSettings.height = 200;
     this.cropperSettings.canvasWidth = 400;
     this.cropperSettings.canvasHeight = 300;
     this.cropperSettings.preserveSize = true;
@@ -61,14 +76,18 @@ export class CropperModalComponent {
   }
 
   fileChangeListener($event) {
-    var type: any = new Array("image/jpeg", "image/jpg", "image/png", "image/bmp");
-    var maximo = 5500000; //4.8 Mb esto es para probar 
+    var maximo = 1000000; //4.8 Mb esto es para probar 
     //max y min 
     var image: any = new Image();
     var file: File = $event.target.files[0];
     console.log(file);
     var myReader: FileReader = new FileReader();
-    if (type.find(element => element === file.type) === undefined) return;
+    if (ConfigSettings.Image.type.find(element => element === file.type) === undefined) {
+      this.type = 'warning'
+      this.content = ConfigSettings.Image.message.warning;
+      this.showToast(this.type, this.title, this.content);
+      return;
+    };
 
     myReader.onloadend = (loadEvent: any) => {
       image.src = loadEvent.target.result;
@@ -84,38 +103,28 @@ export class CropperModalComponent {
   }
 
   getImageFile() {
-    return this.b64toFile(this.data.image);
+    return this.strings.parseToFile(this.data.image);
   }
 
-  b64toFile(dataURI): File {
-    // convert the data URL to a byte string
-    const byteString = atob(dataURI.split(',')[1]);
-
-    // pull out the mime type from the data URL
-    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
-
-    // Convert to byte array
-    const ab = new ArrayBuffer(byteString.length);
-    const ia = new Uint8Array(ab);
-    for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-    }
-
-    // Create a blob that looks like a file.
-    const blob = new Blob([ab], { 'type': mimeString });
-    blob['lastModifiedDate'] = (new Date()).toISOString();
-    blob['name'] = 'file';
-
-    // Figure out what extension the file should have
-    switch (blob.type) {
-      case 'image/jpeg':
-        blob['name'] += '.jpg';
-        break;
-      case 'image/png':
-        blob['name'] += '.png';
-        break;
-    }
-    // cast to a File
-    return <File>blob;
+  private showToast(type: string, title: string, body: string) {
+    this.config = new ToasterConfig({
+      positionClass: 'toast-top-right',
+      timeout: 5000,
+      newestOnTop: true,
+      tapToDismiss: true,
+      preventDuplicates: false,
+      animation: 'flyRight',
+      limit: 5,
+    });
+    const toast: Toast = {
+      type: type,
+      title: title,
+      body: body,
+      timeout: 5000,
+      showCloseButton: true,
+      bodyOutputType: BodyOutputType.TrustedHtml,
+    };
+    this.toasterService.popAsync(toast);
   }
+
 }

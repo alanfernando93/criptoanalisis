@@ -9,6 +9,8 @@ import { CropperModalComponent } from '../../../@theme/components/cropper/croppe
 import { SignalsService } from '../../signals/signals.service';
 import { CoinsService } from "../../coins/coins.service";
 
+import { ConfigSettings } from '../../../common/config';
+
 import 'style-loader!angular2-toaster/toaster.css';
 
 class Pos {
@@ -99,6 +101,7 @@ export class SignalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(ConfigSettings['message']);
     if (this.idSignal != null) {
       // this.newsService.getById(this.idNew).then(resp => {
       //   this.newsPublish = resp;
@@ -130,7 +133,7 @@ export class SignalComponent implements OnInit {
         this.positions[key].signalId = id
         this.signalsService.setPosition(this.positions[key]).subscribe(respo => { })
         this.type = 'success'
-        this.content = 'Se guardo con exito!!!'
+        this.content = ConfigSettings.message.success;
       }, erro => {
         this.type = 'error'
         this.content = 'Se produjo un error con los puntos'

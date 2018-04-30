@@ -31,8 +31,7 @@ declare var tinymce: any;
 
 @Component({
   selector: 'ngx-tiny-mce',
-  template: `<textarea></textarea>
-  `,
+  template: ` `,
   providers: [NewsService]
 })
 export class TinyMCEComponent implements OnDestroy, AfterViewInit {
@@ -58,7 +57,7 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     tinymce.init({
       target: this.host.nativeElement,
-      selector: 'textarea',
+      // selector: 'textarea',
       menubar: false,
       plugins: ['link image tradingview code', 'media table imagetools '],
       toolbar: 'undo redo | formatselect | bold italic backcolor underline | alignleft aligncenter alignright alignjustify | blockquote | bullist numlist | link image media | tradingview | table',
@@ -84,7 +83,7 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
       // image_prepend_url: this.baseUrl + "containers/galery/download/",
       file_picker_callback: this.file_picker,
       // file_browser_callback: this.file_browser,
-      //images_upload_handler: this.upload,
+      // images_upload_handler: this.upload,
       // init_instance_callback: this.editorEvent,
     });
   }
@@ -101,11 +100,7 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
   }
 
   upload = (blobInfo, success, failure) => {
-    let body = new FormData();
-    body.append('file', blobInfo.blob(), blobInfo.id());
-    this.newsService.fullUploadFileImage(body).subscribe(data => {
-      success(this.baseUrl + "containers/galery/download/" + blobInfo.id())
-    })
+    console.log(this.host);
   }
 
   file_picker = (cb, value, meta) => {
@@ -116,7 +111,6 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
       let myFile = event['target']['files'][0];
       let reader = new FileReader();
       reader.onload = () => {
-        console.log(myFile);
         var id = 'blobid' + new Date().getTime();
         var blobCache = tinymce.activeEditor.editorUpload.blobCache;
         var base64 = reader.result.split(',')[1];
@@ -131,6 +125,8 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
     };
     input.click();
   }
+
+  
 
   ngOnDestroy() {
     tinymce.remove(this.editor);

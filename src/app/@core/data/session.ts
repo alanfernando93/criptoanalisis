@@ -1,6 +1,6 @@
 import { environment } from "../../../environments/environment";
 
-export class Session {
+export abstract class Session {
 
     getUserId(){
         return localStorage.getItem('userId')

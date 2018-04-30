@@ -2,6 +2,8 @@ import { Component, OnInit, Input, ViewChild, TemplateRef } from "@angular/core"
 import { Router } from "@angular/router";
 import { Http, Response } from "@angular/http";
 
+import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
+
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NewsService } from "../../news/news.service";
 import { CoinsService } from "../../coins/coins.service";
@@ -17,13 +19,10 @@ export class PublishNewsComponent implements OnInit {
   @Input() idNew: String = null;
  
   titulo:String;
-  @ViewChild('contentImag') content: TemplateRef<any>
   
   url = "https://mdbootstrap.com/img/Photos/Others/placeholder.jpg";
   myFile:File;
   closeResult: string;
-  successMessage: string;
-  type : String;
   newsPublish: any = {};
   coins: any = [];
 
@@ -31,12 +30,18 @@ export class PublishNewsComponent implements OnInit {
     name: "Seleccione Moneda"
   };
 
+  config: ToasterConfig;
+  title = null;
+  content = `I'm cool toaster!`;
+  type = 'default';
+
   constructor(
     private modalService: NgbModal,
     private http: Http,
     private newsService: NewsService,
     private coinsService: CoinsService,
     private router: Router,
+    private toasterService: ToasterService
   ) {}
 
   ngOnInit() {
@@ -50,9 +55,9 @@ export class PublishNewsComponent implements OnInit {
     });
   }
 
-  keyupHandlerFunction(event,opc) {
+  setContent(event,opc) {
     switch(opc){
-      case 'C':this.newsPublish.contenido = event;break;
+      case 'C': this.newsPublish.contenido = event;break;
       case 'CP': this.newsPublish.conj_precio = event;break;
       case 'CM': this.newsPublish.conj_moneda = event;break;
     }
@@ -71,7 +76,8 @@ export class PublishNewsComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService.open(content).result.then((result) => {
+    console.log(this.newsPublish);
+    this.modalService.open(content, { size: 'lg' }).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -98,5 +104,26 @@ export class PublishNewsComponent implements OnInit {
       } else {
           return `with: ${reason}`;
       }
+  }
+
+  private showToast(type: string, title: string, body: string) {
+    this.config = new ToasterConfig({
+      positionClass: 'toast-top-right',
+      timeout: 5000,
+      newestOnTop: true,
+      tapToDismiss: true,
+      preventDuplicates: false,
+      animation: 'flyRight',
+      limit: 5,
+    });
+    const toast: Toast = {
+      type: type,
+      title: title,
+      body: body,
+      timeout: 5000,
+      showCloseButton: true,
+      bodyOutputType: BodyOutputType.TrustedHtml,
+    };
+    this.toasterService.popAsync(toast);
   }
 }

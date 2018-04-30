@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ImageCropperComponent } from 'ng2-img-cropper';
+import { ToasterModule } from 'angular2-toaster';
 
 import {
   NbActionsModule,
@@ -35,6 +36,7 @@ import { DEFAULT_THEME } from './styles/theme.default';
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
 
 const NB_MODULES = [
+  ToasterModule,
   NbCardModule,
   NbLayoutModule,
   NbTabsetModule,
