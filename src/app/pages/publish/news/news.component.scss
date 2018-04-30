@@ -20,5 +20,12 @@
         height: 50px;
         overflow-y: scroll;
     }
+
+    .upload{
+        cursor: pointer;   
+    }
+    .upload:hover {
+        color: aqua;
+    }
     
 }

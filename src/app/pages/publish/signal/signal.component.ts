@@ -4,8 +4,7 @@ import { Router } from "@angular/router";
 import { Http, Response } from "@angular/http";
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-
-import { environment } from '../../../../environments/environment';
+import { CropperModalComponent } from '../../../@theme/components/cropper/croppermodal.component';
 
 import { SignalsService } from '../../signals/signals.service';
 import { CoinsService } from "../../coins/coins.service";
@@ -33,7 +32,7 @@ class Pos {
 
 export class SignalComponent implements OnInit {
   @Input() idSignal: String = null;
-  userId = environment.userId;
+  
   closeResult: string;
   url = "https://mdbootstrap.com/img/Photos/Others/placeholder.jpg";
   myFile: File;
@@ -265,6 +264,16 @@ export class SignalComponent implements OnInit {
     });
   }
 
+  openCropper() {
+    let modalRef = this.modalService.open(CropperModalComponent);
+    const instance = modalRef.componentInstance;
+    modalRef.result.then(result => {
+      this.url = instance.getImageResize();
+      this.myFile = instance.getImageFile();
+    }, reason => {
+    })
+  }
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -308,5 +317,5 @@ export class SignalComponent implements OnInit {
       img.src = this.url
       reader.readAsDataURL(files[0]);
     }
-  }
+  }  
 }
