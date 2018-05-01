@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ImageCropperComponent, CropperSettings, Bounds } from 'ng2-img-cropper';
-import { StringUtils } from '../../../common/strings';
-import { ConfigSettings } from '../../../common/config';
-import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
+import { ToasterService, ToasterConfig, Toast, BodyOutputType} from 'angular2-toaster';
+
+import { parseToFile, showToast } from '../../../common/functions';
+import { configImage} from '../../../common/ConfigSettings';
 
 @Component({
   selector: 'ngbd-modal-content',
@@ -43,8 +44,7 @@ import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-t
             </div>
           </div>
         </div>
-      </div>`,
-  providers: [StringUtils]
+      </div>`
 })
 export class CropperModalComponent {
   @Input() name;
@@ -53,13 +53,7 @@ export class CropperModalComponent {
 
   data: any;
 
-  config: ToasterConfig;
-  title = null;
-  content = `I'm cool toaster!`;
-  type = 'default';
-
   constructor(
-    private strings: StringUtils,
     public activeModal: NgbActiveModal,
     private toasterService: ToasterService
   ) {
@@ -80,17 +74,18 @@ export class CropperModalComponent {
     //max y min 
     var image: any = new Image();
     var file: File = $event.target.files[0];
-    console.log(file);
     var myReader: FileReader = new FileReader();
-    if (ConfigSettings.Image.type.find(element => element === file.type) === undefined) {
-      this.type = 'warning'
-      this.content = ConfigSettings.Image.message.warning;
-      this.showToast(this.type, this.title, this.content);
+    if (configImage.type.find(element => element === file.type) === undefined) {
+      showToast(this.toasterService,'warning', configImage.message.warning);
       return;
     };
 
     myReader.onloadend = (loadEvent: any) => {
       image.src = loadEvent.target.result;
+      if (image.height == 0 && image.width == 0){
+        showToast(this.toasterService, 'error', configImage.message.error);
+        return;
+      }
       console.log(image.height + 'px X ' + image.width + "px");
       this.cropper.setImage(image);
 
@@ -103,28 +98,7 @@ export class CropperModalComponent {
   }
 
   getImageFile() {
-    return this.strings.parseToFile(this.data.image);
-  }
-
-  private showToast(type: string, title: string, body: string) {
-    this.config = new ToasterConfig({
-      positionClass: 'toast-top-right',
-      timeout: 5000,
-      newestOnTop: true,
-      tapToDismiss: true,
-      preventDuplicates: false,
-      animation: 'flyRight',
-      limit: 5,
-    });
-    const toast: Toast = {
-      type: type,
-      title: title,
-      body: body,
-      timeout: 5000,
-      showCloseButton: true,
-      bodyOutputType: BodyOutputType.TrustedHtml,
-    };
-    this.toasterService.popAsync(toast);
+    return parseToFile(this.data.image);
   }
 
 }

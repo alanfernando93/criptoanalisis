@@ -71,7 +71,7 @@
         </div>
         <div class="row col inputgroup">
             <div class="col-md-6">
-                <div class="row col">
+                <div class="row col" id="puntEntr">
                     <div class="row" style="width:100%">
                         <h5>Puntos de entrada</h5>
                     </div>
@@ -88,7 +88,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row col">
+                <div class="row col" id="stopLoss">
                     <div class="row" style="width:100%">
                         <h5>Stop Loss</h5>
                     </div>
@@ -121,17 +121,19 @@
                     </div>
                 </div>
                 <div *ngIf="selectTipoSalida.key; else msg">
-                    <div class="row col"> Puntos de salida: </div>
-                    <div class="row col">
-                        <div class="contenedor input-group">
-                            <span class="input-group-addon">Punto {{tpSal}}</span>
-                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Valor (USD)">
-                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="% Capital">
-                            <span class="input-group-btn">
-                                <button  class="btn btn-secondary" (click)="onClickPuntos($event,'tipSal',tpSal)">
-                                    Añadir
-                                </button>
-                            </span>
+                    <div class="row col" id="tipSal">
+                        <div class="row"> Puntos de salida: </div>
+                        <div class="row">
+                            <div class="contenedor input-group">
+                                <span class="input-group-addon">Punto {{tpSal}}</span>
+                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Valor (USD)">
+                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="% Capital">
+                                <span class="input-group-btn">
+                                    <button  class="btn btn-secondary" (click)="onClickPuntos($event,'tipSal',tpSal)">
+                                        Añadir
+                                    </button>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>

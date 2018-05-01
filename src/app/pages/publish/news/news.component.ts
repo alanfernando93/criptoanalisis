@@ -70,7 +70,7 @@ export class PublishNewsComponent implements OnInit {
     body.append('', this.myFile, 'perfil.png');
     this.newsService.insert(this.newsPublish).subscribe(resp => {
       this.newsService.imageFileUpload(resp.id,body).subscribe((r:Response) => {
-      this.router.navigate(["/"]);
+        this.router.navigate(["/pages/news/list"]);
       })
     });    
   }
@@ -104,26 +104,5 @@ export class PublishNewsComponent implements OnInit {
       } else {
           return `with: ${reason}`;
       }
-  }
-
-  private showToast(type: string, title: string, body: string) {
-    this.config = new ToasterConfig({
-      positionClass: 'toast-top-right',
-      timeout: 5000,
-      newestOnTop: true,
-      tapToDismiss: true,
-      preventDuplicates: false,
-      animation: 'flyRight',
-      limit: 5,
-    });
-    const toast: Toast = {
-      type: type,
-      title: title,
-      body: body,
-      timeout: 5000,
-      showCloseButton: true,
-      bodyOutputType: BodyOutputType.TrustedHtml,
-    };
-    this.toasterService.popAsync(toast);
   }
 }
