@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import { Socket } from 'ng-socket-io';
 import { Http, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-
 import { Session } from '../../@core/data/session';
 import { environment } from '../../../environments/environment';
 
@@ -11,13 +11,49 @@ import 'rxjs/add/operator/map';
 export class NewsService extends Session{
   private baseUrl = environment.apiUrl;
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private socket: Socket) {
     super()
   }
 
   getAll() {
     return this.http.get(this.baseUrl + 'noticias')
       .map((res: Response) => res.json());
+  }
+
+  getNews(){
+    let observable = new Observable(observer => {
+      this.socket.on('insertNoti', (data) => {
+        observer.next(data);
+      });
+      return () => {
+        this.socket.disconnect();
+      } 
+    });
+    return observable;
+  }
+
+  getNewsComen(){
+    let observable = new Observable(observer => {
+      this.socket.on('newCom', (data) => {
+        observer.next(data);
+      });
+      return () => {
+        this.socket.disconnect();
+      } 
+    });
+    return observable;
+  }
+
+  getNewsAns(){
+    let observable = new Observable(observer => {
+      this.socket.on('newAns', (data) => {
+        observer.next(data);
+      });
+      return () => {
+        this.socket.disconnect();
+      }
+    });
+    return observable;
   }
 
   getAllLimit(count, inc) {
@@ -33,6 +69,10 @@ export class NewsService extends Session{
   getNewsComment(id) {
     return this.http.get(this.baseUrl + 'noticias/' + id + '/comentarioNoticia')
       .map((res: Response) => res.json());
+  }
+
+  JoinComm(id){
+    this.socket.emit("join", 'news'+id);
   }
 
   insert(body) {
@@ -66,9 +106,9 @@ export class NewsService extends Session{
       .map((res: Response) => res.json());
   }
 
-  postNewsAnswer(id, respond) {
+  postNewsAnswer(respond) {
     respond.userId = this.getUserId();
-    return this.http.post(this.baseUrl + 'comentario_noticia/' + id + '/answerNoticia', respond)
+    return this.http.post(this.baseUrl + 'answer_noticia', respond)
       .map((res: Response) => res.json());
   }
 

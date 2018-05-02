@@ -12,7 +12,8 @@ import { UserService } from "../../../@core/data/users.service";
 export class ListComponent implements OnInit {
 
   news: any;
-  limit: number = 10;
+  connection;
+  limit: number = 12;
   increment: number = 0;
   contentUser: any;
 
@@ -23,32 +24,46 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     this.getNews();
+    this.connNews();
   }
 
   getNews() {
     this.newsService.getAllLimit(this.limit, this.increment).subscribe(data => {
       data ? this.news = data : {};
-      console.log(data);
       this.news.forEach((element, index) => {
         let newsId = this.news[index].id;
-        this.newsService.getUserByNews(newsId).subscribe(data => {
-          this.contentUser = data;
-          this.contentUser.fama.sort(function (a, b) {
-            return a.valor < b.valor;
-          });
-          this.contentUser.fama.firstTwo = [];
-          this.contentUser.fama.last = [];
-          this.contentUser.fama.firstTwo = this.contentUser.fama.splice(0, 2);
-          this.contentUser.fama.last = this.contentUser.fama.splice(0, this.contentUser.fama.length);
-          this.news[index].contentUser = [];
-          this.news[index].contentUser.push(data);
-          this.newsService.getNewsCommentCount(newsId).subscribe(data => {
-            this.news[index].count = [];
-            this.news[index].count.push(data);
-          });
-        });
+        this.userByNews(newsId, index);
       });
       this.increment += this.limit;
+    });
+  }
+
+  connNews(){
+    this.connection = this.newsService.getNews().subscribe(data=> {
+      let datos: any = data;
+      this.news.unshift(data);
+      this.news.forEach((element, index) => {
+        this.userByNews(datos.usuarioId, index);
+      });
+    });
+  }
+
+  userByNews(newsId, index){
+    this.newsService.getUserByNews(newsId).subscribe(data => {
+      this.contentUser = data;
+      this.contentUser.fama.sort(function (a, b) {
+        return a.valor < b.valor;
+      });
+      this.contentUser.fama.firstTwo = [];
+      this.contentUser.fama.last = [];
+      this.contentUser.fama.firstTwo = this.contentUser.fama.splice(0, 2);
+      this.contentUser.fama.last = this.contentUser.fama.splice(0, this.contentUser.fama.length);
+      this.news[index].contentUser = [];
+      this.news[index].contentUser.push(data);
+      this.newsService.getNewsCommentCount(newsId).subscribe(data => {
+        this.news[index].count = [];
+        this.news[index].count.push(data);
+      });
     });
   }
 

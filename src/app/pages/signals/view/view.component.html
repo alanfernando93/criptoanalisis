@@ -9,15 +9,15 @@
                     <span class="badge badge-primary font-w-light user_data">{{contentUser.puntos}} P</span>
                 </h5>
             </div>
-            <div class="col-3 col-sm-4 col-md-1" *ngFor="let famaUser of firsttwo">
+            <div class="col-4 col-md-1" *ngFor="let famaUser of contentUser.fama.firsttwo">
                 <h5>
                     <span class="badge badge-info font-w-light user_data">{{famaUser.valor}} {{famaUser.symbol}}</span>
                 </h5>
             </div>
-            <div class="d-none d-sm-block dropdown" ngbDropdown>
-                <button type="button" class="btn btn-primary btn-tn" ngbDropdownToggle>ver mas fama</button>
-                <ul class="dropdown-menu" ngbDropdownMenu>
-                    <li class="dropdown-item" *ngFor="let famaUser of last">{{famaUser.valor}} {{famaUser.symbol}}</li>
+            <div class="d-none d-sm-block dropdown drop" ngbDropdown>
+                <button type="button" class="btn btn-info btn-tn" ngbDropdownToggle>ver mas fama</button>
+                <ul class="dropdown-menu scrollable-menu" ngbDropdownMenu>
+                    <li class="dropdown-item" *ngFor="let famaUser of contentUser.fama.last">{{famaUser.valor}} {{famaUser.symbol}}</li>
                 </ul>
             </div>
         </div>
@@ -158,6 +158,7 @@
         </div>
     </nb-card-body>
 </nb-card>
+
 <nb-card>
     <nb-card-body>
         <div class="row" *ngIf="signal">
@@ -170,111 +171,113 @@
                     <div id="collapseExample" [ngbCollapse]="!isCollapsed">
                         <div class="card" *ngFor="let comment of commentById; let i = index">
                             <div class="row" class="card-body">
-                                <div class="">
-                                    <h5 class="text-heading">Comentario</h5>
-                                </div>
-                                <ng-template #popContentComment>
-                                    <div *ngIf="comment.user">
-                                        <div class="media">
-                                            <img *ngIf="comment.user.perfil" class="mr-3" src="{{comment.user.perfil}}" alt="">
-                                            <div *ngIf="!comment.user.perfil" class="user-picture background" [style.background-color]="color">
-                                                <ng-container>
-                                                    <img src="../../../../assets/images/image.png" alt="">
-                                                </ng-container>
-                                            </div>
-                                            <div class="media-body">
-                                                <h5 class="mt-0 text-center">{{comment.user.username}}</h5>
-                                                <div class="text-center">
-                                                    <h6>
-                                                        <span class="badge badge-primary font-w-light">{{comment.user.precision}} P</span>
-                                                        <span class="badge badge-info font-w-light" *ngFor="let famaUser of firsttwo">{{famaUser.valor}} {{famaUser.symbol}}</span>
-                                                    </h6>
+                                <div *ngIf="comment">
+                                    <div class="">
+                                        <h5 class="text-heading">Comentario</h5>
+                                    </div>
+                                    <ng-template #popContentComment>
+                                        <div *ngIf="comment.user" class="pop_style">
+                                            <div class="media">
+                                                <img *ngIf="comment.user.perfil" class="mr-3 image_pop" src="{{comment.user.perfil}}" width="110" height="120">
+                                                <div *ngIf="!comment.user.perfil" class="user-picture background" [style.background-color]="color">
+                                                    <ng-container>
+                                                        <img class="image_pop" src="../../../../assets/images/image.png" alt="">
+                                                    </ng-container>
                                                 </div>
-                                                <div [(ngModel)]="dividedButtonGroupOne" ngbRadioGroup class="btn-group btn-divided-group btn-outline-divided-group btn-group-full-width col-md-12 bton-seguir">
-                                                    <label ngbButtonLabel class="btn btn-outline-primary btn-tn">
-                                                        <input ngbButton type="radio" value="left"> Mensaje
-                                                    </label>
-                                                    <label ngbButtonLabel class="btn btn-outline-success btn-tn">
-                                                        <input ngbButton type="radio" value="middle"> Seguir
-                                                    </label>
+                                                <div class="media-body">
+                                                    <h5 class="mt-0 text-center">{{comment.user.username}}</h5>
+                                                    <div class="text-center">
+                                                        <h6>
+                                                            <span class="badge badge-primary font-w-light">{{comment.user.precision}} P</span>
+                                                            <span class="badge badge-info font-w-light" *ngFor="let famaUser of comment.user.fama.firsttwo">{{famaUser.valor}} {{famaUser.symbol}}</span>
+                                                        </h6>
+                                                    </div>
+                                                    <div [(ngModel)]="dividedButtonGroupOne" ngbRadioGroup class="btn-group btn-divided-group btn-outline-divided-group btn-group-full-width col-md-12 bton-seguir">
+                                                        <label ngbButtonLabel class="btn btn-outline-primary btn-tn">
+                                                            <input ngbButton type="radio" value="left"> Mensaje
+                                                        </label>
+                                                        <label ngbButtonLabel class="btn btn-outline-success btn-tn">
+                                                            <input ngbButton type="radio" value="middle"> Seguir
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </ng-template>
-                                <div class="media">
-                                    <div *ngIf="comment.user" class="content_image">
-                                        <a placement="right" [ngbPopover]="popContentComment" triggers="mouseover">
-                                            <img *ngIf="comment.user.perfil" class="mr-3 image_user rounded-circle" src="{{comment.user.perfil}}">
-                                            <div *ngIf="!comment.user.perfil" class="user-picture background design_user" [style.background-color]="color">
-                                                <ng-container> {{ getInitials(comment.user.username) }} </ng-container>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="media-body">
-                                        <h5 class="mt-0" *ngIf="comment.user">{{comment.user.username}}
-                                            <span class="badge badge-primary">{{comment.user.precision}} P</span>
-                                            <span class="badge badge-info font-w-light" *ngFor="let famaUser of firsttwo">{{famaUser.valor}} {{famaUser.symbol}}</span>
-                                        </h5>
-                                        <p>{{comment.contenido}}</p>
-                                        <p class="text-hint">{{comment.fecha_registro | amTimeAgo}}</p>
-                                        <h5>Respuesta</h5>
-                                        <div *ngFor="let answer of comment.res">
-                                            <div *ngIf="answer.user">
-                                                <div class="media mt-3">
-                                                    <a class="pr-3 content_image" placement="right" [ngbPopover]="popContentAnswer" triggers="mouseover">
-                                                        <img *ngIf="answer.user.perfil" src="{{answer.user.perfil}}" alt="Generic placeholder image" class="image_useranswer rounded-circle">
-                                                        <div *ngIf="!answer.user.perfil" class="user-picture background design_user" [style.background-color]="color">
-                                                            <ng-container> {{ getInitials(answer.user.username) }} </ng-container>
-                                                        </div>
-                                                    </a>
-                                                    <div class="media-body">
-                                                        <h5 class="mt-0" *ngIf="comment.user">{{answer.user.username}}
-                                                            <span class="badge badge-primary">{{answer.user.precision}} P</span>
-                                                            <span class="badge badge-info font-w-light" *ngFor="let famaUser of firsttwo">{{famaUser.valor}} {{famaUser.symbol}}</span>
-                                                        </h5>
-                                                        <p>{{answer.contenido}}</p>
-                                                        <p class="text-hint">{{answer.fecha_registro | amTimeAgo}}</p>
-                                                    </div>
+                                    </ng-template>
+                                    <div class="media">
+                                        <div *ngIf="comment.user" class="content_image">
+                                            <a placement="right" [ngbPopover]="popContentComment" triggers="mouseover">
+                                                <img *ngIf="comment.user.perfil" class="image_user rounded-circle" src="{{comment.user.perfil}}">
+                                                <div *ngIf="!comment.user.perfil" class="user-picture background design_user" [style.background-color]="color">
+                                                    <ng-container> {{ getInitials(comment.user.username) }} </ng-container>
                                                 </div>
-                                            </div>
-                                            <ng-template #popContentAnswer>
-                                                <div *ngIf="answer.user">
-                                                    <div class="media">
-                                                        <img *ngIf="answer.user.perfil" class="mr-3" src="{{answer.user.perfil}}" alt="Generic placeholder image">
-                                                        <div *ngIf="!answer.user.perfil" class="user-picture background" [style.background-color]="color">
-                                                            <ng-container>
-                                                                <img src="../../../../assets/images/image.png" alt="">
-                                                            </ng-container>
-                                                        </div>
+                                            </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h5 class="mt-0" *ngIf="comment.user">{{comment.user.username}}
+                                                <span class="badge badge-primary">{{comment.user.precision}} P</span>
+                                                <span class="badge badge-info font-w-light" *ngFor="let famaUser of comment.user.fama.firsttwo">{{famaUser.valor}} {{famaUser.symbol}}</span>
+                                            </h5>
+                                            <span class="col-10 col-md-11">{{comment.contenido}}</span>
+                                            <p class="text-hint">{{comment.fecha_registro | amTimeAgo}}</p>
+                                            <h5>Respuesta</h5>
+                                            <div *ngFor="let answer of comment.res">
+                                                <div>
+                                                    <div class="media mt-3">
+                                                        <a class="pr-3 content_image" placement="right" [ngbPopover]="popContentAnswer" triggers="mouseover"  *ngIf="answer.user">
+                                                            <img *ngIf="answer.user.perfil" src="{{answer.user.perfil}}" class="image_useranswer rounded-circle">
+                                                            <div *ngIf="!answer.user.perfil" class="user-picture background design_user" [style.background-color]="color">
+                                                                <ng-container> {{ getInitials(answer.user.username) }} </ng-container>
+                                                            </div>
+                                                        </a>
                                                         <div class="media-body">
-                                                            <h5 class="mt-0 text-center">{{answer.user.username}}</h5>
-                                                            <div class="text-center">
-                                                                <h6>
-                                                                    <span class="badge badge-primary">{{answer.user.precision}} P</span>
-                                                                    <span class="badge badge-info font-w-light" *ngFor="let famaUser of firsttwo">{{famaUser.valor}} {{famaUser.symbol}}</span>
-                                                                </h6>
+                                                            <h5 class="mt-0" *ngIf="answer.user">{{answer.user.username}}
+                                                                <span class="badge badge-primary">{{answer.user.precision}} P</span>
+                                                                <span class="badge badge-info font-w-light" *ngFor="let famaUser of answer.user.fama.firsttwo">{{famaUser.valor}} {{famaUser.symbol}}</span>
+                                                            </h5>
+                                                            <div class="col-10 col-md-10">
+                                                                <span>{{answer.contenido}}</span>
                                                             </div>
-                                                            <div [(ngModel)]="dividedButtonGroupOne" ngbRadioGroup class="btn-group btn-divided-group btn-outline-divided-group btn-group-full-width col-md-12 bton-seguir">
-                                                                <label ngbButtonLabel class="btn btn-outline-primary btn-tn">
-                                                                    <input ngbButton type="radio" value="left"> Mensaje
-                                                                </label>
-                                                                <label ngbButtonLabel class="btn btn-outline-success btn-tn">
-                                                                    <input ngbButton type="radio" value="middle"> Seguir
-                                                                </label>
-                                                            </div>
+                                                            <p class="text-hint">{{answer.fecha_registro | amTimeAgo}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </ng-template>
+                                                <ng-template #popContentAnswer>
+                                                    <div class="pop_style" *ngIf="answer.user">
+                                                        <div class="media">
+                                                            <img *ngIf="answer.user.perfil" class="mr-3 image_pop" src="{{answer.user.perfil}}" width="110" height="120">
+                                                            <div *ngIf="!answer.user.perfil" class="user-picture background" [style.background-color]="color">
+                                                                <ng-container>
+                                                                    <img class="image_pop" src="../../../../assets/images/image.png" alt=""> </ng-container>
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <h5 class="mt-0 text-center">{{answer.user.username}}</h5>
+                                                                <div class="text-center">
+                                                                    <h6>
+                                                                        <span class="badge badge-primary">{{answer.user.precision}} P</span>
+                                                                        <span class="badge badge-info font-w-light" *ngFor="let famaUser of answer.user.fama.firsttwo">{{famaUser.valor}} {{famaUser.symbol}}</span>
+                                                                    </h6>
+                                                                </div>
+                                                                <div [(ngModel)]="dividedButtonGroupOne" ngbRadioGroup class="btn-group btn-divided-group btn-outline-divided-group btn-group-full-width col-md-12 bton-seguir">
+                                                                    <label ngbButtonLabel class="btn btn-outline-primary btn-tn">
+                                                                        <input ngbButton type="radio" value="left"> Mensaje
+                                                                    </label>
+                                                                    <label ngbButtonLabel class="btn btn-outline-success btn-tn">
+                                                                        <input ngbButton type="radio" value="middle"> Seguir
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </ng-template>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer">
                                 <div class="form-group">
-                                    <input class="form-control" id="{{comment.id}}" name="answer" placeholder="Escribe una Respuesta" cols="30" rows="0.5" required="required"
-                                    />
+                                    <textarea class="form-control" id="{{comment.id}}" name="{{i}}" placeholder="Escribe una Respuesta" required="required" cols="1" rows="1"></textarea>                                
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-tn" (click)="sendAnswer($event)">Responder</button>
                             </div>
@@ -283,7 +286,8 @@
                     <nb-card>
                         <nb-card-body>
                             <div class="form-group">
-                                <textarea class="form-control" #contenido="ngModel" placeholder="Escribe un Comentario" [(ngModel)]="comment.contenido" minlength="4"></textarea>
+                                <textarea class="form-control" #contenido="ngModel" name="contenido" placeholder="Escribe un Comentario" [(ngModel)]="comment.contenido"
+                                    minlength="4"></textarea>
                                 <br>
                                 <div *ngIf="contenido.invalid && (contenido.dirty || contenido.touched)" class="alert alert-danger">
                                     <span *ngIf="contenido.errors.required">
@@ -293,9 +297,9 @@
                                         El comentario debe tener al menos 4 caracteres.
                                     </span>
                                 </div>
-                                <button type="submit" [disabled]="submitted || !contenido.valid" [class.btn-pulse]="submitted" class="btn btn-success pull-right btn-sm"
-                                    (click)="sendComment()">Publicar</button>
                             </div>
+                            <button type="submit" [disabled]="submitted || !contenido.valid" [class.btn-pulse]="submitted" class="btn btn-success pull-right btn-sm"
+                                (click)="sendComment()">Publicar</button>
                         </nb-card-body>
                     </nb-card>
                 </div>
@@ -303,6 +307,7 @@
         </div>
     </nb-card-body>
 </nb-card>
+
 <nb-card>
     <nb-card-header>
         <div class="row">

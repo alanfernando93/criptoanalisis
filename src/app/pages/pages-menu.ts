@@ -111,7 +111,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'List News',
-        link: '/pages/news/list',
+        link: '/pages/news/news-list',
       },
     ],
   },
@@ -148,7 +148,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'List Signals',
-        link: '/pages/signals/list',
+        link: '/pages/signals/signals-list',
       },
     ],
   },

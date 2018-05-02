@@ -9,15 +9,15 @@ const routes: Routes = [{
   path: '',
   component: SignalsComponent,
   children: [{
-    path: 'list',
+    path: 'signals-list',
     component: ListComponent,
   },
   {
-    path: 'view',
+    path: 'signals-view',
     component: ViewComponent,
   },
   {
-    path: 'view/:signalId',
+    path: 'signals-view/:signalId',
     component: ViewComponent,
   },
   ],

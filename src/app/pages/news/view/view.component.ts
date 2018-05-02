@@ -4,7 +4,6 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { NewsService } from '../news.service';
 import { UserService } from '../../../@core/data/users.service';
-import { CoinsService } from '../../../pages/coins/coins.service';
 import * as nbUser from '@nebular/theme/components/user/user.component'
 
 @Component({
@@ -19,35 +18,60 @@ export class ViewComponent implements OnInit {
   count: number;
   idNews: any;
   contentUser: any;
-  answerUser: any;
   like: number;
   dislike: number;
   comment: any = {};
   respond: any = {};
   answer: any = {};
+  newsAnswer: any;
+  connectionCom;
+  connectionAns;
 
   constructor(
     private http: Http,
     private route: ActivatedRoute,
     private router: Router,
     private newsService: NewsService,
-    private coinsService: CoinsService,
     private userService: UserService) {
   }
   ngOnInit() {
-    this.route.params.forEach((params: Params) => {
-      this.idNews = params['newsId'];
-    });
+    this.getNewsId();
     this.getNewsById();
     this.getNewsCommentCount();
     this.getNewsWithUser();
     this.getNewsCommentById();
     this.getCommentWithUser();
+    this.connNews();
+    this.ansNews();
+  }
+
+  getNewsId() {
+    this.route.params.forEach((params: Params) => {
+      this.idNews = params['newsId'];
+    });
+  }
+
+  connNews() {
+    this.newsService.JoinComm(this.idNews);
+    this.connectionCom = this.newsService.getNewsComen().subscribe(data => {
+      this.getNewsCommentCount();
+      this.getCommentWithUser();
+      this.commentById.push(data);
+    });
+  }
+
+  ansNews() {
+    this.connectionAns = this.newsService.getNewsAns().subscribe(data => {
+      this.newsAnswer = data;
+      let index = this.commentById.findIndex(cpn => cpn.id = this.newsAnswer.comentarioNoticiaId);
+      this.commentById[index].res.push(this.newsAnswer);
+      this.getUserAnswer(index);
+    });
   }
 
   getNewsById() {
     this.newsService.getById(this.idNews).subscribe(data => {
-      data ? this.news = data : '';
+      data ? this.news = data : {};
     });
   }
 
@@ -56,22 +80,28 @@ export class ViewComponent implements OnInit {
       data ? this.commentById = data : {};
       this.commentById.forEach((element, index) => {
         let commentId = this.commentById[index].id;
-        this.newsService.getNewsAnswer(commentId).subscribe(data => {
-          data.user = {}
-          this.commentById[index].res = [];
-          this.commentById[index].res = data;
-          this.commentById[index].res.forEach((element, index1) => {
-            let userByAnswer = this.commentById[index].res[index1].userId;
-            this.userService.getById(userByAnswer).subscribe(data => {              
-              this.commentById[index].res[index1].user = data;
-              this.commentById[index].res[index1].user.fama.sort(function(a, b){
-                return a.valor < b.valor;
-              });
-              this.commentById[index].res[index1].user.fama.firsttwo = [];
-              this.commentById[index].res[index1].user.fama.firsttwo = this.commentById[index].res[index1].user.fama.splice(0, 2);
-            });
-          });
-        });
+        this.getNewsAnswer(commentId, index);
+      });
+    });
+  }
+
+  getNewsAnswer(commentId, index) {
+    this.newsService.getNewsAnswer(commentId).subscribe(data => {
+      data.user = {};
+      this.commentById[index].res = [];
+      this.commentById[index].res = data;
+      this.getUserAnswer(index);
+    });
+  }
+
+  getUserAnswer(index) {
+    this.commentById[index].res.forEach((element, index1) => {
+      let userByAnswer = this.commentById[index].res[index1].userId;
+      this.userService.getById(userByAnswer).subscribe(data => {
+        this.commentById[index].res[index1].user = data;
+        this.orderData(this.commentById[index].res[index1].user);
+        this.commentById[index].res[index1].user.fama.firsttwo = [];
+        this.commentById[index].res[index1].user.fama.firsttwo = this.commentById[index].res[index1].user.fama.splice(0, 2);
       });
     });
   }
@@ -81,27 +111,27 @@ export class ViewComponent implements OnInit {
       data ? this.commentById = data : {};
       this.commentById.forEach((element, index) => {
         let userByComment = this.commentById[index].userId;
-        this.userService.getById(userByComment).subscribe(data => {
-          this.commentById[index].user = [];
-          this.commentById[index].user = data;
-          this.commentById[index].user.fama.sort(function(a, b){
-            return a.valor < b.valor;
-          });
-          this.commentById[index].user.fama.firsttwo = [];
-          this.commentById[index].user.fama.firsttwo = this.commentById[index].user.fama.splice(0, 2);
-        });
+        this.getUserComm(userByComment, index);
       });
+    });
+  }
+
+  getUserComm(IdUser, index) {
+    this.userService.getById(IdUser).subscribe(data => {
+      this.commentById[index].user = [];
+      this.commentById[index].user = data;
+      this.orderData(this.commentById[index].user);
+      this.commentById[index].user.fama.firsttwo = [];
+      this.commentById[index].user.fama.firsttwo = this.commentById[index].user.fama.splice(0, 2);
     });
   }
 
   getNewsWithUser() {
     this.newsService.getUserByNews(this.idNews).subscribe(data => {
       data ? this.contentUser = data : {};
-      this.contentUser.fama.sort(function(a, b){
-        return a.valor < b.valor;
-      });
+      this.orderData(this.contentUser);
       this.contentUser.fama.firsttwo = [];
-      this.contentUser.fama.last = []      
+      this.contentUser.fama.last = []
       this.contentUser.fama.firsttwo = this.contentUser.fama.splice(0, 2);
       this.contentUser.fama.last = this.contentUser.fama.splice(0, this.contentUser.fama.length);
     });
@@ -130,21 +160,15 @@ export class ViewComponent implements OnInit {
   sendComent() {
     this.comment.noticiaId = this.idNews;
     this.newsService.postNewsComment(this.comment).subscribe(data => {
-      this.commentById.push(data);
-      this.getNewsCommentCount();
-      this.getCommentWithUser();
-      this.getNewsCommentById();
       this.comment = {};
     });
   }
 
   sendAnswer(event) {
+    this.respond.noticiaId = this.idNews;
     this.respond.comentarioNoticiaId = event.target.parentNode.parentNode.childNodes[3].childNodes[1].childNodes[1].id;
     this.respond.contenido = event.target.parentNode.parentNode.childNodes[3].childNodes[1].childNodes[1].value;
-    this.newsService.postNewsAnswer(this.respond.comentarioNoticiaId, this.respond).subscribe(data => {
-      this.commentById.push(data);
-      this.getNewsCommentById();
-      this.getCommentWithUser();
+    this.newsService.postNewsAnswer(this.respond).subscribe(data => {
       this.respond = {};
     });
   }
@@ -156,4 +180,11 @@ export class ViewComponent implements OnInit {
     }
     return '';
   }
+
+  orderData(obj) {
+    obj.fama.sort(function (a, b) {
+      return a.valor < b.valor;
+    });
+  }
+
 }

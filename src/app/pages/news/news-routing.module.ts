@@ -9,15 +9,15 @@ const routes: Routes = [{
   path: '',
   component: NewsComponent,
   children: [{
-    path: 'list',
+    path: 'news-list',
     component: ListComponent
   },
   {
-    path: 'view',
+    path: 'news-view',
     redirectTo: 'pages'
   },
   {
-    path: 'view/:newsId',
+    path: 'news-view/:newsId',
     component: ViewComponent
   },
   ],

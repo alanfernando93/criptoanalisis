@@ -159,16 +159,16 @@
                                             <p class="text-hint">{{comment.fecha_registro | amTimeAgo}}</p>
                                             <h5>Respuesta</h5>
                                             <div *ngFor="let answer of comment.res">
-                                                <div *ngIf="answer.user">
+                                                <div>
                                                     <div class="media mt-3">
-                                                        <a class="pr-3 content_image" placement="right" [ngbPopover]="popContentAnswer" triggers="mouseover">
+                                                        <a class="pr-3 content_image" placement="right" [ngbPopover]="popContentAnswer" triggers="mouseover"  *ngIf="answer.user">
                                                             <img *ngIf="answer.user.perfil" src="{{answer.user.perfil}}" class="image_useranswer rounded-circle">
                                                             <div *ngIf="!answer.user.perfil" class="user-picture background design_user" [style.background-color]="color">
                                                                 <ng-container> {{ getInitials(answer.user.username) }} </ng-container>
                                                             </div>
                                                         </a>
                                                         <div class="media-body">
-                                                            <h5 class="mt-0">{{answer.user.username}}
+                                                            <h5 class="mt-0" *ngIf="answer.user">{{answer.user.username}}
                                                                 <span class="badge badge-primary">{{answer.user.precision}} P</span>
                                                                 <span class="badge badge-info font-w-light" *ngFor="let famaUser of answer.user.fama.firsttwo">{{famaUser.valor}} {{famaUser.symbol}}</span>
                                                             </h5>
@@ -214,7 +214,7 @@
                             </div>
                             <div class="card-footer">
                                 <div class="form-group">
-                                    <textarea class="form-control" id="{{comment.id}}" name="{{i}}" placeholder="Escribe una Respuesta" required="required"></textarea>                                
+                                    <textarea class="form-control" id="{{comment.id}}" name="{{i}}" placeholder="Escribe una Respuesta" required="required" cols="1" rows="1"></textarea>                                
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-tn" (click)="sendAnswer($event)">Responder</button>
                             </div>
