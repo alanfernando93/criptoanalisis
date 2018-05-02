@@ -30,5 +30,21 @@
         border-radius: 3.25rem;;
     }
     .user{
-        margin-top: 15px;
+        margin-top: 8px;
     }
+    .drop{
+        left: 15px !important;
+        top: 8px;
+        padding: 0px;
+        button {
+            // padding: 4px;
+            // top: 6px;
+            // width: 92px;
+        }
+      }
+      .scrollable-menu {
+        height: auto;
+        max-height: 150px;
+        overflow-x: hidden;
+    }
+    

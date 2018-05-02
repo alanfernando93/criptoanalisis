@@ -1,4 +1,6 @@
-export class Session {
+import { environment } from "../../../environments/environment";
+
+export abstract class Session {
 
     getUserId(){
         return localStorage.getItem('userId')
@@ -6,5 +8,9 @@ export class Session {
 
     getToken(){
         return localStorage.getItem('auth_app_token')
+    }
+
+    public getApiRest() {
+        return environment.apiUrl;
     }
 }

@@ -17,9 +17,12 @@ const routes: Routes = [{
     },{
        path:'chat',
        component:ChatComponent,
-   },{
+   }, {
       path: 'dashboard',
       component: DashboardComponent,
+   }, {
+      path: 'publish',
+      component: PublishComponent,
    }, {
       path: 'ui-features',
       loadChildren: './ui-features/ui-features.module#UiFeaturesModule',
@@ -36,8 +39,8 @@ const routes: Routes = [{
       path: 'forms',
       loadChildren: './forms/forms.module#FormsModule',
    },{
-    path: 'advisories',
-    loadChildren: './advisories/advisories.module#AdvisoryModule',
+      path: 'advisories',
+      loadChildren: './advisories/advisories.module#AdvisoryModule',
    }, {
       path: 'news',
       loadChildren: './news/news.module#NewsModule',

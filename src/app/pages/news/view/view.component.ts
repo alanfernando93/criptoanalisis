@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { NewsService } from '../news.service';
 import { UserService } from '../../../@core/data/users.service';
+import { CoinsService } from '../../../pages/coins/coins.service';
 import * as nbUser from '@nebular/theme/components/user/user.component'
 
 @Component({
@@ -30,6 +31,7 @@ export class ViewComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private newsService: NewsService,
+    private coinsService: CoinsService,
     private userService: UserService) {
   }
   ngOnInit() {
@@ -37,9 +39,9 @@ export class ViewComponent implements OnInit {
       this.idNews = params['newsId'];
     });
     this.getNewsById();
-    this.getNewsCommentById();
     this.getNewsCommentCount();
     this.getNewsWithUser();
+    this.getNewsCommentById();
     this.getCommentWithUser();
   }
 
@@ -60,8 +62,13 @@ export class ViewComponent implements OnInit {
           this.commentById[index].res = data;
           this.commentById[index].res.forEach((element, index1) => {
             let userByAnswer = this.commentById[index].res[index1].userId;
-            this.userService.getById(userByAnswer).subscribe(data => {
+            this.userService.getById(userByAnswer).subscribe(data => {              
               this.commentById[index].res[index1].user = data;
+              this.commentById[index].res[index1].user.fama.sort(function(a, b){
+                return a.valor < b.valor;
+              });
+              this.commentById[index].res[index1].user.fama.firsttwo = [];
+              this.commentById[index].res[index1].user.fama.firsttwo = this.commentById[index].res[index1].user.fama.splice(0, 2);
             });
           });
         });
@@ -71,26 +78,38 @@ export class ViewComponent implements OnInit {
 
   getCommentWithUser() {
     this.newsService.getNewsComment(this.idNews).subscribe(data => {
-      data ? this.commentById = data : '';
+      data ? this.commentById = data : {};
       this.commentById.forEach((element, index) => {
         let userByComment = this.commentById[index].userId;
         this.userService.getById(userByComment).subscribe(data => {
           this.commentById[index].user = [];
           this.commentById[index].user = data;
+          this.commentById[index].user.fama.sort(function(a, b){
+            return a.valor < b.valor;
+          });
+          this.commentById[index].user.fama.firsttwo = [];
+          this.commentById[index].user.fama.firsttwo = this.commentById[index].user.fama.splice(0, 2);
         });
       });
+    });
+  }
+
+  getNewsWithUser() {
+    this.newsService.getUserByNews(this.idNews).subscribe(data => {
+      data ? this.contentUser = data : {};
+      this.contentUser.fama.sort(function(a, b){
+        return a.valor < b.valor;
+      });
+      this.contentUser.fama.firsttwo = [];
+      this.contentUser.fama.last = []      
+      this.contentUser.fama.firsttwo = this.contentUser.fama.splice(0, 2);
+      this.contentUser.fama.last = this.contentUser.fama.splice(0, this.contentUser.fama.length);
     });
   }
 
   getNewsCommentCount() {
     this.newsService.getNewsCommentCount(this.idNews).subscribe(data => {
       this.count = data;
-    });
-  }
-
-  getNewsWithUser() {
-    this.newsService.getUserByNews(this.idNews).subscribe(data => {
-      this.contentUser = data;
     });
   }
 
@@ -110,7 +129,7 @@ export class ViewComponent implements OnInit {
 
   sendComent() {
     this.comment.noticiaId = this.idNews;
-    this.newsService.postNewsComment(this.comment.noticiaId, this.comment).subscribe(data => {
+    this.newsService.postNewsComment(this.comment).subscribe(data => {
       this.commentById.push(data);
       this.getNewsCommentCount();
       this.getCommentWithUser();
@@ -132,8 +151,8 @@ export class ViewComponent implements OnInit {
 
   getInitials(name) {
     if (name) {
-        var names = name.split(' ');
-        return names.map(function (n) { return n.charAt(0); }).splice(0, 2).join('').toUpperCase();
+      var names = name.split(' ');
+      return names.map(function (n) { return n.charAt(0); }).splice(0, 2).join('').toUpperCase();
     }
     return '';
   }

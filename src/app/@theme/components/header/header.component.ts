@@ -34,7 +34,14 @@ export class HeaderComponent implements OnInit {
     this.authService.onTokenChange().subscribe((token: NbAuthJWTToken) => {
       if (token.getValue() && localStorage.length != 0) {
         let id = localStorage.getItem("userId")
-        this.userService.getById(id).subscribe(resp=> this.user = resp)
+        this.userService.getById(id).subscribe(resp=> {
+          this.user = resp;
+          this.user.fama.sort(function(a, b){
+            return a.valor < b.valor;
+          });
+          this.user.fama.first = [];
+          this.user.fama.first = this.user.fama.splice(0, 1);
+        });
       }
     });
   }

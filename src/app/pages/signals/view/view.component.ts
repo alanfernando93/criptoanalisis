@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
@@ -26,14 +26,16 @@ export class ViewComponent implements OnInit {
   comment: any = {};
   respond: any = {};
   answer: any = {};
+  last: any = [];
+  firsttwo: any = [];
 
   constructor(
     private http: Http,
     private route: ActivatedRoute,
     private router: Router,
     private signalsService: SignalsService,
-    private userService: UserService,) {
-    }
+    private userService: UserService, ) {
+  }
 
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
@@ -65,6 +67,10 @@ export class ViewComponent implements OnInit {
             let userByAnswer = this.commentById[index].res[index1].userId;
             this.userService.getById(userByAnswer).subscribe(data => {
               this.commentById[index].res[index1].user = data;
+              this.commentById[index].res[index1].user.fama.sort(function(a, b) {
+                return a.valor < b.valor;
+              });
+              this.firsttwo = this.commentById[index].res[index1].user.fama.splice(0 ,2);
             });
           });
         });
@@ -80,8 +86,23 @@ export class ViewComponent implements OnInit {
         this.userService.getById(this.userByComment).subscribe(data => {
           this.commentById[index].user = [];
           this.commentById[index].user = data;
+          this.commentById[index].user.fama.sort(function (a, b) {
+            return a.valor < b.valor;
+          });
+          this.firsttwo = this.commentById[index].user.fama.splice(0, 2);
         });
       });
+    });
+  }
+
+  getSignalWithUser() {
+    this.signalsService.getUserBySignal(this.idSignal).subscribe(data => {
+      data ? this.contentUser = data : {};
+      this.contentUser.fama.sort(function(a, b) {
+        return a.valor < b.valor;
+      });
+      this.firsttwo = this.contentUser.fama.splice(0, 2);
+      this.last = this.contentUser.fama.splice(0, this.contentUser.fama.length);
     });
   }
 
@@ -89,12 +110,6 @@ export class ViewComponent implements OnInit {
     this.signalsService.getSignalsCommentCount(this.idSignal).subscribe(data => {
       this.count = data;
     })
-  }
-
-  getSignalWithUser() {
-    this.signalsService.getUserBySignal(this.idSignal).subscribe(data => {
-      this.contentUser = data;
-    });
   }
 
   sendLike() {
@@ -113,7 +128,7 @@ export class ViewComponent implements OnInit {
 
   sendComment() {
     this.comment.signalId = this.idSignal;
-    this.signalsService.postSignalsComment(this.idSignal, this.comment).subscribe(data => {
+    this.signalsService.postSignalsComment(this.comment).subscribe(data => {
       this.commentById.push(data);
       this.getSignalCommentCount();
       this.getCommentWithUser();
@@ -134,8 +149,8 @@ export class ViewComponent implements OnInit {
 
   getInitials(name) {
     if (name) {
-        var names = name.split(' ');
-        return names.map(function (n) { return n.charAt(0); }).splice(0, 2).join('').toUpperCase();
+      var names = name.split(' ');
+      return names.map(function (n) { return n.charAt(0); }).splice(0, 2).join('').toUpperCase();
     }
     return '';
   }
