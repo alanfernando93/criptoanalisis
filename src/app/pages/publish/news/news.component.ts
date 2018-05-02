@@ -12,6 +12,7 @@ import { CropperModalComponent } from '../../../@theme/components/cropper/croppe
 import { async } from "@angular/core/testing";
 import { showToast } from "../../../common/functions";
 import { configCrud } from "../../../common/ConfigSettings";
+import { Dropbox, DropboxTeam } from "dropbox";
 
 declare var tinymce: any;
 
@@ -22,9 +23,9 @@ declare var tinymce: any;
 })
 export class PublishNewsComponent implements OnInit {
   @Input() idNew: String = null;
-   
+
   url = "https://mdbootstrap.com/img/Photos/Others/placeholder.jpg";
-  myFile:File;
+  myFile: File;
   closeResult: string;
   newsPublish: any = {};
   coins: any = [];
@@ -42,10 +43,28 @@ export class PublishNewsComponent implements OnInit {
     private newsService: NewsService,
     private coinsService: CoinsService,
     private router: Router,
-    private toasterService: ToasterService
-  ) {}
+    private toasterService: ToasterService,
+    private dropbox: Dropbox,
+  ) { }
 
   ngOnInit() {
+    // var dbx =  Dropbox({ accessToken: 'NirdHiRLreAAAAAAAAAAWNDEq-TtvgoA_JKJun5OQuOniWOUv3er_8NIE1ddMuKS' });
+    // dbx.filesListFolder({ path: '' })
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+
+    dbx.usersGetCurrentAccount({userId:'zn0kbmrq6ed8rme'})
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+    // console.log(authUrl);
     if (this.idNew != null) {
       this.newsService.getById(this.idNew).subscribe(resp => {
         this.newsPublish = resp;
@@ -55,7 +74,7 @@ export class PublishNewsComponent implements OnInit {
       this.coins = resp;
     });
   }
- 
+
   refreshEditor1() {
     return new Promise(resolve => {
       setTimeout(() => {
@@ -72,9 +91,9 @@ export class PublishNewsComponent implements OnInit {
       setTimeout(() => {
         tinymce.editors[1].uploadImages(() => {
           this.newsPublish.conj_precio = tinymce.editors[1].getContent()
-          resolve('get edito 2');          
+          resolve('get edito 2');
         })
-        
+
       }, 2000);
     });
   }
@@ -98,7 +117,7 @@ export class PublishNewsComponent implements OnInit {
     let body = new FormData();
     body.append('', this.myFile, 'perfil.png');
     this.newsService.insert(this.newsPublish).subscribe(resp => {
-      this.newsService.imageFileUpload(resp.id,body).subscribe((r:Response) => {
+      this.newsService.imageFileUpload(resp.id, body).subscribe((r: Response) => {
         this.router.navigate(["/pages/news/list"]);
       })
       this.type = 'success'
@@ -108,14 +127,14 @@ export class PublishNewsComponent implements OnInit {
       this.type = 'error'
       this.content = configCrud.message.error + ' señales';
       showToast(this.toasterService, this.type, this.content);
-    });    
+    });
   }
 
   open(content) {
     this.modalService.open(content, { size: 'lg' }).result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
+      this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
 
@@ -130,14 +149,14 @@ export class PublishNewsComponent implements OnInit {
     }, reason => {
     })
   }
-  
+
   private getDismissReason(reason: any): string {
-      if (reason === ModalDismissReasons.ESC) {
-          return 'by pressing ESC';
-      } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-          return 'by clicking on a backdrop';
-      } else {
-          return `with: ${reason}`;
-      }
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 }

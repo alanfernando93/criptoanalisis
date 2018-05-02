@@ -1,13 +1,6 @@
-import {
-  Component,
-  OnDestroy,
-  AfterViewInit,
-  Output,
-  Input,
-  OnChanges,
-  EventEmitter,
-  ElementRef,
-} from '@angular/core';
+import { Component, OnDestroy, AfterViewInit, Output, Input, OnChanges, EventEmitter, ElementRef, } from '@angular/core';
+
+import { Dropbox } from 'dropbox';
 
 import { parseToFile } from '../../../common/functions'
 
