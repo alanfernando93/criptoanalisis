@@ -24,6 +24,11 @@
       "type": "belongsTo",
       "model": "comentario_noticia",
       "foreignKey": ""
+    },
+    "noticia": {
+      "type": "belongsTo",
+      "model": "noticia",
+      "foreignKey": ""
     }
   },
   "acls": [],

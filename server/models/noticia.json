@@ -58,6 +58,11 @@
       "type": "hasMany",
       "model": "comentario_noticia",
       "foreignKey": ""
+    },
+    "answerNoticia": {
+      "type": "hasMany",
+      "model": "answer_noticia",
+      "foreignKey": ""
     }
   },
   "acls": [
