@@ -9,6 +9,11 @@ import { NewsService } from "../../news/news.service";
 import { CoinsService } from "../../coins/coins.service";
 
 import { CropperModalComponent } from '../../../@theme/components/cropper/croppermodal.component';
+import { async } from "@angular/core/testing";
+import { showToast } from "../../../common/functions";
+import { configCrud } from "../../../common/ConfigSettings";
+
+declare var tinymce: any;
 
 @Component({
   selector: "ngx-publish-news",
@@ -17,9 +22,7 @@ import { CropperModalComponent } from '../../../@theme/components/cropper/croppe
 })
 export class PublishNewsComponent implements OnInit {
   @Input() idNew: String = null;
- 
-  titulo:String;
-  
+   
   url = "https://mdbootstrap.com/img/Photos/Others/placeholder.jpg";
   myFile:File;
   closeResult: string;
@@ -30,8 +33,6 @@ export class PublishNewsComponent implements OnInit {
     name: "Seleccione Moneda"
   };
 
-  config: ToasterConfig;
-  title = null;
   content = `I'm cool toaster!`;
   type = 'default';
 
@@ -54,17 +55,45 @@ export class PublishNewsComponent implements OnInit {
       this.coins = resp;
     });
   }
-
-  setContent(event,opc) {
-    switch(opc){
-      case 'C': this.newsPublish.contenido = event;break;
-      case 'CP': this.newsPublish.conj_precio = event;break;
-      case 'CM': this.newsPublish.conj_moneda = event;break;
-    }
-  }
  
-  onSave() {
-    console.log(this.newsPublish.contenido);
+  refreshEditor1() {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        tinymce.editors[0].uploadImages(() => {
+          this.newsPublish.contenido = tinymce.editors[0].getContent()
+          resolve("get edito 1");
+        })
+      }, 2000);
+    });
+  }
+
+  refreshEditor2() {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        tinymce.editors[1].uploadImages(() => {
+          this.newsPublish.conj_precio = tinymce.editors[1].getContent()
+          resolve('get edito 2');          
+        })
+        
+      }, 2000);
+    });
+  }
+
+  refreshEditor3() {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        tinymce.editors[2].uploadImages(() => {
+          this.newsPublish.conj_moneda = tinymce.editors[2].getContent()
+          resolve("get edito 3");
+        })
+      }, 2000);
+    });
+  }
+
+  async onSave() {
+    var uno = await this.refreshEditor1();
+    var dos = await this.refreshEditor2();
+    var tres = await this.refreshEditor3();
     this.newsPublish.tipo_moneda = this.selectedView.name;
     let body = new FormData();
     body.append('', this.myFile, 'perfil.png');
@@ -72,11 +101,17 @@ export class PublishNewsComponent implements OnInit {
       this.newsService.imageFileUpload(resp.id,body).subscribe((r:Response) => {
         this.router.navigate(["/pages/news/list"]);
       })
+      this.type = 'success'
+      this.content = configCrud.message.success + ' noticias';
+      showToast(this.toasterService, this.type, this.content);
+    }, error => {
+      this.type = 'error'
+      this.content = configCrud.message.error + ' señales';
+      showToast(this.toasterService, this.type, this.content);
     });    
   }
 
   open(content) {
-    console.log(this.newsPublish);
     this.modalService.open(content, { size: 'lg' }).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

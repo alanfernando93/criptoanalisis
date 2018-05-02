@@ -1,7 +1,7 @@
 <nb-card-body>
     <toaster-container [toasterconfig]="config"></toaster-container>
 
-    <div class="container">        
+    <div class="container">
         <div class="row input-group">
             <div class="col-md-6">
                 <div class="row">
@@ -9,7 +9,7 @@
                         <div class="dropdown" ngbDropdown>
                             <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{tipoSignal.title}} </button>
                             <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
-                            <li class="dropdown-item" *ngFor="let t of tipos" (click)="this.tipoSignal = t">{{t.title}}</li>
+                                <li class="dropdown-item" *ngFor="let t of tipos" (click)="this.tipoSignal = t">{{t.title}}</li>
                             </ul>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                     <div class="col-6">
                         <div class="dropdown" ngbDropdown>
                             <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
-                            Dropup
+                                Dropup
                             </button>
                             <ul class="dropdown-menu" ngbDropdownMenu>
                                 <li class="dropdown-item">Icon Button 3</li>
@@ -47,7 +47,10 @@
             </div>
             <div class="col-md-6">
                 <div class="file-field">
-                    <label>Seleccione imagen pricipal</label> <a (click)="openCropper()" class="upload" placement="right" ngbTooltip="Subir Imagen"><i class="fa fa-2x fa-upload"></i></a>
+                    <label>Seleccione imagen pricipal</label>
+                    <a (click)="openCropper()" class="upload" placement="right" ngbTooltip="Subir Imagen">
+                        <i class="fa fa-2x fa-upload"></i>
+                    </a>
                     <div class="z-depth-1-half mb-4" style="width:300px;height:200px">
                         <img [src]="url" class="img-fluid">
                         <!-- <img id="img" class="img-fluid" #input-id> -->
@@ -57,16 +60,12 @@
         </div>
         <div class="row col inputgroup">
             <label>Contenido de la señal</label>
-            <ngx-tiny-mce 
-                [height]="150" 
-                (onEditorKeyup)="keyupHandlerFunction($event,'CS')">
+            <ngx-tiny-mce [height]="150">
             </ngx-tiny-mce>
         </div>
         <div class="row col inputgroup">
             <label>Analisis Tecnico</label>
-            <ngx-tiny-mce 
-                [height]="90"
-                (onEditorKeyup)="keyupHandlerFunction($event,'AT')">
+            <ngx-tiny-mce [height]="90">
             </ngx-tiny-mce>
         </div>
         <div class="row col inputgroup">
@@ -81,7 +80,7 @@
                             <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Valor (USD)">
                             <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="% Capital">
                             <span class="input-group-btn">
-                                <button  class="btn btn-secondary" (click)="onClickPuntos($event,'puntEntr',pntEnt)">
+                                <button class="btn btn-secondary" (click)="onClickPuntos($event,'puntEntr',pntEnt)">
                                     Añadir
                                 </button>
                             </span>
@@ -98,7 +97,7 @@
                             <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Valor (USD)">
                             <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="% Capital">
                             <span class="input-group-btn">
-                                <button  class="btn btn-secondary" (click)="onClickPuntos($event,'stopLoss',stopLoss)">
+                                <button class="btn btn-secondary" (click)="onClickPuntos($event,'stopLoss',stopLoss)">
                                     Añadir
                                 </button>
                             </span>
@@ -113,27 +112,25 @@
                 <div class="row col">
                     <div class="dropdown" ngbDropdown>
                         <button class="btn btn-primary" type="button" ngbDropdownToggle>
-                        {{ selectTipoSalida.title }}
+                            {{ selectTipoSalida.title }}
                         </button>
                         <ul class="dropdown-menu" ngbDropdownMenu>
-                        <li class="dropdown-item" *ngFor="let v of TipoSalida" (click)="this.selectTipoSalida = v">{{ v.title }}</li>
+                            <li class="dropdown-item" *ngFor="let v of TipoSalida" (click)="this.selectTipoSalida = v">{{ v.title }}</li>
                         </ul>
                     </div>
                 </div>
-                <div *ngIf="selectTipoSalida.key; else msg">
-                    <div class="row col" id="tipSal">
-                        <div class="row"> Puntos de salida: </div>
-                        <div class="row">
-                            <div class="contenedor input-group">
-                                <span class="input-group-addon">Punto {{tpSal}}</span>
-                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Valor (USD)">
-                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="% Capital">
-                                <span class="input-group-btn">
-                                    <button  class="btn btn-secondary" (click)="onClickPuntos($event,'tipSal',tpSal)">
-                                        Añadir
-                                    </button>
-                                </span>
-                            </div>
+                <div *ngIf="selectTipoSalida.key; else msg"  class="row col" id="tipSal">
+                    <div class="row"> Puntos de salida: </div>
+                    <div class="row">
+                        <div class="contenedor input-group">
+                            <span class="input-group-addon">Punto {{tpSal}}</span>
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Valor (USD)">
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="% Capital">
+                            <span class="input-group-btn">
+                                <button class="btn btn-secondary" (click)="onClickPuntos($event,'tipSal',tpSal)">
+                                    Añadir
+                                </button>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -144,15 +141,13 @@
                                 Tome Nota
                             </nb-card-header>
                             <nb-card-body>
-                                Por cada subida de precio, nuestro sistema
-                                calculara puntos de salida condicional (stop profit).
-                                Enviara al autor una notificacion de tales puntos, si lo desea puede modificarlos, 
-                                de lo contrario, el sistema enviara una notificacion, 5 minutos despues, a los 
-                                seguidores de la señal
+                                Por cada subida de precio, nuestro sistema calculara puntos de salida condicional (stop profit). Enviara al autor una notificacion
+                                de tales puntos, si lo desea puede modificarlos, de lo contrario, el sistema enviara una
+                                notificacion, 5 minutos despues, a los seguidores de la señal
                             </nb-card-body>
                         </nb-card>
                     </div>
-                </ng-template> 
+                </ng-template>
             </div>
         </div>
     </div>
@@ -165,7 +160,7 @@
                 <div class="modal-header">
                     <h4 class="modal-title">Modal title</h4>
                     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                    <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -175,7 +170,7 @@
                     <button type="button" class="btn btn-primary" (click)="c('Close click')">Close</button>
                 </div>
             </ng-template>
-            
+
             <button class="btn btn-lg btn-primary" (click)="open(content)"> Vista Previa </button>
         </div>
         <div class="col-md-3">

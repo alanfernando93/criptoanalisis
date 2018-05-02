@@ -1,7 +1,7 @@
 export const configCrud = {
     message: {
         success: "Se guardo con exito!!!",
-        warning: "Se produjo un error con los puntos",
+        error: "Se produjo un error con",
     }
 };
 export const configImage = {

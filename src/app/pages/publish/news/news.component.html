@@ -30,17 +30,17 @@
 
     <div class="row col inputgroup">
       <label for="inputContenNews">Contenido de la noticia</label>
-      <ngx-tiny-mce [height]="150" (onEditorKeyup)="setContent($event,'C')">
+      <ngx-tiny-mce [height]="150">
       </ngx-tiny-mce>
     </div>
     <div class="row col inputgroup">
       <label>Conjeturas sobre el precio</label>
-      <ngx-tiny-mce [height]="90" (onEditorKeyup)="setContent($event,'CP')">
+      <ngx-tiny-mce [height]="90">
       </ngx-tiny-mce>
     </div>
     <div class="row col inputgroup">
       <label>Conjeturas sobre otras monedas (* Opcional)</label>
-      <ngx-tiny-mce [height]="90" (onEditorKeyup)="setContent($event,'CM')">
+      <ngx-tiny-mce [height]="90">
       </ngx-tiny-mce>
     </div>
   </div>
@@ -52,7 +52,7 @@
       <button class="btn btn-lg btn-primary" (click)="open(content)"> Vista Previa </button>
     </div>
     <div class="col-md-3">
-      <button class="btn btn-success" (click)="onSave()"> Publicar </button>
+      <button class="btn btn-success" id="submit" (click)="onSave()"> Publicar </button>
     </div>
   </div>
 </nb-card-footer>

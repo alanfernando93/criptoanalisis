@@ -22,10 +22,10 @@ import 'style-loader!angular2-toaster/toaster.css';
 
 export class SignalComponent implements OnInit {
   @Input() idSignal: String = null;
-  
+
   url = "https://mdbootstrap.com/img/Photos/Others/placeholder.jpg";
   myFile: File;
-  
+
   pntEnt = 1;
   tpSal = 1;
   stopLoss = 1;
@@ -35,9 +35,9 @@ export class SignalComponent implements OnInit {
   moneda1: String = "Moneda"
   moneda2: String = "Moneda"
 
-  posEntrada : any = [];
-  posSalida : any = [];
-  posLoss : any = [];
+  posEntrada: any = [];
+  posSalida: any = [];
+  posLoss: any = [];
   coins: any = [];
 
   types = [{
@@ -99,7 +99,31 @@ export class SignalComponent implements OnInit {
     });
   }
 
-  onSave() {
+  refreshEditor1() {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        tinymce.editors[0].uploadImages(() => {
+          this.signal.AnalisisFundamental = tinymce.editors[0].getContent()
+          resolve("get edito 1");
+        })
+      }, 2000);
+    });
+  }
+  refreshEditor2() {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        tinymce.editors[1].uploadImages(() => {
+          this.signal.AnalisisTecnico = tinymce.editors[1].getContent()
+          resolve('get edito 2');          
+        })
+        
+      }, 2000);
+    });
+  }
+
+  async onSave() {
+    var uno = await this.refreshEditor1();
+    var dos = await this.refreshEditor2();
     this.signal.visible = true;
     this.signal.tipo = this.tipoSignal.key;
     this.signal.count = "";
@@ -113,26 +137,20 @@ export class SignalComponent implements OnInit {
       let id = resp.id;
       positions.forEach((value, key) => {
         positions[key].signalId = id
-        this.signalsService.setPosition(positions[key]).subscribe(respo => { })
+        this.signalsService.setPosition(positions[key]).subscribe(respo => { 
+        })
         this.type = 'success'
         this.content = configCrud.message.success;
       }, erro => {
         this.type = 'error'
-        this.content = 'Se produjo un error con los puntos'
+        this.content = configCrud.message.error + " los puntos";
       });
       showToast(this.toasterService, this.type, this.content);
     }, error => {
       this.type = 'error'
-      this.content = 'Se produjo un error con señales'
+      this.content = configCrud.message.error + ' señales';
       showToast(this.toasterService, this.type, this.content);
     });
-  }
-
-  keyupHandlerFunction(event, opc) {
-    switch (opc) {
-      case 'CS': this.signal.AnalisisFundamental = event; break;
-      case 'AT': this.signal.AnalisisTecnico = event; break;
-    }
   }
 
   onClickPuntos($events, option, ptn) {
@@ -142,9 +160,9 @@ export class SignalComponent implements OnInit {
     const data2 = $events.originalTarget.parentNode.parentNode.children[2];
 
     var data = {
-      moneda1: this.moneda1, 
-      valor: data1.value, 
-      moneda2: this.moneda2, 
+      moneda1: this.moneda1,
+      valor: data1.value,
+      moneda2: this.moneda2,
       porcentajeCapital: data2.value,
       positionId: 0
     };
@@ -156,10 +174,10 @@ export class SignalComponent implements OnInit {
       case 'puntEntr': data.positionId = 3;
         this.posEntrada.push(data);
         break;
-      case 'tipSal': data.positionId = 2; 
+      case 'tipSal': data.positionId = 2;
         this.posSalida.push(data);
         break;
-      case 'stopLoss': data.positionId = 1; 
+      case 'stopLoss': data.positionId = 1;
         this.posLoss.push(data);
         break;
     }
@@ -228,7 +246,7 @@ export class SignalComponent implements OnInit {
       this.renderer.removeAttribute(input1, 'disabled');
       this.renderer.removeAttribute(input2, 'disabled');
     });
-    
+
     this.renderer.appendChild(edit, bedit);
     const iedit = this.renderer.createElement('i');
     this.renderer.addClass(iedit, "fa");
@@ -245,7 +263,7 @@ export class SignalComponent implements OnInit {
     this.renderer.setProperty(bremove, "id", ptn - 1);
     this.renderer.listen(bremove, 'click', ($event) => {
       var id = $event.target.id;
-      const oldBody = $event.originalTarget.parentNode.parentNode.parentNode;      
+      const oldBody = $event.originalTarget.parentNode.parentNode.parentNode;
       document.getElementById(option).removeChild(oldBody);
       this.renderer.removeChild(oldBody.parentNode, oldBody);
       this.refresh(option, id);
@@ -269,7 +287,7 @@ export class SignalComponent implements OnInit {
 
     data1.value = '';
     data2.value = '';
-    
+
     switch (option) {
       case 'puntEntr': this.pntEnt += 1; break;
       case 'tipSal': this.tpSal += 1; break;
@@ -277,21 +295,21 @@ export class SignalComponent implements OnInit {
     }
   }
 
-  refresh(opc, id){   
+  refresh(opc, id) {
     var node = document.getElementById(opc).children;
-    for(let i = 1; i < node.length-1; i++) {
+    for (let i = 1; i < node.length - 1; i++) {
       var collection = node[i].children[0].children;
       // console.log(node[i])
       collection[0].innerHTML = 'Punto ' + i;
-      for(let ii = 1; ii < collection.length - 2; ii++) {
-        collection[ii].id = ''+i;
+      for (let ii = 1; ii < collection.length - 2; ii++) {
+        collection[ii].id = '' + i;
       };
-      collection[4].id = ''+(i-1);
+      collection[4].id = '' + (i - 1);
     }
     switch (opc) {
-      case 'puntEntr': this.pntEnt = node.length-1; this.posEntrada.splice(id, 1);break;
-      case 'tipSal': this.tpSal = node.length-1; this.posSalida.splice(id, 1);break;
-      case 'stopLoss': this.stopLoss = node.length-1; this.posLoss.splice(id, 1); break;
+      case 'puntEntr': this.pntEnt = node.length - 1; this.posEntrada.splice(id, 1); break;
+      case 'tipSal': this.tpSal = node.length - 1; this.posSalida.splice(id, 1); break;
+      case 'stopLoss': this.stopLoss = node.length - 1; this.posLoss.splice(id, 1); break;
     }
   }
 
