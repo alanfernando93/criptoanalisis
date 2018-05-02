@@ -20,7 +20,6 @@ import {ShareButtonsModule} from 'ngx-sharebuttons';
 
 const config: SocketIoConfig = { url:'http://191.101.228.157:8080', options:{}};
 
-
 import { AuthGuard } from './auth-guard.service';
 
 import { NB_AUTH_TOKEN_WRAPPER_TOKEN, NbAuthJWTToken } from '@nebular/auth';
