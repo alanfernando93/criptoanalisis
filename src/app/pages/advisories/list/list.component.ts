@@ -14,6 +14,8 @@ import { NbAuthJWTToken, NbAuthService } from "@nebular/auth";
 })
 export class ListComponent extends Session implements OnInit {
     advisories: any;
+    modalidad1:any;
+    modalidad2:any;
     advisoriesbyid: any;
     private userId = this.getUserId();
     user: any = null;
@@ -44,6 +46,31 @@ export class ListComponent extends Session implements OnInit {
     getAdvisories() {
         this.AdvisoriesService.getAdvisories().subscribe(data => {
             this.advisories = data;
+            
+            
+            /*this.advisories.forEach((element, index) => {
+          
+                this.modalidad1= this.advisories[index];
+                console.log("hola"+this.modalidad1.modalidad[0])
+                this.modalidad1= this.advisories[index].modalidad[0];
+                this.modalidad2= this.advisories[index].modalidad[1];
+                
+                
+              });*/
+              this.advisories.forEach((element, index) => {
+                let newsId = this.advisories[index].id;
+                this.AdvisoriesService.getUserByNews(newsId).subscribe(data => {
+                  this.advisories[index].contentUser = [];
+                  this.advisories[index].contentUser.push(data);
+                  this.advisories[index].mod1 = " ";
+                  this.advisories[index].mod2 = " ";
+                  this.advisories[index].mod1 = this.advisories[index].modalidad[0];
+                  this.advisories[index].mod2 = this.advisories[index].modalidad[1];
+                  
+                });
+              });
+            
+            
         });
     }
     getadvisoriesbyid(){

@@ -12,6 +12,9 @@ const routes: Routes = [{
    path: '',
    component: PagesComponent,
    children: [{
+    path:'publish',
+    component:PublishComponent,
+    },{
        path:'chat',
        component:ChatComponent,
    },{

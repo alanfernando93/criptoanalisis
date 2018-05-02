@@ -8,11 +8,14 @@ import { PublishComponent } from './publish.component';
 import { PublishNewsComponent } from './news/news.component';
 import { SignalComponent } from './signal/signal.component';
 import { CoinComponent } from './coin/coin.component';
+import { AdvisoryComponent } from './advisory/advisory.component';
 
 import { NewsService } from '../news/news.service';
 import { CoinsService } from '../coins/coins.service';
 import { MarketsService } from "../markets/markets.service";
 import { SignalsService } from '../signals/signals.service';
+import { AdvisoriesService } from '../advisories/advisories.service';
+
 
 @NgModule({
     imports: [
@@ -22,10 +25,12 @@ import { SignalsService } from '../signals/signals.service';
     declarations: [
         PublishComponent,
         PublishNewsComponent,
+    
         SignalComponent,
+        AdvisoryComponent,
         CoinComponent
     ],
     entryComponents: [],
-    providers: [NewsService,CoinsService,SignalsService,MarketsService],
+    providers: [NewsService,CoinsService,SignalsService,MarketsService,AdvisoriesService],
 })
 export class PublishModule { }

@@ -74,8 +74,8 @@
     
           <div class="row pad-titulo" style="padding-top:20px;">
             <div class="col-12 pad-ltitulo">
-              <span class="badge badge-pill badge-primary small">virtual</span>&nbsp;&nbsp;
-              <span class="badge badge-pill badge-danger small">presencial</span>
+              <span *ngIf="advisory.mod1" class="badge badge-pill badge-primary small">virtual</span>&nbsp;&nbsp;
+              <span *ngIf="advisory.mod2" class="badge badge-pill badge-danger small">presencial</span>
             </div>
           </div>
     
@@ -87,10 +87,10 @@
     
             </div>
           </div>
-          <div class="row " >
-              <div class="col-12 pad-ltitulo text-info pad-t">Juan jose perez
-                <span class="badge badge-pill badge-secondary">7P</span>
-                <span class="badge badge-pill badge-info">3E</span>
+          <div class="row " *ngFor="let content of advisory.contentUser" >
+              <div class="col-12 pad-ltitulo text-info pad-t">{{content.nombre}}
+                <span class="badge badge-pill badge-secondary">{{content.puntos}}P</span>
+                <span class="badge badge-pill badge-info">{{content.precision}}</span>
               </div>
           
             </div>
@@ -249,9 +249,7 @@
           </div>
         </nb-card>
   </nb-tab>
-  <nb-tab tabTitle="not" *ngIf="user">
-    <span>Content #3</span>
-  </nb-tab>
+  
 </nb-tabset>
 
 
