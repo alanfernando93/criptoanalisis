@@ -40,7 +40,7 @@ module.exports = (Noticia, ctx, ctx2) => {
   );
 
   const HttpErrors = require('http-errors');
-  //ctx para dislike
+  // ctx para dislike
   ctx = (0, _assign2.default)({
     method: 'dislike',
     endpoint: '/:id/dislike',
@@ -49,10 +49,10 @@ module.exports = (Noticia, ctx, ctx2) => {
     description: ' dislikes ' + Noticia.definition.name + ' instance for the given userId'
   }, ctx);
 
-  //agregando propiedad dislike a noticia
+  // agregando propiedad dislike a noticia
   Noticia.defineProperty(ctx.dislikes, {type: Object, default: {total: 0, users: []}});
 
-  //dislike metodo remoto
+  // dislike metodo remoto
   Noticia[ctx.method] = (id, userId, finish) => {
     // Verify that current model instance and user instances exists
     return new _promise2.default((resolve, reject) => {
@@ -109,7 +109,7 @@ module.exports = (Noticia, ctx, ctx2) => {
     description: ctx.description,
   });
 
-  //hook para quitar dislike si le damos like
+  // hook para quitar dislike si le damos like
   Noticia.afterRemote('like', (ctx, noticia, next) => {
     var idn = ctx.req.params.id;
     var idUser = ctx.req.query.userId;
@@ -143,12 +143,12 @@ module.exports = (Noticia, ctx, ctx2) => {
     next();
   });
 
-  // validacion campos de noticia  
+  // validacion campos de noticias
   Noticia.observe('before save', (context, next) => {
     var tit = context.instance.titulo;
     var cont = context.instance.contenido;
     if (tit.length > 90) {
-      return next(new HttpErrors.BadRequest('Titulo debe tener como maximo 90 caracteres caracteres'));
+      return next(new HttpErrors.BadRequest('Titulo debe tener como maximo 90 caracteres'));
     }
     if (tit === ' ') {
       return next(new HttpErrors.BadRequest('Titulo es un campo requerido'));
@@ -162,10 +162,54 @@ module.exports = (Noticia, ctx, ctx2) => {
     next();
   });
 
+  Noticia.afterRemote('create', (ctx, noticia, next) => {
+    let userNews = ctx.result.usuarioId;
+    Noticia.app.models.usuario.findById(userNews)
+      .then(data => {
+        Noticia.app.models.usuario.updateAll(
+          {id: userNews}, {puntos: data.puntos + 1})
+          .then(data => {
+            next();
+          });
+      });
+  });
   Noticia.afterRemote('create', (ctx, user, next) => {
     let userId = ctx.result.usuarioId;
     let coinNews = ctx.result.tipo_moneda;
     Noticia.app.models.usuario.famaUser(userId, _variable.rpn, coinNews);
+    next();
+  });
+  // hook para enviar notificaciones de noticias suscritas
+  Noticia.afterRemote('create', (ctx, noticia, next)=>{
+    var io = Noticia.app.io;
+    var con = 'sus' + ctx.result.usuarioId;
+
+    Noticia.app.models.followUser.find({
+      where: {
+        posterId: ctx.result.usuarioId,
+      },
+    }).then(data=>{
+      data.forEach(element => {
+        Noticia.app.models.notification.create({
+          'tipo': 'news',
+          'senderId': ctx.result.id,
+          'date': Date.now(),
+          'status': false,
+          'usuarioId': element.followerId,
+        });
+      });
+    });
+    io.to(con).emit('request', {
+      tipo: 'news',
+      title: ctx.result.titulo,
+      senderId: ctx.result.id,
+      coin: ctx.result.tipo_moneda,
+    });
+    next();
+  });
+  Noticia.afterRemote('create', (ctx, noticia, next)=>{
+    var io = Noticia.app.io;
+    io.emit('insertNoti', ctx.result);
     next();
   });
 };

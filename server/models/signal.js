@@ -1,4 +1,5 @@
 'use strict';
+// tipo: true comprar false: vender;
 
 var _promise = require('babel-runtime/core-js/promise');
 
@@ -137,7 +138,7 @@ module.exports = (Signal, ctx, ctx2) => {
       where: {
         visible: 'gratuito',
       },
-      include: ['positions', 'comments'],
+      include: ['puntos']
     }, cb);
   };
 
@@ -165,11 +166,59 @@ module.exports = (Signal, ctx, ctx2) => {
       returns: {arg: 'status', type: 'string'},
     }
   );
+  // hook que envia notificacion cuando postea señal
+  Signal.afterRemote('create', (ctx, signal, next)=>{
+    var io = Signal.app.io;
+    var con = 'sus' + ctx.result.usuarioId;
+    Signal.app.models.followUser.find({
+      where: {
+        posterId: ctx.result.usuarioId,
+      },
+    }).then(data=>{
+      data.forEach(element => {
+        console.log(element);
+        Signal.app.models.notification.create({
+          'tipo': 'signal',
+          'senderId': ctx.result.id,
+          'date': Date.now(),
+          'status': false,
+          'usuarioId': element.followerId,
+        });
+      });
+    });
+    console.log(con);
+    io.to(con).emit('request', {
+      tipo: 'signal',
+      senderId: ctx.result.id,
+    });
+    next();
+  });
+  Signal.signalnot = (id, cb) => {
+    Signal.findById(id, {
+      fields: ['id', 'tipo', 'estado', 'usuarioId', 'usuario'],
+      include: {
+        relation: 'usuario',
+        scope: {
+          fields: ['id', 'username', 'perfil'],
+        },
+      },
+    }, cb);
+  };
 
+  Signal.remoteMethod('signalnot', {
+    returns: {arg: 'signal', type: 'array'},
+    accepts: {arg: 'id', type: 'string', required: true},
+    http: {path: '/:id/signalnot', verb: 'get'},
+  });
   Signal.afterRemote('create', (ctx, user, next) => {
     let userId = ctx.result.usuarioId;
     let coinSignal = ctx.result.tipo_moneda;
     Signal.app.models.usuario.famaUser(userId, _variable.rps, coinSignal);
+    next();
+  });
+  Signal.afterRemote('create', (ctx, signal, next) => {
+    var io = Signal.app.io;
+    io.emit('insertSig', ctx.result);
     next();
   });
 };

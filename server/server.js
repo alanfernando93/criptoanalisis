@@ -116,8 +116,11 @@ boot(app, __dirname, function(err) {
   if (require.main === module) {
     app.io = require('socket.io')(app.start());
     app.io.on('connection', (socket) => {
-      // socket.broadcast.emit('new user',
-      // {message: 'Ha entrado un usuario al Chat'});
+      /** aqui se conecta a los sockets bajo el siguiente criterio
+       * la clave de chat entre usuarios es el id de ambos
+       * la clave de un usuario es su propio id
+       * la clave de una suscripcion es el la palabra sus seguido del id al que estas suscrito
+       */
       socket.on('join', roomId => {
         console.log('joining roomId', roomId);
         socket.join(roomId);

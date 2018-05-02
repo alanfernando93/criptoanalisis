@@ -131,5 +131,13 @@
   "answer-senal": {
     "dataSource": "db",
     "public": true
+  },
+  "notification": {
+    "dataSource": "db",
+    "public": true
+  },
+  "followUser": {
+    "dataSource": "db",
+    "public": true
   }
 }
