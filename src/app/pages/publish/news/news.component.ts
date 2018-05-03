@@ -12,7 +12,7 @@ import { CropperModalComponent } from '../../../@theme/components/cropper/croppe
 import { async } from "@angular/core/testing";
 import { showToast } from "../../../common/functions";
 import { configCrud } from "../../../common/ConfigSettings";
-import { Dropbox, DropboxTeam } from "dropbox";
+import { DropboxCripto } from "../../../common/dropbox";
 
 declare var tinymce: any;
 
@@ -24,7 +24,10 @@ declare var tinymce: any;
 export class PublishNewsComponent implements OnInit {
   @Input() idNew: String = null;
 
-  url = "https://mdbootstrap.com/img/Photos/Others/placeholder.jpg";
+  dropbox;
+
+  // url = "https://mdbootstrap.com/img/Photos/Others/placeholder.jpg";
+  url = "https://dl.dropboxusercontent.com/apitl/1/AABm1602WI6pYc4EU-kkoaf47i6933MMcNiU4GmjsFeI3jkqrpQEbIkXWcPFUAABwEfyynvXC9OSC7UoSm-X5RXDBVamxG62hx-MP1I_asyhevwsovtsDIUzIqzl21LhHLu1VgIfoMWeiBnLt9qCAtOJKuONx8D6fOr9ydg8hoPnxhZC7q4a-YPmycHopJrc2nuuWD-DIfagxd8Td8sEKBg4c75m2ZLgyCUmTrOoPY-F4cM78vsC9oopgX4vCDU08UgHtgUY-dnVL8vUiT_PoG7XbjQWSOi-69NC351RWmBdzA";
   myFile: File;
   closeResult: string;
   newsPublish: any = {};
@@ -44,27 +47,10 @@ export class PublishNewsComponent implements OnInit {
     private coinsService: CoinsService,
     private router: Router,
     private toasterService: ToasterService,
-    private dropbox: Dropbox,
   ) { }
 
   ngOnInit() {
-    // var dbx =  Dropbox({ accessToken: 'NirdHiRLreAAAAAAAAAAWNDEq-TtvgoA_JKJun5OQuOniWOUv3er_8NIE1ddMuKS' });
-    // dbx.filesListFolder({ path: '' })
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-
-    dbx.usersGetCurrentAccount({userId:'zn0kbmrq6ed8rme'})
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-    // console.log(authUrl);
+    this.dropbox = new DropboxCripto();
     if (this.idNew != null) {
       this.newsService.getById(this.idNew).subscribe(resp => {
         this.newsPublish = resp;
