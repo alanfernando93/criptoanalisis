@@ -4,26 +4,15 @@ import { Router } from "@angular/router";
 import { Http, Response } from "@angular/http";
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-
-import { environment } from '../../../../environments/environment';
+import { CropperModalComponent } from '../../../@theme/components/cropper/croppermodal.component';
 
 import { SignalsService } from '../../signals/signals.service';
 import { CoinsService } from "../../coins/coins.service";
 
-import 'style-loader!angular2-toaster/toaster.css';
+import { configCrud } from '../../../common/ConfigSettings';
+import { showToast } from '../../../common/functions'
 
-class Pos {
-  /**
-   * 
-   * @param moneda1 
-   * @param valor 
-   * @param moneda2 
-   * @param porcentajeCapital 
-   * @param puntoId 
-   */
-  constructor(moneda1: String, valor: String, moneda2: String, porcentajeCapital: String, puntoId: Number) {
-  }
-}
+import 'style-loader!angular2-toaster/toaster.css';
 
 @Component({
   selector: 'ngx-publish-signal',
@@ -33,8 +22,7 @@ class Pos {
 
 export class SignalComponent implements OnInit {
   @Input() idSignal: String = null;
-  userId = environment.userId;
-  closeResult: string;
+
   url = "https://mdbootstrap.com/img/Photos/Others/placeholder.jpg";
   myFile: File;
 
@@ -47,7 +35,9 @@ export class SignalComponent implements OnInit {
   moneda1: String = "Moneda"
   moneda2: String = "Moneda"
 
-  positions: any = []
+  posEntrada: any = [];
+  posSalida: any = [];
+  posLoss: any = [];
   coins: any = [];
 
   types = [{
@@ -84,8 +74,6 @@ export class SignalComponent implements OnInit {
     key: false,
   }]
 
-  config: ToasterConfig
-  title = null;
   content = `I'm cool toaster!`;
   type = 'default';
 
@@ -109,46 +97,60 @@ export class SignalComponent implements OnInit {
     this.coinsService.getAll().subscribe(resp => {
       this.coins = resp;
     });
-
-    // this.type = 'error'
-    // this.content = 'Se produjo un error con señales'
-    // this.showToast(this.type, this.title, this.content);
   }
 
-  onSave() {
+  refreshEditor1() {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        tinymce.editors[0].uploadImages(() => {
+          this.signal.AnalisisFundamental = tinymce.editors[0].getContent()
+          resolve("get edito 1");
+        })
+      }, 2000);
+    });
+  }
+  refreshEditor2() {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        tinymce.editors[1].uploadImages(() => {
+          this.signal.AnalisisTecnico = tinymce.editors[1].getContent()
+          resolve('get edito 2');          
+        })
+        
+      }, 2000);
+    });
+  }
+
+  async onSave() {
+    var uno = await this.refreshEditor1();
+    var dos = await this.refreshEditor2();
     this.signal.visible = true;
     this.signal.tipo = this.tipoSignal.key;
     this.signal.count = "";
+    let positions = (this.posEntrada.concat(this.posSalida).concat(this.posLoss));
     this.signalsService.add(this.signal).subscribe(resp => {
       let body = new FormData();
       body.append('', this.myFile, 'perfil.png');
       this.signalsService.imageFileUpload(resp.id, body).subscribe((r: Response) => {
-        // this.router.navigate(["/"]);
+        this.router.navigate(["/pages/signals/list"]);
       })
       let id = resp.id;
-      console.log(this.positions);
-      this.positions.forEach((value, key) => {
-        this.positions[key].signalId = id
-        this.signalsService.setPosition(this.positions[key]).subscribe(respo => { })
+      positions.forEach((value, key) => {
+        positions[key].signalId = id
+        this.signalsService.setPosition(positions[key]).subscribe(respo => { 
+        })
         this.type = 'success'
-        this.content = 'Se guardo con exito!!!'
+        this.content = configCrud.message.success;
       }, erro => {
         this.type = 'error'
-        this.content = 'Se produjo un error con los puntos'
+        this.content = configCrud.message.error + " los puntos";
       });
-      this.showToast(this.type, this.title, this.content);
+      showToast(this.toasterService, this.type, this.content);
     }, error => {
       this.type = 'error'
-      this.content = 'Se produjo un error con señales'
-      this.showToast(this.type, this.title, this.content);
+      this.content = configCrud.message.error + ' señales';
+      showToast(this.toasterService, this.type, this.content);
     });
-  }
-
-  keyupHandlerFunction(event, opc) {
-    switch (opc) {
-      case 'CS': this.signal.AnalisisFundamental = event; break;
-      case 'AT': this.signal.AnalisisTecnico = event; break;
-    }
   }
 
   onClickPuntos($events, option, ptn) {
@@ -157,17 +159,28 @@ export class SignalComponent implements OnInit {
     const data1 = $events.originalTarget.parentNode.parentNode.children[1];
     const data2 = $events.originalTarget.parentNode.parentNode.children[2];
 
+    var data = {
+      moneda1: this.moneda1,
+      valor: data1.value,
+      moneda2: this.moneda2,
+      porcentajeCapital: data2.value,
+      positionId: 0
+    };
     if (!data1.value || !data2.value) {
       console.log("vacio");
       return
     }
     switch (option) {
-      case 'puntEntr': positionId = 3; break;
-      case 'tipSal': positionId = 2; break;
-      case 'stopLoss': positionId = 1; break;
+      case 'puntEntr': data.positionId = 3;
+        this.posEntrada.push(data);
+        break;
+      case 'tipSal': data.positionId = 2;
+        this.posSalida.push(data);
+        break;
+      case 'stopLoss': data.positionId = 1;
+        this.posLoss.push(data);
+        break;
     }
-    this.positions.push(new Pos(this.moneda1, data1.value, this.moneda2, data2.value, positionId))
-
     const _body = this.renderer.createElement('div');
     this.renderer.addClass(_body, "row");
 
@@ -185,6 +198,19 @@ export class SignalComponent implements OnInit {
     this.renderer.setProperty(d1, 'type', "text");
     this.renderer.setProperty(d1, 'value', data1.value + " " + this.moneda2);
     this.renderer.setAttribute(d1, 'disabled', 'true');
+    this.renderer.setProperty(d1, "id", ptn - 1);
+    this.renderer.listen(d1, 'change', $events => {
+      var input = $events.target;
+      switch (option) {
+        case 'puntEntr': this.posEntrada[input.id].valor = input.value.split(' ')[0];
+          break;
+        case 'tipSal': this.posSalida[input.id].valor = input.value.split(' ')[0];
+          break;
+        case 'stopLoss': this.posLoss[input.id].valor = input.value.split(' ')[0];
+          break;
+      }
+      input.disabled = true;
+    });
 
     const d2 = this.renderer.createElement('input');
     this.renderer.addClass(d2, "form-control");
@@ -192,6 +218,19 @@ export class SignalComponent implements OnInit {
     this.renderer.setProperty(d2, 'type', "text");
     this.renderer.setProperty(d2, 'value', data2.value + " %");
     this.renderer.setAttribute(d2, 'disabled', 'true');
+    this.renderer.setProperty(d2, "id", ptn - 1);
+    this.renderer.listen(d2, 'change', $events => {
+      var input = $events.target;
+      switch (option) {
+        case 'puntEntr': this.posEntrada[input.id].porcentajeCapital = input.value.split(' ')[0];
+          break;
+        case 'tipSal': this.posSalida[input.id].porcentajeCapital = input.value.split(' ')[0];
+          break;
+        case 'stopLoss': this.posLoss[input.id].porcentajeCapital = input.value.split(' ')[0];
+          break;
+      }
+      input.disabled = true;
+    });
 
     const edit = this.renderer.createElement('span');
     this.renderer.addClass(edit, "input-group-btn");
@@ -199,6 +238,7 @@ export class SignalComponent implements OnInit {
     this.renderer.addClass(bedit, "btn");
     this.renderer.addClass(bedit, "btn-secondary");
     this.renderer.setProperty(bedit, 'type', 'button');
+    this.renderer.setProperty(bedit, 'id', 'false');
     this.renderer.listen(bedit, 'click', ($event) => {
       const oldBody = $event.originalTarget.parentNode.parentNode;
       const input1 = oldBody.children[1];
@@ -206,6 +246,7 @@ export class SignalComponent implements OnInit {
       this.renderer.removeAttribute(input1, 'disabled');
       this.renderer.removeAttribute(input2, 'disabled');
     });
+
     this.renderer.appendChild(edit, bedit);
     const iedit = this.renderer.createElement('i');
     this.renderer.addClass(iedit, "fa");
@@ -219,15 +260,13 @@ export class SignalComponent implements OnInit {
     this.renderer.addClass(bremove, "btn");
     this.renderer.addClass(bremove, "btn-secondary");
     this.renderer.setProperty(bremove, 'type', 'button');
+    this.renderer.setProperty(bremove, "id", ptn - 1);
     this.renderer.listen(bremove, 'click', ($event) => {
+      var id = $event.target.id;
       const oldBody = $event.originalTarget.parentNode.parentNode.parentNode;
+      document.getElementById(option).removeChild(oldBody);
       this.renderer.removeChild(oldBody.parentNode, oldBody);
-      // this.punto -= 1;
-      switch (option) {
-        case 'puntEntr': this.pntEnt -= 1; break;
-        case 'tipSal': this.tpSal -= 1; break;
-        case 'stopLoss': this.stopLoss -= 2; break;
-      }
+      this.refresh(option, id);
     });
     this.renderer.appendChild(remove, bremove);
     const iremove = this.renderer.createElement('i');
@@ -249,7 +288,6 @@ export class SignalComponent implements OnInit {
     data1.value = '';
     data2.value = '';
 
-    // this.punto += 1;
     switch (option) {
       case 'puntEntr': this.pntEnt += 1; break;
       case 'tipSal': this.tpSal += 1; break;
@@ -257,12 +295,38 @@ export class SignalComponent implements OnInit {
     }
   }
 
+  refresh(opc, id) {
+    var node = document.getElementById(opc).children;
+    for (let i = 1; i < node.length - 1; i++) {
+      var collection = node[i].children[0].children;
+      // console.log(node[i])
+      collection[0].innerHTML = 'Punto ' + i;
+      for (let ii = 1; ii < collection.length - 2; ii++) {
+        collection[ii].id = '' + i;
+      };
+      collection[4].id = '' + (i - 1);
+    }
+    switch (opc) {
+      case 'puntEntr': this.pntEnt = node.length - 1; this.posEntrada.splice(id, 1); break;
+      case 'tipSal': this.tpSal = node.length - 1; this.posSalida.splice(id, 1); break;
+      case 'stopLoss': this.stopLoss = node.length - 1; this.posLoss.splice(id, 1); break;
+    }
+  }
+
   open(content) {
     this.modalService.open(content).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+  }
+
+  openCropper() {
+    let modalRef = this.modalService.open(CropperModalComponent);
+    const instance = modalRef.componentInstance;
+    modalRef.result.then(result => {
+      this.url = instance.getImageResize();
+      this.myFile = instance.getImageFile();
+    }, reason => {
+    })
   }
 
   private getDismissReason(reason: any): string {
@@ -272,41 +336,6 @@ export class SignalComponent implements OnInit {
       return 'by clicking on a backdrop';
     } else {
       return `with: ${reason}`;
-    }
-  }
-
-  private showToast(type: string, title: string, body: string) {
-    this.config = new ToasterConfig({
-      positionClass: 'toast-top-right',
-      timeout: 5000,
-      newestOnTop: true,
-      tapToDismiss: true,
-      preventDuplicates: false,
-      animation: 'flyRight',
-      limit: 5,
-    });
-    const toast: Toast = {
-      type: type,
-      title: title,
-      body: body,
-      timeout: 5000,
-      showCloseButton: true,
-      bodyOutputType: BodyOutputType.TrustedHtml,
-    };
-    this.toasterService.popAsync(toast);
-  }
-
-  readUrl(files) {
-    var img = new Image();
-    if (files && files[0]) {
-      this.myFile = files[0]
-      var reader = new FileReader();
-
-      reader.onload = (e: any) => {
-        this.url = e.target.result;
-      }
-      img.src = this.url
-      reader.readAsDataURL(files[0]);
     }
   }
 }

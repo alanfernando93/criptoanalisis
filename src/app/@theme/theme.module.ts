@@ -2,6 +2,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ImageCropperComponent } from 'ng2-img-cropper';
 
 import {
   NbActionsModule,
@@ -48,6 +49,7 @@ const NB_MODULES = [
 ];
 
 const COMPONENTS = [
+  ImageCropperComponent,
   HeaderComponent,
   HeaderTwoComponent,
   FooterComponent,
@@ -78,7 +80,7 @@ const NB_THEME_PROVIDERS = [
 @NgModule({
   imports: [...BASE_MODULES, ...NB_MODULES],
   exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES],
-  declarations: [...COMPONENTS, ...PIPES],
+  declarations: [...COMPONENTS, ...PIPES]
 })
 export class ThemeModule {
   static forRoot(): ModuleWithProviders {

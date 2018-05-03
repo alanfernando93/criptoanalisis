@@ -20,7 +20,6 @@ import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 
 const config: SocketIoConfig = { url:'http://localhost:3000', options:{}};
 
-
 import { AuthGuard } from './auth-guard.service';
 
 import { NB_AUTH_TOKEN_WRAPPER_TOKEN, NbAuthJWTToken } from '@nebular/auth';
