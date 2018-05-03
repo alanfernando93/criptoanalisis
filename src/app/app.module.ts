@@ -16,9 +16,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
-import {ShareButtonsModule} from 'ngx-sharebuttons';
+//import {ShareButtonsModule} from 'ngx-sharebuttons';
 
-const config: SocketIoConfig = { url:'http://191.101.228.157:8080', options:{}};
+const config: SocketIoConfig = { url:'http://localhost:3000', options:{}};
 
 import { AuthGuard } from './auth-guard.service';
 
@@ -32,13 +32,12 @@ import { NB_AUTH_TOKEN_WRAPPER_TOKEN, NbAuthJWTToken } from '@nebular/auth';
     HttpModule,
     FormsModule,
     AppRoutingModule,
-    ShareButtonsModule,
+
     
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
     SocketIoModule.forRoot(config),
-    ShareButtonsModule.forRoot()
   ],
   bootstrap: [AppComponent],
   providers: [
