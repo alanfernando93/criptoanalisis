@@ -7,11 +7,11 @@ import { UserService } from '../../../@core/data/users.service';
 import * as nbUser from '@nebular/theme/components/user/user.component'
 
 @Component({
-  selector: 'ngx-view',
-  templateUrl: './view.component.html',
-  styleUrls: ['./view.component.scss']
+  selector: 'ngx-newsView',
+  templateUrl: './newsView.component.html',
+  styleUrls: ['./newsView.component.scss']
 })
-export class ViewComponent implements OnInit {
+export class newsViewComponent implements OnInit {
 
   news: any;
   commentById: any = [];
@@ -80,12 +80,12 @@ export class ViewComponent implements OnInit {
       data ? this.commentById = data : {};
       this.commentById.forEach((element, index) => {
         let commentId = this.commentById[index].id;
-        this.getNewsAnswer(commentId, index);
+        this.getAnswer(commentId, index)
       });
     });
   }
 
-  getNewsAnswer(commentId, index) {
+  getAnswer(commentId, index) {
     this.newsService.getNewsAnswer(commentId).subscribe(data => {
       data.user = {};
       this.commentById[index].res = [];

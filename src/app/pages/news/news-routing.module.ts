@@ -2,15 +2,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { NewsComponent } from './news.component';
-import { ListComponent } from './list/list.component';
-import { ViewComponent } from './view/view.component';
+import { newsListComponent } from './list/newsList.component';
+import { newsViewComponent } from './view/newsView.component';
 
 const routes: Routes = [{
   path: '',
   component: NewsComponent,
   children: [{
     path: 'news-list',
-    component: ListComponent
+    component: newsListComponent
   },
   {
     path: 'news-view',
@@ -18,7 +18,7 @@ const routes: Routes = [{
   },
   {
     path: 'news-view/:newsId',
-    component: ViewComponent
+    component: newsViewComponent
   },
   ],
 }];
@@ -32,6 +32,6 @@ export class NewsRoutingModule{ }
 
 export const routedComponents = [
   NewsComponent,
-  ListComponent,
-  ViewComponent,
+  newsListComponent,
+  newsViewComponent,
 ];

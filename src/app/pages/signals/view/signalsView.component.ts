@@ -8,11 +8,11 @@ import { UserService } from '../../../@core/data/users.service';
 import * as nbUser from '@nebular/theme/components/user/user.component'
 
 @Component({
-  selector: 'ngx-view',
-  templateUrl: './view.component.html',
-  styleUrls: ['./view.component.scss']
+  selector: 'ngx-signalsView',
+  templateUrl: './signalsView.component.html',
+  styleUrls: ['./signalsView.component.scss']
 })
-export class ViewComponent implements OnInit {
+export class signalsViewComponent implements OnInit {
 
   signal: any;
   commentById: any = [];

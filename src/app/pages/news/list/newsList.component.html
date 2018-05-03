@@ -15,8 +15,7 @@
           <div class="caption">
             <div class="tag">
               <a href="#">{{news.tipo_moneda}}</a>
-                <a href="#" class="pull-right">Oferta</a>
-              </div>
+            </div>
             <div class="title">
               <a [routerLink]="['/pages/news/news-view', news.id]">{{news.titulo}}</a>
             </div>
@@ -39,7 +38,7 @@
               <div *ngFor="let dataUser of news.contentUser">
                 <span class="spn-data badge badge-primary pull-right" *ngFor="let famaUser of dataUser.fama.firstTwo">{{famaUser.valor}} {{famaUser.symbol}}</span>
                 <nb-user class="col-6 col-md-6 meta-data" [name]="dataUser?.username" [picture]="dataUser?.perfil"></nb-user>
-                 </div>
+              </div>
             </div>
           </div>
         </div>
@@ -47,8 +46,8 @@
     </div>
   </div>
 </div>
-<nb-card>
-  <nb-card-body *ngIf="limit >= 12">
+<nb-card *ngIf="count > 12">
+  <nb-card-body>
     <div class="row block-level-buttons">
       <div class="col-md-12">
         <button type="button" class="btn btn-outline-primary btn-block" (click)="Upload()">Ver mas</button>

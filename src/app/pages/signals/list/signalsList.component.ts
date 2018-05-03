@@ -5,17 +5,19 @@ import { SignalsService } from '../signals.service';
 import { UserService } from "../../../@core/data/users.service";
 
 @Component({
-  selector: 'ngx-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss'],
+  selector: 'ngx-signalsList',
+  templateUrl: './signalsList.component.html',
+  styleUrls: ['./signalsList.component.scss'],
 })
-export class ListComponent implements OnInit {
+export class signalsListComponent implements OnInit {
 
   signals: any;
   connection;
   limit: number = 12;
   increment: number = 0;
   contentUser: any;
+  position: any;
+  count: any;
 
   constructor(
     private http: Http,
@@ -23,6 +25,7 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getCount();
     this.getSignals();
     this.connSignals();
   }
@@ -33,6 +36,7 @@ export class ListComponent implements OnInit {
       this.signals.forEach((element, index) => {
         let signalId = this.signals[index].id;
         this.userBySignals(signalId, index);
+        this.getPosition(signalId, index);
       });
       this.increment += this.limit;
     });
@@ -42,7 +46,6 @@ export class ListComponent implements OnInit {
     this.connection = this.signalsService.getSignals().subscribe(data => {
       let datos: any = data; 
       this.signals.unshift(data);
-      //console.log(data);
       this.signals.forEach((element, index) => {
         this.userBySignals(datos.usuarioId, index);
       });
@@ -52,6 +55,10 @@ export class ListComponent implements OnInit {
   userBySignals(signalId, index) {
     this.signalsService.getUserBySignal(signalId).subscribe(data => {
       this.contentUser = data;
+      this.contentUser.totalFama = 0;
+      this.contentUser.fama.forEach(element => {
+        this.contentUser.totalFama += element.valor;
+      });
       this.contentUser.fama.sort(function (a, b) {
         return a.valor < b.valor;
       });
@@ -65,6 +72,13 @@ export class ListComponent implements OnInit {
         this.signals[index].count = [];
         this.signals[index].count.push(data);
       });
+    });
+  }
+
+  getPosition(id, index){
+    return this.signalsService.getPositionBySignal(id).subscribe(data => {
+      this.signals[index].position = [];
+      this.signals[index].position.push(data[0]);
     });
   }
 
@@ -97,4 +111,9 @@ export class ListComponent implements OnInit {
     return this.signalsService.getApiRest() + 'Containers/signal' + id + '/download/perfil.png';
   }
 
+  getCount(){
+    this.signalsService.getSignalsCount().subscribe(data => {
+      this.count = data.count;
+    });
+  }
 }

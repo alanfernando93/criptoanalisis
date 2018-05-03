@@ -137,4 +137,9 @@ export class NewsService extends Session{
       .map(resp => resp.json())
   }
 
+  getNewsCount(){
+    return this.http.get(this.baseUrl + 'news/' + 'count')
+        .map(resp => resp.json());
+  }
+
 }

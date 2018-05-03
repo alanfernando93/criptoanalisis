@@ -5,17 +5,18 @@ import { NewsService } from "../news.service";
 import { UserService } from "../../../@core/data/users.service";
 
 @Component({
-  selector: 'ngx-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  selector: 'ngx-newsList',
+  templateUrl: './newsList.component.html',
+  styleUrls: ['./newsList.component.scss']
 })
-export class ListComponent implements OnInit {
+export class newsListComponent implements OnInit {
 
   news: any;
   connection;
   limit: number = 12;
   increment: number = 0;
   contentUser: any;
+  count: any
 
   constructor(
     private http: Http,
@@ -94,6 +95,12 @@ export class ListComponent implements OnInit {
 
   getImage(id){
     return this.newsService.getApiRest() + 'Containers/news' + id + '/download/perfil.png';
+  }
+
+  getCount(){
+    this.newsService.getNewsCount().subscribe(data => {
+      this.count = data.count;
+    });
   }
 
 }

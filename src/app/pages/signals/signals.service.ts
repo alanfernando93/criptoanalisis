@@ -90,6 +90,11 @@ export class SignalsService extends Session {
             .map((res: Response) => res.json());
     }
 
+    getPositionBySignal(id){
+        return this.http.get(this.baseUrl + 'signals/' + id + '/position' + '?access_token=' + this.getToken())
+            .map((res: Response) => res.json());
+    }
+
     postSignalsComment(comments) {
         comments.userId = this.getUserId();
         return this.http.post(this.baseUrl + '/comentario_senals' + '?access_token=' + this.getToken(), comments)
@@ -114,21 +119,22 @@ export class SignalsService extends Session {
     add(signal) {
         signal.usuarioId = this.getUserId();
         return this.http.post(this.baseUrl + 'signals?access_token=' + this.getToken(), signal)
-            .map(resp => resp.json())
-    }
-    getPositionById(id) {
-        return this.http.get(this.baseUrl + 'positions/' + id + '?access_token=' + this.getToken())
-            .map(resp => resp.json())
+            .map(resp => resp.json());
     }
 
     setPosition(body) {
         return this.http.post(this.baseUrl + 'positions?access_token=' + this.getToken(), body)
-            .map(resp => resp.json())
+            .map(resp => resp.json());
     }
 
     imageFileUpload(idNews, file) {
         return this.http.post(this.baseUrl + 'signals/' + idNews + '/upload?access_token=' + this.getToken(), file)
-            .map(resp => resp.json())
+            .map(resp => resp.json());
+    }
+
+    getSignalsCount(){
+        return this.http.get(this.baseUrl + 'signals/' + 'count?access_token=' + this.getToken())
+            .map(resp => resp.json());
     }
 
 }
