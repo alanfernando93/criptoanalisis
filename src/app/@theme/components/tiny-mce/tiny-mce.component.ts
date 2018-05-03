@@ -4,115 +4,116 @@ import {
   AfterViewInit,
   Output,
   Input,
+  OnChanges,
   EventEmitter,
-  ElementRef
-} from "@angular/core";
+  ElementRef,
+} from '@angular/core';
 
-import "tinymce";
+import { parseToFile } from '../../../common/functions'
 
-import "tinymce/themes/modern";
-import "tinymce/plugins/advlist";
-import "tinymce/plugins/code";
-import "tinymce/plugins/link";
-import "tinymce/plugins/lists";
-import "tinymce/plugins/image";
-import "tinymce/plugins/media";
-import "tinymce/plugins/table";
-import "tinymce/plugins/imagetools";
+// A theme is also required
+import 'tinymce/themes/modern/theme';
 
-import "../../../../assets/plugins/tradingview";
+import 'tinymce/plugins/code';
+import 'tinymce/plugins/link';
+import 'tinymce/plugins/image';
+import 'tinymce/plugins/media';
+import 'tinymce/plugins/table';
+import 'tinymce/plugins/imagetools';
+import 'tinymce/plugins/contextmenu';
 
-import { NewsService } from "../../../pages/news/news.service";
+import '../../../../assets/plugins/tradingview';
+
 import { environment } from '../../../../environments/environment'
+import { NewsService } from '../../../pages/news/news.service';
 
-// declare var tinymce: any;
+declare var tinymce: any;
 
 @Component({
-  selector: "ngx-tiny-mce",
-  template: `
-  `,
-  providers:[NewsService]
+  selector: 'ngx-tiny-mce',
+  template: ``,
+  providers: [NewsService]
 })
+
 export class TinyMCEComponent implements OnDestroy, AfterViewInit {
-  @Input() height: String = "320";
+  @Input() height: String = '320';
   @Input() innerHTML: String;
-  @Input() content: String;
-  @Input() place;
 
   @Output() onEditorKeyup = new EventEmitter<any>();
+
+  style = [
+    '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+    '//www.tinymce.com/css/codepen.min.css'
+  ];
+
+  imageCollection: any = [];
 
   editor;
   baseUrl = environment.apiUrl;
 
   constructor(
     private host: ElementRef,
-    private newsService: NewsService,
+    private newsService: NewsService
   ) { }
 
   ngAfterViewInit() {
     tinymce.init({
       target: this.host.nativeElement,
-      // selector:"textarea",
+      // selector: '#'+this.id,
       menubar: false,
-      plugins: ["link image tradingview code", "media table imagetools lists"],
-      toolbar:
-        "undo redo | formatselect | bold italic backcolor underline | alignleft aligncenter alignright alignjustify | blockquote | bullist numlist | link image media | tradingview | table",
-      skin_url: "assets/skins/lightgray",
+      plugins: ['link image tradingview code', 'media table imagetools '],
+      toolbar: 'undo redo | formatselect | bold italic backcolor underline | alignleft aligncenter alignright alignjustify | blockquote | bullist numlist | link image media | tradingview | table',
+      skin_url: 'assets/skins/lightgray',
+      theme: 'modern',
       setup: editor => {
         this.editor = editor;
-        editor.on("init", cont => {
-          if (this.content) cont.target.setContent(this.content);
-        });
-        editor.on("keyup change", () => {
-          const content = editor.getContent();
-          this.onEditorKeyup.emit(content);
-        });
+        // editor.on('init', cont => {
+        //   if (this.content) cont.target.setContent(this.content);
+        // });
+        editor.on('change', () => {
+          this.onEditorKeyup.emit(editor.getContent());
+        })
       },
-      image_description:false,
-      image_title: true,
-      automatic_uploads: true,
-      file_picker_types: "image",
-      file_picker_callback: (cb, value, meta) => {
-        var input = document.createElement("input");
-        input.setAttribute("type", "file");
-        input.setAttribute("accept", "image/*");
-        input.onchange = event => {
-          let myFile = event["target"]["files"][0];
-          var reader = new FileReader();
-          reader.onload = () => {
-            var id = "blobid" + new Date().getTime();
-            var blobCache = tinymce.activeEditor.editorUpload.blobCache;
-            var base64 = reader.result.split(",")[1];
-            var blobInfo = blobCache.create(id, myFile, base64);
-            blobCache.add(blobInfo);
-
-            // blobInfo.blobUri() => url de la imagen que sera insertada
-            cb(blobInfo.blobUri(), { title: myFile.name });
-
-          };
-          reader.readAsDataURL(myFile);
-          
-        };
-        input.click();
-      },
-      content_css: [
-        "//fonts.googleapis.com/css?family=Lato:300,300i,400,400i",
-        "//www.tinymce.com/css/codepen.min.css"
-      ],
-      images_upload_handler: (blobInfo, success, failure) => {    
-        let body = new FormData();
-        body.append('file', blobInfo.blob(), blobInfo.filename());
-        this.newsService.fullUploadFileImage(body).subscribe(data=>{
-          success(this.baseUrl + "containers/galery/download/" + blobInfo.filename())
-        })               
-      },
-      images_dataimg_filter: function(img) {
-        console.log(img)
-        return img.hasAttribute('internal-blob');
-      },
+      image_description: false,
+      image_title: false,
+      image_dimensions: false,
+      paste_data_images: true,
+      file_picker_types: 'image',
+      automatic_uploads: false,
       height: this.height,
-      images_reuse_filename: true
+      content_css: this.style,
+      file_picker_callback: this.file_picker,
+      images_upload_handler: (blobInfo, success, failure) => {
+        var id = 'blobid' + new Date().getTime();
+        let body = new FormData();
+        body.append('file', blobInfo.blob(), id + "." + (blobInfo.filename()).split(".")[1]);
+        this.newsService.fullUploadFileImage(body).subscribe(r => {
+          success(this.baseUrl + "containers/galery/download/" + id + "." + (blobInfo.filename()).split(".")[1]);
+        })
+        // console.log("Uploading image");
+        // success("/some/path.jpg");
+      },
     });
+  }
+
+  file_picker = (cb, value, meta) => {
+    let input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.onchange = event => {
+      let myFile = event['target']['files'][0];
+      let reader = new FileReader();
+      reader.onload = () => {
+        var id = 'blobid' + new Date().getTime();
+        var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+        var base64 = reader.result.split(',')[1];
+        var blobInfo = blobCache.create(id, myFile, base64);
+        blobCache.add(blobInfo);
+        cb(blobInfo.blobUri(), { title: myFile.name });
+      };
+      reader.readAsDataURL(myFile);
+    };
+    input.click();
   }
 
   ngOnDestroy() {
