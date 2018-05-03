@@ -216,5 +216,10 @@ module.exports = (Signal, ctx, ctx2) => {
     Signal.app.models.usuario.famaUser(userId, _variable.rps, coinSignal);
     next();
   });
+  Signal.afterRemote('create', (ctx, signal, next) => {
+    var io = Signal.app.io;
+    io.emit('insertSig', ctx.result);
+    next();
+  });
 };
 
