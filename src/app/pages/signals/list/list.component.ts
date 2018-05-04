@@ -4,7 +4,7 @@ import { Http, Response } from '@angular/http';
 import { SignalsService } from '../signals.service';
 
 @Component({
-  selector: 'ngx-list',
+  selector: 'ngx-list-signal',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })

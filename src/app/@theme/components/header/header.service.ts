@@ -31,7 +31,6 @@ export class HeaderService extends Session{
         .map((res:Response)=>res.json());
     }
     findsignal(id: string){
-        console.log(id);
         return this.http.get(this.baseUrl+'signals/'+id+'/signalnot?access_token='+ this.getToken())
         .map((res:Response)=>res.json());
     }
@@ -40,7 +39,6 @@ export class HeaderService extends Session{
         .map((res:Response)=>res.json());
     }
     findnotif(req: string, send: number){
-        console.log(req, send);
         return this.http.get(this.baseUrl+'notifications?[filter][where][and][0][tipo]='+req+'&[filter][where][and][1][senderId]='+send+'&[filter][where][and][2][usuarioId]='+this.getUserId()+'&[filter][fields][id]=true')
         .map((res:Response)=>res.json());
     }

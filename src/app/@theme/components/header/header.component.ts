@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
   susc: any;
   msgReq = ' quiere conectarse contigo';
   userMenu = [
-    { title: "Profile", link: "/user/profile" },
+    { title: "Profile", link: "/user/profile/"+this.headerService.getUserId()},
     { title: "Log out" }
   ];
 
@@ -56,7 +56,6 @@ export class HeaderComponent implements OnInit {
     this.userService.connect();
     this.connection = this.userService.Request().subscribe(request =>{
       this.req = request;
-      console.log(this.req);
           this.setnotification(this.req.senderId,this.req.tipo);
     });
     this.getNotifications();
@@ -99,13 +98,11 @@ export class HeaderComponent implements OnInit {
           }
         }
       });
-      console.log(this.notifications);
     });
   }
   setnotification(id: number, tipo: string){
      var not;
      this.headerService.findnotif(tipo,id).subscribe(notif=>{
-       console.log('se obtuvo la notificacion',notif[0]);
        switch(tipo) {
         case 'request':{
           this.showToast('solicitud de chat', this.req.sender+this.msgReq);
@@ -158,7 +155,6 @@ export class HeaderComponent implements OnInit {
       }
      });
     this.notNum++;
-    console.log(this.notifications);
   }
   seen(id: number){
     var notif = this.notifications.find(not=>not.id==id);
@@ -181,7 +177,6 @@ export class HeaderComponent implements OnInit {
       this.notNum--;
       this.headerService.changeNotif(id)
       .subscribe(data=>{
-        console.log(data);
       })
     }
   };

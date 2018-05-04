@@ -23,7 +23,10 @@ export class UserService extends Session{
     return this.http.get(this.baseUrl + "usuarios/" + id  + '?filter[fields][nombre]=true&filter[fields][apellido]=true&filter[fields][puntos]=true&filter[fields][precision]=true&filter[fields][fama]=true&filter[fields][username]=true&filter[fields][perfil]=true&filter[fields][id]=true')
       .map(resp => resp.json());
   }
-
+  getTotalInfo(id){
+    return this.http.get(this.baseUrl+"usuarios/"+ id)
+    .map(resp=> resp.json());
+  }
   /**
    * Retorna el usuario logeado o en actual session
    * 
@@ -66,5 +69,15 @@ export class UserService extends Session{
     })
     return observable;
   }
-  
+  followUser(id){
+    return this.http.post(this.baseUrl + 'followUsers/follow',{
+      followerId: this.getUserId(),
+      posterId: id
+    })
+    .map(resp => resp.json())
+}
+isfollow(id){
+  return this.http.get(this.baseUrl +'followUsers?[filter][where][and][0][followerId]='+this.getUserId()+'&[filter][where][and][1][posterId]='+id)
+  .map(res=> res.json());
+}
 }

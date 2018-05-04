@@ -5,11 +5,11 @@ import { NewsService } from "../news.service";
 import { UserService } from "../../../@core/data/users.service";
 
 @Component({
-  selector: 'ngx-list',
+  selector: 'ngx-list-news',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit {
+export class ListSignalComponent implements OnInit {
 
   news: any;
 
