@@ -214,7 +214,7 @@
                             </div>
                             <div class="card-footer">
                                 <div class="form-group">
-                                    <textarea class="form-control" id="{{comment.id}}" name="{{i}}" placeholder="Escribe una Respuesta" required="required" cols="1" rows="1"></textarea>                                
+                                    <input class="form-control answer-input" id="{{comment.id}}" name="{{i}}" placeholder="Escribe una Respuesta" required="required" />                                
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-tn" (click)="sendAnswer($event)">Responder</button>
                             </div>

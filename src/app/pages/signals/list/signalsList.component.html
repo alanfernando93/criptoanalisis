@@ -5,88 +5,88 @@
     </div>
   </nb-card-header>
 </nb-card>
-<nb-card class="d-block d-sm-none">
+<div class="container d-block d-sm-none">
   <div class="row">
     <div class="col-7">
-      <div class="dropdown" ngbDropdown>
-        <button class="btn btn-primary btn-tn" type="button" ngbDropdownToggle>
-          Mas recientes
-        </button>
-        <ul class="dropdown-menu" ngbDropdownMenu>
-          <li class="dropdown-item">Icon Button 2</li>
-          <li class="dropdown-item">Hero Button</li>
-          <li class="dropdown-item">Default</li>
-        </ul>
-      </div>
+      <nb-card>
+        <div class="dropdown" ngbDropdown>
+          <button class="btn btn-primary btn-tn" type="button" ngbDropdownToggle>
+            mas recientes
+          </button>
+          <ul class="dropdown-menu" ngbDropdownMenu>
+            <li class="dropdown-item">Icon Button 2</li>
+            <li class="dropdown-item">Hero Button</li>
+            <li class="dropdown-item">Default</li>
+          </ul>
+        </div>
+      </nb-card>
     </div>
     <div class="col-5">
-      <div class="dropdown" ngbDropdown>
-        <button class="btn btn-primary btn-tn" type="button" ngbDropdownToggle>
-          BCH
-        </button>
-        <ul class="dropdown-menu" ngbDropdownMenu>
-          <li class="dropdown-item">Icon Button 2</li>
-          <li class="dropdown-item">Hero Button</li>
-          <li class="dropdown-item">Default</li>
-        </ul>
-      </div>
-    </div>
-
-  </div>
-</nb-card>
-<div class="row">
-  <div class="col-lg-4 col-md-4 col-sm-6" *ngFor="let signal of signals">
-    <nb-card>
-      <div class="card">
-        <div class="card-header">
-          <div class="row" *ngFor="let content of signal.contentUser">
-            <div class="col-5 col-md-5">
-              <nb-user [menu]="" [name]="content?.username" [picture]="content?.perfil"></nb-user>
-            </div>
-            <div class="col-2 col-md-2">
-              <h6>
-                <span class="badge badge-primary font-w-light user">{{content.puntos}} P</span>
-              </h6>
-            </div>
-            <!-- <span>{{content.totalFama}}</span> -->
-            <div class="col-1 col-md-1 spn-data " *ngFor="let famaUser of content.fama.firstTwo">
-              <span class="badge badge-primary font-w-light">{{famaUser.valor}} {{famaUser.symbol}}</span>
-            </div>
-          </div>
+      <nb-card>
+        <div class="dropdown" ngbDropdown>
+          <button class="btn btn-primary btn-tn" type="button" ngbDropdownToggle>
+            btn mon
+          </button>
+          <ul class="dropdown-menu" ngbDropdownMenu>
+            <li class="dropdown-item">Icon</li>
+            <li class="dropdown-item">Hero</li>
+            <li class="dropdown-item">Defau</li>
+          </ul>
         </div>
-        <a [routerLink]="['/pages/signals/signals-view', signal.id]">
-          <img src="{{getImage(signal.id)}}" class="card-img-top d-none d-sm-block">
-          <div class="card-body row">
-            <span class="text-left col-5 col-sm-5">
-              De Pago
-            </span>
-            <span class="text-right col-7 col-sm-7" *ngFor="let coins of signal.position">
-              {{coins.moneda1}} / {{coins.moneda2}}
-            </span>
-          </div>
-        </a>
-        <div class="card-footer">
-          <div class="row">
-            <div class="col-5 col-md-5">
-              <span class="sp_size text-hint">{{signal.FechaCreate | amTimeAgo}}</span>
-            </div>
-            <div class="col-3 col-md-3" *ngFor="let count of signal.count">
-              <div class="text-body">
-                <span>{{count.count}}
-                  <i class="fa fa-comment-o"></i>
-                </span>
+      </nb-card>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-6" *ngFor="let signal of signals">
+      <nb-card>
+        <div class="card">
+          <div class="card-header">
+            <div class="row" *ngFor="let content of signal.contentUser">
+              <div class="col-12 col-md-5">
+                <nb-user [menu]="" [name]="content?.username" [picture]="content?.perfil"></nb-user>
+              </div>
+              <div class="col-4 col-md-2">
+                <h6>
+                  <span class="badge badge-primary font-w-light user">{{content.puntos}} P</span>
+                </h6>
+              </div>
+              <div class="col-2 col-md-1 spn-data " *ngFor="let famaUser of content.fama.firstTwo">
+                <span class="badge badge-primary font-w-light">{{famaUser.valor}} {{famaUser.symbol}}</span>
               </div>
             </div>
-            <span class="col-2 col-md-2">
-              <i class="fa fa-thumbs-up up">{{signal.likes.total}}</i>
-            </span>
-            <span class="col-2 col-md-1">
-              <i class="fa fa-thumbs-down down">{{signal.dislikes.total}}</i>
-            </span>
+          </div>
+          <a [routerLink]="['/pages/signals/signals-view', signal.id]">
+            <img src="{{getImage(signal.id)}}" class="card-img-top d-none d-sm-block">
+            <div class="card-body row">
+              <span class="text-left col-5 col-sm-5">
+                De Pago
+              </span>
+              <span class="text-right col-7 col-sm-7" *ngFor="let coins of signal.position">
+                {{coins.moneda1}} / {{coins.moneda2}}
+              </span>
+            </div>
+          </a>
+          <div class="card-footer">
+            <div class="row">
+              <div class="col-6 col-md-6">
+                <span class="sp_size text-hint">{{signal.FechaCreate | amTimeAgo}}</span>
+              </div>
+              <span class="col-2 col-md-2" *ngFor="let count of signal.count">
+                <i class="fa fa-comment-o">{{count.count}}</i>
+              </span>
+              <span class="col-2 col-md-2">
+                <i class="fa fa-thumbs-up up">{{signal.likes.total}}</i>
+              </span>
+              <span class="col-2 col-md-1">
+                <i class="fa fa-thumbs-down down">{{signal.dislikes.total}}</i>
+              </span>
+            </div>
           </div>
         </div>
-      </div>
-    </nb-card>
+      </nb-card>
+    </div>
   </div>
 </div>
 <nb-card *ngIf="count > 12">

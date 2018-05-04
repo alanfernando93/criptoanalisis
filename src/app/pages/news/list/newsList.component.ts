@@ -16,7 +16,7 @@ export class newsListComponent implements OnInit {
   limit: number = 12;
   increment: number = 0;
   contentUser: any;
-  count: any
+  count: any;
 
   constructor(
     private http: Http,

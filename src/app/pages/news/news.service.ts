@@ -70,20 +70,6 @@ export class NewsService extends Session{
     return this.http.get(this.baseUrl + 'noticias/' + id + '/comentarioNoticia')
       .map((res: Response) => res.json());
   }
-
-  JoinComm(id){
-    this.socket.emit("join", 'news'+id);
-  }
-
-  insert(body) {
-    body.usuarioId = this.getUserId();
-    return this.http.post(this.baseUrl + 'noticias', body)
-    .map((res: Response) => res.json());
-  }
-
-  postNews(id) {
-    return this.http.get(this.baseUrl + 'noticias/' + id + '/comment?userId' + this.getUserId())
-  }
   
   getNewsAnswer(commentId) {
     return this.http.get(this.baseUrl + 'comentario_noticia/' + commentId + '/answerNoticia')
@@ -100,21 +86,30 @@ export class NewsService extends Session{
       .map((res: Response) => res.json());
   }
 
+  getNewsCount(){
+    return this.http.get(this.baseUrl + 'news/' + 'count')
+        .map(resp => resp.json());
+  }
+  
+  getUserById(id) {
+    return this.http.get(this.baseUrl + 'usuarios/' + id)
+      .map((res: Response) => res.json());
+  }
+
   postNewsComment(comments) {
     comments.userId = this.getUserId();
     return this.http.post(this.baseUrl + '/comentario_noticia', comments)
       .map((res: Response) => res.json());
   }
 
-  postNewsAnswer(respond) {
-    respond.userId = this.getUserId();
-    return this.http.post(this.baseUrl + 'answer_noticia', respond)
+  postNewsAnswer(answers) {
+    answers.userId = this.getUserId();
+    return this.http.post(this.baseUrl + 'answer_noticia', answers)
       .map((res: Response) => res.json());
   }
 
-  getUserById(id) {
-    return this.http.get(this.baseUrl + 'usuarios/' + id)
-      .map((res: Response) => res.json());
+  postNews(id) {
+    return this.http.get(this.baseUrl + 'noticias/' + id + '/comment?userId' + this.getUserId())
   }
 
   postDislikes(id) {
@@ -136,10 +131,15 @@ export class NewsService extends Session{
     return this.http.post(this.baseUrl + 'Containers/galery/upload', file)
       .map(resp => resp.json())
   }
+  
+  JoinComm(id){
+    this.socket.emit("join", 'news'+id);
+  }
 
-  getNewsCount(){
-    return this.http.get(this.baseUrl + 'news/' + 'count')
-        .map(resp => resp.json());
+  insert(body) {
+    body.usuarioId = this.getUserId();
+    return this.http.post(this.baseUrl + 'noticias', body)
+    .map((res: Response) => res.json());
   }
 
 }
