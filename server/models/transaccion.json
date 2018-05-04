@@ -24,6 +24,9 @@
     },
     "activo": {
       "type": "boolean"
+    },
+    "razon": {
+      "type": "string"
     }
   },
   "validations": [],
