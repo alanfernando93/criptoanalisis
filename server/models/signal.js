@@ -112,6 +112,10 @@ module.exports = (Signal, ctx, ctx2) => {
   Signal.afterRemote('dislike', (ctx, signal, next) => {
     var idn = ctx.req.params.id;
     var idUser = ctx.req.query.userId;
+    // Signal.app.models.position.afterRemote('create', (ctx, position, next) => {
+    //   var coinSignal = ctx.result.moneda1;
+    //   console.log(coinSignal);
+    // });
     var coinNews = ctx.result.tipo_moneda;
     var index = ctx.result.likes.users.indexOf(idUser);
     if (index > -1) {
