@@ -24,10 +24,8 @@ declare var tinymce: any;
 export class PublishNewsComponent implements OnInit {
   @Input() idNew: String = null;
 
-  dropbox;
-
-  // url = "https://mdbootstrap.com/img/Photos/Others/placeholder.jpg";
-  url = "https://dl.dropboxusercontent.com/apitl/1/AABm1602WI6pYc4EU-kkoaf47i6933MMcNiU4GmjsFeI3jkqrpQEbIkXWcPFUAABwEfyynvXC9OSC7UoSm-X5RXDBVamxG62hx-MP1I_asyhevwsovtsDIUzIqzl21LhHLu1VgIfoMWeiBnLt9qCAtOJKuONx8D6fOr9ydg8hoPnxhZC7q4a-YPmycHopJrc2nuuWD-DIfagxd8Td8sEKBg4c75m2ZLgyCUmTrOoPY-F4cM78vsC9oopgX4vCDU08UgHtgUY-dnVL8vUiT_PoG7XbjQWSOi-69NC351RWmBdzA";
+  url = "https://mdbootstrap.com/img/Photos/Others/placeholder.jpg";
+  
   myFile: File;
   closeResult: string;
   newsPublish: any = {};
@@ -47,10 +45,10 @@ export class PublishNewsComponent implements OnInit {
     private coinsService: CoinsService,
     private router: Router,
     private toasterService: ToasterService,
+    private dropbox: DropboxCripto,
   ) { }
 
   ngOnInit() {
-    this.dropbox = new DropboxCripto();
     if (this.idNew != null) {
       this.newsService.getById(this.idNew).subscribe(resp => {
         this.newsPublish = resp;
@@ -68,7 +66,7 @@ export class PublishNewsComponent implements OnInit {
           this.newsPublish.contenido = tinymce.editors[0].getContent()
           resolve("get edito 1");
         })
-      }, 2000);
+      }, 1000);
     });
   }
 
@@ -80,7 +78,7 @@ export class PublishNewsComponent implements OnInit {
           resolve('get edito 2');
         })
 
-      }, 2000);
+      }, 1000);
     });
   }
 
@@ -91,7 +89,7 @@ export class PublishNewsComponent implements OnInit {
           this.newsPublish.conj_moneda = tinymce.editors[2].getContent()
           resolve("get edito 3");
         })
-      }, 2000);
+      }, 1000);
     });
   }
 
