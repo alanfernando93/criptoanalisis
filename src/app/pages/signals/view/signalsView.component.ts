@@ -34,15 +34,17 @@ export class signalsViewComponent implements OnInit {
     private router: Router,
     private signalsService: SignalsService,
     private userService: UserService, ) {
+      route.params.subscribe(val=>{
+        this.idSignal = val.signalId;
+        this.getSignalById();
+        this.getSignalWithUser();
+        this.getSignalCommentById();
+        this.getCommentWithUser();
+        this.getSignalCommentCount();
+      });
   }
 
   ngOnInit() {
-    this.getSignalsId();
-    this.getSignalById();
-    this.getSignalCommentCount();
-    this.getSignalWithUser();
-    this.getSignalCommentById();
-    this.getCommentWithUser();
     this.connSignals();
     this.anSignals();
   }
