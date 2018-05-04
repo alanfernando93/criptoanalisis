@@ -14,12 +14,9 @@ import { NewsService } from '../news/news.service';
 import { CoinsService } from '../coins/coins.service';
 import { MarketsService } from "../markets/markets.service";
 import { SignalsService } from '../signals/signals.service';
-<<<<<<< HEAD
 import { AdvisoriesService } from '../advisories/advisories.service';
 
-=======
 import { CropperModalComponent } from '../../@theme/components/cropper/croppermodal.component';
->>>>>>> develop
 
 @NgModule({
     imports: [
@@ -31,18 +28,11 @@ import { CropperModalComponent } from '../../@theme/components/cropper/croppermo
         PublishNewsComponent,
     
         SignalComponent,
-<<<<<<< HEAD
-        AdvisoryComponent,
-        CoinComponent
-    ],
-    entryComponents: [],
-    providers: [NewsService,CoinsService,SignalsService,MarketsService,AdvisoriesService],
-=======
         CoinComponent,
-        CropperModalComponent,
+        AdvisoryComponent,
+        CropperModalComponent
     ],
     entryComponents: [CropperModalComponent],
-    providers: [NewsService,CoinsService,SignalsService,MarketsService],
->>>>>>> develop
+    providers: [NewsService,CoinsService,SignalsService,MarketsService,AdvisoriesService],
 })
 export class PublishModule { }

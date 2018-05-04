@@ -4,6 +4,7 @@ import { Http, Response } from "@angular/http";
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
+
 // import { NewsService } from "../../../services/news.service";
 
 // import { CoinsService } from "../../../services/coins.service";
@@ -56,6 +57,7 @@ export class AdvisoryComponent implements OnInit {
   temas = [];
   
     advisoriesPublish: any = {};
+    closeResult: string;
     config: ToasterConfig
     title = null;
     content = `I'm cool toaster!`;
@@ -67,6 +69,7 @@ export class AdvisoryComponent implements OnInit {
       private advisoriesService: AdvisoriesService,
       private toasterService: ToasterService,
       private router: Router
+      
     ) {}
   
     ngOnInit() {
@@ -139,10 +142,17 @@ export class AdvisoryComponent implements OnInit {
       let body = new FormData();
       console.log(this.advisoriesPublish)
       this.advisoriesService.insert(this.advisoriesPublish).subscribe(resp => {
-        
+        this.router.navigate(['/pages/advisories/list']);
       });
       
       
+    }
+    open(content) {
+      this.modalService.open(content, { size: 'lg' }).result.then((result) => {
+          this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
     }
   
     
@@ -168,6 +178,15 @@ export class AdvisoryComponent implements OnInit {
       this.toasterService.popAsync(toast);
     }
     
+    private getDismissReason(reason: any): string {
+      if (reason === ModalDismissReasons.ESC) {
+          return 'by pressing ESC';
+      } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+          return 'by clicking on a backdrop';
+      } else {
+          return `with: ${reason}`;
+      }
+  }
     
   
     
