@@ -2,14 +2,25 @@
 
 module.exports = function(Followuser) {
   Followuser.follow = function(req, res, cb) {
-    Followuser.findOrCreate({
+    Followuser.findOne({
       where: {
         and: [
             {followerId: req.body.followerId},
             {posterId: req.body.posterId},
         ],
       },
-    }, req.body, cb);
+    }). then(data=>{
+      var res = '';
+      if (data != null) {
+        Followuser.destroyById(data.id, (err, data)=>{
+          cb(null, 'unfollowed');
+        });
+      } else {
+        Followuser.create(req.body, (err, data)=>{
+          cb(null, 'followed');
+        });
+      };
+    });
   };
   Followuser.remoteMethod('follow', {
     http: {path: '/follow', verb: 'post'},
