@@ -1,0 +1,57 @@
+<nb-card>
+  <nb-card-header>
+    <div class="text-body">
+      Lista de Noticias
+    </div>
+  </nb-card-header>
+</nb-card>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-6" *ngFor="let news of news">
+      <nb-card>
+        <div class="thumbnail img-thumb-bg">
+          <img src="{{getImage(news.id)}}" class="img-fluid img-thumb-bg">
+          <div class="overlay"></div>
+          <div class="caption">
+            <div class="tag">
+              <a href="#">{{news.tipo_moneda}}</a>
+            </div>
+            <div class="title">
+              <a [routerLink]="['/pages/news/news-view', news.id]">{{news.titulo}}</a>
+            </div>
+            <div class="clearfix">
+              <span class="meta-data">{{news.fecha_create | amTimeAgo}}</span>
+              <span class="meta-data pull-right">
+                <a>
+                  <i class="fa fa-thumbs-o-down"></i>{{news.dislikes.total}}</a>
+              </span>
+              <span class="meta-data pull-right">
+                <a>
+                  <i class="fa fa-thumbs-o-up"></i>{{news.likes.total}}</a>
+              </span>
+              <span class="meta-data pull-right" *ngFor="let count of news.count">
+                <a>
+                  <i class="fa fa-comment-o"></i>{{count.count}}</a>
+              </span>
+            </div>
+            <div class="content">
+              <div *ngFor="let dataUser of news.contentUser">
+                <span class="spn-data badge badge-primary pull-right" *ngFor="let famaUser of dataUser.fama.firstTwo">{{famaUser.valor}} {{famaUser.symbol}}</span>
+                <nb-user class="col-6 col-md-6 meta-data" [name]="dataUser?.username" [picture]="dataUser?.perfil"></nb-user>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nb-card>
+    </div>
+  </div>
+</div>
+<nb-card *ngIf="count > 12">
+  <nb-card-body>
+    <div class="row block-level-buttons">
+      <div class="col-md-12">
+        <button type="button" class="btn btn-outline-primary btn-block" (click)="Upload()">Ver mas</button>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

@@ -111,7 +111,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'List News',
-        link: '/pages/news/list',
+        link: '/pages/news/news-list',
       },
     ],
   },
@@ -138,8 +138,8 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-plus-circled',
     children: [
       {
-        title: 'List Coins',
-        link: '/pages/coins/list'
+        title: 'View Coins',
+        link: '/pages/coins/view'
       },
     ],
   },{
@@ -148,7 +148,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'List Signals',
-        link: '/pages/signals/list',
+        link: '/pages/signals/signals-list',
       },
     ],
   },

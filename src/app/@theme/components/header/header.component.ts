@@ -47,7 +47,13 @@ export class HeaderComponent implements OnInit {
     this.authService.onTokenChange().subscribe((token: NbAuthJWTToken) => {
       if (token.getValue() && localStorage.length != 0) {
         let id = localStorage.getItem("userId")
-        this.userService.getById(id).subscribe(resp=> this.user = resp)
+        this.userService.getById(id).subscribe(resp => {
+          this.user = resp;
+          this.user.totalFama = 0;
+          this.user.fama.forEach((element, index) => {
+            this.user.totalFama += element.valor;
+          });
+        });
       }
     });
   }
@@ -195,7 +201,7 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.userService.logout().subscribe(success => {
-      this.router.navigateByUrl("/auth/logout", {skipLocationChange: true}).then(r => {
+      this.router.navigateByUrl("/auth/logout", { skipLocationChange: true }).then(r => {
         localStorage.clear()
         this.router.navigate(["/pages/dashboard"])
       })

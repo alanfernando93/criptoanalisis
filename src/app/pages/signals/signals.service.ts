@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Socket } from 'ng-socket-io';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
@@ -10,12 +11,53 @@ import 'rxjs/add/operator/map';
 export class SignalsService extends Session {
     private baseUrl = environment.apiUrl;
 
-    constructor(private http: Http) {
+    constructor(private http: Http, private socket: Socket) {
         super()
     }
 
     getAll() {
         return this.http.get(this.baseUrl + 'signals' + '?access_token=' + this.getToken())
+            .map((res: Response) => res.json())
+    }
+
+    getSignals() {
+        let observable = new Observable(observer => {
+            this.socket.on('insertSig', (data) => {
+                observer.next(data);
+            });
+            return () => {
+                this.socket.disconnect();
+            }
+        });
+        return observable;
+    }
+
+    getSignalsCommen(){
+        let observable = new Observable(observer => {
+            this.socket.on('signalCom', (data) => {
+                observer.next(data);
+            });
+            return() => {
+                this.socket.disconnect();
+            }
+        });
+        return observable;
+    }
+
+    getSignalsAns(){
+        let observable = new Observable(observer => {
+            this.socket.on('signalAns', (data) => {
+                observer.next(data);
+            });
+            return () => {
+                this.socket.disconnect();
+            }
+        });
+        return observable;
+    }
+
+    getAllLimit(count, inc) {
+        return this.http.get(this.baseUrl + 'signals' + '?access_token=' + this.getToken() + '&filter[order]=FechaCreate%20DESC&filter[limit]=' + count + '&filter[skip]=' + inc)
             .map((res: Response) => res.json())
     }
 
@@ -27,6 +69,10 @@ export class SignalsService extends Session {
     getSignalsComment(id) {
         return this.http.get(this.baseUrl + 'signals/' + id + '/comentarioSenals' + '?access_token=' + this.getToken())
             .map((res: Response) => res.json());
+    }
+
+    JoinComm(id){
+        this.socket.emit("join", 'signals'+id);
     }
 
     getSignalsAnswer(commentId) {
@@ -44,15 +90,20 @@ export class SignalsService extends Session {
             .map((res: Response) => res.json());
     }
 
-    postSignalsComment(id, comments) {
-        comments.userId = this.getUserId();
-        return this.http.post(this.baseUrl + 'signals/' + id + '/comentarioSenals' + '?access_token=' + this.getToken(), comments)
+    getPositionBySignal(id){
+        return this.http.get(this.baseUrl + 'signals/' + id + '/position' + '?access_token=' + this.getToken())
             .map((res: Response) => res.json());
     }
 
-    postSignalsAnswer(commentId, responds) {
+    postSignalsComment(comments) {
+        comments.userId = this.getUserId();
+        return this.http.post(this.baseUrl + '/comentario_senals' + '?access_token=' + this.getToken(), comments)
+            .map((res: Response) => res.json());
+    }
+
+    postSignalsAnswer(responds) {
         responds.userId = this.getUserId();
-        return this.http.post(this.baseUrl + 'comentario_senals/' + commentId + '/answer-senals' + '?access_token=' + this.getToken(), responds)
+        return this.http.post(this.baseUrl + 'answer-senals' + '?access_token=' + this.getToken(), responds)
             .map((res: Response) => res.json());
     }
 
@@ -68,21 +119,22 @@ export class SignalsService extends Session {
     add(signal) {
         signal.usuarioId = this.getUserId();
         return this.http.post(this.baseUrl + 'signals?access_token=' + this.getToken(), signal)
-            .map(resp => resp.json())
-    }
-    getPositionById(id) {
-        return this.http.get(this.baseUrl + 'positions/' + id + '?access_token=' + this.getToken())
-            .map(resp => resp.json())
+            .map(resp => resp.json());
     }
 
     setPosition(body) {
         return this.http.post(this.baseUrl + 'positions?access_token=' + this.getToken(), body)
-            .map(resp => resp.json())
+            .map(resp => resp.json());
     }
 
     imageFileUpload(idNews, file) {
         return this.http.post(this.baseUrl + 'signals/' + idNews + '/upload?access_token=' + this.getToken(), file)
-            .map(resp => resp.json())
+            .map(resp => resp.json());
+    }
+
+    getSignalsCount(){
+        return this.http.get(this.baseUrl + 'signals/' + 'count?access_token=' + this.getToken())
+            .map(resp => resp.json());
     }
 
 }

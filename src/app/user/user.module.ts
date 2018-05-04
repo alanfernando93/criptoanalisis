@@ -6,12 +6,8 @@ import { UserRoutingModule} from './user-routing.module';
 import { ThemeModule } from '../@theme/theme.module';
 import { MomentModule } from 'angular2-moment';
 import { EditComponent } from './edit/edit.component';
-//import { NewsModule } from '../pages/news/news.module';
-import { ListSignalComponent } from '../pages/news/list/list.component';
-import { NewsService } from '../pages/news/news.service'
-import { ViewComponent } from '../pages/news/view/view.component';
-import { ListComponent } from '../pages/signals/list/list.component';
-import { SignalsService } from '../pages/signals/signals.service'
+import { NewsModule } from '../pages/news/news.module';
+import { SignalsModule } from '../pages/signals/signals.module';
 
 const USER_COMPONENTS = [
     UserComponent,
@@ -23,13 +19,13 @@ const USER_COMPONENTS = [
     imports: [
         UserRoutingModule,
         ThemeModule,
-        MomentModule
+        MomentModule,
+        NewsModule,
+        SignalsModule
     ],
     declarations: [
         ...USER_COMPONENTS,
-        ListComponent,
-        ListSignalComponent
     ],
-    providers: [NewsService, SignalsService],
+    providers: [],
 })
 export class UserModule { }

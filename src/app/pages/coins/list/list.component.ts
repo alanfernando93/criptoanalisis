@@ -9,13 +9,13 @@ import { CoinsService } from '../coins.service';
 })
 export class ListComponent implements OnInit {
 
-    public coins:any;
+    coins:any;
 
     constructor(private coinsService: CoinsService){
         
     }
 
     ngOnInit(){
-        
     }
+
 }

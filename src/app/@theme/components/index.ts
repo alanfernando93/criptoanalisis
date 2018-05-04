@@ -1,3 +1,4 @@
+export * from './cropper/croppermodal.component';
 export * from './header/header.component';
 export * from './headertwo/headertwo.component';
 export * from './footer/footer.component';
