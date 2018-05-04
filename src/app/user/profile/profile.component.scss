@@ -1,15 +1,5 @@
-/**.info {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    &:not(:last-child) {
-      border-bottom: 1px solid rgb(187, 185, 185);
-    }
-}*/
-
-/* -- color classes -- */
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/bootstrap/breakpoints';
 .coralbg {
   background-color: rgb(47, 63, 70);
 } 

@@ -183,11 +183,6 @@
             <h4>noticias publicadas <span class="badge badge-danger">{{news.length}}</span></h4>
           </ng-template>
           <ng-template ngbPanelContent>
-            <!-- <div *ngFor="let n of news">
-              <a class="info" [routerLink]="['/pages/news/view', n.id]">
-                  <nb-user [picture]="" [name]="n.titulo" [title]="n.fecha_create | amTimeAgo"></nb-user>
-              </a>
-            </div> -->
             <div class="overFlow">
               <ngx-newsList></ngx-newsList>
             </div>
@@ -198,11 +193,6 @@
             <h4>señales publicadas <span class="badge badge-dark">{{signals.length}}</span></h4>
           </ng-template>
           <ng-template ngbPanelContent>
-            <!--  <div *ngFor="let s of signals">
-                  <a class="info" [routerLink]="['/pages/signals/view', s.id]">
-                      <nb-user [picture]="" [name]="getTipo(s.tipo)" [title]="s.FechaCreate | amTimeAgo"></nb-user>
-                  </a>
-                </div>-->
             <div class="overFlow">
                 <ngx-signalsList></ngx-signalsList>
             </div>
