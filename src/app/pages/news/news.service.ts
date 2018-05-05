@@ -135,6 +135,13 @@ export class NewsService extends Session{
   JoinComm(id){
     this.socket.emit("join", 'news'+id);
   }
+  followUser(id){
+    return this.http.post(this.baseUrl + 'followUsers/follow',{
+      followerId: this.getUserId(),
+      posterId: id
+    })
+    .map(resp => resp.json())
+  }
 
   insert(body) {
     body.usuarioId = this.getUserId();

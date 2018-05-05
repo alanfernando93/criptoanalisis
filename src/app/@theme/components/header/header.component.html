@@ -1,4 +1,5 @@
 <div class="header-container left">
+        <toaster-container [toasterconfig]="config"></toaster-container>
     <div class="logo-containter">
         <a (click)="toggleSidebar()" href="#" class="navigation d-block d-sm-block d-md-block d-lg-none">
             <i class="nb-menu"></i>
@@ -29,8 +30,28 @@
     <nb-action class="d-sm-none d-md-block">
         <nb-user [menu]="userMenu" [name]="user?.username" [picture]="user?.perfil" (menuClick)="logout()"></nb-user>
     </nb-action>
-    <nb-action class="control-item" icon="nb-notifications"></nb-action>
-    <nb-action class="control-item" icon="nb-email"></nb-action>
+    <nb-action class="control-item nav-link" [ngbPopover]="notification" placement="bottom">
+    <h2>
+        <i class ="nb-notifications"></i>
+    </h2>
+    <span *ngIf="notNum>0" class="nav-counter">{{notNum}}</span>
+    <ng-template #notification>
+        <div *ngIf="notifications.length>0; else nothing" class="">
+            <a *ngFor="let not of notifications" [ngClass]="{'notification':true, 'notseen':!not.status}" (click)="seen(not.id);">
+                <nb-user [picture]="not.picture" [name]="not.title" [title]="not.content">
+                </nb-user> 
+            </a>
+        </div>
+    </ng-template>
+    <ng-template #nothing>
+            <h6>no tiene notificaciones nuevas</h6>
+    </ng-template>
+    </nb-action>
+    <nb-action>
+        <h2>
+            <i class ="nb-email"></i>
+        </h2>
+    </nb-action>
     <nb-action>
         <span class="badge badge-default">2 $CA</span>
     </nb-action>

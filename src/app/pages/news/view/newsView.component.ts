@@ -37,7 +37,7 @@ export class newsViewComponent implements OnInit {
     this.getNewsId();
     this.connNews();
     this.getCommentWithUser();
-    this.ansNews();
+    //this.ansNews();
     this.getNewsById();
     this.getNewsCommentCount();
     this.getNewsWithUser();
@@ -76,15 +76,15 @@ export class newsViewComponent implements OnInit {
     });
   }
 
-  ansNews() {
-    this.connectionAns = this.newsService.getNewsAns().subscribe(data => {
-      this.newsAnswer = data;
-      let index = document.getElementById(this.newsAnswer.comentarioNoticiaId).name;
-      this.commentById[index].res = [];
-      this.commentById[index].res.push(data);
-      this.getUserAnswer(index);
-    });
-  }
+  // ansNews() {
+  //   this.connectionAns = this.newsService.getNewsAns().subscribe(data => {
+  //     this.newsAnswer = data;
+  //     let index = document.getElementsByName(this.newsAnswer.comentarioNoticiaId).name;
+  //     this.commentById[index].res = [];
+  //     this.commentById[index].res.push(data);
+  //     this.getUserAnswer(index);
+  //   });
+  // }
 
   getNewsCommentById() {
     this.newsService.getNewsComment(this.idNews).subscribe(data => {
