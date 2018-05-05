@@ -70,6 +70,7 @@ function transfiere(senderId, receptorId, type, costo) {
         monto: costo,
         senderId: senderId,
         recieverId: receptorId,
+        razon: 'chat',
         activo: true,
       }], (err, data)=>{
         console.log('transferido', data);
@@ -122,7 +123,6 @@ boot(app, __dirname, function(err) {
        * la clave de una suscripcion es el la palabra sus seguido del id al que estas suscrito
        */
       socket.on('join', roomId => {
-        console.log('joining roomId', roomId);
         socket.join(roomId);
       });
       socket.on('leave', roomId =>{

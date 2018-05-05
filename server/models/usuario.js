@@ -23,8 +23,10 @@ module.exports = (Usuario) => {
     var id = req.params.id;
     Usuario.findById(id)
       .then(user => {
-        Container.createContainer({name: user.username}, (err, c) => {
-          Container.upload(req, res, {container: user.username}, cb);
+        Container.destroyContainer(user.username, (err, c)=>{
+          Container.createContainer({name: user.username}, (err, c) => {
+            Container.upload(req, res, {container: user.username}, cb);
+          });
         });
       });
   };
@@ -42,20 +44,24 @@ module.exports = (Usuario) => {
   Usuario.observe('loaded', (ctx, next) => {
     var homedir = (process.platform == 'win32') ? process.env.HOMEPATH : process.env.HOME;
     var container = Usuario.app.models.Container;
-    container.getFiles(ctx.data.username, (err, data) => {
-      if (data.length > 0) {
-        data.map((f) => {
-          base64Img.base64(homedir + /loop/ + ctx.data.username + '/' + f.getMetadata().name, (err, data) => {
-            if (err)
-              console.log('aun no tiene imagen');
-            ctx.data.perfil = data;
-            next();
+    if (ctx.data.username != undefined) {
+      container.getFiles(ctx.data.username, (err, data) => {
+        if (data.length > 0) {
+          data.map((f) => {
+            base64Img.base64(homedir + /loop/ + ctx.data.username + '/' + f.getMetadata().name, (err, data) => {
+              if (err)
+                console.log('aun no tiene imagen');
+              ctx.data.perfil = data;
+              next();
+            });
           });
-        });
-      } else {
-        next();
-      }
-    });
+        } else {
+          next();
+        }
+      });
+    } else {
+      next();
+    }
   });
   Usuario.beforeRemote('create', (ctx, user, next) => {
     if (ctx.req.body.realm == null) {
