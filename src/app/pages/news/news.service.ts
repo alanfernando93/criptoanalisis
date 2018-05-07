@@ -136,6 +136,13 @@ export class NewsService extends Session{
     return this.http.post(this.baseUrl + 'Containers/galery/upload', file)
       .map(resp => resp.json())
   }
+  followUser(id){
+    return this.http.post(this.baseUrl + 'followUsers/follow',{
+      followerId: this.getUserId(),
+      posterId: id
+    })
+    .map(resp => resp.json())
+  }
 
   getNewsCount(){
     return this.http.get(this.baseUrl + 'news/' + 'count')
