@@ -9,6 +9,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 // import { CoinsService } from "../../../services/coins.service";
 import { AdvisoriesService } from "../../advisories/advisories.service";
+import { AdvisoriesComponent } from "../../advisories/advisories.component";
 import 'style-loader!angular2-toaster/toaster.css';
 @Component({
   selector: "ngx-publish-advisories",

@@ -9,7 +9,7 @@
 
 <nb-card *ngIf="advisory">
   
-    <img class=" col-6 col-md-12 card-img-top " style="width: 80%;height: 80%;" *ngIf="advisory" src="https://es.tradingview.com/i/jNGFZIAD/" alt="Card image">
+    <img class=" col-12  card-img-top "  *ngIf="advisory" src="https://es.tradingview.com/i/jNGFZIAD/" alt="Card image">
     <div class="card-block" style="background-color:skyblue">
         <h4 class="card-title" style="padding:5px 5px 5px 15px">
             <strong>{{advisory.titulo}}</strong>
@@ -17,8 +17,17 @@
         <p class="card-text" style="padding-top:0px;padding-left:15px;padding-bottom:5px;">
             <i class="fa fa-map-marker fa-1x"></i>
             <span class="text-white">{{advisory.ubicacion}}</span>
+            <span *ngIf="advisory.mod1" class="badge badge-pill badge-primary small">virtual</span>&nbsp;&nbsp;
+              <span *ngIf="advisory.mod2" class="badge badge-pill badge-danger small">presencial</span>
         </p>
+
+        
+            
+              
+            
+          
     </div>
+
 
 </nb-card>
 <nb-card *ngIf="advisory">

@@ -5,6 +5,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { AdvisoriesService } from '../advisories.service';
 import { elementAt } from 'rxjs/operator/elementAt';
 import { environment } from '../../../../environments/environment';
+import {ListComponent} from  '../list/list.component';
 
 @Component({
   selector: 'ngx-view',
@@ -13,6 +14,7 @@ import { environment } from '../../../../environments/environment';
 })
 export class ViewComponent implements OnInit {
   idUser = environment.userId;
+  
   advisory: any;
   coment: any;
   comment: {};
@@ -33,7 +35,11 @@ export class ViewComponent implements OnInit {
   infouser: any;
   contentAnswer: any;
   position: string;
-
+  advisories: any;
+  modalidad1:any;
+  modalidad2:any;
+  advisoriesbyid: any;
+ 
   constructor(
     private http: Http,
     private route: ActivatedRoute,
@@ -57,6 +63,12 @@ export class ViewComponent implements OnInit {
 
       this.advisoriesService.getAdvisoriesId(this.id).subscribe((advisories) => {
         this.advisory = advisories;
+        this.advisory.contentUser = [];
+                  this.advisory.contentUser.push(advisories);
+                  this.advisory.mod1 = " ";
+                  this.advisory.mod2 = " ";
+                  this.advisory.mod1 = this.advisory.modalidad[0];
+                  this.advisory.mod2 = this.advisory.modalidad[1];
       });
     });
   }
@@ -111,7 +123,7 @@ export class ViewComponent implements OnInit {
     });
   }
 
-
+  
   getAdvisoriesWithUser() {
     this.route.params.forEach((params: Params) => {
       let id = params['advisoryId'];
