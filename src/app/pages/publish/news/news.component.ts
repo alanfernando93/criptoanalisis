@@ -25,8 +25,11 @@ export class PublishNewsComponent implements OnInit {
   @Input() idNew: String = null;
 
   url = "https://mdbootstrap.com/img/Photos/Others/placeholder.jpg";
-  
+
   myFile: File;
+  content1: String;
+  content2: String;
+  content3: String;
   closeResult: string;
   newsPublish: any = {};
   coins: any = [];
@@ -98,12 +101,15 @@ export class PublishNewsComponent implements OnInit {
     var dos = await this.refreshEditor2();
     var tres = await this.refreshEditor3();
     this.newsPublish.tipo_moneda = this.selectedView.name;
-    let body = new FormData();
-    body.append('', this.myFile, 'perfil.png');
+    // let body = new FormData();
+    // body.append('', this.myFile, 'perfil.png');
     this.newsService.insert(this.newsPublish).subscribe(resp => {
-      this.newsService.imageFileUpload(resp.id, body).subscribe((r: Response) => {
+      // this.newsService.imageFileUpload(resp.id, body).subscribe((r: Response) => {
+      //   this.router.navigate(["/pages/news/list"]);
+      // })
+      this.dropbox.imageUploadDropbox(this.myFile, this.newsService.getUserId(), resp.id, 'news', true).then(resp => {
         this.router.navigate(["/pages/news/list"]);
-      })
+      });
       this.type = 'success'
       this.content = configCrud.message.success + ' noticias';
       showToast(this.toasterService, this.type, this.content);
