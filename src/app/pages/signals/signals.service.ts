@@ -71,10 +71,6 @@ export class SignalsService extends Session {
             .map((res: Response) => res.json());
     }
 
-    JoinComm(id){
-        this.socket.emit("join", 'signals'+id);
-    }
-
     getSignalsAnswer(commentId) {
         return this.http.get(this.baseUrl + 'comentario_senals/' + commentId + '/answer-senals')
             .map((res: Response) => res.json());
@@ -93,6 +89,11 @@ export class SignalsService extends Session {
     getPositionBySignal(id){
         return this.http.get(this.baseUrl + 'signals/' + id + '/position' + '?access_token=' + this.getToken())
             .map((res: Response) => res.json());
+    }
+
+    getSignalsCount(){
+        return this.http.get(this.baseUrl + 'signals/' + 'count?access_token=' + this.getToken())
+            .map(resp => resp.json());
     }
 
     postSignalsComment(comments) {
@@ -131,10 +132,9 @@ export class SignalsService extends Session {
         return this.http.post(this.baseUrl + 'signals/' + idNews + '/upload?access_token=' + this.getToken(), file)
             .map(resp => resp.json());
     }
-
-    getSignalsCount(){
-        return this.http.get(this.baseUrl + 'signals/' + 'count?access_token=' + this.getToken())
-            .map(resp => resp.json());
+    
+    JoinComm(id){
+        this.socket.emit("join", 'signals'+id);
     }
 
 }
