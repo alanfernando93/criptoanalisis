@@ -82,8 +82,10 @@ export class DropboxCripto {
    * 
    * @param folder folder de la imagen
    * @param name nombre de la imagen en la servidor de dropbox
+   * 
+   * @returns una promesa con la url temporal de la imagen seleccionada
    */
-  getUrlTemporary(folder: String, name: any): Promise<any> {
+  getImageUrlTemporary(folder: String, name: any): Promise<any> {
     return new Promise(resolve => {
       this.dbx.filesGetTemporaryLink({ path: '/' + folder + '/' + name }).then(resp => {
         resolve(resp.link);
@@ -102,24 +104,6 @@ export class DropboxCripto {
     folder = '/' + userId + '-' + folder + '-' + publishId;
     this.dbx.filesDelete({ path: folder }).then(response => {
       console.log("borrando para actualizar imagenes de una publicacion");
-    })
-  }
-
-  /**
-   * Nota: debe definir las tres variable opcionales para acceder a un folder
-   * 
-   * @param name nombre de la imagen en el servidor dropbox
-   * @param userId  (Opcional)
-   * @param publishId (Opcional) 
-   * @param folder (Opcional)
-   */
-  getImageUrlTemp(name: string, userId?: any, publishId?: any, folder?: String): Promise<any> {
-    folder = (publishId == undefined && userId == undefined && folder == undefined) ? '' : `$(userId)-$(folder)-$(publishId)/`;
-    let ruta = '/' + folder + name;
-    return new Promise(resolve => {
-      this.dbx.filesGetTemporaryLink({ path: ruta }).then(response => {
-        resolve(response.link);
-      })
     })
   }
 }

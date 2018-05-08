@@ -14,8 +14,4 @@ export abstract class Session {
     public getApiRest() {
         return environment.apiUrl;
     }
-
-    getRegistration(){
-        
-    }
 }
