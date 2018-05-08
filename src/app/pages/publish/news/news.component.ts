@@ -107,7 +107,7 @@ export class PublishNewsComponent implements OnInit {
       // this.newsService.imageFileUpload(resp.id, body).subscribe((r: Response) => {
       //   this.router.navigate(["/pages/news/list"]);
       // })
-      this.dropbox.imageUploadDropbox(this.myFile, this.newsService.getUserId(), resp.id, 'news', true).then(resp => {
+      this.dropbox.imageUploadDropbox(this.myFile, this.newsService.getUserId(), 'news', 'perfil-' + resp.id).then(resp => {
         this.router.navigate(["/pages/news/list"]);
       });
       this.type = 'success'

@@ -77,14 +77,14 @@ export class TinyMCEComponent extends Session implements OnDestroy, AfterViewIni
       content_css: this.style,
       file_picker_callback: this.file_picker,
       images_upload_handler: (blobInfo, success, failure) => {
-        var id = 'blobid' + new Date().getTime();
-        let body = new FormData();
-        body.append('file', blobInfo.blob(), id + "." + (blobInfo.filename()).split(".")[1]);
+        var id = new Date().getTime();
+        // let body = new FormData();
+        // body.append('file', blobInfo.blob(), id + "." + (blobInfo.filename()).split(".")[1]);
         // this.newsService.fullUploadFileImage(body).subscribe(r => {
         //   success(this.baseUrl + "containers/galery/download/" + id + "." + (blobInfo.filename()).split(".")[1]);
         // })
-        this.dropbox.imageUploadDropbox(blobInfo.blob(), this.getUserId(), 1, 'news', false).then(resp => {
-          console.log(resp);
+        this.dropbox.imageUploadDropbox(blobInfo.blob(), this.getUserId(), 'news', id).then(resp => {
+          success('dropbox:' + resp);
         });
         // console.log("Uploading image");
         // success("/some/path.jpg");

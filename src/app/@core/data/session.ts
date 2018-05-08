@@ -1,4 +1,5 @@
 import { environment } from "../../../environments/environment";
+import { Http } from '@angular/http'
 
 export abstract class Session {
 
@@ -12,5 +13,9 @@ export abstract class Session {
 
     public getApiRest() {
         return environment.apiUrl;
+    }
+
+    getRegistration(){
+        
     }
 }

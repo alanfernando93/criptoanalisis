@@ -12,7 +12,7 @@ export class DropboxCripto {
   constructor() {
     this.dbx = new Dropbox({ accessToken: dBox.token });
     this.dbx.setClientId(dBox.key);
-    this.dbx.filesSearch({})
+    // this.dbx.filesSearch({})
     // this.dbx.filesListFolder({ path: '' })
     //   .then(response => {
     //     // this.dbx.filesGetTemporaryLink({ path: response.entries[0].path_display }).then(resp => {
@@ -25,16 +25,16 @@ export class DropboxCripto {
     //   });
     // this.dbx.filesDownload({ path: '/alan.png' }).then(resp => {
     //   let image = new Image();
-      // let img = document.getElementById('image');
-      // console.log(document.getElementById('image'));
-      // image.src = resp.link;
-      // var canvas = document.createElement("canvas");
-      // canvas.width = image.width;
-      // canvas.height = image.height;
-      // var ctx = canvas.getContext("2d");
-      // ctx.drawImage(image, 0, 0);
-      // var dataURL = canvas.toDataURL();
-      // console.log(dataURL)
+    // let img = document.getElementById('image');
+    // console.log(document.getElementById('image'));
+    // image.src = resp.link;
+    // var canvas = document.createElement("canvas");
+    // canvas.width = image.width;
+    // canvas.height = image.height;
+    // var ctx = canvas.getContext("2d");
+    // ctx.drawImage(image, 0, 0);
+    // var dataURL = canvas.toDataURL();
+    // console.log(dataURL)
     //   console.log(resp);
     // })
 
@@ -59,27 +59,35 @@ export class DropboxCripto {
    * 
    * @param file imagen que se subira al servidor de dropbox
    * @param userId id del usuario logeado en el sistema
-   * @param publishId (opcional) id de la publicacion
    * @param folder (Opcional) directorio para las imagenes de publicaciones de cada componente
-   * @param perfil (Opcional) defina true para subir como imagen principal de una publicacion
+   * @param name (Opcional) Id para el nombre de la imagen que se guadara en el servidor dropbox, deje vacio si desea subir la imagen como perfil
    * 
-   * @returns retorna una promesa con una Objeto como respuesta. Ejemplo Object{link: url/imagen, metada: infoImagen}
+   * @returns retorna una promesa con el nombre de la imagen subida como respuesta. Ejemplo Object{link: url/imagen, metada: infoImagen}
    */
-  imageUploadDropbox(file: File, userId: any, publishId?: any, folder?: String, perfil?: boolean): Promise<any> {
-    let idImage = (publishId == undefined && folder == undefined && perfil == undefined) ? userId + '-perfil' : perfil ? 'perfil' : new Date().getTime(),
+  imageUploadDropbox(file: File, userId: any, folder?: String, name?: any): Promise<any> {
+    let idImage = (name == undefined) ? userId + '-perfil' : userId + '-' + name,
       ext = file.type.split('/')[1];
-    publishId = (publishId === undefined) ? '' : '-' + publishId;
-
     let nameImage = idImage + '.' + ext;
-    folder = (folder === undefined) ? '' : userId + '-' + folder + publishId + '/';
+    folder = (folder === undefined) ? '' : folder + '/';
     return new Promise(resolve => {
       this.dbx.filesUpload({ path: '/' + folder + nameImage, contents: file }).then(response => {
-        this.dbx.filesGetTemporaryLink({ path: '/' + folder + nameImage }).then((resp) => {
-          resolve(resp);
-        });
+        resolve(response.name);
       }).catch(error => {
         console.error(error);
       });
+    })
+  }
+
+  /**
+   * 
+   * @param folder folder de la imagen
+   * @param name nombre de la imagen en la servidor de dropbox
+   */
+  getUrlTemporary(folder: String, name: any): Promise<any> {
+    return new Promise(resolve => {
+      this.dbx.filesGetTemporaryLink({ path: '/' + folder + '/' + name }).then(resp => {
+        resolve(resp.link);
+      })
     })
   }
 
@@ -98,7 +106,7 @@ export class DropboxCripto {
   }
 
   /**
-   * Advertencia: debe definir las tres variable opcionales para acceder a un folder
+   * Nota: debe definir las tres variable opcionales para acceder a un folder
    * 
    * @param name nombre de la imagen en el servidor dropbox
    * @param userId  (Opcional)
@@ -112,6 +120,6 @@ export class DropboxCripto {
       this.dbx.filesGetTemporaryLink({ path: ruta }).then(response => {
         resolve(response.link);
       })
-    }
+    })
   }
 }
