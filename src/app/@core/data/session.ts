@@ -1,4 +1,5 @@
 import { environment } from "../../../environments/environment";
+import { Http } from '@angular/http'
 
 export abstract class Session {
 

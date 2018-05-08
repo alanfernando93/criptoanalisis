@@ -24,6 +24,9 @@ import { AuthGuard } from './auth-guard.service';
 
 import { NB_AUTH_TOKEN_WRAPPER_TOKEN, NbAuthJWTToken } from '@nebular/auth';
 
+
+import { DropboxCripto } from "./common/dropbox";
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -43,7 +46,8 @@ import { NB_AUTH_TOKEN_WRAPPER_TOKEN, NbAuthJWTToken } from '@nebular/auth';
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },
     { provide: NB_AUTH_TOKEN_WRAPPER_TOKEN, useClass: NbAuthJWTToken },
-    AuthGuard
+    AuthGuard,
+    DropboxCripto
   ],
 })
 export class AppModule {

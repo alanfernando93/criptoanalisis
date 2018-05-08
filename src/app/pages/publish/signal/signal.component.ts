@@ -115,8 +115,7 @@ export class SignalComponent implements OnInit {
         tinymce.editors[1].uploadImages(() => {
           this.signal.AnalisisTecnico = tinymce.editors[1].getContent()
           resolve('get edito 2');          
-        })
-        
+        })        
       }, 2000);
     });
   }
