@@ -5,16 +5,18 @@ import { NewsService } from "../news.service";
 import { UserService } from "../../../@core/data/users.service";
 
 @Component({
-  selector: 'ngx-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  selector: 'ngx-newsList',
+  templateUrl: './newsList.component.html',
+  styleUrls: ['./newsList.component.scss']
 })
-export class ListComponent implements OnInit {
+export class newsListComponent implements OnInit {
 
   news: any;
-  limit: number = 10;
+  connection;
+  limit: number = 12;
   increment: number = 0;
   contentUser: any;
+  count: any;
 
   constructor(
     private http: Http,
@@ -23,6 +25,7 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     this.getNews();
+    this.connNews();
   }
 
   getNews() {
@@ -30,24 +33,38 @@ export class ListComponent implements OnInit {
       data ? this.news = data : {};
       this.news.forEach((element, index) => {
         let newsId = this.news[index].id;
-        this.newsService.getUserByNews(newsId).subscribe(data => {
-          this.contentUser = data;
-          this.contentUser.fama.sort(function (a, b) {
-            return a.valor < b.valor;
-          });
-          this.contentUser.fama.firstTwo = [];
-          this.contentUser.fama.last = [];
-          this.contentUser.fama.firstTwo = this.contentUser.fama.splice(0, 2);
-          this.contentUser.fama.last = this.contentUser.fama.splice(0, this.contentUser.fama.length);
-          this.news[index].contentUser = [];
-          this.news[index].contentUser.push(data);
-          this.newsService.getNewsCommentCount(newsId).subscribe(data => {
-            this.news[index].count = [];
-            this.news[index].count.push(data);
-          });
-        });
+        this.userByNews(newsId, index);
       });
       this.increment += this.limit;
+    });
+  }
+
+  connNews(){
+    this.connection = this.newsService.getNews().subscribe(data=> {
+      let datos: any = data;
+      this.news.unshift(data);
+      this.news.forEach((element, index) => {
+        this.userByNews(datos.usuarioId, index);
+      });
+    });
+  }
+
+  userByNews(newsId, index){
+    this.newsService.getUserByNews(newsId).subscribe(data => {
+      this.contentUser = data;
+      this.contentUser.fama.sort(function (a, b) {
+        return a.valor < b.valor;
+      });
+      this.contentUser.fama.firstTwo = [];
+      this.contentUser.fama.last = [];
+      this.contentUser.fama.firstTwo = this.contentUser.fama.splice(0, 2);
+      this.contentUser.fama.last = this.contentUser.fama.splice(0, this.contentUser.fama.length);
+      this.news[index].contentUser = [];
+      this.news[index].contentUser.push(data);
+      this.newsService.getNewsCommentCount(newsId).subscribe(data => {
+        this.news[index].count = [];
+        this.news[index].count.push(data);
+      });
     });
   }
 
@@ -78,6 +95,12 @@ export class ListComponent implements OnInit {
 
   getImage(id){
     return this.newsService.getApiRest() + 'Containers/news' + id + '/download/perfil.png';
+  }
+
+  getCount(){
+    this.newsService.getNewsCount().subscribe(data => {
+      this.count = data.count;
+    });
   }
 
 }

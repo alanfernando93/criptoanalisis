@@ -1,0 +1,93 @@
+<nb-card>
+  <nb-card-header>Editar informacion</nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-12 col-md-4">
+        <div style="max-width: 200px">
+         <!-- <img src="{{myFile}}" alt="" class="img-thumbnail"> -->
+         <img [src]="url" class="img-thumbnail" alt="">
+        </div>
+        <div>
+          <label for="">Editar foto de perfil</label>
+          <input type="file" [(ngModel)]="name" #fileupload [(ngModel)]="myFile" (change)="fileChangeEvent(fileupload.files)">
+        </div>
+      </div>
+      <div class="col-12 col-md-8">
+          <form>
+            <div class="form-group row">
+              <label for="nombre" class="col-sm-3 col-form-label">nombre</label>
+              <div class="col-9">
+                <div *ngIf="swname">
+                  <h4>{{user.nombre}} <a (click)="swname=!swname"><span class="fa fa-pencil gray"></span></a></h4> 
+                </div>
+                <div *ngIf="!swname">
+                  <input type="text" [(ngModel)]="user.nombre" class="form-control" name="nombre" value="{{user.nombre}}" placeholder="Nombre"/>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="apellido" class="col-sm-3 col-form-label">apellido</label>
+              <div class="col-9">
+                <div *ngIf="swapp">
+                  <h4>{{user.apellido}} <a (click)="swapp=!swapp"><i class="fa fa-pencil gray"></i></a></h4>
+                </div>
+                <div *ngIf="!swapp">
+                    <input type="text" [(ngModel)]="user.apellido" class="form-control" name="apellido" value="{{user.apellido}}" placeholder="Apellido"/>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="fechaNacimiento" class="col-sm-3 col-form-label">fecha de nacimiento</label>
+              <div class="col-9">
+                <div *ngIf="swfc">
+                  <h4>{{user.fecha_nacimiento | amDateFormat:'ll'}} <a (click)="swfc=!swfc"><i class="fa fa-pencil gray"></i></a></h4>
+                </div>
+                <div *ngIf="!swfc">
+                <input type="date" [(ngModel)]="user.fecha_nacimiento" value="{{user.fecha_nacimiento}}" name="fechaNacimiento" />
+              </div>
+            </div>
+            </div>
+            <div class="form-group row">
+              <label for="nombre" class="col-sm-3 col-form-label">Email</label>
+              <div class="col-9">
+                <div *ngIf="swemail">
+                  <h4>{{user.email}} <a (click)="swemail=!swemail"><i class="fa fa-pencil gray"></i></a></h4>
+                </div>
+                <div *ngIf="!swemail">
+                    <input type="text" [(ngModel)]="user.email" class="form-control" name="apellido" value="{{user.email}}" placeholder="email"/>
+                </div>
+              </div>
+            </div>
+            <div class="input-group row justify-content-around">
+              <!--  <input class="btn btn-success" [disabled]="form.invalid || loading"  (click)="onSave()" value="Save" />-->
+              <input type="button" class="btn btn-success col-6 col-md-3" (click)="onSave()" value="guardar" />
+              <input type="button" class="btn btn-danger col-6 col-md-3" [routerLink]="['/user/profile',user.id]" value="cancelar">
+            </div> 
+          </form>
+      </div>
+    </div>
+   <!-- <div class="row full-name-inputs">
+      <div class="col-sm-6 input-group">
+        <label for="nombre">nombre</label>
+        <input type="text" [(ngModel)]="user.nombre" #nombre placeholder="Nombre" class="form-control" />
+      </div>
+      <div class="col-sm-6 input-group">
+        <input type="text" [(ngModel)]="user.username" placeholder="User Name" class="form-control" />
+      </div>
+    </div>
+    <div class="input-group">
+      <input type="text" [(ngModel)]="user.apellido" placeholder="Apellidos" class="form-control" />
+    </div>
+    <div>
+      <label for="">Sube tu avatar</label>
+      <input type="file" [(ngModel)]="name" #fileupload [(ngModel)]="myFile" (change)="fileChangeEvent(fileupload.files)">
+    </div>
+    <div class="input-group">
+      <input type="text" [(ngModel)]="user.email" placeholder="Email" class="form-control" />
+    </div>
+    <div class="input-group">
+      <input class="btn btn-success" [disabled]="form.invalid || loading"  (click)="onSave()" value="Save" />
+      <input type="button" class="btn btn-success" (click)="onSave()" value="Save" />
+    </div> -->
+  </nb-card-body>
+</nb-card>

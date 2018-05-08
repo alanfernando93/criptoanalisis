@@ -2,23 +2,23 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { NewsComponent } from './news.component';
-import { ListComponent } from './list/list.component';
-import { ViewComponent } from './view/view.component';
+import { newsListComponent } from './list/newsList.component';
+import { newsViewComponent } from './view/newsView.component';
 
 const routes: Routes = [{
   path: '',
   component: NewsComponent,
   children: [{
-    path: 'list',
-    component: ListComponent
+    path: 'news-list',
+    component: newsListComponent
   },
   {
-    path: 'view',
+    path: 'news-view',
     redirectTo: 'pages'
   },
   {
-    path: 'view/:newsId',
-    component: ViewComponent
+    path: 'news-view/:newsId',
+    component: newsViewComponent
   },
   ],
 }];
@@ -32,6 +32,6 @@ export class NewsRoutingModule{ }
 
 export const routedComponents = [
   NewsComponent,
-  ListComponent,
-  ViewComponent,
+  newsListComponent,
+  newsViewComponent,
 ];
