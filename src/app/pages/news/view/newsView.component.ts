@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NewsService } from '../news.service';
@@ -25,6 +26,10 @@ export class newsViewComponent implements OnInit {
   commentById: any = [];
   connectionCom;
   connectionAns;
+
+  design = {
+    
+  }
 
   constructor(
     private http: Http,
