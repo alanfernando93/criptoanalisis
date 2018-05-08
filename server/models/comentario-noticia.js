@@ -5,6 +5,7 @@ module.exports = (Comentarionoticia) => {
   Comentarionoticia.afterRemote('create', (ctx, user, next) => {
     var io = Comentarionoticia.app.io;
     var news =  'news' + ctx.result.noticiaId;
+    ctx.result.res = [];
     io.to(news).emit('newCom', ctx.result);
     next();
   });

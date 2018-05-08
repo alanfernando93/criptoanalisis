@@ -6,6 +6,7 @@ module.exports = (Comentariosenal) => {
   Comentariosenal.afterRemote('create', (ctx, user, next) => {
     var io = Comentariosenal.app.io;
     var signals = 'signals' + ctx.result.signalId;
+    ctx.result.res = [];
     io.to(signals).emit('signalCom', ctx.result);
     next();
   });
