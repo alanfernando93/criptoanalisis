@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-
 import { SignalsService } from '../signals.service';
 import { UserService } from '../../../@core/data/users.service';
 import * as nbUser from '@nebular/theme/components/user/user.component'
+import { orderData } from '../../../common/array';
 
 @Component({
   selector: 'ngx-signalsView',
@@ -36,7 +36,6 @@ export class signalsViewComponent implements OnInit {
         this.idSignal = val.signalId;
         this.getSignalById();
         this.getSignalWithUser();
-        this.getSignalCommentById();
         this.getCommentWithUser();
         this.getSignalCommentCount();
       });
@@ -46,6 +45,7 @@ export class signalsViewComponent implements OnInit {
     this.getSignalsId();
     this.connSignals();
     this.anSignals();
+    this.getSignalCommentById();
   }
 
   getSignalsId() {
@@ -63,7 +63,7 @@ export class signalsViewComponent implements OnInit {
   getSignalWithUser() {
     this.signalsService.getUserBySignal(this.idSignal).subscribe(data => {
       data ? this.contentUser = data : {};
-      this.orderData(this.contentUser);
+      orderData(this.contentUser);
       this.contentUser.fama.firsttwo = [];
       this.contentUser.fama.last = [];
       this.contentUser.fama.firsttwo = this.contentUser.fama.splice(0, 2);
@@ -74,18 +74,19 @@ export class signalsViewComponent implements OnInit {
   connSignals() {
     this.signalsService.JoinComm(this.idSignal);
     this.connectionCom = this.signalsService.getSignalsCommen().subscribe(data => {
-      this.getSignalCommentCount();
-      this.getCommentWithUser();
+      let commData: any = data;
       this.commentById.push(data);
+      this.getSignalCommentCount();
+      this.getUserComm(commData.userId, this.commentById.length -1);
     });
   }
 
   anSignals(){
     this.connectionAns = this.signalsService.getSignalsAns().subscribe(data => {
+      let comPosition = data["positionComment"];
       this.signalsAnswer = data;
-      let index = this.commentById.findIndex(cpn=>cpn.id = this.signalsAnswer.comentarioSenalId);
-      this.commentById[index].res.push(data);
-      this.getUserAnswer(index);
+      this.commentById[comPosition].res.push(data);
+      this.getUserAnswer(comPosition);
     });
   }
 
@@ -113,7 +114,7 @@ export class signalsViewComponent implements OnInit {
     this.userService.getById(idUser).subscribe(data => {
       this.commentById[index].user = [];
       this.commentById[index].user = data;
-      this.orderData(this.commentById[index].user);
+      orderData(this.commentById[index].user);
       this.commentById[index].user.fama.firsttwo = [];
       this.commentById[index].user.fama.firsttwo = this.commentById[index].user.fama.splice(0, 2);
     });
@@ -133,7 +134,7 @@ export class signalsViewComponent implements OnInit {
       let userByAnswer = this.commentById[index].res[index1].userId;
     this.userService.getById(userByAnswer).subscribe(data => {
       this.commentById[index].res[index1].user = data;
-      this.orderData(this.commentById[index].res[index1].user);
+      orderData(this.commentById[index].res[index1].user);
       this.commentById[index].res[index1].user.fama.firsttwo = [];
       this.commentById[index].res[index1].user.fama.firsttwo = this.commentById[index].res[index1].user.fama.splice(0, 2);
      });
@@ -149,9 +150,10 @@ export class signalsViewComponent implements OnInit {
 
   sendAnswer(event) {
     this.answer.comentarioSenalId = event.target.parentNode.parentNode.childNodes[3].childNodes[1].childNodes[1].id;
+    this.answer.positionComment = event.target.parentNode.parentNode.childNodes[3].childNodes[1].childNodes[1].name;
     this.answer.contenido = event.target.parentNode.parentNode.childNodes[3].childNodes[1].childNodes[1].value;
     this.signalsService.postSignalsAnswer(this.answer).subscribe(data => {
-      this.answer = {};
+      event.target.parentNode.children[0].children[0].value = '';
     });
   }
   
@@ -183,10 +185,5 @@ export class signalsViewComponent implements OnInit {
     return '';
   }
 
-  orderData(obj) {
-    obj.fama.sort(function (a, b) {
-      return a.valor < b.valor;
-    });
-  }
 
 }

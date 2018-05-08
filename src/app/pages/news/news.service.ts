@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ng-socket-io';
-import { Http, Response, RequestOptions } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Session } from '../../@core/data/session';
 import { environment } from '../../../environments/environment';
