@@ -14,30 +14,30 @@ var _async2 = _interopRequireDefault(_async);
 
 var _variable = require('../variable');
 
-var dropbox = require('dropbox').Dropbox;
-
+var Dropbox = require('dropbox').Dropbox;
+var dbx = new Dropbox({accessToken: _variable.token});
 function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {default: obj};
+  return obj && obj.__esModule ? obj : { default: obj };
 }
 
 module.exports = (Noticia, ctx, ctx2) => {
   Noticia.upload = (req, res, cb) => {
     var Container = Noticia.app.models.Container;
     var id = req.params.id;
-    Container.createContainer({name: 'news' + id}, (err, c) => {
-      Container.upload(req, res, {container: 'news' + id}, cb);
+    Container.createContainer({ name: 'news' + id }, (err, c) => {
+      Container.upload(req, res, { container: 'news' + id }, cb);
     });
   };
 
   Noticia.remoteMethod(
     'upload',
     {
-      http: {path: '/:id/upload', verb: 'post'},
+      http: { path: '/:id/upload', verb: 'post' },
       accepts: [
-        {arg: 'req', type: 'object', 'http': {source: 'req'}},
-        {arg: 'res', type: 'object', 'http': {source: 'res'}},
+        { arg: 'req', type: 'object', 'http': { source: 'req' } },
+        { arg: 'res', type: 'object', 'http': { source: 'res' } },
       ],
-      returns: {arg: 'status', type: 'string'},
+      returns: { arg: 'status', type: 'string' },
     }
   );
 
@@ -52,7 +52,7 @@ module.exports = (Noticia, ctx, ctx2) => {
   }, ctx);
 
   // agregando propiedad dislike a noticia
-  Noticia.defineProperty(ctx.dislikes, {type: Object, default: {total: 0, users: []}});
+  Noticia.defineProperty(ctx.dislikes, { type: Object, default: { total: 0, users: [] } });
 
   // dislike metodo remoto
   Noticia[ctx.method] = (id, userId, finish) => {
@@ -105,9 +105,9 @@ module.exports = (Noticia, ctx, ctx2) => {
   };
   // Endpoint settings
   Noticia.remoteMethod(ctx.method, {
-    accepts: [{arg: 'id', type: 'string', required: true}, {arg: 'userId', type: 'string', required: true}],
-    returns: {root: true, type: 'object'},
-    http: {path: ctx.endpoint, verb: 'get'},
+    accepts: [{ arg: 'id', type: 'string', required: true }, { arg: 'userId', type: 'string', required: true }],
+    returns: { root: true, type: 'object' },
+    http: { path: ctx.endpoint, verb: 'get' },
     description: ctx.description,
   });
 
@@ -169,7 +169,7 @@ module.exports = (Noticia, ctx, ctx2) => {
     Noticia.app.models.usuario.findById(userNews)
       .then(data => {
         Noticia.app.models.usuario.updateAll(
-          {id: userNews}, {puntos: data.puntos + 1})
+          { id: userNews }, { puntos: data.puntos + 1 })
           .then(data => {
             next();
           });
@@ -182,7 +182,7 @@ module.exports = (Noticia, ctx, ctx2) => {
     next();
   });
   // hook para enviar notificaciones de noticias suscritas
-  Noticia.afterRemote('create', (ctx, noticia, next)=>{
+  Noticia.afterRemote('create', (ctx, noticia, next) => {
     var io = Noticia.app.io;
     var con = 'sus' + ctx.result.usuarioId;
 
@@ -190,7 +190,7 @@ module.exports = (Noticia, ctx, ctx2) => {
       where: {
         posterId: ctx.result.usuarioId,
       },
-    }).then(data=>{
+    }).then(data => {
       data.forEach(element => {
         Noticia.app.models.notification.create({
           'tipo': 'news',
@@ -209,24 +209,27 @@ module.exports = (Noticia, ctx, ctx2) => {
     });
     next();
   });
-  Noticia.afterRemote('create', (ctx, noticia, next)=>{
+  Noticia.afterRemote('create', (ctx, noticia, next) => {
     var io = Noticia.app.io;
     io.emit('insertNoti', ctx.result);
     next();
   });
 
-  Noticia.observe('loaded', (ctx, next) => {
-    console.log(ctx);
-    // var news = ctx.instance;
-    // news.forEach(element => {
-    //   dropbox.filesGetTemporaryLink({path: '/news/'+news.usuarioId+'-perfil-'+news.id}).then(resp => {
-    //     news.perfilLink = resp.link;
-
-    //     next();
-    //   })
-      // var link = await dropbox.filesGetTemporaryLink.call({path: '/news/'+news.usuarioId+'-perfil-'+news.id})
-      // console.log(link)
-    // });
-    next();
+  Noticia.afterRemote('find', (ctx, noticia, next) => {
+    dbx.setClientId(_variable.key);
+    var iterable = [];
+    ctx.result.forEach((element, index) => {
+      console.log(element.contenido.match('/(dropbox:)/'));
+      var x = dbx.filesGetTemporaryLink({ path: '/news/' + element.usuarioId + '-perfil-' + element.id + '.png'}).then(resp => {
+        ctx.result[index].perfilLink = resp.link;
+        console.log(resp.link);
+      }).catch(error => {
+        console.log(error)
+      });
+      iterable.push(x);
+    });
+    Promise.all(iterable).then(values=>{
+      next();
+    });
   });
 };
