@@ -221,5 +221,19 @@ module.exports = (Signal, ctx, ctx2) => {
     io.emit('insertSig', ctx.result);
     next();
   });
+
+  function likenotif(newsId, userId) {
+    var io = Signal.app.io;
+    Signal.app.models.notification.findOne({
+      where: {
+        and: [
+          {tipo: 'like'},
+          {senderId: newsId},
+        ],
+      },
+    }).then(data=>{
+      console.log(data);
+    })
+  }
 };
 
