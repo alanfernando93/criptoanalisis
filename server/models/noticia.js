@@ -14,6 +14,8 @@ var _async2 = _interopRequireDefault(_async);
 
 var _variable = require('../variable');
 
+var dropbox = require('dropbox').Dropbox;
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {default: obj};
 }
@@ -210,6 +212,21 @@ module.exports = (Noticia, ctx, ctx2) => {
   Noticia.afterRemote('create', (ctx, noticia, next)=>{
     var io = Noticia.app.io;
     io.emit('insertNoti', ctx.result);
+    next();
+  });
+
+  Noticia.observe('loaded', (ctx, next) => {
+    console.log(ctx);
+    // var news = ctx.instance;
+    // news.forEach(element => {
+    //   dropbox.filesGetTemporaryLink({path: '/news/'+news.usuarioId+'-perfil-'+news.id}).then(resp => {
+    //     news.perfilLink = resp.link;
+
+    //     next();
+    //   })
+      // var link = await dropbox.filesGetTemporaryLink.call({path: '/news/'+news.usuarioId+'-perfil-'+news.id})
+      // console.log(link)
+    // });
     next();
   });
 };
