@@ -44,11 +44,11 @@ export class newsViewComponent implements OnInit {
       this.getNewsById();
       this.getNewsCommentCount();
       this.getNewsWithUser();
+      this.connNews();
+      this.ansNews();
     });
   }
   ngOnInit() {
-    this.connNews();
-    this.ansNews();
   }
 
   getNewsById() {

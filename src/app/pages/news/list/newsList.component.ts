@@ -4,6 +4,11 @@ import { Http, Response } from '@angular/http';
 import { NewsService } from "../news.service";
 import { UserService } from "../../../@core/data/users.service";
 
+interface Design {
+  class?: string;
+  col?: string;    
+}
+
 @Component({
   selector: 'ngx-newsList',
   templateUrl: './newsList.component.html',
@@ -13,15 +18,21 @@ export class newsListComponent implements OnInit {
 
   news: any;
   connection;
-  limit: number = 12;
+  limit: number = 6;
   increment: number = 0;
   contentUser: any;
   count: any;
+  design: Design;
 
   constructor(
     private http: Http,
     private newsService: NewsService
-  ) { }
+  ) { 
+    this.design = {
+      class: 'container',
+      col: 'col-lg-4'
+    }
+  }
 
   ngOnInit() {
     this.getNews();

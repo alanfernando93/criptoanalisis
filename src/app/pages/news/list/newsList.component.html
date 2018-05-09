@@ -1,6 +1,6 @@
-<div class="container">
+<div class="{{design.class}}">
   <div class="row">
-    <div class="col-lg-4 col-md-4 col-sm-6" *ngFor="let news of news">
+    <div class="{{design.col}} col-md-4 col-sm-6" *ngFor="let news of news">
       <nb-card>
         <div class="thumbnail img-thumb-bg">
           <img src="{{getImage(news.id)}}" class="img-fluid img-thumb-bg">
