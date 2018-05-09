@@ -23,20 +23,20 @@ export class DropboxCripto {
     //   .catch(function (error) {
     //     console.log(error);
     //   });
-    // this.dbx.filesDownload({ path: '/alan.png' }).then(resp => {
-    //   let image = new Image();
-    // let img = document.getElementById('image');
-    // console.log(document.getElementById('image'));
-    // image.src = resp.link;
-    // var canvas = document.createElement("canvas");
-    // canvas.width = image.width;
-    // canvas.height = image.height;
-    // var ctx = canvas.getContext("2d");
-    // ctx.drawImage(image, 0, 0);
-    // var dataURL = canvas.toDataURL();
-    // console.log(dataURL)
-    //   console.log(resp);
-    // })
+    this.dbx.filesDownload({ path: '/alan.png' }).then(resp => {
+      // let image = new Image();
+      // let img = document.getElementById('image');
+      // console.log(document.getElementById('image'));
+      // image.src = resp.link;
+      // var canvas = document.createElement("canvas");
+      // canvas.width = image.width;
+      // canvas.height = image.height;
+      // var ctx = canvas.getContext("2d");
+      // ctx.drawImage(image, 0, 0);
+      // var dataURL = canvas.toDataURL();
+      // console.log(dataURL)
+      console.log(resp);
+    })
 
     // console.log(this.dropbox.getAuthenticationUrl('/'));
   }

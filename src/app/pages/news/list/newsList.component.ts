@@ -98,10 +98,10 @@ export class newsListComponent implements OnInit {
 
   getImage(id){
     // return this.newsService.getApiRest() + 'Containers/news' + id + '/download/perfil.png';
-    this.dropbox.getImageUrlTemporary('news',this.newsService.getUserId() +'-perfil-'+id).then(resp => {
-      console.log(resp);
-      return resp;
-    })
+    // this.dropbox.getImageUrlTemporary('news',this.newsService.getUserId() +'-perfil-'+id).then(resp => {
+      // console.log(resp);
+    //   return resp;
+    // })
   }
 
   getCount(){
