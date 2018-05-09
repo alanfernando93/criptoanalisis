@@ -4,8 +4,6 @@ import { Http, Response } from '@angular/http';
 import { NewsService } from "../news.service";
 import { UserService } from "../../../@core/data/users.service";
 
-import { DropboxCripto } from '../../../common/dropbox';
-
 @Component({
   selector: 'ngx-newsList',
   templateUrl: './newsList.component.html',
@@ -23,7 +21,6 @@ export class newsListComponent implements OnInit {
   constructor(
     private http: Http,
     private newsService: NewsService,
-    private dropbox: DropboxCripto
   ) { }
 
   ngOnInit() {
@@ -33,6 +30,7 @@ export class newsListComponent implements OnInit {
 
   getNews() {
     this.newsService.getAllLimit(this.limit, this.increment).subscribe(data => {
+      console.log(data);
       data ? this.news = data : {};
       this.news.forEach((element, index) => {
         let newsId = this.news[index].id;

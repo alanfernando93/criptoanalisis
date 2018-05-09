@@ -12,18 +12,8 @@ export class DropboxCripto {
   constructor() {
     this.dbx = new Dropbox({ accessToken: dBox.token });
     this.dbx.setClientId(dBox.key);
-    // this.dbx.filesSearch({})
-    // this.dbx.filesListFolder({ path: '' })
-    //   .then(response => {
-    //     // this.dbx.filesGetTemporaryLink({ path: response.entries[0].path_display }).then(resp => {
-    //     //   console.log(resp)
-    //     // })
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-    this.dbx.filesDownload({ path: '/alan.png' }).then(resp => {
+    // this.dbx.file
+    // this.dbx.filesDownload({ path: '/alan.png' }).then(resp => {
       // let image = new Image();
       // let img = document.getElementById('image');
       // console.log(document.getElementById('image'));
@@ -35,8 +25,8 @@ export class DropboxCripto {
       // ctx.drawImage(image, 0, 0);
       // var dataURL = canvas.toDataURL();
       // console.log(dataURL)
-      console.log(resp);
-    })
+      // console.log(resp);
+    // })
 
     // console.log(this.dropbox.getAuthenticationUrl('/'));
   }
