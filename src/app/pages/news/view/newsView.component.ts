@@ -27,10 +27,6 @@ export class newsViewComponent implements OnInit {
   connectionCom;
   connectionAns;
 
-  design = {
-    
-  }
-
   constructor(
     private http: Http,
     private route: ActivatedRoute,
@@ -44,11 +40,11 @@ export class newsViewComponent implements OnInit {
       this.getNewsById();
       this.getNewsCommentCount();
       this.getNewsWithUser();
-      this.connNews();
-      this.ansNews();
     });
   }
   ngOnInit() {
+    this.connNews();
+    this.ansNews();
   }
 
   getNewsById() {
@@ -90,6 +86,7 @@ export class newsViewComponent implements OnInit {
   getNewsCommentById() {
     this.newsService.getNewsComment(this.idNews).subscribe(data => {
       data ? this.commentById = data : {};
+      console.log(this.commentById);
       this.commentById.forEach((element, index) => {
         let commentId = this.commentById[index].id;
         this.getAnswer(commentId, index);
@@ -141,6 +138,7 @@ export class newsViewComponent implements OnInit {
   sendComent() {
     this.comment.noticiaId = this.idNews;
     this.newsService.postNewsComment(this.comment).subscribe(data => {
+      console.log(this.comment);
       this.comment = {};
     });
   }

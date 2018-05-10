@@ -4,7 +4,7 @@ import { Http, Response } from '@angular/http';
 import { NewsService } from "../news.service";
 import { UserService } from "../../../@core/data/users.service";
 
-interface Design {
+export interface Design {
   class?: string;
   col?: string;    
 }
