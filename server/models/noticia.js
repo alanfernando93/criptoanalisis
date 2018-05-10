@@ -122,6 +122,11 @@ module.exports = (Noticia, ctx, ctx2) => {
       var d = ctx.result.dislikes;
       ctx.method.ctor.dislike(idn, idUser);
     }
+    var index2 = ctx.result.likes.users.indexOf(idUser);
+    if (index2 > -1) {
+      console.log(index2);
+      likenotif(ctx.result.id, idUser, userId);
+    }
     Noticia.app.models.usuario.famaUser(userId, _variable.rpl, coinNews);
     next();
   });
@@ -212,4 +217,20 @@ module.exports = (Noticia, ctx, ctx2) => {
     io.emit('insertNoti', ctx.result);
     next();
   });
+  function likenotif(newsId, userId, owner) {
+    var io = Noticia.app.io;
+    Noticia.app.models.notification.create({
+      'tipo': 'likeNews',
+      'senderId': newsId,
+      'date': Date.now(),
+      'status': false,
+      'usuarioId': owner,
+      'emmiterId': userId,
+    });
+    io.to(owner).emit('request', {
+      tipo: 'likeNews',
+      senderId: newsId,
+      emmiterId: userId,
+    });
+  }
 };
