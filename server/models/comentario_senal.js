@@ -1,5 +1,4 @@
 'use strict';
-
 var _variable = require('../variable');
 
 module.exports = (Comentariosenal) => {
