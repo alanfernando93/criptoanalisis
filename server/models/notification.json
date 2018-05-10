@@ -23,6 +23,9 @@
     "senderId": {
       "type": "number",
       "required": true
+    },
+    "emmiterId":{
+      "type": "number"
     }
   },
   "validations": [],

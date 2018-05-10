@@ -103,7 +103,12 @@ module.exports = (Signal, ctx, ctx2) => {
       var d = ctx.result.dislikes;
       ctx.method.ctor.dislike(idn, idUser);
     }
-    signal.app.models.usuario.famaUser(idUser, _variable.rpl, coinSignal);
+    var index2 = ctx.result.likes.users.indexOf(idUser);
+    if (index2 > -1) {
+      console.log(index2);
+      likenotif(idn, idUser, ctx.result.usuarioId);
+    }
+    Signal.app.models.usuario.famaUser(idUser, _variable.rpl, coinSignal);
     next();
   });
 
@@ -221,5 +226,21 @@ module.exports = (Signal, ctx, ctx2) => {
     io.emit('insertSig', ctx.result);
     next();
   });
+  function likenotif(signalId, userId, owner) {
+    var io = Signal.app.io;
+    Signal.app.models.notification.create({
+      'tipo': 'likeSig',
+      'senderId': signalId,
+      'date': Date.now(),
+      'status': false,
+      'usuarioId': owner,
+      'emmiterId': userId,
+    });
+    io.to(owner).emit('request', {
+      tipo: 'likeSig',
+      senderId: signalId,
+      emmiterId: userId,
+    });
+  }
 };
 

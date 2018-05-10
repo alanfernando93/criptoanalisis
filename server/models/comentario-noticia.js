@@ -18,4 +18,24 @@ module.exports = (Comentarionoticia) => {
     });
     next();
   });
+  Comentarionoticia.afterRemote('create', (ctx, user, next)=>{
+    var io = Comentarionoticia.app.io;
+    Comentarionoticia.app.models.noticia.findById(ctx.result.noticiaId)
+    .then(data=>{
+      Comentarionoticia.app.models.notification.create({
+        'tipo': 'comNews',
+        'senderId': ctx.result.noticiaId,
+        'date': Date.now(),
+        'status': false,
+        'usuarioId': data.usuarioId,
+        'emmiterId': ctx.result.userId,
+      });
+      io.to(data.usuarioId).emit('request', {
+        tipo: 'comNews',
+        senderId: ctx.result.noticiaId,
+        emmiterId: ctx.result.userId,
+      });
+    });
+    next();
+  });
 };
