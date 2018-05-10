@@ -13,11 +13,11 @@ module.exports = function(Followuser) {
       var res = '';
       if (data != null) {
         Followuser.destroyById(data.id, (err, data)=>{
-          cb(null, 'unfollowed');
+          cb(null, data);
         });
       } else {
         Followuser.create(req.body, (err, data)=>{
-          cb(null, 'followed');
+          cb(null, data);
         });
       };
     });
@@ -29,5 +29,22 @@ module.exports = function(Followuser) {
       {arg: 'res', type: 'object', 'http': {source: 'res'}},
     ],
     returns: {arg: 'follow', type: 'object'},
+  });
+  Followuser.afterRemote('follow', (ctx, model, next)=>{
+    var io = Followuser.app.io;
+    if (ctx.result.follow.count == undefined) {
+      Followuser.app.models.notification.create({
+        'tipo': 'follow',
+        'senderId': ctx.result.follow.followerId,
+        'date': Date.now(),
+        'status': false,
+        'usuarioId': ctx.result.follow.posterId,
+      });
+      io.to(ctx.result.follow.posterId).emit('request', {
+        tipo: 'follow',
+        senderId: ctx.result.follow.followerId,
+      });
+    }
+    next();
   });
 };
