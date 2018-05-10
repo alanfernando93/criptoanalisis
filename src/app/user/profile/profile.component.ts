@@ -82,10 +82,10 @@ export class ProfileComponent implements OnInit{
   seguir(){
     this.userService.followUser(this.user.id)
     .subscribe(data=>{
-      if(data.follow=='followed')
-        this.following=true;
-      else
+      if(data.follow.count!=undefined)
         this.following=false;
+      else
+        this.following=true;
     });
   }
   isFollow(){

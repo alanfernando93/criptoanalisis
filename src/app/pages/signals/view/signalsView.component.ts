@@ -172,6 +172,7 @@ export class signalsViewComponent implements OnInit {
   sendAnswer(event) {
     this.respond.comentarioSenalId = event.target.parentNode.parentNode.childNodes[3].childNodes[1].childNodes[1].id;
     this.respond.contenido = event.target.parentNode.parentNode.childNodes[3].childNodes[1].childNodes[1].value;
+    this.respond.signalId = this.idSignal;
     this.signalsService.postSignalsAnswer(this.respond).subscribe(data => {
       this.respond = {};
     });
