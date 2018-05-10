@@ -57,7 +57,7 @@
       "model": "usuario",
       "foreignKey": ""
     },
-    "puntos": {
+    "position": {
       "type": "hasMany",
       "model": "position",
       "foreignKey": ""
