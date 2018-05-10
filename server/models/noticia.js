@@ -15,7 +15,9 @@ var _async2 = _interopRequireDefault(_async);
 var _variable = require('../variable');
 
 var Dropbox = require('dropbox').Dropbox;
-var dbx = new Dropbox({accessToken: _variable.token});
+var dbx = new Dropbox({ accessToken: _variable.token });
+dbx.setClientId(_variable.key);
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
@@ -216,20 +218,70 @@ module.exports = (Noticia, ctx, ctx2) => {
   });
 
   Noticia.afterRemote('find', (ctx, noticia, next) => {
-    dbx.setClientId(_variable.key);
     var iterable = [];
     ctx.result.forEach((element, index) => {
-      console.log(element.contenido.match('/(dropbox:)/'));
-      var x = dbx.filesGetTemporaryLink({ path: '/news/' + element.usuarioId + '-perfil-' + element.id + '.png'}).then(resp => {
+      var x = dbx.filesGetTemporaryLink({ path: '/news/' + element.usuarioId + '-perfil-' + element.id + '.png' }).then(resp => {
         ctx.result[index].perfilLink = resp.link;
-        console.log(resp.link);
       }).catch(error => {
         console.log(error)
       });
       iterable.push(x);
     });
-    Promise.all(iterable).then(values=>{
+    Promise.all(iterable).then(values => {
       next();
     });
+  });
+
+  Noticia.afterRemote('findById', (ctx, noticia, next) => {
+    var iterable = [];
+    ctx.result.imgsEditor = [];
+    var aux;
+
+    var expReg = /dropbox:["']{0,1}([^"' >]*)/g;
+    var codImg = ctx.result.contenido.match(expReg);
+    if (codImg) {
+      codImg.forEach((element) => {
+        var nameImg = element.split(':')[1];
+        ctx.result.imgsEditor.push(nameImg);
+        var x = dbx.filesGetTemporaryLink({ path: '/news/' + nameImg }).then(resp => {
+          aux = ctx.result.contenido.replace(element, resp.link);
+          ctx.result.contenido = aux;
+        }).catch(error => {
+          console.log(error)
+        });
+        iterable.push(x);
+      });
+    }
+    codImg = ctx.result.conj_moneda.match(expReg);
+    if (codImg) {
+      codImg.forEach((element) => {
+        var nameImg = element.split(':')[1];
+        ctx.result.imgsEditor.push(nameImg);
+        var x = dbx.filesGetTemporaryLink({ path: '/news/' + nameImg }).then(resp => {
+          aux = ctx.result.conj_moneda.replace(element, resp.link);
+          ctx.result.conj_moneda = aux;
+        }).catch(error => {
+          console.log(error)
+        });
+        iterable.push(x);
+      });
+    }
+    codImg = ctx.result.conj_precio.match(expReg);
+    if (codImg) {
+      codImg.forEach((element) => {
+        var nameImg = element.split(':')[1];
+        ctx.result.imgsEditor.push(nameImg);
+        var x = dbx.filesGetTemporaryLink({ path: '/news/' + nameImg }).then(resp => {
+          aux = ctx.result.conj_precio.replace(element, resp.link);
+          ctx.result.conj_precio = aux;
+        }).catch(error => {
+          console.log(error)
+        });
+        iterable.push(x);
+      });
+      Promise.all(iterable).then(values => {
+        next();
+      });
+    }
   });
 };
