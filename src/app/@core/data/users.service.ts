@@ -80,4 +80,9 @@ isfollow(id){
   return this.http.get(this.baseUrl +'followUsers?[filter][where][and][0][followerId]='+this.getUserId()+'&[filter][where][and][1][posterId]='+id)
   .map(res=> res.json());
 }
+
+getNewsByUser(id){
+  return this.http.get(this.baseUrl + 'usuarios/' + id + '/Noticia')
+  .map(res => res.json());
+}
 }
