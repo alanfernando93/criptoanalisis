@@ -15,6 +15,10 @@ var _async2 = _interopRequireDefault(_async);
 
 var _variable = require('../variable');
 
+var Dropbox = require('dropbox').Dropbox;
+var dbx = new Dropbox({ accessToken: _variable.token });
+dbx.setClientId(_variable.key);
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {default: obj};
 }
@@ -220,6 +224,90 @@ module.exports = (Signal, ctx, ctx2) => {
     var io = Signal.app.io;
     io.emit('insertSig', ctx.result);
     next();
+  });
+
+  Signal.afterRemote('find', (ctx, noticia, next) => {
+    var iterablex = [], iterabley = [];
+    ctx.result.forEach((element, index) => {
+      var x = dbx.filesSearch({ path: '/signals', query: '' + element.usuarioId + '-perfil-' + element.id + '' }).then(r => {
+        console.log('nombre');
+        ctx.result[index].perfilName = r.matches[0].metadata.name;
+        var x = dbx.filesGetTemporaryLink({ path: '/signals/' + ctx.result[index].perfilName }).then(resp => {
+          console.log('link');
+
+          ctx.result[index].perfilLink = resp.link;
+        }).catch(error => {
+          console.log(error)
+        });
+        iterabley.push(x);
+      }).catch(error => {
+        console.log(error);
+      });
+      iterablex.push(x);
+
+    });
+    Promise.all(iterablex).then(values => {
+      Promise.all(iterabley).then(valor => {
+        next();
+      })
+    });
+  });
+
+  Signal.afterRemote('findById', (ctx, noticia, next) => {
+    var iterable = [], iterabley = [];
+    ctx.result.imgsEditor = [];
+    var aux;
+
+    var x = dbx.filesSearch({ path: '/signals', query: ctx.result.usuarioId + '-perfil-' + ctx.result.id }).then(r => {
+
+      ctx.result.perfilName = r.matches[0].metadata.name;
+      var y = dbx.filesGetTemporaryLink({ path: '/signals/' + ctx.result.perfilName }).then(resp => {
+        ctx.result.perfilLink = resp.link;
+      }).catch(error => {
+        console.log(error)
+      });
+      iterabley.push(y);
+    }).catch(error => {
+      console.log(error);
+    })
+    iterable.push(x);
+
+    var expReg = /dropbox:["']{0,1}([^"' >]*)/g;
+    var codImg = ctx.result.AnalisisFundamental.match(expReg);
+    if (codImg) {
+      codImg.forEach((element) => {
+        var nameImg = element.split(':')[1];
+        ctx.result.imgsEditor.push(nameImg);
+        var x = dbx.filesGetTemporaryLink({ path: '/signals/' + nameImg }).then(resp => {
+          aux = ctx.result.AnalisisFundamental.replace(element, resp.link);
+          ctx.result.AnalisisFundamental = aux;
+        }).catch(error => {
+          console.log(error)
+        });
+        iterable.push(x);
+      });
+    }
+
+    codImg = ctx.result.AnalisisTecnico.match(expReg);
+    if (codImg) {
+      codImg.forEach((element) => {
+        var nameImg = element.split(':')[1];
+        ctx.result.imgsEditor.push(nameImg);
+        var x = dbx.filesGetTemporaryLink({ path: '/signals/' + nameImg }).then(resp => {
+          aux = ctx.result.AnalisisTecnico.replace(element, resp.link);
+          ctx.result.AnalisisTecnico = aux;
+        }).catch(error => {
+          console.log(error)
+        });
+        iterable.push(x);
+      });
+    }
+    Promise.all(iterable).then(values => {
+      Promise.all(iterabley).then(value => {
+        next();
+      })
+    });
+
   });
 };
 

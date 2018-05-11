@@ -218,24 +218,50 @@ module.exports = (Noticia, ctx, ctx2) => {
   });
 
   Noticia.afterRemote('find', (ctx, noticia, next) => {
-    var iterable = [];
+    var iterablex = [], iterabley = [];
     ctx.result.forEach((element, index) => {
-      var x = dbx.filesGetTemporaryLink({ path: '/news/' + element.usuarioId + '-perfil-' + element.id + '.png' }).then(resp => {
-        ctx.result[index].perfilLink = resp.link;
+      var x = dbx.filesSearch({ path: '/news', query: '' + element.usuarioId + '-perfil-' + element.id + '' }).then(r => {
+        console.log('nombre');
+        ctx.result[index].perfilName = r.matches[0].metadata.name;
+        var x = dbx.filesGetTemporaryLink({ path: '/news/' + ctx.result[index].perfilName }).then(resp => {
+          console.log('link');
+
+          ctx.result[index].perfilLink = resp.link;
+        }).catch(error => {
+          console.log(error)
+        });
+        iterabley.push(x);
       }).catch(error => {
-        console.log(error)
+        console.log(error);
       });
-      iterable.push(x);
+      iterablex.push(x);
+
     });
-    Promise.all(iterable).then(values => {
-      next();
+    Promise.all(iterablex).then(values => {
+      Promise.all(iterabley).then(valor => {
+        next();
+      })
     });
   });
 
   Noticia.afterRemote('findById', (ctx, noticia, next) => {
-    var iterable = [];
+    var iterable = [], iterabley = [];
     ctx.result.imgsEditor = [];
     var aux;
+
+    var x = dbx.filesSearch({ path: '/news', query: ctx.result.usuarioId + '-perfil-' + ctx.result.id }).then(r => {
+
+      ctx.result.perfilName = r.matches[0].metadata.name;
+      var y = dbx.filesGetTemporaryLink({ path: '/news/' + ctx.result.perfilName }).then(resp => {
+        ctx.result.perfilLink = resp.link;
+      }).catch(error => {
+        console.log(error)
+      });
+      iterabley.push(y);
+    }).catch(error => {
+      console.log(error);
+    })
+    iterable.push(x);
 
     var expReg = /dropbox:["']{0,1}([^"' >]*)/g;
     var codImg = ctx.result.contenido.match(expReg);
@@ -252,6 +278,7 @@ module.exports = (Noticia, ctx, ctx2) => {
         iterable.push(x);
       });
     }
+
     codImg = ctx.result.conj_moneda.match(expReg);
     if (codImg) {
       codImg.forEach((element) => {
@@ -266,6 +293,7 @@ module.exports = (Noticia, ctx, ctx2) => {
         iterable.push(x);
       });
     }
+    
     codImg = ctx.result.conj_precio.match(expReg);
     if (codImg) {
       codImg.forEach((element) => {
@@ -279,9 +307,12 @@ module.exports = (Noticia, ctx, ctx2) => {
         });
         iterable.push(x);
       });
-      Promise.all(iterable).then(values => {
-        next();
-      });
     }
+    Promise.all(iterable).then(values => {
+      Promise.all(iterabley).then(value => {
+        next();
+      })
+    });
+
   });
 };
