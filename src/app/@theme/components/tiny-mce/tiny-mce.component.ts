@@ -29,6 +29,7 @@ declare var tinymce: any;
 export class TinyMCEComponent extends Session implements OnDestroy, AfterViewInit {
   @Input() height: String = '320';
   @Input() innerHTML: String;
+  @Input() serviceFolder: String;
 
   @Output() onEditorKeyup = new EventEmitter<any>();
 
@@ -83,8 +84,8 @@ export class TinyMCEComponent extends Session implements OnDestroy, AfterViewIni
         // this.newsService.fullUploadFileImage(body).subscribe(r => {
         //   success(this.baseUrl + "containers/galery/download/" + id + "." + (blobInfo.filename()).split(".")[1]);
         // })
-        this.dropbox.imageUploadDropbox(blobInfo.blob(), this.getUserId(), 'news', id).then(resp => {
-          success('dropbox:' + resp);
+        this.dropbox.imageUploadDropbox(blobInfo.blob(), this.getUserId(), this.serviceFolder, id).then(resp => {
+          success('dropbox:' + resp + ':');
         });
         // console.log("Uploading image");
         // success("/some/path.jpg");

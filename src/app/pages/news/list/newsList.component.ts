@@ -4,8 +4,6 @@ import { Http, Response } from '@angular/http';
 import { NewsService } from "../news.service";
 import { UserService } from "../../../@core/data/users.service";
 
-import { DropboxCripto } from '../../../common/dropbox';
-
 @Component({
   selector: 'ngx-newsList',
   templateUrl: './newsList.component.html',
@@ -23,7 +21,6 @@ export class newsListComponent implements OnInit {
   constructor(
     private http: Http,
     private newsService: NewsService,
-    private dropbox: DropboxCripto
   ) { }
 
   ngOnInit() {
@@ -94,14 +91,6 @@ export class newsListComponent implements OnInit {
       });
       this.increment += this.limit;
     });
-  }
-
-  getImage(id){
-    // return this.newsService.getApiRest() + 'Containers/news' + id + '/download/perfil.png';
-    this.dropbox.getImageUrlTemporary('news',this.newsService.getUserId() +'-perfil-'+id).then(resp => {
-      console.log(resp);
-      return resp;
-    })
   }
 
   getCount(){

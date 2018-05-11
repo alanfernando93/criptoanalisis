@@ -60,12 +60,12 @@
         </div>
         <div class="row col inputgroup">
             <label>Contenido de la señal</label>
-            <ngx-tiny-mce [height]="150">
+            <ngx-tiny-mce [height]="150" [serviceFolder]="'signals'" (onEditorKeyup)="contenido1 = $event">
             </ngx-tiny-mce>
         </div>
         <div class="row col inputgroup">
             <label>Analisis Tecnico</label>
-            <ngx-tiny-mce [height]="90">
+            <ngx-tiny-mce [height]="90" [serviceFolder]="'signals'" (onEditorKeyup)="contenido2 = $event">
             </ngx-tiny-mce>
         </div>
         <div class="row col inputgroup">
