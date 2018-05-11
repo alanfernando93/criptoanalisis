@@ -107,7 +107,12 @@ module.exports = (Signal, ctx, ctx2) => {
       var d = ctx.result.dislikes;
       ctx.method.ctor.dislike(idn, idUser);
     }
-    signal.app.models.usuario.famaUser(idUser, _variable.rpl, coinSignal);
+    var index2 = ctx.result.likes.users.indexOf(idUser);
+    if (index2 > -1) {
+      console.log(index2);
+      likenotif(idn, idUser, ctx.result.usuarioId);
+    }
+    Signal.app.models.usuario.famaUser(idUser, _variable.rpl, coinSignal);
     next();
   });
 
@@ -116,6 +121,10 @@ module.exports = (Signal, ctx, ctx2) => {
   Signal.afterRemote('dislike', (ctx, signal, next) => {
     var idn = ctx.req.params.id;
     var idUser = ctx.req.query.userId;
+    // Signal.app.models.position.afterRemote('create', (ctx, position, next) => {
+    //   var coinSignal = ctx.result.moneda1;
+    //   console.log(coinSignal);
+    // });
     var coinNews = ctx.result.tipo_moneda;
     var index = ctx.result.likes.users.indexOf(idUser);
     if (index > -1) {
@@ -225,6 +234,7 @@ module.exports = (Signal, ctx, ctx2) => {
     io.emit('insertSig', ctx.result);
     next();
   });
+<<<<<<< HEAD
 
   Signal.afterRemote('find', (ctx, noticia, next) => {
     var iterablex = [], iterabley = [];
@@ -309,5 +319,23 @@ module.exports = (Signal, ctx, ctx2) => {
     });
 
   });
+=======
+  function likenotif(signalId, userId, owner) {
+    var io = Signal.app.io;
+    Signal.app.models.notification.create({
+      'tipo': 'likeSig',
+      'senderId': signalId,
+      'date': Date.now(),
+      'status': false,
+      'usuarioId': owner,
+      'emmiterId': userId,
+    });
+    io.to(owner).emit('request', {
+      tipo: 'likeSig',
+      senderId: signalId,
+      emmiterId: userId,
+    });
+  }
+>>>>>>> develop
 };
 

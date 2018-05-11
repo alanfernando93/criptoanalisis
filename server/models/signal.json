@@ -57,7 +57,7 @@
       "model": "usuario",
       "foreignKey": ""
     },
-    "puntos": {
+    "position": {
       "type": "hasMany",
       "model": "position",
       "foreignKey": ""
@@ -65,6 +65,11 @@
     "comentarioSenals": {
       "type": "hasMany",
       "model": "comentario_senal",
+      "foreignKey": ""
+    },
+    "AnswerSenal":{
+      "type": "hasMany",
+      "model": "answer-senal",
       "foreignKey": ""
     }
   },

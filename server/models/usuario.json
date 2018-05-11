@@ -40,7 +40,8 @@
       "type": [
         "object"
       ],
-      "required": false
+      "required": false,
+      "default": "[]"
     }
   },
   "validations": [],
