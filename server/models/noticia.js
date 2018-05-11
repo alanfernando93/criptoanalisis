@@ -221,7 +221,6 @@ module.exports = (Noticia, ctx, ctx2) => {
     io.emit('insertNoti', ctx.result);
     next();
   });
-<<<<<<< HEAD
 
   Noticia.afterRemote('find', (ctx, noticia, next) => {
     var iterablex = [], iterabley = [];
@@ -321,7 +320,6 @@ module.exports = (Noticia, ctx, ctx2) => {
     });
 
   });
-=======
   function likenotif(newsId, userId, owner) {
     var io = Noticia.app.io;
     Noticia.app.models.notification.create({
@@ -338,5 +336,4 @@ module.exports = (Noticia, ctx, ctx2) => {
       emmiterId: userId,
     });
   }
->>>>>>> develop
 };

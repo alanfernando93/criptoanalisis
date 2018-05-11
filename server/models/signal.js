@@ -234,7 +234,6 @@ module.exports = (Signal, ctx, ctx2) => {
     io.emit('insertSig', ctx.result);
     next();
   });
-<<<<<<< HEAD
 
   Signal.afterRemote('find', (ctx, noticia, next) => {
     var iterablex = [], iterabley = [];
@@ -319,7 +318,6 @@ module.exports = (Signal, ctx, ctx2) => {
     });
 
   });
-=======
   function likenotif(signalId, userId, owner) {
     var io = Signal.app.io;
     Signal.app.models.notification.create({
@@ -336,6 +334,5 @@ module.exports = (Signal, ctx, ctx2) => {
       emmiterId: userId,
     });
   }
->>>>>>> develop
 };
 
