@@ -30,17 +30,17 @@
 
     <div class="row col inputgroup">
       <label for="inputContenNews">Contenido de la noticia</label>
-      <ngx-tiny-mce [height]="150" (onEditorKeyup)="content1 = $event">
+      <ngx-tiny-mce [height]="150" (onEditorKeyup)="content1 = $event" [serviceFolder]="'news'">
       </ngx-tiny-mce>
     </div>
     <div class="row col inputgroup">
       <label>Conjeturas sobre el precio</label>
-      <ngx-tiny-mce [height]="90" (onEditorKeyup)="content2 = $event">
+      <ngx-tiny-mce [height]="90" (onEditorKeyup)="content2 = $event" [serviceFolder]="'news'">
       </ngx-tiny-mce>
     </div>
     <div class="row col inputgroup">
       <label>Conjeturas sobre otras monedas (* Opcional)</label>
-      <ngx-tiny-mce [height]="90" (onEditorKeyup)="content3 = $event">
+      <ngx-tiny-mce [height]="90" (onEditorKeyup)="content3 = $event" [serviceFolder]="'news'">
       </ngx-tiny-mce>
     </div>
   </div>

@@ -48,6 +48,7 @@ export class newsViewComponent implements OnInit {
 
   getNewsById() {
     this.newsService.getById(this.idNews).subscribe(data => {
+      console.log(data);
       data ? this.news = data : {};
     });
   }
