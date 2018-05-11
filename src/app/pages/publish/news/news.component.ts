@@ -108,14 +108,14 @@ export class PublishNewsComponent implements OnInit {
       //   this.router.navigate(["/pages/news/list"]);
       // })
       this.dropbox.imageUploadDropbox(this.myFile, this.newsService.getUserId(), 'news', 'perfil-' + resp.id).then(resp => {
+        this.type = 'success'
+        this.content = configCrud.message.success + ' noticias';
+        showToast(this.toasterService, this.type, this.content);
         this.router.navigate(["/pages/news/list"]);
       });
-      this.type = 'success'
-      this.content = configCrud.message.success + ' noticias';
-      showToast(this.toasterService, this.type, this.content);
     }, error => {
       this.type = 'error'
-      this.content = configCrud.message.error + ' señales';
+      this.content = configCrud.message.error + ' noticias';
       showToast(this.toasterService, this.type, this.content);
     });
   }

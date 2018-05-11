@@ -11,6 +11,7 @@ import { CoinsService } from "../../coins/coins.service";
 
 import { configCrud } from '../../../common/ConfigSettings';
 import { showToast } from '../../../common/functions'
+import { DropboxCripto } from "../../../common/dropbox";
 
 import 'style-loader!angular2-toaster/toaster.css';
 
@@ -31,6 +32,9 @@ export class SignalComponent implements OnInit {
   stopLoss = 1;
 
   signal: any = {};
+
+  contenido1:String;
+  contenido2:String;
 
   moneda1: String = "Moneda"
   moneda2: String = "Moneda"
@@ -84,7 +88,8 @@ export class SignalComponent implements OnInit {
     private signalsService: SignalsService,
     private coinsService: CoinsService,
     private router: Router,
-    private toasterService: ToasterService
+    private toasterService: ToasterService,
+    private dropbox: DropboxCripto,
   ) { }
 
   ngOnInit() {
@@ -128,11 +133,17 @@ export class SignalComponent implements OnInit {
     this.signal.count = "";
     let positions = (this.posEntrada.concat(this.posSalida).concat(this.posLoss));
     this.signalsService.add(this.signal).subscribe(resp => {
-      let body = new FormData();
-      body.append('', this.myFile, 'perfil.png');
-      this.signalsService.imageFileUpload(resp.id, body).subscribe((r: Response) => {
+      // let body = new FormData();
+      // body.append('', this.myFile, 'perfil.png');
+      // this.signalsService.imageFileUpload(resp.id, body).subscribe((r: Response) => {
+      //   this.router.navigate(["/pages/signals/list"]);
+      // })
+      this.dropbox.imageUploadDropbox(this.myFile, this.signalsService.getUserId(), 'signals', 'perfil-' + resp.id).then(resp => {
+        this.type = 'success'
+        this.content = configCrud.message.success + ' señales';
+        showToast(this.toasterService, this.type, this.content);
         this.router.navigate(["/pages/signals/list"]);
-      })
+      });
       let id = resp.id;
       positions.forEach((value, key) => {
         positions[key].signalId = id

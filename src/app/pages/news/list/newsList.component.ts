@@ -30,7 +30,6 @@ export class newsListComponent implements OnInit {
 
   getNews() {
     this.newsService.getAllLimit(this.limit, this.increment).subscribe(data => {
-      console.log(data);
       data ? this.news = data : {};
       this.news.forEach((element, index) => {
         let newsId = this.news[index].id;
@@ -92,14 +91,6 @@ export class newsListComponent implements OnInit {
       });
       this.increment += this.limit;
     });
-  }
-
-  getImage(id){
-    // return this.newsService.getApiRest() + 'Containers/news' + id + '/download/perfil.png';
-    // this.dropbox.getImageUrlTemporary('news',this.newsService.getUserId() +'-perfil-'+id).then(resp => {
-      // console.log(resp);
-    //   return resp;
-    // })
   }
 
   getCount(){
