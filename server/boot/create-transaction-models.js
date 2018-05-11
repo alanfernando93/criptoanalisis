@@ -8,7 +8,7 @@ module.exports = function(app) {
     app.models.transaccion.create([{
       monto: 100,
       activo: true,
-      senderId: 2,
+      senderId: 3,
       recieverId: 1,
     },
     ]);

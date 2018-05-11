@@ -29,6 +29,11 @@
       "type": "belongsTo",
       "model": "comentario_senal",
       "foreignKey": ""
+    },
+    "signal":{
+      "type": "belongsTo",
+      "model": "signal",
+      "foreignKey": ""
     }
   },
   "acls": [],

@@ -14,28 +14,32 @@ var _async2 = _interopRequireDefault(_async);
 
 var _variable = require('../variable');
 
+var Dropbox = require('dropbox').Dropbox;
+var dbx = new Dropbox({ accessToken: _variable.token });
+dbx.setClientId(_variable.key);
+
 function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {default: obj};
+  return obj && obj.__esModule ? obj : { default: obj };
 }
 
 module.exports = (Noticia, ctx, ctx2) => {
   Noticia.upload = (req, res, cb) => {
     var Container = Noticia.app.models.Container;
     var id = req.params.id;
-    Container.createContainer({name: 'news' + id}, (err, c) => {
-      Container.upload(req, res, {container: 'news' + id}, cb);
+    Container.createContainer({ name: 'news' + id }, (err, c) => {
+      Container.upload(req, res, { container: 'news' + id }, cb);
     });
   };
 
   Noticia.remoteMethod(
     'upload',
     {
-      http: {path: '/:id/upload', verb: 'post'},
+      http: { path: '/:id/upload', verb: 'post' },
       accepts: [
-        {arg: 'req', type: 'object', 'http': {source: 'req'}},
-        {arg: 'res', type: 'object', 'http': {source: 'res'}},
+        { arg: 'req', type: 'object', 'http': { source: 'req' } },
+        { arg: 'res', type: 'object', 'http': { source: 'res' } },
       ],
-      returns: {arg: 'status', type: 'string'},
+      returns: { arg: 'status', type: 'string' },
     }
   );
 
@@ -50,7 +54,7 @@ module.exports = (Noticia, ctx, ctx2) => {
   }, ctx);
 
   // agregando propiedad dislike a noticia
-  Noticia.defineProperty(ctx.dislikes, {type: Object, default: {total: 0, users: []}});
+  Noticia.defineProperty(ctx.dislikes, { type: Object, default: { total: 0, users: [] } });
 
   // dislike metodo remoto
   Noticia[ctx.method] = (id, userId, finish) => {
@@ -103,9 +107,9 @@ module.exports = (Noticia, ctx, ctx2) => {
   };
   // Endpoint settings
   Noticia.remoteMethod(ctx.method, {
-    accepts: [{arg: 'id', type: 'string', required: true}, {arg: 'userId', type: 'string', required: true}],
-    returns: {root: true, type: 'object'},
-    http: {path: ctx.endpoint, verb: 'get'},
+    accepts: [{ arg: 'id', type: 'string', required: true }, { arg: 'userId', type: 'string', required: true }],
+    returns: { root: true, type: 'object' },
+    http: { path: ctx.endpoint, verb: 'get' },
     description: ctx.description,
   });
 
@@ -121,6 +125,11 @@ module.exports = (Noticia, ctx, ctx2) => {
       var d2 = ctx.result.dislikes.total = ctx.result.dislikes.total - 1;
       var d = ctx.result.dislikes;
       ctx.method.ctor.dislike(idn, idUser);
+    }
+    var index2 = ctx.result.likes.users.indexOf(idUser);
+    if (index2 > -1) {
+      console.log(index2);
+      likenotif(ctx.result.id, idUser, userId);
     }
     Noticia.app.models.usuario.famaUser(userId, _variable.rpl, coinNews);
     next();
@@ -167,7 +176,7 @@ module.exports = (Noticia, ctx, ctx2) => {
     Noticia.app.models.usuario.findById(userNews)
       .then(data => {
         Noticia.app.models.usuario.updateAll(
-          {id: userNews}, {puntos: data.puntos + 1})
+          { id: userNews }, { puntos: data.puntos + 1 })
           .then(data => {
             next();
           });
@@ -180,7 +189,7 @@ module.exports = (Noticia, ctx, ctx2) => {
     next();
   });
   // hook para enviar notificaciones de noticias suscritas
-  Noticia.afterRemote('create', (ctx, noticia, next)=>{
+  Noticia.afterRemote('create', (ctx, noticia, next) => {
     var io = Noticia.app.io;
     var con = 'sus' + ctx.result.usuarioId;
 
@@ -188,7 +197,7 @@ module.exports = (Noticia, ctx, ctx2) => {
       where: {
         posterId: ctx.result.usuarioId,
       },
-    }).then(data=>{
+    }).then(data => {
       data.forEach(element => {
         Noticia.app.models.notification.create({
           'tipo': 'news',
@@ -207,9 +216,124 @@ module.exports = (Noticia, ctx, ctx2) => {
     });
     next();
   });
-  Noticia.afterRemote('create', (ctx, noticia, next)=>{
+  Noticia.afterRemote('create', (ctx, noticia, next) => {
     var io = Noticia.app.io;
     io.emit('insertNoti', ctx.result);
     next();
   });
+
+  Noticia.afterRemote('find', (ctx, noticia, next) => {
+    var iterablex = [], iterabley = [];
+    ctx.result.forEach((element, index) => {
+      var x = dbx.filesSearch({ path: '/news', query: '' + element.usuarioId + '-perfil-' + element.id + '' }).then(r => {
+        console.log('nombre');
+        ctx.result[index].perfilName = r.matches[0].metadata.name;
+        var x = dbx.filesGetTemporaryLink({ path: '/news/' + ctx.result[index].perfilName }).then(resp => {
+          console.log('link');
+
+          ctx.result[index].perfilLink = resp.link;
+        }).catch(error => {
+          console.log(error)
+        });
+        iterabley.push(x);
+      }).catch(error => {
+        console.log(error);
+      });
+      iterablex.push(x);
+
+    });
+    Promise.all(iterablex).then(values => {
+      Promise.all(iterabley).then(valor => {
+        next();
+      })
+    });
+  });
+
+  Noticia.afterRemote('findById', (ctx, noticia, next) => {
+    var iterable = [], iterabley = [];
+    ctx.result.imgsEditor = [];
+    var aux;
+
+    var x = dbx.filesSearch({ path: '/news', query: ctx.result.usuarioId + '-perfil-' + ctx.result.id }).then(r => {
+
+      ctx.result.perfilName = r.matches[0].metadata.name;
+      var y = dbx.filesGetTemporaryLink({ path: '/news/' + ctx.result.perfilName }).then(resp => {
+        ctx.result.perfilLink = resp.link;
+      }).catch(error => {
+        console.log(error)
+      });
+      iterabley.push(y);
+    }).catch(error => {
+      console.log(error);
+    })
+    iterable.push(x);
+
+    var expReg = /dropbox:["']{0,1}([^"' >]*)/g;
+    var codImg = ctx.result.contenido.match(expReg);
+    if (codImg) {
+      codImg.forEach((element) => {
+        var nameImg = element.split(':')[1];
+        ctx.result.imgsEditor.push(nameImg);
+        var x = dbx.filesGetTemporaryLink({ path: '/news/' + nameImg }).then(resp => {
+          aux = ctx.result.contenido.replace(element, resp.link);
+          ctx.result.contenido = aux;
+        }).catch(error => {
+          console.log(error)
+        });
+        iterable.push(x);
+      });
+    }
+
+    codImg = ctx.result.conj_moneda.match(expReg);
+    if (codImg) {
+      codImg.forEach((element) => {
+        var nameImg = element.split(':')[1];
+        ctx.result.imgsEditor.push(nameImg);
+        var x = dbx.filesGetTemporaryLink({ path: '/news/' + nameImg }).then(resp => {
+          aux = ctx.result.conj_moneda.replace(element, resp.link);
+          ctx.result.conj_moneda = aux;
+        }).catch(error => {
+          console.log(error)
+        });
+        iterable.push(x);
+      });
+    }
+    
+    codImg = ctx.result.conj_precio.match(expReg);
+    if (codImg) {
+      codImg.forEach((element) => {
+        var nameImg = element.split(':')[1];
+        ctx.result.imgsEditor.push(nameImg);
+        var x = dbx.filesGetTemporaryLink({ path: '/news/' + nameImg }).then(resp => {
+          aux = ctx.result.conj_precio.replace(element, resp.link);
+          ctx.result.conj_precio = aux;
+        }).catch(error => {
+          console.log(error)
+        });
+        iterable.push(x);
+      });
+    }
+    Promise.all(iterable).then(values => {
+      Promise.all(iterabley).then(value => {
+        next();
+      })
+    });
+
+  });
+  function likenotif(newsId, userId, owner) {
+    var io = Noticia.app.io;
+    Noticia.app.models.notification.create({
+      'tipo': 'likeNews',
+      'senderId': newsId,
+      'date': Date.now(),
+      'status': false,
+      'usuarioId': owner,
+      'emmiterId': userId,
+    });
+    io.to(owner).emit('request', {
+      tipo: 'likeNews',
+      senderId: newsId,
+      emmiterId: userId,
+    });
+  }
 };
