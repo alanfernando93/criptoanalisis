@@ -4,12 +4,11 @@ import { Router } from "@angular/router";
 import { Http, Response } from "@angular/http";
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { CropperModalComponent } from '../../../@theme/components/cropper/croppermodal.component';
 
 import { SignalsService } from '../../signals/signals.service';
 import { CoinsService } from "../../coins/coins.service";
 
-import { configCrud } from '../../../common/ConfigSettings';
+import { configCrud, typeCoinByDefault, typeOfOffer } from '../../../common/ConfigSettings';
 import { showToast } from '../../../common/functions'
 import { DropboxCripto } from "../../../common/dropbox";
 
@@ -24,9 +23,7 @@ import 'style-loader!angular2-toaster/toaster.css';
 export class SignalComponent implements OnInit {
   @Input() idSignal: String = null;
 
-  url = "https://mdbootstrap.com/img/Photos/Others/placeholder.jpg";
   myFile: File;
-
   pntEnt = 1;
   tpSal = 1;
   stopLoss = 1;
@@ -44,13 +41,7 @@ export class SignalComponent implements OnInit {
   posLoss: any = [];
   coins: any = [];
 
-  types = [{
-    id: 'USD'
-  }, {
-    id: 'BTC'
-  }, {
-    id: 'ETH'
-  }];
+  types = typeCoinByDefault;
 
   selectTipoSalida = {
     title: 'Take Profit',
@@ -70,13 +61,7 @@ export class SignalComponent implements OnInit {
     key: true,
   }
 
-  tipos = [{
-    title: 'Comprar',
-    key: true,
-  }, {
-    title: 'Vender',
-    key: false,
-  }]
+  tipos = typeOfOffer;
 
   content = `I'm cool toaster!`;
   type = 'default';
@@ -133,11 +118,6 @@ export class SignalComponent implements OnInit {
     this.signal.count = "";
     let positions = (this.posEntrada.concat(this.posSalida).concat(this.posLoss));
     this.signalsService.add(this.signal).subscribe(resp => {
-      // let body = new FormData();
-      // body.append('', this.myFile, 'perfil.png');
-      // this.signalsService.imageFileUpload(resp.id, body).subscribe((r: Response) => {
-      //   this.router.navigate(["/pages/signals/list"]);
-      // })
       this.dropbox.imageUploadDropbox(this.myFile, this.signalsService.getUserId(), 'signals', 'perfil-' + resp.id).then(resp => {
         this.type = 'success'
         this.content = configCrud.message.success + ' señales';
@@ -165,9 +145,9 @@ export class SignalComponent implements OnInit {
 
   onClickPuntos($events, option, ptn) {
     let positionId
-    const container = $events.originalTarget.parentNode.parentNode.parentNode.parentNode;
-    const data1 = $events.originalTarget.parentNode.parentNode.children[1];
-    const data2 = $events.originalTarget.parentNode.parentNode.children[2];
+    const container = $events.target.parentNode.parentNode.parentNode.parentNode;
+    const data1 = $events.target.parentNode.parentNode.children[1];
+    const data2 = $events.target.parentNode.parentNode.children[2];
 
     var data = {
       moneda1: this.moneda1,
@@ -250,7 +230,7 @@ export class SignalComponent implements OnInit {
     this.renderer.setProperty(bedit, 'type', 'button');
     this.renderer.setProperty(bedit, 'id', 'false');
     this.renderer.listen(bedit, 'click', ($event) => {
-      const oldBody = $event.originalTarget.parentNode.parentNode;
+      const oldBody = $event.target.parentNode.parentNode;
       const input1 = oldBody.children[1];
       const input2 = oldBody.children[2];
       this.renderer.removeAttribute(input1, 'disabled');
@@ -273,7 +253,8 @@ export class SignalComponent implements OnInit {
     this.renderer.setProperty(bremove, "id", ptn - 1);
     this.renderer.listen(bremove, 'click', ($event) => {
       var id = $event.target.id;
-      const oldBody = $event.originalTarget.parentNode.parentNode.parentNode;
+      console.log(id)
+      const oldBody = $event.target.parentNode.parentNode.parentNode;
       document.getElementById(option).removeChild(oldBody);
       this.renderer.removeChild(oldBody.parentNode, oldBody);
       this.refresh(option, id);
@@ -327,16 +308,6 @@ export class SignalComponent implements OnInit {
     this.modalService.open(content).result.then((result) => {
     }, (reason) => {
     });
-  }
-
-  openCropper() {
-    let modalRef = this.modalService.open(CropperModalComponent);
-    const instance = modalRef.componentInstance;
-    modalRef.result.then(result => {
-      this.url = instance.getImageResize();
-      this.myFile = instance.getImageFile();
-    }, reason => {
-    })
   }
 
   private getDismissReason(reason: any): string {

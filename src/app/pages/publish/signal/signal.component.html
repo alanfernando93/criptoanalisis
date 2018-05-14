@@ -15,12 +15,17 @@
                     </div>
                     <div class="col-6">
                         <div class="dropdown" ngbDropdown>
-                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{moneda1}} </button>
-                            <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
-                                <li class="dropdown-item" *ngFor="let coin of coins" (click)="this.moneda1 = coin.name">{{coin.name}}</li>
+                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
+                                Dropup
+                            </button>
+                            <ul class="dropdown-menu" ngbDropdownMenu>
+                                <li class="dropdown-item">Icon Button 3</li>
+                                <li class="dropdown-item">Hero Button</li>
+                                <li class="dropdown-item">Default</li>
                             </ul>
                         </div>
                     </div>
+
                 </div>
                 <div class="row">
                     <div class="col-6">
@@ -33,29 +38,16 @@
                     </div>
                     <div class="col-6">
                         <div class="dropdown" ngbDropdown>
-                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
-                                Dropup
-                            </button>
-                            <ul class="dropdown-menu" ngbDropdownMenu>
-                                <li class="dropdown-item">Icon Button 3</li>
-                                <li class="dropdown-item">Hero Button</li>
-                                <li class="dropdown-item">Default</li>
+                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{moneda1}} </button>
+                            <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
+                                <li class="dropdown-item" *ngFor="let coin of coins" (click)="this.moneda1 = coin.name">{{coin.name}}</li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="file-field">
-                    <label>Seleccione imagen pricipal</label>
-                    <a (click)="openCropper()" class="upload" placement="right" ngbTooltip="Subir Imagen">
-                        <i class="fa fa-2x fa-upload"></i>
-                    </a>
-                    <div class="z-depth-1-half mb-4" style="width:300px;height:200px">
-                        <img [src]="url" class="img-fluid">
-                        <!-- <img id="img" class="img-fluid" #input-id> -->
-                    </div>
-                </div>
+                <ngx-image (onImageSelected)="myFile = $event"></ngx-image>
             </div>
         </div>
         <div class="row col inputgroup">
@@ -75,7 +67,7 @@
                         <h5>Puntos de entrada</h5>
                     </div>
                     <div class="row">
-                        <div class="contenedor input-group">
+                        <div class="contenedor input-group" id="puntEntr-data">
                             <span class="input-group-addon">Punto {{pntEnt}}</span>
                             <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Valor (USD)">
                             <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="% Capital">
@@ -92,7 +84,7 @@
                         <h5>Stop Loss</h5>
                     </div>
                     <div class="row">
-                        <div class="contenedor input-group">
+                        <div class="contenedor input-group" id="stopLoss-data">
                             <span class="input-group-addon">Punto {{stopLoss}}</span>
                             <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Valor (USD)">
                             <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="% Capital">
@@ -105,8 +97,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-ms-6">
-                <div class="row col" style="width:100%">
+            <div class="col-md-6">
+                <!-- <div class="row col" style="width:100%">
                     <h5>Tipo de salido</h5>
                 </div>
                 <div class="row col">
@@ -118,11 +110,13 @@
                             <li class="dropdown-item" *ngFor="let v of TipoSalida" (click)="this.selectTipoSalida = v">{{ v.title }}</li>
                         </ul>
                     </div>
-                </div>
-                <div *ngIf="selectTipoSalida.key; else msg"  class="row col" id="tipSal">
-                    <div class="row"> Puntos de salida: </div>
+                </div> -->
+                <div class="row col" id="tipSal">
+                    <div class="row" style="width:100%">
+                        <h5>Puntos de entrada</h5>
+                    </div>
                     <div class="row">
-                        <div class="contenedor input-group">
+                        <div class="contenedor input-group" id="tipSal-data">
                             <span class="input-group-addon">Punto {{tpSal}}</span>
                             <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Valor (USD)">
                             <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="% Capital">
@@ -134,7 +128,7 @@
                         </div>
                     </div>
                 </div>
-                <ng-template #msg>
+                <!-- <ng-template #msg>
                     <div class="row col">
                         <nb-card>
                             <nb-card-header>
@@ -147,30 +141,14 @@
                             </nb-card-body>
                         </nb-card>
                     </div>
-                </ng-template>
+                </ng-template> -->
             </div>
         </div>
     </div>
 </nb-card-body>
 <nb-card-footer>
     <div class="row col justify-content-between">
-        <div class="col-md-6">
-            <button class="btn btn-hero-secondary btn-demo"> Cancelar </button>
-            <ng-template #content let-c="close" let-d="dismiss">
-                <div class="modal-header">
-                    <h4 class="modal-title">Modal title</h4>
-                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>One fine body&hellip;</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" (click)="c('Close click')">Close</button>
-                </div>
-            </ng-template>
-
+        <div class="col-md-3">
             <button class="btn btn-lg btn-primary" (click)="open(content)"> Vista Previa </button>
         </div>
         <div class="col-md-3">
@@ -178,3 +156,18 @@
         </div>
     </div>
 </nb-card-footer>
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Modal title</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>One fine body&hellip;</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="c('Close click')">Close</button>
+    </div>
+</ng-template>
