@@ -30,8 +30,8 @@ export class SignalComponent implements OnInit {
 
   signal: any = {};
 
-  contenido1:String;
-  contenido2:String;
+  contenido1: String;
+  contenido2: String;
 
   moneda1: String = "Moneda"
   moneda2: String = "Moneda"
@@ -104,8 +104,8 @@ export class SignalComponent implements OnInit {
       setTimeout(() => {
         tinymce.editors[1].uploadImages(() => {
           this.signal.AnalisisTecnico = tinymce.editors[1].getContent()
-          resolve('get edito 2');          
-        })        
+          resolve('get edito 2');
+        })
       }, 2000);
     });
   }
@@ -127,7 +127,7 @@ export class SignalComponent implements OnInit {
       let id = resp.id;
       positions.forEach((value, key) => {
         positions[key].signalId = id
-        this.signalsService.setPosition(positions[key]).subscribe(respo => { 
+        this.signalsService.setPosition(positions[key]).subscribe(respo => {
         })
         this.type = 'success'
         this.content = configCrud.message.success;
@@ -144,10 +144,9 @@ export class SignalComponent implements OnInit {
   }
 
   onClickPuntos($events, option, ptn) {
-    let positionId
     const container = $events.target.parentNode.parentNode.parentNode.parentNode;
-    const data1 = $events.target.parentNode.parentNode.children[1];
-    const data2 = $events.target.parentNode.parentNode.children[2];
+    let data1 = $events.target.parentNode.parentNode.children[1];
+    let data2 = $events.target.parentNode.parentNode.children[2];
 
     var data = {
       moneda1: this.moneda1,
@@ -172,11 +171,13 @@ export class SignalComponent implements OnInit {
         break;
     }
     const _body = this.renderer.createElement('div');
+
     this.renderer.addClass(_body, "row");
 
     const content = this.renderer.createElement('div');
     this.renderer.addClass(content, "contenedor");
-    this.renderer.addClass(content, "input-group")
+    this.renderer.addClass(content, "input-group");
+    this.renderer.setProperty(content, "id", option + "-data");
 
     const span = this.renderer.createElement('span');
     this.renderer.addClass(span, "input-group-addon");
@@ -210,6 +211,7 @@ export class SignalComponent implements OnInit {
     this.renderer.setAttribute(d2, 'disabled', 'true');
     this.renderer.setProperty(d2, "id", ptn - 1);
     this.renderer.listen(d2, 'change', $events => {
+      console.log(this.posEntrada)
       var input = $events.target;
       switch (option) {
         case 'puntEntr': this.posEntrada[input.id].porcentajeCapital = input.value.split(' ')[0];
@@ -230,7 +232,7 @@ export class SignalComponent implements OnInit {
     this.renderer.setProperty(bedit, 'type', 'button');
     this.renderer.setProperty(bedit, 'id', 'false');
     this.renderer.listen(bedit, 'click', ($event) => {
-      const oldBody = $event.target.parentNode.parentNode;
+      const oldBody = $event.target.closest('#' + option + '-data');
       const input1 = oldBody.children[1];
       const input2 = oldBody.children[2];
       this.renderer.removeAttribute(input1, 'disabled');
@@ -238,6 +240,7 @@ export class SignalComponent implements OnInit {
     });
 
     this.renderer.appendChild(edit, bedit);
+
     const iedit = this.renderer.createElement('i');
     this.renderer.addClass(iedit, "fa");
     this.renderer.addClass(iedit, "fa-pencil");
@@ -254,8 +257,8 @@ export class SignalComponent implements OnInit {
     this.renderer.listen(bremove, 'click', ($event) => {
       var id = $event.target.id;
       console.log(id)
-      const oldBody = $event.target.parentNode.parentNode.parentNode;
-      document.getElementById(option).removeChild(oldBody);
+      const oldBody = $event.target.closest('#' + option + '-data').parentNode;
+      //document.getElementById(option).removeChild(oldBody);
       this.renderer.removeChild(oldBody.parentNode, oldBody);
       this.refresh(option, id);
     });

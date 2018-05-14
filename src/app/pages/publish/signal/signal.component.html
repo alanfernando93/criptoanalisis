@@ -5,7 +5,7 @@
         <div class="row input-group">
             <div class="col-md-6">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-12 col-md-6">
                         <div class="dropdown" ngbDropdown>
                             <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{tipoSignal.title}} </button>
                             <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
@@ -13,7 +13,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-12 col-md-6">
                         <div class="dropdown" ngbDropdown>
                             <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
                                 Dropup
@@ -28,7 +28,7 @@
 
                 </div>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-12 col-md-6">
                         <div class="dropdown" ngbDropdown>
                             <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{moneda2}} </button>
                             <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
@@ -36,7 +36,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-12 col-md-6">
                         <div class="dropdown" ngbDropdown>
                             <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{moneda1}} </button>
                             <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
@@ -46,7 +46,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-12 col-md-6">
                 <ngx-image (onImageSelected)="myFile = $event"></ngx-image>
             </div>
         </div>
@@ -116,7 +116,7 @@
                         <h5>Puntos de entrada</h5>
                     </div>
                     <div class="row">
-                        <div class="contenedor input-group">
+                        <div class="contenedor input-group" id="tipSal-data">
                             <span class="input-group-addon">Punto {{tpSal}}</span>
                             <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Valor (USD)">
                             <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="% Capital">
@@ -147,12 +147,14 @@
     </div>
 </nb-card-body>
 <nb-card-footer>
-    <div class="row col justify-content-between">
-        <div class="col-md-3">
-            <button class="btn btn-lg btn-primary" (click)="open(content)"> Vista Previa </button>
-        </div>
-        <div class="col-md-3">
-            <button class="btn btn-success" (click)="onSave()"> Publicar </button>
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-6">
+                <button class="btn btn-hero-secondary btn-demo" (click)="open(content)"> Vista Previa </button>
+            </div>
+            <div class="col-5">
+                <button class="btn btn-success" (click)="onSave()"> Publicar </button>
+            </div>
         </div>
     </div>
 </nb-card-footer>

@@ -10,7 +10,9 @@ import { CropperModalComponent } from '../cropper/croppermodal.component';
       (click)="openCropper()" multiple />
     <label for="file-5">
       <img [src]="url" class="img-fluid" id="image">
-      <span class="iborrainputfile">Seleccionar archivo</span>
+      <div class="text-center">
+      <a class="iborrainputfile btn btn-success">Seleccionar archivo</a>
+      </div>
     </label>
   `,
   styleUrls: ['./image.component.scss']
