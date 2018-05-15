@@ -221,12 +221,11 @@ module.exports = (Noticia, ctx, ctx2) => {
     io.emit('insertNoti', ctx.result);
     next();
   });
-<<<<<<< HEAD
 
   Noticia.afterRemote('find', (ctx, noticia, next) => {
     var iterablex = [], iterabley = [];
     ctx.result.forEach((element, index) => {
-      var x = dbx.filesSearch({ path: '/news', query: '' + element.usuarioId + '-perfil-' + element.id + '' }).then(r => {
+      var x = dbx.filesSearch({path: '/news', query: '' + element.usuarioId + '-perfil-' + element.id + '' }).then(r => {
         console.log('nombre');
         ctx.result[index].perfilName = r.matches[0].metadata.name;
         var x = dbx.filesGetTemporaryLink({ path: '/news/' + ctx.result[index].perfilName }).then(resp => {
@@ -321,7 +320,6 @@ module.exports = (Noticia, ctx, ctx2) => {
     });
 
   });
-=======
   function likenotif(newsId, userId, owner) {
     var io = Noticia.app.io;
     Noticia.app.models.notification.create({
@@ -338,5 +336,4 @@ module.exports = (Noticia, ctx, ctx2) => {
       emmiterId: userId,
     });
   }
->>>>>>> develop
 };
