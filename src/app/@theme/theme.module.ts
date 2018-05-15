@@ -26,7 +26,7 @@ import {
   SearchInputComponent,
   ThemeSettingsComponent,
   TinyMCEComponent,
-  userPopupComponent,
+  userDesignComponent,
   commentComponent
   
 } from './components';
