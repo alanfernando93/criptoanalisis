@@ -5,5 +5,5 @@ export * from './footer/footer.component';
 export * from './search-input/search-input.component';
 export * from './tiny-mce/tiny-mce.component';
 export * from './theme-settings/theme-settings.component';
-export * from './userPopup/userPopup.component';
+export * from './userDesign/userDesign.component';
 export * from './comment/comment.component';
