@@ -136,6 +136,7 @@ export class signalsViewComponent implements OnInit {
 
   sendComment() {
     this.comment.signalId = this.idSignal;
+    console.log(this.comment);
     this.signalsService.postSignalsComment(this.comment).subscribe(data => {
       this.comment = {};
     });
@@ -148,6 +149,7 @@ export class signalsViewComponent implements OnInit {
     this.signalsService.postSignalsAnswer(this.answer).subscribe(data => {
       event.target.parentNode.children[0].children[0].value = '';
     });
+    console.log(this.answer);
   }
   
   getSignalCommentCount() {

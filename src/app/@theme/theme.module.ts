@@ -26,6 +26,9 @@ import {
   SearchInputComponent,
   ThemeSettingsComponent,
   TinyMCEComponent,
+  userPopupComponent,
+  commentComponent
+  
 } from './components';
 import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe } from './pipes';
 import {
