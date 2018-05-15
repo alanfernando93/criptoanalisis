@@ -12,7 +12,7 @@ import { orderData } from '../../../common/array';
 })
 export class newsListComponent implements OnInit {
 
-  @Input() news: any;
+  news: any;
   contentUser: any;
   count: any;
   limit: number = 6;
@@ -91,10 +91,6 @@ export class newsListComponent implements OnInit {
       });
       this.increment += this.limit;
     });
-  }
-
-  getImage(id){
-    return this.newsService.getApiRest() + 'Containers/news' + id + '/download/perfil.png';
   }
 
   getCount(){

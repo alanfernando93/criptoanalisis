@@ -171,12 +171,4 @@ export class newsViewComponent implements OnInit {
     });
   }
 
-getInitials(name) {
-  if (name) {
-    var names = name.split(' ');
-    return names.map(function (n) { return n.charAt(0); }).splice(0, 2).join('').toUpperCase();
-  }
-  return '';
-}
-
 }

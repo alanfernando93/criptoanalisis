@@ -1,14 +1,6 @@
-import {
-  Component,
-  OnDestroy,
-  AfterViewInit,
-  Output,
-  Input,
-  OnChanges,
-  EventEmitter,
-  ElementRef,
-} from '@angular/core';
+import { Component, OnDestroy, AfterViewInit, Output, Input, OnChanges, EventEmitter, ElementRef, } from '@angular/core';
 
+import { DropboxCripto } from "../../../common/dropbox";
 import { parseToFile } from '../../../common/functions'
 
 // A theme is also required
@@ -25,19 +17,19 @@ import 'tinymce/plugins/contextmenu';
 import '../../../../assets/plugins/tradingview';
 
 import { environment } from '../../../../environments/environment'
-import { NewsService } from '../../../pages/news/news.service';
+import { Session } from '../../../@core/data/session';
 
 declare var tinymce: any;
 
 @Component({
   selector: 'ngx-tiny-mce',
   template: ``,
-  providers: [NewsService]
 })
 
-export class TinyMCEComponent implements OnDestroy, AfterViewInit {
+export class TinyMCEComponent extends Session implements OnDestroy, AfterViewInit {
   @Input() height: String = '320';
   @Input() innerHTML: String;
+  @Input() serviceFolder: String;
 
   @Output() onEditorKeyup = new EventEmitter<any>();
 
@@ -53,8 +45,10 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
 
   constructor(
     private host: ElementRef,
-    private newsService: NewsService
-  ) { }
+    private dropbox: DropboxCripto
+  ) {
+    super();
+  }
 
   ngAfterViewInit() {
     tinymce.init({
@@ -84,12 +78,15 @@ export class TinyMCEComponent implements OnDestroy, AfterViewInit {
       content_css: this.style,
       file_picker_callback: this.file_picker,
       images_upload_handler: (blobInfo, success, failure) => {
-        var id = 'blobid' + new Date().getTime();
-        let body = new FormData();
-        body.append('file', blobInfo.blob(), id + "." + (blobInfo.filename()).split(".")[1]);
-        this.newsService.fullUploadFileImage(body).subscribe(r => {
-          success(this.baseUrl + "containers/galery/download/" + id + "." + (blobInfo.filename()).split(".")[1]);
-        })
+        var id = new Date().getTime();
+        // let body = new FormData();
+        // body.append('file', blobInfo.blob(), id + "." + (blobInfo.filename()).split(".")[1]);
+        // this.newsService.fullUploadFileImage(body).subscribe(r => {
+        //   success(this.baseUrl + "containers/galery/download/" + id + "." + (blobInfo.filename()).split(".")[1]);
+        // })
+        this.dropbox.imageUploadDropbox(blobInfo.blob(), this.getUserId(), this.serviceFolder, id).then(resp => {
+          success('dropbox:' + resp + ':');
+        });
         // console.log("Uploading image");
         // success("/some/path.jpg");
       },

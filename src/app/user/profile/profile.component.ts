@@ -38,6 +38,7 @@ export class ProfileComponent implements OnInit{
         this.getTransaccions();
         this.isFollow();
         this.IsMe();
+        this.getNewsByUser();
       });
     });
   }
@@ -50,6 +51,7 @@ export class ProfileComponent implements OnInit{
       return this.newsUser = data;
     });
   }
+
   getnews(){
     let filter ='noticias?[filter][where][usuarioId]='+this.user.id+'&[filter][fields][id]=true&[filter][fields][titulo]=true&[filter][fields][fecha_create]=true';
     this.profileService.getmyNews(filter).subscribe(data=>{
