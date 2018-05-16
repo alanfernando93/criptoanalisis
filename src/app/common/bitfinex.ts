@@ -6,11 +6,14 @@ import { Socket } from 'ng-socket-io';
 export class BitFinexCrypto extends Socket {
 
     constructor(private http: Http) {
-        super({ url: 'wss://api.bitfinex.com/ws', options: {} });
+        super({ url: 'wss://streamer.cryptocompare.com', options: {} });
     }
 
     sendBTC(msg: string) {
         this.emit('SubAdd', { subs: ['0~Poloniex~BTC~USD'] });
+        this.on('m', function (data) {
+            console.log(data);
+        });
     }
 
     get() {
