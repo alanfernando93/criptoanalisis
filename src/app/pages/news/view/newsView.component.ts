@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NewsService } from '../news.service';
@@ -48,7 +49,6 @@ export class newsViewComponent implements OnInit {
 
   getNewsById() {
     this.newsService.getById(this.idNews).subscribe(data => {
-      console.log(data);
       data ? this.news = data : {};
     });
   }
@@ -170,13 +170,5 @@ export class newsViewComponent implements OnInit {
       this.news = data;
     });
   }
-
-getInitials(name) {
-  if (name) {
-    var names = name.split(' ');
-    return names.map(function (n) { return n.charAt(0); }).splice(0, 2).join('').toUpperCase();
-  }
-  return '';
-}
 
 }

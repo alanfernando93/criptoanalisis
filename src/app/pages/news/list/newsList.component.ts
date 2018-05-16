@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
 import { NewsService } from "../news.service";
 import { UserService } from "../../../@core/data/users.service";
+import { orderData } from '../../../common/array';
 
 @Component({
   selector: 'ngx-newsList',
@@ -12,20 +13,23 @@ import { UserService } from "../../../@core/data/users.service";
 export class newsListComponent implements OnInit {
 
   news: any;
-  connection;
-  limit: number = 12;
-  increment: number = 0;
   contentUser: any;
   count: any;
+  limit: number = 6;
+  increment: number = 0;
+  connection;
 
+  
   constructor(
     private http: Http,
-    private newsService: NewsService,
-  ) { }
-
-  ngOnInit() {
+    private newsService: NewsService
+  ) { 
+    
     this.getNews();
     this.connNews();
+  }
+
+  ngOnInit() {
   }
 
   getNews() {
@@ -52,9 +56,7 @@ export class newsListComponent implements OnInit {
   userByNews(newsId, index){
     this.newsService.getUserByNews(newsId).subscribe(data => {
       this.contentUser = data;
-      this.contentUser.fama.sort(function (a, b) {
-        return a.valor < b.valor;
-      });
+      orderData(this.contentUser);
       this.contentUser.fama.firstTwo = [];
       this.contentUser.fama.last = [];
       this.contentUser.fama.firstTwo = this.contentUser.fama.splice(0, 2);
@@ -75,9 +77,7 @@ export class newsListComponent implements OnInit {
         this.newsService.getUserByNews(idNews).subscribe(data => {
           element.contentUser = [];
           element.contentUser.push(data);
-          element.contentUser[0].fama.sort(function (a, b) {
-            return a.valor < b.valor;
-          });
+          orderData(element.contentUser[0]);
           element.contentUser[0].fama.firstTwo = [];
           element.contentUser[0].fama.last = [];
           element.contentUser[0].fama.firstTwo = element.contentUser[0].fama.splice(0, 2);
