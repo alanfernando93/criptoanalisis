@@ -12,6 +12,8 @@ import { configCrud, typeCoinByDefault, typeOfOffer } from '../../../common/Conf
 import { showToast } from '../../../common/functions'
 import { DropboxCripto } from "../../../common/dropbox";
 
+import { BFX } from "bitfinex-api-node";
+
 import 'style-loader!angular2-toaster/toaster.css';
 
 @Component({
@@ -78,6 +80,16 @@ export class SignalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    const bfx = new BFX({
+      apiKey: 'wWlsgs7qh3wVkpSQVKmPNsAJnirCPKDumxr4zuVc50m',
+      apiSecret: 'MeO8iFykzRqBCqH1eagQCa3mfCBFxhds7ZKIRSJ7PLF',
+
+      ws: {
+        autoReconnect: true,
+        seqAudit: true,
+        packetWDDelay: 10 * 1000
+      }
+    });
     if (this.idSignal != null) {
       // this.newsService.getById(this.idNew).then(resp => {
       //   this.newsPublish = resp;
