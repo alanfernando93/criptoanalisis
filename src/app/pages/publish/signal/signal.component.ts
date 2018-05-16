@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Renderer2, ElementRef, ViewChild } from '@ang
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { Router } from "@angular/router";
 import { Http, Response } from "@angular/http";
-
+ 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 import { SignalsService } from '../../signals/signals.service';
@@ -11,8 +11,9 @@ import { CoinsService } from "../../coins/coins.service";
 import { configCrud, typeCoinByDefault, typeOfOffer } from '../../../common/ConfigSettings';
 import { showToast } from '../../../common/functions'
 import { DropboxCripto } from "../../../common/dropbox";
+import { BitFinexCrypto } from '../../../common/bitfinex';
 
-import { BFX } from "bitfinex-api-node";
+// import { BFX } from "bitfinex-api-node";
 
 import 'style-loader!angular2-toaster/toaster.css';
 
@@ -68,6 +69,7 @@ export class SignalComponent implements OnInit {
   content = `I'm cool toaster!`;
   type = 'default';
 
+  ws;
   constructor(
     private modalService: NgbModal,
     private renderer: Renderer2,
@@ -77,19 +79,27 @@ export class SignalComponent implements OnInit {
     private router: Router,
     private toasterService: ToasterService,
     private dropbox: DropboxCripto,
-  ) { }
+    private bitcoin: BitFinexCrypto
+  ) {  }
 
   ngOnInit() {
-    const bfx = new BFX({
-      apiKey: 'wWlsgs7qh3wVkpSQVKmPNsAJnirCPKDumxr4zuVc50m',
-      apiSecret: 'MeO8iFykzRqBCqH1eagQCa3mfCBFxhds7ZKIRSJ7PLF',
+    // const bfx = new BFX({
+    //   apiKey: 'wWlsgs7qh3wVkpSQVKmPNsAJnirCPKDumxr4zuVc50m',
+    //   apiSecret: 'MeO8iFykzRqBCqH1eagQCa3mfCBFxhds7ZKIRSJ7PLF',
 
-      ws: {
-        autoReconnect: true,
-        seqAudit: true,
-        packetWDDelay: 10 * 1000
-      }
-    });
+    //   ws: {
+    //     autoReconnect: true,
+    //     seqAudit: true,
+    //     packetWDDelay: 10 * 1000
+    //   }
+    // });
+    // const ws = new WebSocket('wss://api.bitfinex.com/ws');
+    //this.bitcoin.sendBTC("");
+    this.bitcoin.getTrades().subscribe(res =>{
+      console.log(res)
+    })
+    this.bitcoin.sendBTC("");
+    this.bitcoin.get();
     if (this.idSignal != null) {
       // this.newsService.getById(this.idNew).then(resp => {
       //   this.newsPublish = resp;
