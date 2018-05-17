@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Renderer2, OnDestroy, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, Renderer2, OnDestroy } from '@angular/core';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { Router } from "@angular/router";
 
@@ -7,15 +7,12 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { SignalsService } from '../../signals/signals.service';
 import { CoinsService } from "../../coins/coins.service";
 
-import { configCrud, typeCoinByDefault, typeOfOffer } from '../../../common/ConfigSettings';
+import { configCrud, typeCoinByDefault, typeOfOffer, TipoSalida } from '../../../common/ConfigSettings';
 import { showToast } from '../../../common/functions'
 import { DropboxCripto } from "../../../common/dropbox";
 import { BitFinexCrypto } from '../../../common/bitfinex';
 
-// import { BFX } from "bitfinex-api-node";
-
 import 'style-loader!angular2-toaster/toaster.css';
-import { parse } from 'querystring';
 
 @Component({
   selector: 'ngx-publish-signal',
@@ -23,7 +20,7 @@ import { parse } from 'querystring';
   templateUrl: 'signal.component.html'
 })
 
-export class SignalComponent implements OnInit, OnDestroy, OnChanges {
+export class SignalComponent implements OnInit, OnDestroy {
   @Input() idSignal: String = null;
 
   myFile: File;
@@ -52,13 +49,7 @@ export class SignalComponent implements OnInit, OnDestroy, OnChanges {
     key: true,
   }
 
-  TipoSalida = [{
-    title: 'Take Profit',
-    key: true,
-  }, {
-    title: 'Stop Profit',
-    key: false,
-  }];
+  TipoSalida = TipoSalida;
 
   tipoSignal = {
     title: 'Accion',
@@ -70,8 +61,8 @@ export class SignalComponent implements OnInit, OnDestroy, OnChanges {
   content = `I'm cool toaster!`;
   type = 'default';
 
-  priceCurrent;
-  style:any={};
+  currentPrice;
+  style: any = {};
 
   constructor(
     private modalService: NgbModal,
@@ -82,23 +73,21 @@ export class SignalComponent implements OnInit, OnDestroy, OnChanges {
     private toasterService: ToasterService,
     private dropbox: DropboxCripto,
     private bitcoin: BitFinexCrypto
-  ) {
-    this.bitcoin.sendBTC();
-  }
+  ) { }
 
   ngOnInit() {
-
+    this.bitcoin.connect();
+    this.bitcoin.sendBTC();
     this.bitcoin.getCurrentPrice().subscribe(price => {
-      if(price != undefined) {
+      if (price != undefined) {
         this.style.background = 'red';
         this.style.color = "white";
-        this.priceCurrent = parseFloat(<string>price).toFixed(2);
-        setTimeout(()=>{
+        this.currentPrice = parseFloat(<string>price).toFixed(2);
+        setTimeout(() => {
           this.style.background = "white";
           this.style.color = "black";
-        },700)
+        }, 700)
       }
-      console.log(price);
     });
     if (this.idSignal != null) {
       // this.newsService.getById(this.idNew).then(resp => {
@@ -170,6 +159,12 @@ export class SignalComponent implements OnInit, OnDestroy, OnChanges {
     let data1 = $events.target.closest(`#${option}-data`).children[1];
     let data2 = $events.target.closest(`#${option}-data`).children[2];
 
+    let admittedPrice = parseFloat((this.currentPrice * 0.7).toString()).toFixed(2);
+    console.log(admittedPrice);
+    if(admittedPrice){
+
+    }
+
     var data = {
       moneda1: this.moneda1,
       valor: data1.value,
@@ -199,7 +194,7 @@ export class SignalComponent implements OnInit, OnDestroy, OnChanges {
     const content = this.renderer.createElement('div');
     this.renderer.addClass(content, "contenedor");
     this.renderer.addClass(content, "input-group");
-    this.renderer.setProperty(content, "id", option + "-data");
+    // this.renderer.setProperty(content, "id", option + "-data");
 
     const span = this.renderer.createElement('span');
     this.renderer.addClass(span, "input-group-addon");
@@ -233,7 +228,6 @@ export class SignalComponent implements OnInit, OnDestroy, OnChanges {
     this.renderer.setAttribute(d2, 'disabled', 'true');
     this.renderer.setProperty(d2, "id", ptn - 1);
     this.renderer.listen(d2, 'change', $events => {
-      console.log(this.posEntrada)
       var input = $events.target;
       switch (option) {
         case 'puntEntr': this.posEntrada[input.id].porcentajeCapital = input.value.split(' ')[0];
@@ -254,7 +248,7 @@ export class SignalComponent implements OnInit, OnDestroy, OnChanges {
     this.renderer.setProperty(bedit, 'type', 'button');
     this.renderer.setProperty(bedit, 'id', 'false');
     this.renderer.listen(bedit, 'click', ($event) => {
-      const oldBody = $event.target.closest('#' + option + '-data');
+      const oldBody = $event.target.closest('.row').children[0];
       const input1 = oldBody.children[1];
       const input2 = oldBody.children[2];
       this.renderer.removeAttribute(input1, 'disabled');
@@ -278,9 +272,10 @@ export class SignalComponent implements OnInit, OnDestroy, OnChanges {
     this.renderer.setProperty(bremove, "id", ptn - 1);
     this.renderer.listen(bremove, 'click', ($event) => {
       var id = $event.target.id;
-      const oldBody = $event.target.closest('#' + option + '-data').parentNode;
-      //document.getElementById(option).removeChild(oldBody);
-      this.renderer.removeChild(oldBody.parentNode, oldBody);
+      const oldBody = $event.target.closest('.row');
+      const content = $event.target.closest('#' + option)
+      content.removeChild(oldBody);
+      // this.renderer.removeChild(content, oldBody);
       this.refresh(option, id);
     });
     this.renderer.appendChild(remove, bremove);
@@ -304,17 +299,26 @@ export class SignalComponent implements OnInit, OnDestroy, OnChanges {
     data2.value = '';
 
     switch (option) {
-      case 'puntEntr': this.puntEntr += 1; break;
-      case 'tipSal': this.tipSal += 1; break;
-      case 'stopLoss': this.stopLoss += 1; break;
+      case 'puntEntr': this.puntEntr += 1;
+        if (this.puntEntr < 4) return;
+        break;
+      case 'tipSal': this.tipSal += 1;
+        if (this.tipSal < 4) return;
+        break;
+      case 'stopLoss': this.stopLoss += 1;
+        if (this.stopLoss < 2) return;
+        break;
     }
+    $events.target.closest(`#${option}-data`).children[1].disabled = true;
+    $events.target.closest(`#${option}-data`).children[2].disabled = true;
+    $events.target.closest(`#${option}-data`).children[3].children[0].disabled = true;
+    $events.target.closest(`#${option}-data`).children[4].children[0].disabled = true;
   }
 
   refresh(opc, id) {
     var node = document.getElementById(opc).children;
     for (let i = 1; i < node.length - 1; i++) {
       var collection = node[i].children[0].children;
-      // console.log(node[i])
       collection[0].innerHTML = 'Punto ' + i;
       for (let ii = 1; ii < collection.length - 2; ii++) {
         collection[ii].id = '' + i;
@@ -326,6 +330,11 @@ export class SignalComponent implements OnInit, OnDestroy, OnChanges {
       case 'tipSal': this.tipSal = node.length - 1; this.posSalida.splice(id, 1); break;
       case 'stopLoss': this.stopLoss = node.length - 1; this.posLoss.splice(id, 1); break;
     }
+
+    (<HTMLInputElement>document.getElementById(`${opc}-data`).children[1]).disabled = false;
+    (<HTMLInputElement>document.getElementById(`${opc}-data`).children[2]).disabled = false;
+    (<HTMLInputElement>document.getElementById(`${opc}-data`).children[3].children[0]).disabled = false;
+    (<HTMLInputElement>document.getElementById(`${opc}-data`).children[4].children[0]).disabled = false;
   }
 
   open(content) {
@@ -342,10 +351,6 @@ export class SignalComponent implements OnInit, OnDestroy, OnChanges {
     } else {
       return `with: ${reason}`;
     }
-  }
-
-  ngOnChanges() {
-    console.log("change")
   }
 
   ngOnDestroy() {

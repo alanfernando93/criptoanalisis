@@ -46,3 +46,10 @@ export const typeOfOffer = [{
     title: 'Vender',
     key: false,
 }]
+export const TipoSalida = [{
+    title: 'Take Profit',
+    key: true,
+}, {
+    title: 'Stop Profit',
+    key: false,
+}];

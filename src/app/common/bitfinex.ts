@@ -12,10 +12,6 @@ export class BitFinexCrypto extends Socket {
 
     sendBTC(msg?: string) {
         this.emit('SubAdd', { subs: ['0~Poloniex~BTC~USD'] });
-        // this.on('m', function (data) {
-        //     let obj = data.split('~');
-        //     console.log(obj[8]);
-        // });
     }
 
     getCurrentPrice() {
