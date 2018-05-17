@@ -1,11 +1,14 @@
 <nb-card-body>
-    <toaster-container [toasterconfig]="config"></toaster-container>
+    <!-- <toaster-container [toasterconfig]="config"></toaster-container> -->
 
+    <div [ngStyle]="{'background-color':style.background,'color':style.color} " >
+        {{priceCurrent}}
+    </div>
     <div class="container">
-        <div class="row input-group">
-            <div class="col-md-6">
+        <div class="row">
+            <div class="inputgroup col-12 col-md-6 col-lg-6 col-xl-6">
                 <div class="row">
-                    <div class="col-12 col-md-6">
+                    <div class="col-12 col-lg-6 col-md-6 col-xl-6">
                         <div class="dropdown" ngbDropdown>
                             <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{tipoSignal.title}} </button>
                             <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
@@ -13,30 +16,18 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6">
+                    <div class="col-12 col-lg-6 col-md-6 col-xl-6">
                         <div class="dropdown" ngbDropdown>
-                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
-                                Dropup
-                            </button>
-                            <ul class="dropdown-menu" ngbDropdownMenu>
-                                <li class="dropdown-item">Icon Button 3</li>
-                                <li class="dropdown-item">Hero Button</li>
-                                <li class="dropdown-item">Default</li>
+                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{exchange}} </button>
+                            <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
+                                <!-- <li class="dropdown-item" *ngFor="let t of tipos" (click)="this.tipoSignal = t">{{t.title}}</li> -->
                             </ul>
                         </div>
                     </div>
 
                 </div>
                 <div class="row">
-                    <div class="col-12 col-md-6">
-                        <div class="dropdown" ngbDropdown>
-                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{moneda2}} </button>
-                            <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
-                                <li class="dropdown-item" *ngFor="let type of types" (click)="this.moneda2 = type.id">{{type.id}}</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6">
+                    <div class="col-12 col-lg-6 col-md-6 col-xl-6">
                         <div class="dropdown" ngbDropdown>
                             <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{moneda1}} </button>
                             <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
@@ -44,9 +35,17 @@
                             </ul>
                         </div>
                     </div>
+                    <div class="col-12 col-lg-6 col-md-6 col-xl-6">
+                        <div class="dropdown" ngbDropdown>
+                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{moneda2}} </button>
+                            <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
+                                <li class="dropdown-item" *ngFor="let type of types" (click)="this.moneda2 = type.id">{{type.id}}</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6">
+            <div class="inputgroup col-12 col-md-6 col-lg-6 col-xl-6">
                 <ngx-image (onImageSelected)="myFile = $event"></ngx-image>
             </div>
         </div>
@@ -61,26 +60,32 @@
             </ngx-tiny-mce>
         </div>
         <div class="row col inputgroup">
-            <div class="col-md-6">
-                <div class="row col" id="puntEntr">
-                    <div class="row" style="width:100%">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <div class="row col col-lg-6" id="puntEntr">
+                    <div class="row">
                         <h5>Puntos de entrada</h5>
                     </div>
                     <div class="row">
                         <div class="contenedor input-group" id="puntEntr-data">
-                            <span class="input-group-addon">Punto {{pntEnt}}</span>
+                            <span class="input-group-addon">Punto {{puntEntr}}</span>
                             <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Valor (USD)">
                             <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="% Capital">
-                            <span class="input-group-btn">
-                                <button class="btn btn-secondary" (click)="onClickPuntos($event,'puntEntr',pntEnt)">
+                            <span id="btn" class="input-group-btn container-btn d-block d-sm-block d-md-block d-lg-none">
+                                <button class="btn btn-secondary btn-tn" (click)="onClickPuntos($event,'puntEntr',puntEntr)" data-toggle="tooltip" data-placement="top"
+                                    title="Añadir Punto">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </span>
+                            <span id="btn" class="input-group-btn">
+                                <button class="btn btn-secondary d-none d-sm-none d-md-none d-lg-block" (click)="onClickPuntos($event,'puntEntr',puntEntr)">
                                     Añadir
                                 </button>
                             </span>
                         </div>
                     </div>
                 </div>
-                <div class="row col" id="stopLoss">
-                    <div class="row" style="width:100%">
+                <div class="row col col-lg-6" id="stopLoss">
+                    <div class="row">
                         <h5>Stop Loss</h5>
                     </div>
                     <div class="row">
@@ -88,8 +93,14 @@
                             <span class="input-group-addon">Punto {{stopLoss}}</span>
                             <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Valor (USD)">
                             <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="% Capital">
-                            <span class="input-group-btn">
-                                <button class="btn btn-secondary" (click)="onClickPuntos($event,'stopLoss',stopLoss)">
+                            <span id="btn" class="input-group-btn container-btn d-block d-sm-block d-md-block d-lg-none">
+                                <button class="btn btn-secondary btn-tn" (click)="onClickPuntos($event,'stopLoss',stopLoss)" data-toggle="tooltip" data-placement="top"
+                                    title="Añadir Punto">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </span>
+                            <span id="btn" class="input-group-btn">
+                                <button class="btn btn-secondary d-none d-sm-none d-md-none d-lg-block" (click)="onClickPuntos($event,'stopLoss',stopLoss)">
                                     Añadir
                                 </button>
                             </span>
@@ -97,7 +108,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                 <!-- <div class="row col" style="width:100%">
                     <h5>Tipo de salido</h5>
                 </div>
@@ -111,17 +122,23 @@
                         </ul>
                     </div>
                 </div> -->
-                <div class="row col" id="tipSal">
-                    <div class="row" style="width:100%">
+                <div class="row col col-lg-6 col-xl-6" id="tipSal">
+                    <div class="row">
                         <h5>Puntos de entrada</h5>
                     </div>
                     <div class="row">
                         <div class="contenedor input-group" id="tipSal-data">
-                            <span class="input-group-addon">Punto {{tpSal}}</span>
+                            <span class="input-group-addon">Punto {{tipSal}}</span>
                             <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Valor (USD)">
                             <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="% Capital">
-                            <span class="input-group-btn">
-                                <button class="btn btn-secondary" (click)="onClickPuntos($event,'tipSal',tpSal)">
+                            <span id="btn" class="input-group-btn container-btn d-block d-sm-block d-md-block d-lg-none">
+                                <button type="button" class="btn btn-secondary btn-tn" (click)="onClickPuntos($event,'tipSal',tipSal)" data-toggle="tooltip"
+                                    data-placement="top" title="Añadir Punto">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </span>
+                            <span id="btn" class="input-group-btn">
+                                <button class="btn btn-secondary d-none d-sm-none d-md-none d-lg-block" (click)="onClickPuntos($event,'tipSal',tipSal)">
                                     Añadir
                                 </button>
                             </span>
@@ -149,11 +166,11 @@
 <nb-card-footer>
     <div class="container">
         <div class="row justify-content-between">
-            <div class="col-6">
-                <button class="btn btn-hero-secondary btn-demo" (click)="open(content)"> Vista Previa </button>
+            <div class="col-4 col-md-6">
+                <button class="btn btn-hero-secondary btn-demo btn-sm btn-md btn-lg" (click)="open(content)"> Vista Previa </button>
             </div>
-            <div class="col-5">
-                <button class="btn btn-success" (click)="onSave()"> Publicar </button>
+            <div class="col-5 col-md-3 col-lg-2 col-xl-2">
+                <button class="btn btn-success btn-sm btn-md btn-lg" (click)="onSave()"> Publicar </button>
             </div>
         </div>
     </div>

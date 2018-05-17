@@ -16,17 +16,23 @@
         display: block;
     }
     
-    @include media-breakpoint-down(sm) {
-        .inputfile-5 + label img {
-            width: 300px;
-            height: 200px;
-            display: block;
+    @include media-breakpoint-up(xs) {
+        label[for="file-5"] {
+            max-width: 127%;
+            // height: 200px;
+            // display: block;
+        }
+
+        .iborrainputfile{
+            font-size: 11px;
+            // width: 100%;
+            padding: 5px;
         }
     }
 
     .iborrainputfile {
         //font-size:12px; 
         position: relative;
-        top: -48px;
+        top: -28px;
     }
 }

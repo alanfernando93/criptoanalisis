@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, Renderer2, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Renderer2, OnDestroy, OnChanges } from '@angular/core';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { Router } from "@angular/router";
-import { Http, Response } from "@angular/http";
- 
+
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 import { SignalsService } from '../../signals/signals.service';
@@ -16,6 +15,7 @@ import { BitFinexCrypto } from '../../../common/bitfinex';
 // import { BFX } from "bitfinex-api-node";
 
 import 'style-loader!angular2-toaster/toaster.css';
+import { parse } from 'querystring';
 
 @Component({
   selector: 'ngx-publish-signal',
@@ -23,12 +23,12 @@ import 'style-loader!angular2-toaster/toaster.css';
   templateUrl: 'signal.component.html'
 })
 
-export class SignalComponent implements OnInit {
+export class SignalComponent implements OnInit, OnDestroy, OnChanges {
   @Input() idSignal: String = null;
 
   myFile: File;
-  pntEnt = 1;
-  tpSal = 1;
+  puntEntr = 1;
+  tipSal = 1;
   stopLoss = 1;
 
   signal: any = {};
@@ -36,8 +36,9 @@ export class SignalComponent implements OnInit {
   contenido1: String;
   contenido2: String;
 
-  moneda1: String = "Moneda"
-  moneda2: String = "Moneda"
+  moneda1: String = "Moneda1"
+  moneda2: String = "Moneda2"
+  exchange: String = "Exchange"
 
   posEntrada: any = [];
   posSalida: any = [];
@@ -69,37 +70,36 @@ export class SignalComponent implements OnInit {
   content = `I'm cool toaster!`;
   type = 'default';
 
-  ws;
+  priceCurrent;
+  style:any={};
+
   constructor(
     private modalService: NgbModal,
     private renderer: Renderer2,
-    private http: Http,
     private signalsService: SignalsService,
     private coinsService: CoinsService,
     private router: Router,
     private toasterService: ToasterService,
     private dropbox: DropboxCripto,
     private bitcoin: BitFinexCrypto
-  ) {  }
+  ) {
+    this.bitcoin.sendBTC();
+  }
 
   ngOnInit() {
-    // const bfx = new BFX({
-    //   apiKey: 'wWlsgs7qh3wVkpSQVKmPNsAJnirCPKDumxr4zuVc50m',
-    //   apiSecret: 'MeO8iFykzRqBCqH1eagQCa3mfCBFxhds7ZKIRSJ7PLF',
 
-    //   ws: {
-    //     autoReconnect: true,
-    //     seqAudit: true,
-    //     packetWDDelay: 10 * 1000
-    //   }
-    // });
-    // const ws = new WebSocket('wss://api.bitfinex.com/ws');
-    //this.bitcoin.sendBTC("");
-    this.bitcoin.getTrades().subscribe(res =>{
-      console.log(res)
-    })
-    this.bitcoin.sendBTC("");
-    this.bitcoin.get();
+    this.bitcoin.getCurrentPrice().subscribe(price => {
+      if(price != undefined) {
+        this.style.background = 'red';
+        this.style.color = "white";
+        this.priceCurrent = parseFloat(<string>price).toFixed(2);
+        setTimeout(()=>{
+          this.style.background = "white";
+          this.style.color = "black";
+        },700)
+      }
+      console.log(price);
+    });
     if (this.idSignal != null) {
       // this.newsService.getById(this.idNew).then(resp => {
       //   this.newsPublish = resp;
@@ -166,9 +166,9 @@ export class SignalComponent implements OnInit {
   }
 
   onClickPuntos($events, option, ptn) {
-    const container = $events.target.parentNode.parentNode.parentNode.parentNode;
-    let data1 = $events.target.parentNode.parentNode.children[1];
-    let data2 = $events.target.parentNode.parentNode.children[2];
+    const container = $events.target.closest(`#${option}`);
+    let data1 = $events.target.closest(`#${option}-data`).children[1];
+    let data2 = $events.target.closest(`#${option}-data`).children[2];
 
     var data = {
       moneda1: this.moneda1,
@@ -278,7 +278,6 @@ export class SignalComponent implements OnInit {
     this.renderer.setProperty(bremove, "id", ptn - 1);
     this.renderer.listen(bremove, 'click', ($event) => {
       var id = $event.target.id;
-      console.log(id)
       const oldBody = $event.target.closest('#' + option + '-data').parentNode;
       //document.getElementById(option).removeChild(oldBody);
       this.renderer.removeChild(oldBody.parentNode, oldBody);
@@ -305,8 +304,8 @@ export class SignalComponent implements OnInit {
     data2.value = '';
 
     switch (option) {
-      case 'puntEntr': this.pntEnt += 1; break;
-      case 'tipSal': this.tpSal += 1; break;
+      case 'puntEntr': this.puntEntr += 1; break;
+      case 'tipSal': this.tipSal += 1; break;
       case 'stopLoss': this.stopLoss += 1; break;
     }
   }
@@ -323,8 +322,8 @@ export class SignalComponent implements OnInit {
       collection[4].id = '' + (i - 1);
     }
     switch (opc) {
-      case 'puntEntr': this.pntEnt = node.length - 1; this.posEntrada.splice(id, 1); break;
-      case 'tipSal': this.tpSal = node.length - 1; this.posSalida.splice(id, 1); break;
+      case 'puntEntr': this.puntEntr = node.length - 1; this.posEntrada.splice(id, 1); break;
+      case 'tipSal': this.tipSal = node.length - 1; this.posSalida.splice(id, 1); break;
       case 'stopLoss': this.stopLoss = node.length - 1; this.posLoss.splice(id, 1); break;
     }
   }
@@ -343,5 +342,15 @@ export class SignalComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  ngOnChanges() {
+    console.log("change")
+  }
+
+  ngOnDestroy() {
+    this.bitcoin.close().subscribe(msg => {
+      console.log(msg);
+    })
   }
 }

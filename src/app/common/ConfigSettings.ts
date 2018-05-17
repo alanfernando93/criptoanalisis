@@ -19,7 +19,7 @@ export const configImage = {
         "image/bmp"
     ),
     message: {
-        succes: "La imagen se cargo exitosamente",
+        success: "La imagen se cargo exitosamente",
         warning: "Las imagenes permitidas son: png,jpg,jpeg,bmp",
         error: "Vuelva a intertarlo",
     }

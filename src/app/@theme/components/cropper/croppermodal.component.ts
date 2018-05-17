@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ImageCropperComponent, CropperSettings, Bounds } from 'ng2-img-cropper';
-import { ToasterService, ToasterConfig, Toast, BodyOutputType} from 'angular2-toaster';
+import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 
 import { parseToFile, showToast } from '../../../common/functions';
-import { configImage} from '../../../common/ConfigSettings';
+import { configImage } from '../../../common/ConfigSettings';
 
 @Component({
   selector: 'ngbd-modal-content',
@@ -18,8 +18,8 @@ import { configImage} from '../../../common/ConfigSettings';
       <div class="modal-body">
         
         <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-11">
+          <div class="row">
+            <div class="col-12">
               <img-cropper id="cropper" #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
             </div>
           </div>
@@ -29,7 +29,7 @@ import { configImage} from '../../../common/ConfigSettings';
       <div class="modal-footer">
         <div class="container">
           <div class="row justify-content-between">
-            <div class="col-8">
+            <div class="col col-5">
               <input id="custom-input" type="file" name="file-1[]" id="file-1" class="inputfile inputfile-1" data-multiple-caption="{count} files selected"
                   multiple="" (change)="fileChangeListener($event)">
               <label for="file-1">
@@ -39,12 +39,13 @@ import { configImage} from '../../../common/ConfigSettings';
                 <span>Choose a file…</span>
               </label>
             </div>
-            <div class="col-4">
+            <div class="col col-sm-5">
               <button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Insertar</button>
             </div>
           </div>
         </div>
-      </div>`
+      </div>`,
+      styles: [``]
 })
 export class CropperModalComponent {
   @Input() name;
@@ -62,10 +63,11 @@ export class CropperModalComponent {
 
     this.cropperSettings.width = 310;
     this.cropperSettings.height = 200;
+    this.cropperSettings.minWidth = 120;
+    this.cropperSettings.minHeight = 10;
     this.cropperSettings.canvasWidth = 400;
     this.cropperSettings.canvasHeight = 300;
     this.cropperSettings.preserveSize = true;
-
     this.data = {};
   }
 
@@ -74,21 +76,24 @@ export class CropperModalComponent {
     //max y min 
     var image: any = new Image();
     var file: File = $event.target.files[0];
+    console.log(file)
     var myReader: FileReader = new FileReader();
-    if (configImage.type.find(element => element === file.type) === undefined) {
-      showToast(this.toasterService,'warning', configImage.message.warning);
+    let format = configImage.type.find(element => element === file.type)
+    // console.log(`${format} == ${file.type}`);
+    if (format === undefined) {
+      showToast(this.toasterService, 'warning', configImage.message.warning);
       return;
     };
 
     myReader.onloadend = (loadEvent: any) => {
-      image.src = loadEvent.target.result;
-      if (image.height == 0 && image.width == 0){
+      if (loadEvent.target.result == "") {
         showToast(this.toasterService, 'error', configImage.message.error);
         return;
       }
+      image.src = loadEvent.target.result;
       console.log(image.height + 'px X ' + image.width + "px");
       this.cropper.setImage(image);
-
+      showToast(this.toasterService, 'success', configImage.message.success);
     };
     myReader.readAsDataURL(file);
   }
