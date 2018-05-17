@@ -86,4 +86,9 @@ export class UserService extends Session {
       .map(res => res.json());
   }
 
+  getSignalSByUser(id) {
+    return this.http.get(this.baseUrl + 'usuarios/' + id + '/signals')
+      .map(res => res.json());
+  }
+
 }

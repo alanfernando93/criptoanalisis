@@ -3,6 +3,9 @@ import { Http } from '@angular/http'
 
 export abstract class Session {
 
+    constructor(){
+    }
+
     getUserId(){
         return localStorage.getItem('userId')
     }
@@ -13,5 +16,14 @@ export abstract class Session {
 
     public getApiRest() {
         return environment.apiUrl;
+    }
+
+    isAuth(){
+        if (this.getUserId() && this.getToken()) {
+            return true;
+        }else{
+            return false;
+            // this.router.navigate(["/auth/login"]);
+        }
     }
 }

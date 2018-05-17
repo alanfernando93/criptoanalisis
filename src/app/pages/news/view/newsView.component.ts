@@ -134,7 +134,7 @@ export class newsViewComponent implements OnInit {
     });
   }
 
-  sendComent() {
+  sendComment() {
     this.comment.noticiaId = this.idNews;
     this.newsService.postNewsComment(this.comment).subscribe(data => {
       this.comment = {};
@@ -143,11 +143,10 @@ export class newsViewComponent implements OnInit {
 
   sendAnswer(event) {
     this.answer.noticiaId = this.idNews;
-    this.answer.comentarioNoticiaId = event.target.parentNode.parentNode.childNodes[3].childNodes[1].childNodes[1].id;
-    this.answer.positionComment = event.target.parentNode.parentNode.childNodes[3].childNodes[1].childNodes[1].name;
-    this.answer.contenido = event.target.parentNode.parentNode.childNodes[3].childNodes[1].childNodes[1].value;
+    this.answer.comentarioNoticiaId = event.id;
+    this.answer.positionComment = event.name;
+    this.answer.contenido = event.value;
     this.newsService.postNewsAnswer(this.answer).subscribe(data => {
-      event.target.parentNode.children[0].children[0].value = '';
     });
   }
 
