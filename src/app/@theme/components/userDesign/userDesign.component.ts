@@ -8,14 +8,15 @@ import { Http, Response } from '@angular/http';
 })
 export class userDesignComponent {
 
-    @Input() ImageUser: any;
-    @Input() dataUser: any = [];
+    @Input() dataCommUser: any = [];
     @Input() dataUserPerfil: any = [];
+    @Input() dataUserImage: any = [];
     @Input() dataUserSymbol: any = [];
     @Input() dataUserName: any = [];
     @Input() dataUserPuntos: any = [];
     @Input() dataUserFama: any = [];
     @Input() dataAnswer: any = [];
+    @Input() dataUserId: any = [];
     
     constructor(){
 

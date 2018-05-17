@@ -6,9 +6,9 @@
                     <div class="chat">
                         <div class="com">
                             <h5 class="text-body">Comentario</h5>
-                            <li class="left clearfix" *ngIf="comment">
-                                <ngx-userDesign dataUser="comment.user" dataUserPerfil="comment.user.perfil" dataUserSymbol="comment.user.username" [dataUserName]="comment.user.username"
-                                    [dataUserPuntos]="comment.user.puntos" [dataUserFama]="comment.user.fama.firsttwo"></ngx-userDesign>
+                            <li class="left clearfix" *ngIf="comment.user">
+                                <ngx-userDesign dataCommUser="comment.user" dataUserPerfil="comment.user.perfil" dataUserSymbol="comment.user.username" [dataUserName]="comment.user.username"
+                                    [dataUserPuntos]="comment.user.puntos" [dataUserFama]="comment.user.fama.firsttwo" [dataUserImage]="comment.user.perfil" [dataUserId]="comment.userId"></ngx-userDesign>
                                 <div class="chat-body clearfix mar-top">
                                     <p>{{comment.contenido}}</p>
                                     <p class="text-hint">{{comment.fecha_registro | amTimeAgo}}</p>
@@ -17,22 +17,21 @@
                         </div>
                         <div class="res">
                             <h5 class="text-body">Respuesta</h5>
-                            <li class="left clearfix" *ngFor="let answer of comment.res">
-                                <ngx-userDesign dataUser="answer.user" dataUserPerfil="answer.user.perfil" dataUserSymbol="answer.user.username" [dataUserName]="answer.user.username"
-                                    [dataUserPuntos]="answer.user.puntos" [dataUserFama]="answer.user.fama.firsttwo"></ngx-userDesign>
-                                <div class="chat-body clearfix mar-top">
-                                    <p>
-                                        {{answer.contenido}}
-                                    </p>
-                                    <p class="text-hint">{{answer.fecha_registro | amTimeAgo}}</p>
-                                </div>
-                            </li>
+                            <div *ngFor="let answer of comment.res">
+                                <li class="left clearfix" *ngIf="answer.user">
+                                    <ngx-userDesign dataCommUser="answer.user" dataUserPerfil="answer.user.perfil" [dataUserSymbol]="answer.user.username" [dataUserName]="answer.user.username"
+                                        [dataUserPuntos]="answer.user.puntos" [dataUserFama]="answer.user.fama.firsttwo" [dataUserImage]="answer.user.perfil" [dataUserId]="answer.userId"></ngx-userDesign>
+                                    <div class="chat-body clearfix mar-top">
+                                        <p>{{answer.contenido}}</p>
+                                        <p class="text-hint">{{answer.fecha_registro | amTimeAgo}}</p>
+                                    </div>
+                                </li>
+                            </div>
                             <div class="panel-footer">
                                 <div class="input-group input-group-sm">
                                     <input class="form-control" id="{{comment.id}}" name="{{i}}" placeholder="Escribe tu respuesta aqui" />
                                 </div>
-                                <button class="btn btn-primary btn-tn resbotton" id="btn-chat">
-                                    Responder</button>
+                                <button class="btn btn-primary btn-tn resbotton" id="btn-chat" (click)="onAnswer($event)">Responder</button>
                             </div>
                         </div>
                     </div>

@@ -26,7 +26,8 @@ export class newsListComponent implements OnInit {
   ) { 
     
     this.getNews();
-    this.connNews();
+    this.newsSocket();
+    this.getCount();
   }
 
   ngOnInit() {
@@ -43,7 +44,7 @@ export class newsListComponent implements OnInit {
     });
   }
 
-  connNews(){
+  newsSocket(){
     this.connection = this.newsService.getNews().subscribe(data=> {
       let datos: any = data;
       this.news.unshift(data);

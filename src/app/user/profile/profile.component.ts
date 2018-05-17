@@ -16,6 +16,7 @@ export class ProfileComponent implements OnInit{
   user: any = {};
   news: any=[];
   newsUser: any;
+  signalsUser: any;
   signals: any=[];
   transaction: any=[];
   name:string;
@@ -39,6 +40,7 @@ export class ProfileComponent implements OnInit{
         this.isFollow();
         this.IsMe();
         this.getNewsByUser();
+        this.getsignalsByUser();
       });
     });
   }
@@ -49,6 +51,12 @@ export class ProfileComponent implements OnInit{
   getNewsByUser(){
     this.userService.getNewsByUser(this.user.id).subscribe(data => {
       return this.newsUser = data;
+    });
+  }
+
+  getsignalsByUser(){
+    this.userService.getSignalSByUser(this.user.id).subscribe(data=>{
+      return this.signalsUser=data;
     });
   }
 
