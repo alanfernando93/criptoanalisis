@@ -48,6 +48,24 @@
     },
     "visible": {
       "type": "Boolean"
+    },
+    "precision": {
+      "type": "number",
+      "default": 0
+    },
+    "PEP": {
+        "type": "number",
+        "default": 0
+    },
+    "PSP": {
+      "type": "number",
+      "default": 0
+    },
+    "moneda1": {
+      "type": "string"
+    },
+    "moneda2": {
+      "type": "string"
     }
   },
   "validations": [],

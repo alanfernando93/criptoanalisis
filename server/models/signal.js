@@ -1,6 +1,6 @@
 'use strict';
 // tipo: true comprar false: vender;
-
+var io = require('socket.io-client');
 var _promise = require('babel-runtime/core-js/promise');
 
 var _promise2 = _interopRequireDefault(_promise);
@@ -105,7 +105,6 @@ module.exports = (Signal, ctx, ctx2) => {
     }
     var index2 = ctx.result.likes.users.indexOf(idUser);
     if (index2 > -1) {
-      console.log(index2);
       likenotif(idn, idUser, ctx.result.usuarioId);
     }
     Signal.app.models.usuario.famaUser(idUser, _variable.rpl, coinSignal);
@@ -185,7 +184,6 @@ module.exports = (Signal, ctx, ctx2) => {
       },
     }).then(data=>{
       data.forEach(element => {
-        console.log(element);
         Signal.app.models.notification.create({
           'tipo': 'signal',
           'senderId': ctx.result.id,
@@ -195,7 +193,6 @@ module.exports = (Signal, ctx, ctx2) => {
         });
       });
     });
-    console.log(con);
     io.to(con).emit('request', {
       tipo: 'signal',
       senderId: ctx.result.id,
@@ -230,6 +227,104 @@ module.exports = (Signal, ctx, ctx2) => {
     io.emit('insertSig', ctx.result);
     next();
   });
+  // funcion para conectar a socket por las diferentes positions
+  Signal.afterRemote('create', (ctx, signal, next)=>{
+    var socket = io.connect('wss://streamer.cryptocompare.com', {reconnect: true});
+    var sw = false;
+    socket.on('connect', function(socket) {
+      console.log('Connected!');
+    });
+    socket.emit('SubAdd', {subs: [`0~Poloniex~${ctx.result.moneda1}~${ctx.result.moneda2}`]});
+    Signal.app.models.position.find({
+      where: {signalId: ctx.result.id},
+    }).then(data=> {
+      var pos = data;
+      var men, may;
+      socket.on('m', function(message) {
+        var x = message.split('~');
+        if (x.length > 2) {
+          men = parseInt(x[8]) - (parseInt(x[8]) * 0.003);
+          may = parseInt(x[8]) + (parseInt(x[8]) * 0.003);
+          console.log(`${men} ${x[8]} ${may}`);
+          pos.forEach((element, index)=>{
+            if (men <= element.valor && element.valor <= may && !element.reached) {
+              pos[index].reached = true;
+              Signal.app.models.position.updateAll({id: element.id}, {reached: true});
+              switch (element.puntoId) {
+                case 1 : {
+                  Signal.updateAll({id: ctx.result.id}, {estado: 'activo'});
+                  getstatus(pos, 1);
+                  break;
+                }
+                case 2: {
+                  Signal.app.models.position.findEnterPoints(element);
+                  if (getstatus(pos, 2)) {
+                    socket.emit('SubRemove', {subs: [`0~Poloniex~${ctx.result.moneda1}~${ctx.result.moneda2}`]});
+                  }
+                  Signal.updateAll({id: ctx.result.id}, {estado: 'exito'});
+                  break;
+                }
+                case 3: {
+                  Signal.updateAll({id: ctx.result.id}, {estado: 'fracaso'});
+                  modprec(ctx.result.id, false, element.valor);
+                  socket.emit('SubRemove', {subs: [`0~Poloniex~${ctx.result.moneda1}~${ctx.result.moneda2}`]});
+                  break;
+                }
+              }
+            }
+          });
+        }
+      });
+    });
+    next();
+  });
+  // argumentos array de pocisiones y tipo entrada o salida
+  function getstatus(positions, tipo) {
+    var pos = positions.filter(element=>{
+      if (element.puntoId == tipo && element.reached)
+        return true;
+      else
+        return false;
+    });
+    console.log(pos.length);
+    if (pos.length == 1 || pos.length == 2) {
+      getprom(pos, tipo);
+      return false;
+    } else if (pos.length == 3) {
+      getprom(pos);
+      return true;
+    }
+    return false;
+  };
+  // funcion para modificar promedio de puntos de entrada
+  function getprom(pos, tipo) {
+    var x = 0;
+    pos.forEach(element=>{
+      x = x + element.valor;
+    });
+    if (pos.length > 0)
+      x = x / pos.length;
+    if (tipo == 1)
+      Signal.updateAll({id: pos[0].signalId}, {PEP: x});
+    else if (tipo == 2)
+      Signal.updateAll({id: pos[0].signalId}, {PSP: x});
+  }
+  function modprec(signalId, type, value) {
+    Signal.findById(signalId)
+    .then(data=>{
+      var x = 0;
+      // type sera true en caso de exito
+      if (type && data.PEP > 0) {
+        x = ((data.PSP - data.PEP) / data.PEP) * 100;
+      } else if (data.PSP > 0) {
+        x = ((value - data.PEP) / data.PEP) * 100;
+      }
+      console.log(x, value);
+      Signal.updateAll({id: signalId}, {precision: x});
+      Signal.app.models.usuario.precisionmod(data.usuarioId);
+    });
+  };
+  // notificaciones de likes para usuarios
   function likenotif(signalId, userId, owner) {
     var io = Signal.app.io;
     Signal.app.models.notification.create({

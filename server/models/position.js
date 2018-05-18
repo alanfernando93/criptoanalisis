@@ -1,34 +1,80 @@
 'use strict';
 var io = require('socket.io-client');
 module.exports = function(Position) {
-  // hook para conexion a socket de cryptocompare
-  Position.afterRemote('create', function(ctx, user, next) {
-    var socket = io.connect('wss://streamer.cryptocompare.com', {reconnect: true});
-    var sw = false;
-    socket.on('connect', function(socket) {
-      console.log('Connected!');
+  // funcion para calcular el promedio de puntos de entrada
+  Position.findEnterPoints = function(position) {
+    Position.updateAll({id: position.id}, {
+      reached: true,
+    })
+    .then(data=>{
+      Position.find({
+        where: {
+          and: [
+            {signalId: position.signalId},
+            {puntoId: 1},
+            {reached: true},
+          ],
+        },
+      }).
+      then(data=>{
+        var prom = 0;
+        data.forEach(element => {
+          prom = prom + element.valor;
+        });
+        prom = prom / data.length;
+        Position.app.models.signal.updateAll({
+          id: position.signalId,
+        }, {
+          PEP: prom,
+        });
+      });
     });
-    socket.emit('SubAdd', {subs: [`0~Poloniex~${ctx.result.moneda1}~${ctx.result.moneda2}`]});
-    socket.on('m', function(message) {
-      var x = message.split('~');
-      if (x.length > 2) {
-        if (parseInt(x[8]) >= ctx.result.valor) {
-          // cambiar el estado en caso de exito y desconexion
-          sw = true;
-          Position.app.models.signal.findById(ctx.result.signalId)
-          .then(data=>{
-            if (data.estado == 'pasivo') {
-              Position.app.models.signal.updateAll({id: ctx.result.signalId},
-                {estado: 'activo'});
-            } else if (data.estado == 'activo') {
-              Position.app.models.signal.updateAll({id: ctx.result.signalId},
-                {estado: 'exito'});
-            }
-            socket.emit('SubRemove', {subs: [`0~Poloniex~${ctx.result.moneda1}~${ctx.result.moneda2}`]});
-          });
-        }
-      }
+  };
+  // function para calcular la variacion porcentual en caso de fracaso
+  function CalcularPrecision(signal, position, estado) {
+    if (signal.PEP > 0) {
+      var x = position.valor - signal.PEP;
+      x = x / signal.PEP * 100;
+      Position.app.models.signal.updateAll({
+        id: signal.id,
+      }, {
+        precision: x,
+        estado: estado,
+      }, (err, data)=>{
+        Position.app.models.usuario.precisionmod(signal.usuarioId);
+      });
+    }
+  };
+  function calcularExito(signal, position, estado) {
+    Position.updateAll({id: position.id}, {
+      reached: true,
+    })
+    .then(data=>{
+      Position.find({
+        where: {
+          and: [
+            {signalId: position.signalId},
+            {puntoId: 2},
+            {reached: true},
+          ],
+        },
+      }).
+      then(data=>{
+        var prom = 0;
+        data.forEach(element => {
+          prom = prom + element.valor;
+        });
+        prom = prom / data.length;
+        Position.app.models.signal.updateAll({
+          id: position.signalId,
+        }, {
+          PSP: prom,
+          precision: prom,
+          estado: estado,
+        }, (err, data)=>{
+          Position.app.models.usuario.precisionmod(signal.usuarioId);
+        });
+      });
     });
-    next();
-  });
+  }
 };
