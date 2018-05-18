@@ -29,10 +29,14 @@
         "string"
       ]
     },
-    "temas_asesoria": {
-      "type": [
-        "string"
-      ]
+    "contenido_asesoria": {
+      "type": "string"
+    },
+    "tematica": {
+      "type": "string"
+    },
+    "terminos_coach": {
+      "type": "string"
     },
     "ventajas_adicionales": {
       "type": "string"

@@ -8,6 +8,6 @@
     "name": "db",
     "user": "root",
     "connector": "mysql",
-    "connectionLimit": 10
+    "connectionLimit": 100
   }
 }
