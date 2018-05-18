@@ -76,19 +76,6 @@ export class SignalComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.bitcoin.connect();
-    this.bitcoin.sendBTC();
-    this.bitcoin.getCurrentPrice().subscribe(price => {
-      if (price != undefined) {
-        this.style.background = 'red';
-        this.style.color = "white";
-        this.currentPrice = parseFloat(<string>price).toFixed(2);
-        setTimeout(() => {
-          this.style.background = "white";
-          this.style.color = "black";
-        }, 700)
-      }
-    });
     if (this.idSignal != null) {
       // this.newsService.getById(this.idNew).then(resp => {
       //   this.newsPublish = resp;
@@ -154,25 +141,85 @@ export class SignalComponent implements OnInit, OnDestroy {
     });
   }
 
+  selected(coin, data) {
+    if (coin == 'm1')
+      this.moneda1 = data;
+    else
+      this.moneda2 = data;
+
+    let div1 = document.getElementById('puntEntr')
+    let div2 = document.getElementById('stopLoss')
+    let div3 = document.getElementById('tipSal')
+    this.clearForm(div1);
+    this.clearForm(div2);
+    this.clearForm(div3);
+    this.posEntrada = [];
+    this.posSalida = [];
+    this.posLoss = [];
+    this.puntEntr = 1;
+    this.tipSal = 1;
+    this.stopLoss = 1;
+    if (this.moneda1 != "Moneda1" && this.moneda2 != "Moneda2") {
+      let money = this.coins.find(element => element.name == this.moneda1)
+      this.bitcoin.disconnect()
+      
+      this.bitcoin.connect();
+      this.bitcoin.sendBTC(money.symbol, this.moneda2);
+      this.bitcoin.getCurrentPrice().subscribe(price => {
+        if (price != undefined) {
+          this.style.background = 'red';
+          this.style.color = "white";
+          this.currentPrice = parseFloat(<string>price).toFixed(2);
+          setTimeout(() => {
+            this.style.background = "white";
+            this.style.color = "black";
+          }, 700)
+        }
+      });
+    }
+  }
+
+  clearForm(div: HTMLElement) {
+    let nodes = div.children;
+    if (nodes.length > 2) {
+      for (let i = 1; i < nodes.length - 1; i++) {
+        div.removeChild(nodes[i]);
+      }
+    }
+  }
+
   onClickPuntos($events, option, ptn) {
     const container = $events.target.closest(`#${option}`);
     let data1 = $events.target.closest(`#${option}-data`).children[1];
     let data2 = $events.target.closest(`#${option}-data`).children[2];
 
-    let admittedPrice = parseFloat((this.currentPrice * 0.7).toString()).toFixed(2);
-    console.log(admittedPrice);
-    if(admittedPrice){
+    if (this.moneda1 == "Moneda1" || this.moneda2 == "Moneda2") {
+      showToast(this.toasterService, 'warning', 'Debe Seleccionar primero las monedas');
+      return;
+    }
 
+    // console.log(money.symbol)    
+
+    let porcPrice:any = parseFloat((this.currentPrice * 0.3).toString()).toFixed(2);
+    let admittedPriceMen = this.currentPrice - porcPrice;
+    let admittedProceMay = this.currentPrice + porcPrice;
+
+    console.log(`${admittedPriceMen} < ${data1.value} < ${admittedProceMay}`);
+
+    if (data1.value <= admittedPriceMen || data1.value >= this.currentPrice) {
+      showToast(this.toasterService, 'info', `<small>${admittedPriceMen} - ${admittedProceMay}</small>`,'Rango admitido')
+      data1.value = "";
+      return;
     }
 
     var data = {
       moneda1: this.moneda1,
       valor: data1.value,
       moneda2: this.moneda2,
-      porcentajeCapital: data2.value,
+      // porcentajeCapital: data2.value,
       positionId: 0
     };
-    if (!data1.value || !data2.value) {
+    if (!data1.value /*|| !data2.value*/) {
       console.log("vacio");
       return
     }
@@ -220,25 +267,26 @@ export class SignalComponent implements OnInit, OnDestroy {
       input.disabled = true;
     });
 
-    const d2 = this.renderer.createElement('input');
-    this.renderer.addClass(d2, "form-control");
-    this.renderer.setProperty(d2, 'aria-label', "Amount (to the nearest dollar)");
-    this.renderer.setProperty(d2, 'type', "text");
-    this.renderer.setProperty(d2, 'value', data2.value + " %");
-    this.renderer.setAttribute(d2, 'disabled', 'true');
-    this.renderer.setProperty(d2, "id", ptn - 1);
-    this.renderer.listen(d2, 'change', $events => {
-      var input = $events.target;
-      switch (option) {
-        case 'puntEntr': this.posEntrada[input.id].porcentajeCapital = input.value.split(' ')[0];
-          break;
-        case 'tipSal': this.posSalida[input.id].porcentajeCapital = input.value.split(' ')[0];
-          break;
-        case 'stopLoss': this.posLoss[input.id].porcentajeCapital = input.value.split(' ')[0];
-          break;
-      }
-      input.disabled = true;
-    });
+    // const d2 = this.renderer.createElement('input');
+    // this.renderer.addClass(d2, "form-control");
+    // this.renderer.setProperty(d2, 'aria-label', "Amount (to the nearest dollar)");
+    // this.renderer.setProperty(d2, 'type', "text");
+    // this.renderer.setProperty(d2, 'value', data2.value + " %");
+    // this.renderer.setAttribute(d2, 'disabled', 'true');
+    // this.renderer.setProperty(d2, "id", ptn - 1);
+    // this.renderer.listen(d2, 'change', $events => {
+    //   console.log(this.posEntrada)
+    //   var input = $events.target;
+    //   switch (option) {
+    //     case 'puntEntr': this.posEntrada[input.id].porcentajeCapital = input.value.split(' ')[0];
+    //       break;
+    //     case 'tipSal': this.posSalida[input.id].porcentajeCapital = input.value.split(' ')[0];
+    //       break;
+    //     case 'stopLoss': this.posLoss[input.id].porcentajeCapital = input.value.split(' ')[0];
+    //       break;
+    //   }
+    //   input.disabled = true;
+    // });
 
     const edit = this.renderer.createElement('span');
     this.renderer.addClass(edit, "input-group-btn");
@@ -286,7 +334,7 @@ export class SignalComponent implements OnInit, OnDestroy {
 
     this.renderer.appendChild(content, span);
     this.renderer.appendChild(content, d1);
-    this.renderer.appendChild(content, d2);
+    // this.renderer.appendChild(content, d2);
     this.renderer.appendChild(content, edit);
     this.renderer.appendChild(content, remove);
 
@@ -296,7 +344,7 @@ export class SignalComponent implements OnInit, OnDestroy {
     this.renderer.insertBefore(container, _body, container.children[lenght - 1]);
 
     data1.value = '';
-    data2.value = '';
+    // data2.value = '';
 
     switch (option) {
       case 'puntEntr': this.puntEntr += 1;
@@ -310,9 +358,9 @@ export class SignalComponent implements OnInit, OnDestroy {
         break;
     }
     $events.target.closest(`#${option}-data`).children[1].disabled = true;
-    $events.target.closest(`#${option}-data`).children[2].disabled = true;
+    // $events.target.closest(`#${option}-data`).children[2].disabled = true;
+    $events.target.closest(`#${option}-data`).children[2].children[0].disabled = true;
     $events.target.closest(`#${option}-data`).children[3].children[0].disabled = true;
-    $events.target.closest(`#${option}-data`).children[4].children[0].disabled = true;
   }
 
   refresh(opc, id) {
@@ -332,9 +380,9 @@ export class SignalComponent implements OnInit, OnDestroy {
     }
 
     (<HTMLInputElement>document.getElementById(`${opc}-data`).children[1]).disabled = false;
-    (<HTMLInputElement>document.getElementById(`${opc}-data`).children[2]).disabled = false;
+    // (<HTMLInputElement>document.getElementById(`${opc}-data`).children[2]).disabled = false;
+    (<HTMLInputElement>document.getElementById(`${opc}-data`).children[2].children[0]).disabled = false;
     (<HTMLInputElement>document.getElementById(`${opc}-data`).children[3].children[0]).disabled = false;
-    (<HTMLInputElement>document.getElementById(`${opc}-data`).children[4].children[0]).disabled = false;
   }
 
   open(content) {

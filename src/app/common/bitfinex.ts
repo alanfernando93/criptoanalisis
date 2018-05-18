@@ -10,8 +10,8 @@ export class BitFinexCrypto extends Socket {
         super({ url: 'wss://streamer.cryptocompare.com', options: {} });
     }
 
-    sendBTC(msg?: string) {
-        this.emit('SubAdd', { subs: ['0~Poloniex~BTC~USD'] });
+    sendBTC(coin1: String = 'BTC', coin2: String = 'USD') {
+        this.emit('SubAdd', { subs: [`0~Poloniex~${coin1}~${coin2}`] });
     }
 
     getCurrentPrice() {
@@ -20,10 +20,10 @@ export class BitFinexCrypto extends Socket {
             this.on('m', function (data) {
                 object = data.split('~');
                 observer.next(object[8]);
-                // console.log(data);
+                console.log(`${object[2]} - ${object[3]} - ${object[8]}`);
             });
             // return () => this.disconnect();
-        })        
+        })
     }
 
     close() {
