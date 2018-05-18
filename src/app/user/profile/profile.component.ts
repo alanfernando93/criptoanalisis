@@ -15,6 +15,8 @@ import { forEach } from "@angular/router/src/utils/collection";
 export class ProfileComponent implements OnInit{
   user: any = {};
   news: any=[];
+  newsUser: any;
+  signalsUser: any;
   signals: any=[];
   transaction: any=[];
   name:string;
@@ -37,12 +39,27 @@ export class ProfileComponent implements OnInit{
         this.getTransaccions();
         this.isFollow();
         this.IsMe();
+        this.getNewsByUser();
+        this.getsignalsByUser();
       });
     });
   }
 
   ngOnInit() {
   }
+
+  getNewsByUser(){
+    this.userService.getNewsByUser(this.user.id).subscribe(data => {
+      return this.newsUser = data;
+    });
+  }
+
+  getsignalsByUser(){
+    this.userService.getSignalSByUser(this.user.id).subscribe(data=>{
+      return this.signalsUser=data;
+    });
+  }
+
   getnews(){
     let filter ='noticias?[filter][where][usuarioId]='+this.user.id+'&[filter][fields][id]=true&[filter][fields][titulo]=true&[filter][fields][fecha_create]=true';
     this.profileService.getmyNews(filter).subscribe(data=>{

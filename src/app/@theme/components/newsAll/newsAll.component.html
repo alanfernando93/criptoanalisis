@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row">
+      <div class="{{design}}" *ngFor="let news of listNews">
+        <nb-card>
+          <div class="thumbnail img-thumb-bg">
+            <img src="{{news.perfilLink}}" class="img-fluid img-thumb-bg">
+            <div class="overlay"></div>
+            <div class="caption">
+              <div class="tag">
+                <a href="#">{{news.tipo_moneda}}</a>
+              </div>
+              <div class="title">
+                <a [routerLink]="['/pages/news/news-view', news.id]">{{news.titulo}}</a>
+              </div>
+              <div class="clearfix">
+                <span class="meta-data">{{news.fecha_create | amTimeAgo}}</span>
+                <span class="meta-data pull-right">
+                  <a>
+                    <i class="fa fa-thumbs-o-down"></i>{{news.dislikes.total}}</a>
+                </span>
+                <span class="meta-data pull-right">
+                  <a>
+                    <i class="fa fa-thumbs-o-up"></i>{{news.likes.total}}</a>
+                </span>
+                <span class="meta-data pull-right" *ngFor="let count of news.count">
+                  <a>
+                    <i class="fa fa-comment-o"></i>{{count.count}}</a>
+                </span>
+              </div>
+              <div class="content" *ngFor="let dataUser of news.contentUser">
+                <div>
+                  <span class="spn-data badge badge-primary pull-right" *ngFor="let famaUser of dataUser.fama.firstTwo">{{famaUser.valor}} {{famaUser.symbol}}</span>
+                  <nb-user class="col-6 col-md-6 meta-data" [name]="dataUser?.username" [picture]="dataUser?.perfil"></nb-user>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nb-card>
+      </div>
+    </div>
+  </div>

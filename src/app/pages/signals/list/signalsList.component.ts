@@ -82,6 +82,12 @@ export class signalsListComponent implements OnInit {
     });
   }
 
+  getCount(){
+    this.signalsService.getSignalsCount().subscribe(data => {
+      this.count = data.count;
+    });
+  }
+
   Upload() {
     this.signalsService.getAllLimit(this.limit, this.increment).subscribe(data => {
       data.forEach(element => {
@@ -107,13 +113,4 @@ export class signalsListComponent implements OnInit {
     });
   }
 
-  getImage(id) {
-    return this.signalsService.getApiRest() + 'Containers/signal' + id + '/download/perfil.png';
-  }
-
-  getCount(){
-    this.signalsService.getSignalsCount().subscribe(data => {
-      this.count = data.count;
-    });
-  }
 }

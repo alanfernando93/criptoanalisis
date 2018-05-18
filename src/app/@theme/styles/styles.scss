@@ -81,6 +81,14 @@
 .nb-theme-default .dropdown.ghost-dropdown .btn-primary + .dropdown-menu, .nb-theme-default .dropup.ghost-dropdown .btn-primary + .dropdown-menu {
   border: 1px solid #ebeef2;
 }
+
 .popover{
   max-width: 370px !important;
+}
+
+.info-container {
+  color: #777777;
+  &:hover{
+    color: #B3A9A9;
+  }
 }

@@ -27,6 +27,12 @@ import {
   SearchInputComponent,
   ThemeSettingsComponent,
   TinyMCEComponent,
+  signalAllComponent,
+  newsAllComponent,
+  userDesignComponent,
+  commentComponent,
+
+  
 } from './components';
 import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe } from './pipes';
 import {
