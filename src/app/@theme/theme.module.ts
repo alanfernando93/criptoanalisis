@@ -21,6 +21,7 @@ import {
 
 import {
   FooterComponent,
+  HorarioComponent,
   HeaderComponent,
   HeaderTwoComponent,
   SearchInputComponent,
@@ -57,7 +58,8 @@ const COMPONENTS = [
   SearchInputComponent,
   ThemeSettingsComponent,
   TinyMCEComponent,
-  SampleLayoutComponent
+  SampleLayoutComponent,
+  HorarioComponent
 ];
 
 const PIPES = [

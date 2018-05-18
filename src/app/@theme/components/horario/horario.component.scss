@@ -1,0 +1,51 @@
+html {
+    background: #f9f9f9;
+    font-family:'Roboto Condensed';
+  }
+  
+  h1 {
+    width: 100%;
+    margin-bottom: 0;
+    color: #2cab54;
+  }
+  
+  h2 {
+    margin-top: 0;
+    border-bottom: 1px solid #aaa;
+    font-size: 0.9em;
+    color: #808080;
+  }
+  
+  .my-timetable{
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;   
+    
+    background: #fff;
+    
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  .my-timetable th {
+    font-size: 0.8em;
+    color: #808080;
+    cursor: pointer;
+  }
+  
+  .my-timetable td {
+    border: 1px solid #ccc;
+    background: #fff;
+    cursor: pointer;
+  }
+  
+  .my-timetable td:hover {
+    background: orange;
+  }
+  
+  .my-timetable .selected {
+    background: #2cab54;
+  }

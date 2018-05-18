@@ -100,7 +100,7 @@
     </div>
 </nb-card>
 <nb-card *ngIf="advisory" >
-<!--[innerHTML]="advisory.terminos_coach"--> 
+
                                
 <div class="dropdown" ngbDropdown>
     <button type="button" class="btn btn-hero-info btn-block" (click)="isCollapsed2 = !isCollapsed2" [attr.aria-expanded]="!isCollapsed2"
@@ -119,6 +119,26 @@
     
 </div>                      
                             
+    </nb-card>
+    
+    
+    <nb-card>
+        <div class="dropdown" ngbDropdown>
+            <button type="button" class="btn btn-hero-info btn-block " (click)="isCollapsed2 = !isCollapsed2" [attr.aria-expanded]="!isCollapsed2"
+                aria-controls="collapseExample" ngbDropdownToggle>
+                <i class="fas fa-calendar-alt"> Seleccione HORARIO</i>
+            </button>
+            <div id="collapseExample" [ngbCollapse]="!isCollapsed2">
+        
+        
+                <div class="card" style="padding-left: 20px;padding-top: 15px">
+                    <ngx-horario [onGetHorario]="slots2"  ></ngx-horario>            
+                </div>
+        
+            </div>
+        
+        </div>
+        
     </nb-card>
     
 <nb-card>

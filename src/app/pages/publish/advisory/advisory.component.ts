@@ -10,6 +10,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 // import { CoinsService } from "../../../services/coins.service";
 import { AdvisoriesService } from "../../advisories/advisories.service";
 import { AdvisoriesComponent } from "../../advisories/advisories.component";
+import { HorarioComponent } from "../../../@theme/components/horario/horario.component";
 import 'style-loader!angular2-toaster/toaster.css';
 @Component({
   selector: "ngx-publish-advisories",
@@ -23,6 +24,7 @@ export class AdvisoryComponent implements OnInit {
       name: "Seleccione tema"
     };  
     coins: any = [];
+    hora: any = [];
        tipoSignal = {
       title: 'selecione el tema',
       key: true,
@@ -61,6 +63,7 @@ export class AdvisoryComponent implements OnInit {
     closeResult: string;
     config: ToasterConfig
     title = null;
+    
     content = `I'm cool toaster!`;
     type = 'default';
   
@@ -69,7 +72,8 @@ export class AdvisoryComponent implements OnInit {
       private http: Http,
       private advisoriesService: AdvisoriesService,
       private toasterService: ToasterService,
-      private router: Router
+      private router: Router,
+     // private horario:HorarioComponent
       
     ) {}
   
@@ -82,6 +86,8 @@ export class AdvisoryComponent implements OnInit {
       
     }
 
+  
+  
     keyupHandlerFunction(event,opc) {
       switch(opc){
         case 'C':this.advisoriesPublish.ventajas_adicionales = event;break;
@@ -97,15 +103,17 @@ export class AdvisoryComponent implements OnInit {
         this.showToast(this.type, this.title, this.content);
       this.advisoriesPublish.tematica = this.tipoSignal.title;
       this.advisoriesPublish.ubicacion = "lapaz";
+      console.log(this.advisoriesPublish)
       for(var i=0;i<this.words2.length;i++)
       {
         this.temas.push(this.words2[i].value)
         console.log("holas"+this.words2[i].value)
         console.log(typeof this.words2[i].value)
+        
 
       }
-
-             
+       
+        
       this.advisoriesPublish.temas_asesoria=this.temas;
       if(this.id1)
       {

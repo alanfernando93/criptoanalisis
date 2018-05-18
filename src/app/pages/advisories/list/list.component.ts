@@ -76,7 +76,7 @@ export class ListComponent extends Session implements OnInit {
     getadvisoriesbyid(){
         this.AdvisoriesService.getadvisoriesbyuserid(this.userId).subscribe(data => {
             this.advisoriesbyid = data;
-            console.log(this.userId)
+            //console.log(this.userId)
         });
     }
 }

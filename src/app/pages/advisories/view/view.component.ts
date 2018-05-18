@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
 
@@ -6,13 +6,15 @@ import { AdvisoriesService } from '../advisories.service';
 import { elementAt } from 'rxjs/operator/elementAt';
 import { environment } from '../../../../environments/environment';
 import {ListComponent} from  '../list/list.component';
-
+import { HorarioComponent } from "../../../@theme/components/horario/horario.component";
+import { Output,Input, EventEmitter } from '@angular/core';
 @Component({
   selector: 'ngx-view',
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss']
 })
 export class ViewComponent implements OnInit {
+  @ViewChild('h5') tab;
   idUser = environment.userId;
   
   advisory: any;
@@ -27,6 +29,15 @@ export class ViewComponent implements OnInit {
   comentid: any;
   answers: any;
   ans: any;
+  slots2 = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  ];
   id;
   like: number;
   dislike: number;
@@ -43,7 +54,8 @@ export class ViewComponent implements OnInit {
   constructor(
     private http: Http,
     private route: ActivatedRoute,
-    private advisoriesService: AdvisoriesService
+    private advisoriesService: AdvisoriesService,
+    
   ) {
 
   }
@@ -54,7 +66,7 @@ export class ViewComponent implements OnInit {
     this.getAdvisorycommentcontById()
     this.getAdvisoriesWithUser()
     this.getusername()
-
+    
   }
 
   getAdvisoryByIduser() {
@@ -69,6 +81,16 @@ export class ViewComponent implements OnInit {
                   this.advisory.mod2 = " ";
                   this.advisory.mod1 = this.advisory.modalidad[0];
                   this.advisory.mod2 = this.advisory.modalidad[1];
+                 
+                  for(var i=0;i<=this.advisory.horarios.length;i++)
+                  {
+                    
+                this.slots2[this.advisory.horarios[i].dia][this.advisory.horarios[i].hora]=1;
+                    
+                  }
+                   //this.onGetHorario.slots= this.advisory.horarios;
+             console.log(this.advisory.horarios+"estos son los horarios")
+             console.log(this.tab);         
       });
     });
   }
