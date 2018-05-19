@@ -22,6 +22,7 @@ import 'style-loader!angular2-toaster/toaster.css';
 
 export class SignalComponent implements OnInit, OnDestroy {
   @Input() idSignal: String = null;
+  data: string;
 
   myFile: File;
   puntEntr = 1;
@@ -162,7 +163,7 @@ export class SignalComponent implements OnInit, OnDestroy {
     if (this.moneda1 != "Moneda1" && this.moneda2 != "Moneda2") {
       let money = this.coins.find(element => element.name == this.moneda1)
       this.bitcoin.disconnect()
-      
+
       this.bitcoin.connect();
       this.bitcoin.sendBTC(money.symbol, this.moneda2);
       this.bitcoin.getCurrentPrice().subscribe(price => {
@@ -188,29 +189,44 @@ export class SignalComponent implements OnInit, OnDestroy {
     }
   }
 
+  keyPress($event) {    
+    let parent = $event.target.parentNode;
+    let data1 = $event.target;
+    if (this.moneda1 == "Moneda1" || this.moneda2 == "Moneda2") {
+      data1.value = "";
+      showToast(this.toasterService, 'warning', 'Debe Seleccionar primero las monedas');      
+      return;
+    }
+    let span = document.createElement('span');
+    span.setAttribute('class','form-text error');
+    span.setAttribute('role','alert');
+    span.setAttribute('style','color: #721c24;background-color: #f8d7da;');
+    let porcPrice: any = parseFloat((this.currentPrice * 0.3).toString()).toFixed(2);
+    let admittedPriceMen = this.currentPrice - porcPrice;
+    let admittedProceMay = this.currentPrice + porcPrice;
+
+    if (admittedPriceMen >= data1.value) {
+      span.innerHTML = "El valor ingresado es muy bajo"
+      parent.after(span);
+      setTimeout(() => {
+        span.remove();
+      }, 1000);
+      return;
+    }
+    if(data1.value >= admittedProceMay) {
+      span.innerHTML = "El valor ingresado es muy alto"
+      parent.after(span);
+      setTimeout(() => {
+        span.remove();
+      }, 1000);
+      return;
+    }
+  }
+
   onClickPuntos($events, option, ptn) {
     const container = $events.target.closest(`#${option}`);
     let data1 = $events.target.closest(`#${option}-data`).children[1];
     let data2 = $events.target.closest(`#${option}-data`).children[2];
-
-    if (this.moneda1 == "Moneda1" || this.moneda2 == "Moneda2") {
-      showToast(this.toasterService, 'warning', 'Debe Seleccionar primero las monedas');
-      return;
-    }
-
-    // console.log(money.symbol)    
-
-    let porcPrice:any = parseFloat((this.currentPrice * 0.3).toString()).toFixed(2);
-    let admittedPriceMen = this.currentPrice - porcPrice;
-    let admittedProceMay = this.currentPrice + porcPrice;
-
-    console.log(`${admittedPriceMen} < ${data1.value} < ${admittedProceMay}`);
-
-    if (data1.value <= admittedPriceMen || data1.value >= this.currentPrice) {
-      showToast(this.toasterService, 'info', `<small>${admittedPriceMen} - ${admittedProceMay}</small>`,'Rango admitido')
-      data1.value = "";
-      return;
-    }
 
     var data = {
       moneda1: this.moneda1,
@@ -220,7 +236,7 @@ export class SignalComponent implements OnInit, OnDestroy {
       positionId: 0
     };
     if (!data1.value /*|| !data2.value*/) {
-      console.log("vacio");
+      showToast(this.toasterService, 'info', '!!!Campo vacio');
       return
     }
     switch (option) {
