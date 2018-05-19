@@ -28,8 +28,11 @@ import {
   SearchInputComponent,
   ThemeSettingsComponent,
   TinyMCEComponent,
+  signalAllComponent,
+  newsAllComponent,
   userDesignComponent,
-  commentComponent
+  commentComponent,
+
   
 } from './components';
 import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe } from './pipes';

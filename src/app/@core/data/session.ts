@@ -2,7 +2,10 @@ import { environment } from "../../../environments/environment";
 
 export class Session {
 
-    getUserId() {
+    constructor(){
+    }
+
+    getUserId(){
         return localStorage.getItem('userId')
     }
 
@@ -24,5 +27,14 @@ export class Session {
 
     static removeStorage(key){
         localStorage.removeItem(key);
+    }
+    
+    isAuth(){
+        if (this.getUserId() && this.getToken()) {
+            return true;
+        }else{
+            return false;
+            // this.router.navigate(["/auth/login"]);
+        }
     }
 }

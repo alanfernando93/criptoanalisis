@@ -136,20 +136,18 @@ export class signalsViewComponent implements OnInit {
 
   sendComment() {
     this.comment.signalId = this.idSignal;
-    console.log(this.comment);
     this.signalsService.postSignalsComment(this.comment).subscribe(data => {
       this.comment = {};
     });
   }
 
   sendAnswer(event) {
-    this.answer.comentarioSenalId = event.target.parentNode.parentNode.childNodes[3].childNodes[1].childNodes[1].id;
-    this.answer.positionComment = event.target.parentNode.parentNode.childNodes[3].childNodes[1].childNodes[1].name;
-    this.answer.contenido = event.target.parentNode.parentNode.childNodes[3].childNodes[1].childNodes[1].value;
+    this.answer.signalId = this.idSignal;
+    this.answer.comentarioSenalId = event.id;
+    this.answer.positionComment = event.name;
+    this.answer.contenido = event.value;
     this.signalsService.postSignalsAnswer(this.answer).subscribe(data => {
-      event.target.parentNode.children[0].children[0].value = '';
     });
-    console.log(this.answer);
   }
   
   getSignalCommentCount() {
@@ -171,14 +169,5 @@ export class signalsViewComponent implements OnInit {
       this.signal = data;
     });
   }
-
-  getInitials(name) {
-    if (name) {
-      var names = name.split(' ');
-      return names.map(function (n) { return n.charAt(0); }).splice(0, 2).join('').toUpperCase();
-    }
-    return '';
-  }
-
 
 }

@@ -2,7 +2,9 @@
     <nb-card-header>
         <div class="row" *ngIf="contentUser">
             <div class="col-12 col-md-2">
-                <nb-user [menu]="" [name]="contentUser?.username" [picture]="contentUser?.perfil"></nb-user>
+                <a [routerLink]="['/user/profile/', contentUser.id]">
+                <nb-user [name]="contentUser?.username" [picture]="contentUser?.perfil"></nb-user>
+                </a>
             </div>
             <div class="col-4 col-md-1">
                 <h5>
@@ -106,7 +108,7 @@
                         {{count.count}} Comentarios
                     </button>
                     <div id="collapseExample" [ngbCollapse]="!isCollapsed">
-                        <ngx-comment [coment]="commentById"></ngx-comment>
+                        <ngx-comment [coment]="commentById" (onObject)="sendAnswer($event)"></ngx-comment>
                     </div>
                 </div>
             </div>
@@ -116,7 +118,7 @@
         <div class="form-group">
             <textarea class="form-control" #contenido="ngModel" name="contenido" [(ngModel)]="comment.contenido" placeholder="Escribe un Comentario"></textarea>
         </div>
-        <button type="submit" class="btn btn-success pull-right btn-sm" (click)="sendComent()">Publicar</button>
+        <button type="submit" class="btn btn-success pull-right btn-sm" (click)="sendComment()">Comentar</button>
     </nb-card-footer>
 </nb-card>
 <nb-card>

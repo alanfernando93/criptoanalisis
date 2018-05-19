@@ -1,33 +1,39 @@
-<span class="chat-img pull-left" *ngIf="dataUser">
-    <!-- <img *ngIf="dataUserPerfil" src="{{dataUserPerfil}}" alt="" class="img-circle" /> -->
-    <div *ngIf="dataUserPerfil" class="img-circle design_user">
-        <ng-container> {{ getInitials(dataUserSymbol) }} </ng-container>
-    </div>
+<span class="chat-img pull-left" *ngIf="dataCommUser">
+    <a placement="right" [ngbPopover]="popContentComment" triggers="mouseover">
+        <!-- <img *ngIf="dataUserPerfil" class="img-circle rounded-circle" src="{{dataUserImage}}"> -->
+        <div *ngIf="dataUserPerfil" class="design_user">
+            <ng-container> {{ getInitials(dataUserSymbol) }} </ng-container>
+        </div>
+    </a>
 </span>
-<div class="chat-body clearfix">
+<div class="chat-body clearfix" *ngIf="dataCommUser">
     <div class="header">
-        <strong class="primary-font">{{dataUserName}}</strong>
-        <small class="badge badge-info font-w-light">
-            <span class="glyphicon glyphicon-time"></span>{{dataUserPuntos}} P</small>
-        <small class="badge badge-info font-w-light" *ngFor="let famaUser of dataUserFama">
-            <span class="glyphicon glyphicon-time"></span>{{famaUser.valor}} {{famaUser.symbol}}</small>
+        <a class="primary-font" [routerLink]="['/user/profile/', dataUserId]">
+            {{dataUserName}}
+        </a>
+        <small>
+            <p class="badge badge-info font-w-light">{{dataUserPuntos}} P</p>
+        </small>
+        <small *ngFor="let famaUser of dataUserFama">
+            <p class="badge badge-info font-w-light">{{famaUser.valor}} {{famaUser.symbol}}</p>
+        </small>
     </div>
 </div>
 <ng-template #popContentComment>
-    <div class="pop_style">
+    <div class="pop_style" *ngIf="dataCommUser">
         <div class="media">
-            <!-- <img *ngIf="ImageUser" class="mr-3 image_pop" src="comment.user.perfil" width="110" height="120"> -->
-            <div class="user-picture background" [style.background-color]="color">
+            <!-- <img *ngIf="dataUserPerfil" class="mr-3 image_pop" src="{{dataUserImage}}"> -->
+            <div *ngIf="dataUserPerfil" class="user-picture background" [style.background-color]="color">
                 <ng-container>
-                    <img class="image_pop" src="../../../../assets/images/image.png" alt="">
+                    <img class="image_pop" src="../../../../assets/images/image.png">
                 </ng-container>
             </div>
             <div class="media-body">
-                <h5 class="mt-0 text-center">monbre</h5>
+                <h5 class="mt-0 text-center">{{dataUserName}}</h5>
                 <div class="text-center">
                     <h6>
-                        <span class="badge badge-primary font-w-light">123 P</span>
-                        <span class="badge badge-info font-w-light">312 BTN</span>
+                        <span class="badge badge-primary font-w-light">{{dataUserPuntos}} P</span>
+                        <span class="badge badge-info font-w-light" *ngFor="let famaUser of dataUserFama">{{famaUser.valor}} {{famaUser.symbol}}</span>
                     </h6>
                 </div>
                 <div [(ngModel)]="dividedButtonGroupOne" ngbRadioGroup class="btn-group btn-divided-group btn-outline-divided-group btn-group-full-width col-md-12 bton-seguir">

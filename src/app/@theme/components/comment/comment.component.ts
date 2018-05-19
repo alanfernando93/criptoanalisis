@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'ngx-comment',
@@ -7,10 +7,24 @@ import { Component, Input } from '@angular/core';
 })
 export class commentComponent {
 
+  @Output() onObject = new EventEmitter<any>();
+
   @Input() coment: any = [];
   @Input() fama: any;
+  @Input() answer: any;
 
-constructor(){
+  constructor() {
+  }
+  onAnswer($event) {
+    var input = $event.target.closest(".panel-footer").firstElementChild.firstElementChild;
+    let data = {
+      id: input.id,
+      name: input.name,
+      value: input.value
+    };
+    input.value = "";
+    this.onObject.emit(data);
+  }
+
 }
 
-}

@@ -22,9 +22,9 @@ import { NewsService } from './news.service';
   exports:[
     newsListComponent,
     newsViewComponent,
+    newsAllComponent,
     commentComponent,
-    userDesignComponent,
-    newsAllComponent
+    userDesignComponent
   ],
   declarations:[
     ...routedComponents,
