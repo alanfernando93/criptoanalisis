@@ -243,39 +243,42 @@ module.exports = (Signal, ctx, ctx2) => {
       where: {signalId: ctx.result.id},
     }).then(data=> {
       var pos = data;
-      var men, may;
       socket.on('m', function(message) {
         var x = message.split('~');
         if (x.length > 2) {
-          men = parseInt(x[8]) - (parseInt(x[8]) * 0.003);
-          may = parseInt(x[8]) + (parseInt(x[8]) * 0.003);
           pos.forEach((element, index)=>{
-            if (men <= element.valor && element.valor <= may && !element.reached) {
-              console.log('signal reached');
-              pos[index].reached = true;
-              Signal.app.models.position.updateAll({id: element.id}, {reached: true});
-              switch (element.puntoId) {
-                case 1 : {
+            switch (element.puntoId) {
+              // flujo en caso de punto de entrada
+              case 1: {
+                if ((ctx.result.tipo && element.valor >= x[8]) || (!ctx.result.tipo && x[8] >= element.valor)) {
+                  pos[index].reached = true;
+                  Signal.app.models.position.updateAll({id: element.id}, {reached: true});
                   Signal.updateAll({id: ctx.result.id}, {estado: 'activo'});
                   getstatus(pos, 1);
-                  break;
                 }
-                case 2: {
-                  Signal.app.models.position.findEnterPoints(element);
+                break;
+              }
+              case 2: {
+                if ((ctx.result.tipo && element.valor <= x[8]) || (!ctx.result.tipo && element.valor >= x[8])) {
+                  pos[index].reached = true;
+                  Signal.app.models.position.updateAll({id: element.id}, {reached: true});
                   if (getstatus(pos, 2)) {
                     socket.emit('SubRemove', {subs: [`0~Poloniex~${ctx.result.moneda1}~${ctx.result.moneda2}`]});
                   }
                   Signal.updateAll({id: ctx.result.id}, {estado: 'exito'});
-                  break;
-                }
-                case 3: {
+                };
+                break;
+              }
+              case 3: {
+                if ((ctx.result.tipo && element.valor >= x[8]) || (!ctx.result.tipo && element.valor <= x[8])) {
+                  pos[index].reached = true;
+                  Signal.app.models.position.updateAll({id: element.id}, {reached: true});
                   Signal.updateAll({id: ctx.result.id}, {estado: 'fracaso'});
                   modprec(ctx.result.id, false, element.valor);
                   socket.emit('SubRemove', {subs: [`0~Poloniex~${ctx.result.moneda1}~${ctx.result.moneda2}`]});
-                  break;
-                }
+                };
               }
-            }
+            };
           });
         }
       });
@@ -316,11 +319,12 @@ module.exports = (Signal, ctx, ctx2) => {
   function modprec(signalId, type, value) {
     Signal.findById(signalId)
     .then(data=>{
+      console.log(data);
       var x = 0;
       // type sera true en caso de exito
       if (type && data.PEP > 0) {
         x = ((data.PSP - data.PEP) / data.PEP) * 100;
-      } else if (data.PSP > 0) {
+      } else if (data.PEP > 0) {
         x = ((value - data.PEP) / data.PEP) * 100;
       }
       Signal.updateAll({id: signalId}, {precision: x});
@@ -340,7 +344,7 @@ module.exports = (Signal, ctx, ctx2) => {
 
           ctx.result[index].perfilLink = resp.link;
         }).catch(error => {
-          console.log(error)
+          console.log(error);
         });
         iterabley.push(x);
       }).catch(error => {
