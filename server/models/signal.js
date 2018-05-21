@@ -263,6 +263,7 @@ module.exports = (Signal, ctx, ctx2) => {
                   pos[index].reached = true;
                   Signal.app.models.position.updateAll({id: element.id}, {reached: true});
                   if (getstatus(pos, 2)) {
+                    modprec(ctx.result.id, true);
                     socket.emit('SubRemove', {subs: [`0~Poloniex~${ctx.result.moneda1}~${ctx.result.moneda2}`]});
                   }
                   Signal.updateAll({id: ctx.result.id}, {estado: 'exito'});
@@ -297,7 +298,7 @@ module.exports = (Signal, ctx, ctx2) => {
       getprom(pos, tipo);
       return false;
     } else if (pos.length == 3) {
-      getprom(pos);
+      getprom(pos, 2);
       return true;
     }
     return false;
@@ -310,6 +311,7 @@ module.exports = (Signal, ctx, ctx2) => {
     });
     if (pos.length > 0)
       x = x / pos.length;
+    console.log('promedio', x);
     if (tipo == 1)
       Signal.updateAll({id: pos[0].signalId}, {PEP: x});
     else if (tipo == 2)
