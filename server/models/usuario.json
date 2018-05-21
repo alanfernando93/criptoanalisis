@@ -36,7 +36,18 @@
       "type": "number",
       "required": false
     },
+    "fidelidad": {
+      "type": "number",
+      "required": false
+    },
     "fama": {
+      "type": [
+        "object"
+      ],
+      "required": false,
+      "default": "[]"
+    },
+    "denuncias": {
       "type": [
         "object"
       ],

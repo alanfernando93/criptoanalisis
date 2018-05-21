@@ -16,7 +16,7 @@ var _async2 = _interopRequireDefault(_async);
 var _variable = require('../variable');
 
 var Dropbox = require('dropbox').Dropbox;
-var dbx = new Dropbox({ accessToken: _variable.token });
+var dbx = new Dropbox({accessToken: _variable.token});
 dbx.setClientId(_variable.key);
 
 function _interopRequireDefault(obj) {
@@ -31,7 +31,7 @@ module.exports = (Signal, ctx, ctx2) => {
     endpoint: '/:id/dislike',
     dislikes: 'dislikes',
     userModel: 'usuario',
-    description: ' dislikes ' + Signal.definition.name + ' instance for the given userId'
+    description: ' dislikes ' + Signal.definition.name + ' instance for the given userId',
   }, ctx);
 
   // agregando propiedad dislike a noticia
@@ -291,7 +291,7 @@ module.exports = (Signal, ctx, ctx2) => {
           aux = ctx.result.AnalisisFundamental.replace(element, resp.link);
           ctx.result.AnalisisFundamental = aux;
         }).catch(error => {
-          console.log(error)
+          console.log(error);
         });
         iterable.push(x);
       });
