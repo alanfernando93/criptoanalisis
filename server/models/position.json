@@ -13,12 +13,6 @@
     "porcentajeCapital": {
       "type": "number"
     },
-    "moneda1": {
-      "type": "string"
-    },
-    "moneda2": {
-      "type": "string"
-    },
     "categoria": {
       "type": "string"
     },
@@ -28,6 +22,10 @@
     "createDate": {
       "type": "date",
       "default": "$now"
+    },
+    "reached":{
+      "type": "boolean",
+      "default": false
     }
   },
   "validations": [],
