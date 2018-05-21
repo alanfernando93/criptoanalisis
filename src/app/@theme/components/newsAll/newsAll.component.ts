@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
     selector: 'ngx-newsAll',
@@ -11,6 +12,6 @@ export class newsAllComponent {
     @Input() design: any;
 
     constructor(){
-
+        moment.locale('es');
     }
 }

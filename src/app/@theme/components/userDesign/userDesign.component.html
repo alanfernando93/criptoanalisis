@@ -10,7 +10,7 @@
 </span>
 <div class="chat-body clearfix" *ngIf="dataCommUser">
     <div class="header">
-        <a class="primary-font" [routerLink]="['/user/profile/', dataUserId]">
+        <a class="primary-font" href="/pages/user/profile/{{dataUserId}}">
             {{dataUserName}}
         </a>
         <small>
