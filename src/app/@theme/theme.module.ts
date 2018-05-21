@@ -20,9 +20,11 @@ import {
 } from '@nebular/theme';
 
 import {
+  CropperModalComponent,
   FooterComponent,
   HeaderComponent,
   HeaderTwoComponent,
+  ImageComponent,
   SearchInputComponent,
   ThemeSettingsComponent,
   TinyMCEComponent,
@@ -57,8 +59,10 @@ const NB_MODULES = [
 
 const COMPONENTS = [
   ImageCropperComponent,
+  //CropperModalComponent,
   HeaderComponent,
   HeaderTwoComponent,
+  ImageComponent,
   FooterComponent,
   SearchInputComponent,
   ThemeSettingsComponent,

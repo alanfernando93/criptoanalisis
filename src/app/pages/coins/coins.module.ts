@@ -13,7 +13,7 @@ import { CoinsService } from './coins.service';
   ],
   declarations:[
     ...routedComponents,
-  ],
+],
   providers:[CoinsService]
 })
 

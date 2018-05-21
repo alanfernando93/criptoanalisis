@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CoinsComponent } from './coins.component';
 import { ListComponent } from './list/list.component';
 import { ViewComponent } from './view/view.component';
+import { ViewtwoComponent } from './viewtwo/viewtwo.component';
 
 const routes: Routes = [{
     path: '',
@@ -11,12 +12,13 @@ const routes: Routes = [{
     children: [{
         path: 'list',
         component: ListComponent,
-    },
-    {
+    }, {
         path: 'view',
         component: ViewComponent,
-    },
-    ],
+    }, {
+        path: 'viewtwo',
+        component: ViewtwoComponent,
+    }],
 }];
 
 @NgModule({
@@ -24,10 +26,11 @@ const routes: Routes = [{
     exports: [RouterModule],
 })
 
-export class CoinsRoutingModule {}
+export class CoinsRoutingModule { }
 
 export const routedComponents = [
     CoinsComponent,
     ListComponent,
     ViewComponent,
+    ViewtwoComponent
 ];
