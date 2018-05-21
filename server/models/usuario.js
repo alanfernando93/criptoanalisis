@@ -175,4 +175,39 @@ module.exports = (Usuario) => {
         });
       });
   };
+  Usuario.precisionmod = (userId)=>{
+    Usuario.app.models.signal.find({
+      where: {
+        usuarioId: userId,
+      },
+      order: 'FechaCreate DESC',
+      limit: 10,
+      fields: {
+        id: true,
+        precision: true,
+        FechaCreate: true,
+
+      },
+    }).then(data=>{
+      var x = 0;
+      var count = 0;
+      data.forEach(element=>{
+        if (element.precision != 0) {
+          x = element.precision + x;
+          count ++;
+        }
+      });
+      x = x / data.length;
+      Usuario.findById(userId)
+      .then(data=>{
+        var precision = {
+          valor: x,
+          nropost: data.precision.nropost + 1,
+        };
+        Usuario.updateAll({id: userId}, {
+          precision: precision,
+        });
+      });
+    });
+  };
 };
