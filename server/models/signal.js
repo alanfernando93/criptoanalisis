@@ -311,7 +311,6 @@ module.exports = (Signal, ctx, ctx2) => {
     });
     if (pos.length > 0)
       x = x / pos.length;
-    console.log('promedio', x);
     if (tipo == 1)
       Signal.updateAll({id: pos[0].signalId}, {PEP: x});
     else if (tipo == 2)
