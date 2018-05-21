@@ -121,7 +121,6 @@
                         {{count.count}} Comentarios
                     </button>
                     <div id="collapseExample" [ngbCollapse]="!isCollapsed">
-<<<<<<< HEAD
                         <div class="card" *ngFor="let comment of commentById; let i = index">
                             <div class="row" class="card-body">
                                 <div *ngIf="comment">
@@ -237,9 +236,6 @@
                                 <button type="submit" class="btn btn-primary btn-tn" (click)="sendAnswer($event)">Responder</button>
                             </div>
                         </div>
-=======
-                        <ngx-comment [coment]="commentById" (onObject)="sendAnswer($event)"></ngx-comment>
->>>>>>> develop
                     </div>
                 </div>
             </div>
