@@ -33,6 +33,7 @@ export class signalsListComponent implements OnInit {
   getSignals() {
     this.signalsService.getAllLimit(this.limit, this.increment).subscribe(data => {
       data ? this.signals = data : {};
+      console.log(data);
       this.signals.forEach((element, index) => {
         let signalId = this.signals[index].id;
         this.userBySignals(signalId, index);
