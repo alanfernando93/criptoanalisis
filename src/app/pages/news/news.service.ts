@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ng-socket-io';
-import { Http, Response, RequestOptions } from '@angular/http';
+import { Http, Response } from '@angular/http';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Session } from '../../@core/data/session';
 import { environment } from '../../../environments/environment';
@@ -11,8 +12,10 @@ import 'rxjs/add/operator/map';
 export class NewsService extends Session{
   private baseUrl = environment.apiUrl;
 
-  constructor(private http: Http, private socket: Socket) {
-    super()
+  constructor(private http: Http, 
+              private socket: Socket, 
+              private router: Router) {
+    super();
   }
 
   getAll() {
@@ -70,20 +73,6 @@ export class NewsService extends Session{
     return this.http.get(this.baseUrl + 'noticias/' + id + '/comentarioNoticia')
       .map((res: Response) => res.json());
   }
-
-  JoinComm(id){
-    this.socket.emit("join", 'news'+id);
-  }
-
-  insert(body) {
-    body.usuarioId = this.getUserId();
-    return this.http.post(this.baseUrl + 'noticias', body)
-    .map((res: Response) => res.json());
-  }
-
-  postNews(id) {
-    return this.http.get(this.baseUrl + 'noticias/' + id + '/comment?userId' + this.getUserId())
-  }
   
   getNewsAnswer(commentId) {
     return this.http.get(this.baseUrl + 'comentario_noticia/' + commentId + '/answerNoticia')
@@ -100,21 +89,36 @@ export class NewsService extends Session{
       .map((res: Response) => res.json());
   }
 
+  getNewsCount(){
+    return this.http.get(this.baseUrl + 'noticias/' + 'count')
+        .map(resp => resp.json());
+  }
+  
+  getUserById(id) {
+    return this.http.get(this.baseUrl + 'usuarios/' + id)
+      .map((res: Response) => res.json());
+  }
+
   postNewsComment(comments) {
+    if(!this.isAuth()){
+      return new Observable<any>(()=>{this.router.navigate(["/auth/login"])});
+    }
     comments.userId = this.getUserId();
     return this.http.post(this.baseUrl + '/comentario_noticia', comments)
       .map((res: Response) => res.json());
   }
 
-  postNewsAnswer(respond) {
-    respond.userId = this.getUserId();
-    return this.http.post(this.baseUrl + 'answer_noticia', respond)
+  postNewsAnswer(answers) {
+    if(!this.isAuth()){
+      return new Observable<any>(()=>{this.router.navigate(["/auth/login"])});
+    }
+    answers.userId = this.getUserId();
+    return this.http.post(this.baseUrl + 'answer_noticia', answers)
       .map((res: Response) => res.json());
   }
 
-  getUserById(id) {
-    return this.http.get(this.baseUrl + 'usuarios/' + id)
-      .map((res: Response) => res.json());
+  postNews(id) {
+    return this.http.get(this.baseUrl + 'noticias/' + id + '/comment?userId' + this.getUserId())
   }
 
   postDislikes(id) {
@@ -136,6 +140,11 @@ export class NewsService extends Session{
     return this.http.post(this.baseUrl + 'Containers/galery/upload', file)
       .map(resp => resp.json())
   }
+  
+  JoinComm(id){
+    this.socket.emit("join", 'news'+id);
+  }
+  
   followUser(id){
     return this.http.post(this.baseUrl + 'followUsers/follow',{
       followerId: this.getUserId(),
@@ -144,9 +153,10 @@ export class NewsService extends Session{
     .map(resp => resp.json())
   }
 
-  getNewsCount(){
-    return this.http.get(this.baseUrl + 'news/' + 'count')
-        .map(resp => resp.json());
+  insert(body) {
+    body.usuarioId = this.getUserId();
+    return this.http.post(this.baseUrl + 'noticias', body)
+    .map((res: Response) => res.json());
   }
 
 }

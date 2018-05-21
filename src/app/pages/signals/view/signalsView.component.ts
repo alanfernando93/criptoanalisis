@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-
 import { SignalsService } from '../signals.service';
 import { UserService } from '../../../@core/data/users.service';
-
 import * as nbUser from '@nebular/theme/components/user/user.component'
+import { orderData } from '../../../common/array';
 
 @Component({
   selector: 'ngx-signalsView',
@@ -15,16 +14,15 @@ import * as nbUser from '@nebular/theme/components/user/user.component'
 export class signalsViewComponent implements OnInit {
 
   signal: any;
-  commentById: any = [];
-  count: number;
   idSignal: any;
+  signalsAnswer: any;
   contentUser: any;
+  count: number;
   like: number;
   dislike: number;
   comment: any = {};
-  respond: any = {};
   answer: any = {};
-  signalsAnswer: any;
+  commentById: any = [];
   connectionCom;
   connectionAns;
 
@@ -36,11 +34,11 @@ export class signalsViewComponent implements OnInit {
     private userService: UserService, ) {
       route.params.subscribe(val=>{
         this.idSignal = val.signalId;
-        this.getSignalById();
-        this.getSignalWithUser();
         this.getSignalCommentById();
-        this.getCommentWithUser();
+        this.getSignalWithUser();
+        this.getSignalById();
         this.getSignalCommentCount();
+        this.getCommentWithUser();
       });
   }
 
@@ -48,35 +46,40 @@ export class signalsViewComponent implements OnInit {
     this.connSignals();
     this.anSignals();
   }
+  
+  getSignalById() {
+    this.signalsService.getById(this.idSignal).subscribe(data => {
+      data ? this.signal = data : {};
+    });
+  }
 
-
-  getSignalsId() {
-    this.route.params.forEach((params: Params) => {
-      this.idSignal = params['signalId'];
+  getSignalWithUser() {
+    this.signalsService.getUserBySignal(this.idSignal).subscribe(data => {
+      data ? this.contentUser = data : {};
+      orderData(this.contentUser);
+      this.contentUser.fama.firsttwo = [];
+      this.contentUser.fama.last = [];
+      this.contentUser.fama.firsttwo = this.contentUser.fama.splice(0, 2);
+      this.contentUser.fama.last = this.contentUser.fama.splice(0, this.contentUser.fama.length);
     });
   }
 
   connSignals() {
     this.signalsService.JoinComm(this.idSignal);
     this.connectionCom = this.signalsService.getSignalsCommen().subscribe(data => {
-      this.getSignalCommentCount();
-      this.getCommentWithUser();
+      let commData: any = data;
       this.commentById.push(data);
+      this.getSignalCommentCount();
+      this.getUserComm(commData.userId, this.commentById.length -1);
     });
   }
 
   anSignals(){
     this.connectionAns = this.signalsService.getSignalsAns().subscribe(data => {
+      let comPosition = data["positionComment"];
       this.signalsAnswer = data;
-      let index = this.commentById.findIndex(cpn=>cpn.id = this.signalsAnswer.comentarioSenalId);
-      this.commentById[index].res.push(this.signalsAnswer);
-      this.getUserAnswer(index);
-    });
-  }
-
-  getSignalById() {
-    this.signalsService.getById(this.idSignal).subscribe(data => {
-      data ? this.signal = data : {};
+      this.commentById[comPosition].res.push(data);
+      this.getUserAnswer(comPosition);
     });
   }
 
@@ -87,27 +90,6 @@ export class signalsViewComponent implements OnInit {
         let commentId = this.commentById[index].id;
         this.getSignalsAnwer(commentId, index);
       });
-    });
-  }
-
-  getSignalsAnwer(commentId, index) {
-    this.signalsService.getSignalsAnswer(commentId).subscribe(data => {
-      data.user = {}
-      this.commentById[index].res = [];
-      this.commentById[index].res = data;
-      this.getUserAnswer(index);
-    });
-  }
-
-  getUserAnswer(index){
-    this.commentById[index].res.forEach((element, index1) => {
-      let userByAnswer = this.commentById[index].res[index1].userId;
-    this.userService.getById(userByAnswer).subscribe(data => {
-      this.commentById[index].res[index1].user = data;
-      this.orderData(this.commentById[index].res[index1].user);
-      this.commentById[index].res[index1].user.fama.firsttwo = [];
-      this.commentById[index].res[index1].user.fama.firsttwo = this.commentById[index].res[index1].user.fama.splice(0, 2);
-     });
     });
   }
 
@@ -125,23 +107,49 @@ export class signalsViewComponent implements OnInit {
     this.userService.getById(idUser).subscribe(data => {
       this.commentById[index].user = [];
       this.commentById[index].user = data;
-      this.orderData(this.commentById[index].user);
+      orderData(this.commentById[index].user);
       this.commentById[index].user.fama.firsttwo = [];
       this.commentById[index].user.fama.firsttwo = this.commentById[index].user.fama.splice(0, 2);
     });
   }
 
-  getSignalWithUser() {
-    this.signalsService.getUserBySignal(this.idSignal).subscribe(data => {
-      data ? this.contentUser = data : {};
-      this.orderData(this.contentUser);
-      this.contentUser.fama.firsttwo = [];
-      this.contentUser.fama.last = [];
-      this.contentUser.fama.firsttwo = this.contentUser.fama.splice(0, 2);
-      this.contentUser.fama.last = this.contentUser.fama.splice(0, this.contentUser.fama.length);
+  getSignalsAnwer(commentId, index) {
+    this.signalsService.getSignalsAnswer(commentId).subscribe(data => {
+      data.user = {};
+      this.commentById[index].res = [];
+      this.commentById[index].res = data;
+      this.getUserAnswer(index);
     });
   }
 
+  getUserAnswer(index){
+    this.commentById[index].res.forEach((element, index1) => {
+      let userByAnswer = this.commentById[index].res[index1].userId;
+    this.userService.getById(userByAnswer).subscribe(data => {
+      this.commentById[index].res[index1].user = data;
+      orderData(this.commentById[index].res[index1].user);
+      this.commentById[index].res[index1].user.fama.firsttwo = [];
+      this.commentById[index].res[index1].user.fama.firsttwo = this.commentById[index].res[index1].user.fama.splice(0, 2);
+     });
+    });
+  }
+
+  sendComment() {
+    this.comment.signalId = this.idSignal;
+    this.signalsService.postSignalsComment(this.comment).subscribe(data => {
+      this.comment = {};
+    });
+  }
+
+  sendAnswer(event) {
+    this.answer.signalId = this.idSignal;
+    this.answer.comentarioSenalId = event.id;
+    this.answer.positionComment = event.name;
+    this.answer.contenido = event.value;
+    this.signalsService.postSignalsAnswer(this.answer).subscribe(data => {
+    });
+  }
+  
   getSignalCommentCount() {
     this.signalsService.getSignalsCommentCount(this.idSignal).subscribe(data => {
       this.count = data;
@@ -159,36 +167,6 @@ export class signalsViewComponent implements OnInit {
     this.signalsService.postDislikes(this.idSignal).subscribe(data => {
       this.dislike = data;
       this.signal = data;
-    });
-  }
-
-  sendComment() {
-    this.comment.signalId = this.idSignal;
-    this.signalsService.postSignalsComment(this.comment).subscribe(data => {
-      this.comment = {};
-    });
-  }
-
-  sendAnswer(event) {
-    this.respond.comentarioSenalId = event.target.parentNode.parentNode.childNodes[3].childNodes[1].childNodes[1].id;
-    this.respond.contenido = event.target.parentNode.parentNode.childNodes[3].childNodes[1].childNodes[1].value;
-    this.respond.signalId = this.idSignal;
-    this.signalsService.postSignalsAnswer(this.respond).subscribe(data => {
-      this.respond = {};
-    });
-  }
-
-  getInitials(name) {
-    if (name) {
-      var names = name.split(' ');
-      return names.map(function (n) { return n.charAt(0); }).splice(0, 2).join('').toUpperCase();
-    }
-    return '';
-  }
-
-  orderData(obj) {
-    obj.fama.sort(function (a, b) {
-      return a.valor < b.valor;
     });
   }
 

@@ -1,16 +1,40 @@
 import { environment } from "../../../environments/environment";
 
-export abstract class Session {
+export class Session {
+
+    constructor(){
+    }
 
     getUserId(){
         return localStorage.getItem('userId')
     }
 
-    getToken(){
+    getToken() {
         return localStorage.getItem('auth_app_token')
     }
 
     public getApiRest() {
         return environment.apiUrl;
+    }
+
+    static getStorage(key) {
+        return localStorage.getItem(key);
+    }
+
+    static setStorage(key, value) {
+        localStorage.setItem(key, value);
+    }
+
+    static removeStorage(key){
+        localStorage.removeItem(key);
+    }
+    
+    isAuth(){
+        if (this.getUserId() && this.getToken()) {
+            return true;
+        }else{
+            return false;
+            // this.router.navigate(["/auth/login"]);
+        }
     }
 }

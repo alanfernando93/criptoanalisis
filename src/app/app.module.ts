@@ -17,12 +17,16 @@ import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 //import {ShareButtonsModule} from 'ngx-sharebuttons';
+import { environment } from '../environments/environment';
 
-const config: SocketIoConfig = { url:'http://localhost:3000', options:{}};
+const config: SocketIoConfig = { url:environment.Url, options:{}};
 
 import { AuthGuard } from './auth-guard.service';
 
 import { NB_AUTH_TOKEN_WRAPPER_TOKEN, NbAuthJWTToken } from '@nebular/auth';
+
+
+import { DropboxCripto } from "./common/dropbox";
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,7 +47,8 @@ import { NB_AUTH_TOKEN_WRAPPER_TOKEN, NbAuthJWTToken } from '@nebular/auth';
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },
     { provide: NB_AUTH_TOKEN_WRAPPER_TOKEN, useClass: NbAuthJWTToken },
-    AuthGuard
+    AuthGuard,
+    DropboxCripto
   ],
 })
 export class AppModule {

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ng-socket-io';
 import { Http, Response } from '@angular/http';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../../environments/environment';
 import { Session } from '../../@core/data/session';
@@ -11,8 +12,10 @@ import 'rxjs/add/operator/map';
 export class SignalsService extends Session {
     private baseUrl = environment.apiUrl;
 
-    constructor(private http: Http, private socket: Socket) {
-        super()
+    constructor(private http: Http,
+        private socket: Socket,
+        private router: Router) {
+        super();
     }
 
     getAll() {
@@ -32,19 +35,19 @@ export class SignalsService extends Session {
         return observable;
     }
 
-    getSignalsCommen(){
+    getSignalsCommen() {
         let observable = new Observable(observer => {
             this.socket.on('signalCom', (data) => {
                 observer.next(data);
             });
-            return() => {
+            return () => {
                 this.socket.disconnect();
             }
         });
         return observable;
     }
 
-    getSignalsAns(){
+    getSignalsAns() {
         let observable = new Observable(observer => {
             this.socket.on('signalAns', (data) => {
                 observer.next(data);
@@ -71,10 +74,6 @@ export class SignalsService extends Session {
             .map((res: Response) => res.json());
     }
 
-    JoinComm(id){
-        this.socket.emit("join", 'signals'+id);
-    }
-
     getSignalsAnswer(commentId) {
         return this.http.get(this.baseUrl + 'comentario_senals/' + commentId + '/answer-senals')
             .map((res: Response) => res.json());
@@ -90,12 +89,20 @@ export class SignalsService extends Session {
             .map((res: Response) => res.json());
     }
 
-    getPositionBySignal(id){
+    getPositionBySignal(id) {
         return this.http.get(this.baseUrl + 'signals/' + id + '/position' + '?access_token=' + this.getToken())
             .map((res: Response) => res.json());
     }
 
+    getSignalsCount() {
+        return this.http.get(this.baseUrl + 'signals/' + 'count?access_token=' + this.getToken())
+            .map(resp => resp.json());
+    }
+
     postSignalsComment(comments) {
+        if (!this.isAuth()) {
+            return new Observable<any>(() => { this.router.navigate(["/auth/login"]) });
+        }
         comments.userId = this.getUserId();
         return this.http.post(this.baseUrl + '/comentario_senals' + '?access_token=' + this.getToken(), comments)
             .map((res: Response) => res.json());
@@ -132,9 +139,8 @@ export class SignalsService extends Session {
             .map(resp => resp.json());
     }
 
-    getSignalsCount(){
-        return this.http.get(this.baseUrl + 'signals/' + 'count?access_token=' + this.getToken())
-            .map(resp => resp.json());
+    JoinComm(id) {
+        this.socket.emit("join", 'signals' + id);
     }
 
 }

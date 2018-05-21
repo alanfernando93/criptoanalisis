@@ -1,0 +1,149 @@
+<nb-card>
+  <nb-card-header>
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col-8 col-md-4">
+          <h4>LITECOIN (LTC)</h4>
+        </div>
+        <div class="col-4 col-md-2">
+          <button class="btn btn-hero-secondary btn-demo btn-sm">Seguir</button>
+        </div>
+      </div>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <div class="row">
+            <div class="col-6">
+              <img class="img-responsive mx-auto d-block" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/LTC-400.png/240px-LTC-400.png"
+                alt="" style="width: 90%">
+            </div>
+            <div class="col-6 list-btn">
+              <div class="row">
+                <a href="" class="btn btn-hero-secondary btn-demo">Sitio Web</a>
+              </div>
+              <div class="row">
+                <a href="" class="btn btn-hero-secondary btn-demo">Reddit</a>
+              </div>
+              <div class="row">
+                <a href="" class="btn btn-hero-secondary btn-demo">Twittrer</a>
+              </div>
+              <div class="row">
+                <a href="" class="btn btn-hero-secondary btn-demo">Youtube</a>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-12">
+              <div class="row list-text">
+                <div class="col-6">Precio:</div>
+                <div class="col-6">143 USD/LTC</div>
+              </div>
+              <div class="row list-text">
+                <div class="col-6">Total Moneda:</div>
+                <div class="col-6">253 000 000 LTC</div>
+              </div>
+              <div class="row list-text">
+                <div class="col-6">Circulante actual:</div>
+                <div class="col-6">134 000 000 LTC</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <img class="img-responsive mx-auto d-block" src="https://www.tradingview.com/x/d9rp3ryb/" alt="" style="width: 100%">
+        </div>
+      </div>
+    </div>
+    <br>
+    <ngb-tabset [activeId]="select" (tabChange)="Select($event)">
+      <ngb-tab title="Analisis" [id]="1">
+        <ng-template ngbTabContent>
+          <br>
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-5 col-md-3">
+                <div class="text-center" style="font-weight: bolder">FILTRAR POR:</div>
+              </div>
+              <div class="col-6 col-md-4">
+                <select class="custom-select" id="inputGroupSelect01">
+                  <option selected>Mas recientes</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="row justify-content-center">
+              <div class="col-12 col-md-4">
+                <div class="row list-text">
+                  <div class="col">17 DIFERENTES ANALISIS</div>
+                </div>
+                <div class="row list-text">
+                  <div class="col-9">Confiabilidad :</div>
+                  <div class="col-3">21%</div>
+                </div>
+              </div>
+              <div class="col-3 col-md-1"></div>
+              <div class="col-12 col-md-5">
+                <div class="row list-text">
+                  <div class="col-9">CALIFICACION PROMEDIO:</div>
+                  <div class="col-3">25/35</div>
+                </div>
+                <div class="row list-text">
+                  <div class="col-9">Mejor Calificacion:</div>
+                  <div class="col-3">32/35</div>
+                </div>
+                <div class="row list-text">
+                  <div class="col-9">Peor Calificacion:</div>
+                  <div class="col-3">17/35</div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="container new">
+              <div class="row cardCrypto">
+                <div class="col-12 row justify-content-between">
+                  <div class="col-8 col-md-5 text-center">CALIFICACION: 23/35 - Confiabilidad: 23%</div>
+                  <div class="col-3 col-md-2 text-center">GRATIS </div>
+                </div>
+                <div class="col-12 row">
+                  <p class="text-justify">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget
+                    metus. Nullam id dolor id nibh ultricies vehicula ut id elit at eget metus. Nullam id dolor id nibh ultricies
+                    vehicula ut id elit. at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit ... ver mas
+                    ...</p>
+                </div>
+                <div class="row">
+                  <div class="col align-self-start">
+                    <i class="fa fa-user"></i>Juan Perez: 25 p, 20 eth, 5 xrp
+                  </div>
+                </div>
+                <div class="col-12 row justify-content-between">
+                  <div class="col-5 col-md-2">Hace 16 hoas</div>
+                  <div class="col-6 col-md-3">
+                    <i class="fa fa-book"></i>27
+                    <i class="fa fa-thumbs-up"></i>15
+                    <i class="fa fa-thumbs-down"></i>7
+                  </div>
+                </div>
+              </div>
+              <br>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Señales" [id]="2">
+        <ng-template ngbTabContent>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Noticias" [id]="3">
+        <ng-template ngbTabContent>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </nb-card-body>
+</nb-card>

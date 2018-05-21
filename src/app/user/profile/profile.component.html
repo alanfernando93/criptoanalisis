@@ -1,204 +1,235 @@
 <nb-card>
-  <nb-card-body>
-    <div class="container">
-        <div class="row user-menu-container square">
-            <div class="col-md-7 user-details">
-                <div class="row coralbg white">
-                    <div class="col-md-8 no-pad">
-                        <div class="user-pad">
-                            <h3 class="plomo">{{user.nombre}} {{user.apellido}}</h3>
-                            <h4>{{user.username}}</h4>
-                            <div class="row">
-                                <div class="col-6">
-                                    <h5 class="white"><i class="fa fa-facebook-square"></i> <a class="white" href="https://www.facebook.com/primolvr" target="_blank">primolvr</a></h5>
-                                    <h5 class="white"><i class="fa fa-twitter"></i><a class="white" href="https://www.twitter.com/pLvRaC" target="_blank">@pLvRaC</a></h5>
-                                </div>
-                                <div class="col-6">
-                                    <span *ngIf="Me">
-                                        <a [routerLink]="['/user/edit']" class="btn btn-outline-secondary btn-tn">
-                                            <i class="fa fa-pencil plomo"></i>
-                                            <span class="plomo">editar</span>
-                                        </a>
-                                    </span>
-                                    <span *ngIf="!Me">
-                                        <a (click)="seguir()" class="btn btn-outline-secondary btn-tn">
-                                            <div *ngIf="following" class="plomo">
-                                                <i class="fa fa-check fa-1x"></i>
-                                                    <span>siguiendo</span>
-                                            </div>
-                                            <div *ngIf="!following" class="plomo">
-                                                <span>seguir</span>
-                                            </div>
-                                        </a>
-                                        <a  class="btn btn-outline-secondary btn-tn">
-                                            <span class="plomo">
-                                                <i class="fa fa-commenting-o"></i>
-                                                mensaje
-                                            </span>
-                                        </a>
-                                    </span>
-                                </div>
-                            </div>
-                           <!-- <button type="button" class="btn btn-labeled btn-info" href="#">
-                                <span class="btn-label"><i class="fa fa-pencil"></i></span>Update</button> -->
-                        </div>
-                    </div>
-                    <div class="col-md-4 no-pad block">
-                        <div class="user-image">
-                            <img src="{{user.perfil}}" class="img-thumbnail">
-                        </div>
-                        <a *ngIf="Me" class="change-image"><i class="fa fa-camera"></i> cambiar foto de perfil</a>
-                     <!--   <a class="change-image d-block d-sm-none"><i class="fa fa-camera"></i></a> -->
-                    </div>
-                </div>
-                <div class="row overview">
-                    <div class="col-md-4 user-pad text-center">
-                        <h3>PUNTOS</h3>
-                        <h4>{{user.puntos}}</h4>
-                    </div>
-                    <div class="col-md-4 user-pad text-center">
-                        <h3>FAMA</h3>
-                        <h4>456</h4>
-                    </div>
-                    <div class="col-md-4 user-pad text-center">
-                        <h3>PRECISION</h3>
-                        <h4>{{user.precision}}</h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-5">
-                <div class="row">
-                        <div class="col-3 user-menu-btns">
-                                <div class="btn-group-vertical square" id="responsive">
-                                    <a (click)="show=0; content()" class="btn btn-default coral">
-                                        <i class="fa fa-star-o fa-2x"></i>
-                                    </a>
-                                    <a (click)="show=1; content()" class="btn btn-default">
-                                        <i class="fa fa-cog fa-2x"></i>
-                                    </a>
-                                    <a (click)="show=2; content()" class="btn btn-default">
-                                      <i class="fa fa-signal fa-2x"></i>
-                                    </a>
-                                    <a (click)="show=3; content()" class="btn btn-default">
-                                        <i class="fa fa-money fa-2x"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-9" [ngSwitch]="show">
-                                <div *ngSwitchCase="0">
-                                    <h4 style="padding: 15px 10px">
-                                        fama <span class="badge badge-success">48</span>
-                                    </h4>
+    <nb-card-body>
+        <div class="container">
+            <div class="row user-menu-container square">
+                <div class="col-md-7 user-details">
+                    <div class="row coralbg white">
+                        <div class="col-md-8 no-pad">
+                            <div class="user-pad">
+                                <h3 class="plomo">{{user.nombre}} {{user.apellido}}</h3>
+                                <h4>{{user.username}}</h4>
                                 <div class="row">
-                                <div *ngFor="let coin of user.fama" class="col-2 col-md-3">
-                                    <h4><span class="badge badge-secondary">{{coin.symbol}}  {{coin.valor}}</span></h4>
+                                    <div class="col-6">
+                                        <h5 class="white">
+                                            <i class="fa fa-facebook-square"></i>
+                                            <a class="white" href="https://www.facebook.com/primolvr" target="_blank">primolvr</a>
+                                        </h5>
+                                        <h5 class="white">
+                                            <i class="fa fa-twitter"></i>
+                                            <a class="white" href="https://www.twitter.com/pLvRaC" target="_blank">@pLvRaC</a>
+                                        </h5>
+                                    </div>
+                                    <div class="col-6">
+                                        <span *ngIf="Me">
+                                            <a [routerLink]="['/user/edit']" class="btn btn-outline-secondary btn-tn">
+                                                <i class="fa fa-pencil plomo"></i>
+                                                <span class="plomo">editar</span>
+                                            </a>
+                                        </span>
+                                        <span *ngIf="!Me">
+                                            <a (click)="seguir()" class="btn btn-outline-secondary btn-tn">
+                                                <div *ngIf="following" class="plomo">
+                                                    <i class="fa fa-check fa-1x"></i>
+                                                    <span>siguiendo</span>
+                                                </div>
+                                                <div *ngIf="!following" class="plomo">
+                                                    <span>seguir</span>
+                                                </div>
+                                            </a>
+                                            <a class="btn btn-outline-secondary btn-tn">
+                                                <span class="plomo">
+                                                    <i class="fa fa-commenting-o"></i>
+                                                    mensaje
+                                                </span>
+                                            </a>
+                                        </span>
+                                    </div>
                                 </div>
-                           </div>
+                                <!-- <button type="button" class="btn btn-labeled btn-info" href="#">
+                                <span class="btn-label"><i class="fa fa-pencil"></i></span>Update</button> -->
                             </div>
-                                <div *ngSwitchCase="1">
-                                    <h4 style="padding: 15px 10px">
-                                        opciones
-                                    </h4>
-                                    <a [routerLink]="['/user/edit']">
-                                        <h4> <i class="fa fa-pencil"></i> editar perfil</h4>
-                                    </a>
-                                    <a [routerLink]="['/pages/publish']">
-                                        <h4> <i class="fa fa-newspaper-o"></i> publicar nuevo</h4>
-                                    </a>
-                                    <a href="#">
-                                        <h4><i class="fa fa-info-circle"></i> mas informacion</h4>
-                                    </a>
+                        </div>
+                        <div class="col-md-4 no-pad block">
+                            <div class="user-image">
+                                <img src="{{user.perfil}}" class="img-thumbnail">
+                            </div>
+                            <a *ngIf="Me" class="change-image">
+                                <i class="fa fa-camera"></i> cambiar foto de perfil</a>
+                            <!--   <a class="change-image d-block d-sm-none"><i class="fa fa-camera"></i></a> -->
+                        </div>
+                    </div>
+                    <div class="row overview">
+                        <div class="col-md-4 user-pad text-center">
+                            <h3>PUNTOS</h3>
+                            <h4>{{user.puntos}}</h4>
+                        </div>
+                        <div class="col-md-4 user-pad text-center">
+                            <h3>FAMA</h3>
+                            <h4>456</h4>
+                        </div>
+                        <div class="col-md-4 user-pad text-center">
+                            <h3>PRECISION</h3>
+                            <h4>{{user.precision}}</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-5">
+                    <div class="row">
+                        <div class="col-3 user-menu-btns">
+                            <div class="btn-group-vertical square" id="responsive">
+                                <a (click)="show=0; content()" class="btn btn-default coral">
+                                    <i class="fa fa-star-o fa-2x"></i>
+                                </a>
+                                <a (click)="show=1; content()" class="btn btn-default">
+                                    <i class="fa fa-cog fa-2x"></i>
+                                </a>
+                                <a (click)="show=2; content()" class="btn btn-default">
+                                    <i class="fa fa-signal fa-2x"></i>
+                                </a>
+                                <a (click)="show=3; content()" class="btn btn-default">
+                                    <i class="fa fa-money fa-2x"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-9" [ngSwitch]="show">
+                            <div *ngSwitchCase="0">
+                                <h4 style="padding: 15px 10px">
+                                    fama
+                                    <span class="badge badge-success">48</span>
+                                </h4>
+                                <div class="row">
+                                    <div *ngFor="let coin of user.fama" class="col-2 col-md-3">
+                                        <h4>
+                                            <span class="badge badge-secondary">{{coin.symbol}} {{coin.valor}}</span>
+                                        </h4>
+                                    </div>
                                 </div>
-                             <div *ngSwitchCase="3">
-                                   <h2 class="text-center">
-                                            START SHARING
-                                   </h2>
-                                <span><i class="fa fa-cloud-upload fa-4x"></i></span>
-                                     <div class="share-links">
-                                          <span><button type="button" class="btn btn-lg btn-labeled btn-success" href="#" style="margin-bottom: 15px;">
-                                            <span class="btn-label"><i class="fa fa-bell-o"></i></span>A FINISHED PROJECT
-                                     </button></span>
-                                 <span><button type="button" class="btn btn-lg btn-labeled btn-warning" href="#">
-                                  <span class="btn-label"><i class="fa fa-bell-o"></i></span>A WORK IN PROGRESS
-                                </button></span>
-                                  </div>
-                             </div>
-                          </div>
+                            </div>
+                            <div *ngSwitchCase="1">
+                                <h4 style="padding: 15px 10px">
+                                    opciones
+                                </h4>
+                                <a [routerLink]="['/user/edit']">
+                                    <h4>
+                                        <i class="fa fa-pencil"></i> editar perfil</h4>
+                                </a>
+                                <a [routerLink]="['/pages/publish']">
+                                    <h4>
+                                        <i class="fa fa-newspaper-o"></i> publicar nuevo</h4>
+                                </a>
+                                <a href="#">
+                                    <h4>
+                                        <i class="fa fa-info-circle"></i> mas informacion</h4>
+                                </a>
+                            </div>
+                            <div *ngSwitchCase="3">
+                                <h2 class="text-center">
+                                    START SHARING
+                                </h2>
+                                <span>
+                                    <i class="fa fa-cloud-upload fa-4x"></i>
+                                </span>
+                                <div class="share-links">
+                                    <span>
+                                        <button type="button" class="btn btn-lg btn-labeled btn-success" href="#" style="margin-bottom: 15px;">
+                                            <span class="btn-label">
+                                                <i class="fa fa-bell-o"></i>
+                                            </span>A FINISHED PROJECT
+                                        </button>
+                                    </span>
+                                    <span>
+                                        <button type="button" class="btn btn-lg btn-labeled btn-warning" href="#">
+                                            <span class="btn-label">
+                                                <i class="fa fa-bell-o"></i>
+                                            </span>A WORK IN PROGRESS
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-  </nb-card-body>
+    </nb-card-body>
 </nb-card>
 <nb-card>
-  <div class="row">
-    <div class="col-12 col-md-6">
-<ngb-accordion [closeOthers]="true">
-    <ngb-panel id="static-1">
-      <ng-template ngbPanelTitle>
-        <h4>coaching <span class="badge badge-success">46</span></h4>
-      </ng-template>
-      <ng-template ngbPanelContent>
-          <h4>no hay anuncios disponibles</h4>
-      </ng-template>
-    </ngb-panel>
-    <ngb-panel id="static-2">
-      <ng-template ngbPanelTitle>
-        <h4>transacciones <span class="badge badge-danger">{{transaction.length}}</span></h4>
-      </ng-template>
-      <ng-template ngbPanelContent>
-        <table class="table">
-          <thead class="thead-light">
-            <th class="scope">origen</th>
-            <th class="scope">destino</th>
-            <th class="scope">razon</th>
-            <th class="scope">monto</th>
-            <th class="scope">fecha</th>
-          </thead>
-          <tbody>
-            <tr *ngFor="let t of transaction">
-              <td>
-                <span *ngIf="t.senderId==user.id; else otherUser">{{user.username}}</span>
-              </td>
-              <td>
-                  <span *ngIf="t.recieverId==user.id; else otherUser">{{user.username}}</span>
-              </td>
-              <td>{{t.razon}}</td>
-              <td>{{t.monto}}</td>
-              <td>{{t.fecha | amTimeAgo}}</td>
-              <ng-template #otherUser>
-                  {{t.username}}
-                </ng-template>
-            </tr>
-          </tbody>
-        </table>
-      </ng-template>
-    </ngb-panel>
-  </ngb-accordion>  
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <ngb-accordion [closeOthers]="true">
+                <ngb-panel id="static-1">
+                    <ng-template ngbPanelTitle>
+                        <h4>coaching
+                            <span class="badge badge-success">46</span>
+                        </h4>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <h4>no hay anuncios disponibles</h4>
+                    </ng-template>
+                </ngb-panel>
+                <ngb-panel id="static-2">
+                    <ng-template ngbPanelTitle>
+                        <h4>transacciones
+                            <span class="badge badge-danger">{{transaction.length}}</span>
+                        </h4>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <table class="table">
+                            <thead class="thead-light">
+                                <th class="scope">origen</th>
+                                <th class="scope">destino</th>
+                                <th class="scope">razon</th>
+                                <th class="scope">monto</th>
+                                <th class="scope">fecha</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let t of transaction">
+                                    <td>
+                                        <span *ngIf="t.senderId==user.id; else otherUser">{{user.username}}</span>
+                                    </td>
+                                    <td>
+                                        <span *ngIf="t.recieverId==user.id; else otherUser">{{user.username}}</span>
+                                    </td>
+                                    <td>{{t.razon}}</td>
+                                    <td>{{t.monto}}</td>
+                                    <td>{{t.fecha | amTimeAgo}}</td>
+                                    <ng-template #otherUser>
+                                        {{t.username}}
+                                    </ng-template>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </ng-template>
+                </ngb-panel>
+            </ngb-accordion>
+        </div>
+        <div class="col-12 col-md-6">
+            <ngb-accordion [closeOthers]="true">
+                <ngb-panel>
+                    <ng-template ngbPanelTitle>
+                        <h4>noticias publicadas
+                            <span class="badge badge-danger">{{news.length}}</span>
+                        </h4>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <div class="overFlow">
+                            <ngx-newsAll [listNews]="newsUser" design="col-lg-12 col-md-12 col-sm-12"></ngx-newsAll>
+                        </div>
+                    </ng-template>
+                </ngb-panel>
+                <ngb-panel>
+                    <ng-template ngbPanelTitle>
+                        <h4>señales publicadas
+                            <span class="badge badge-dark">{{signals.length}}</span>
+                        </h4>
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <div class="overFlow">
+                            <ngx-signalAll [listSignal]="signalsUser" design="col-lg-12 col-md-12 col-sm-12"></ngx-signalAll>
+                        </div>
+                    </ng-template>
+                </ngb-panel>
+            </ngb-accordion>
+        </div>
     </div>
-    <div class="col-12 col-md-6">
-      <ngb-accordion [closeOthers]="true">
-        <ngb-panel>
-          <ng-template ngbPanelTitle>
-            <h4>noticias publicadas <span class="badge badge-danger">{{news.length}}</span></h4>
-          </ng-template>
-          <ng-template ngbPanelContent>
-            <div class="overFlow">
-              <ngx-newsList></ngx-newsList>
-            </div>
-          </ng-template>
-        </ngb-panel>
-        <ngb-panel>
-          <ng-template ngbPanelTitle>
-            <h4>señales publicadas <span class="badge badge-dark">{{signals.length}}</span></h4>
-          </ng-template>
-          <ng-template ngbPanelContent>
-            <div class="overFlow">
-                <ngx-signalsList></ngx-signalsList>
-            </div>
-          </ng-template>
-        </ngb-panel>
-      </ngb-accordion>
-    </div>
-  </div>
 </nb-card>

@@ -2,8 +2,8 @@
     <nb-card-header>
         <div class="row" *ngIf="contentUser">
             <div class="col-12 col-md-2">
-                <a [routerLink]="['/user/profile', contentUser.id]">
-                  <nb-user [menu]="" [name]="contentUser?.username" [picture]="contentUser?.perfil"></nb-user>
+                <a [routerLink]="['/user/profile/', contentUser.id]">
+                <nb-user [name]="contentUser?.username" [picture]="contentUser?.perfil"></nb-user>
                 </a>
             </div>
             <div class="col-4 col-md-1">
@@ -108,6 +108,7 @@
                         {{count.count}} Comentarios
                     </button>
                     <div id="collapseExample" [ngbCollapse]="!isCollapsed">
+<<<<<<< HEAD
                         <div class="card" *ngFor="let comment of commentById; let i = index">
                             <div class="row" class="card-body">
                                 <div *ngIf="comment">
@@ -223,30 +224,20 @@
                                 <button type="submit" class="btn btn-primary btn-tn" (click)="sendAnswer($event)">Responder</button>
                             </div>
                         </div>
+=======
+                        <ngx-comment [coment]="commentById" (onObject)="sendAnswer($event)"></ngx-comment>
+>>>>>>> develop
                     </div>
-                    <nb-card>
-                        <nb-card-body>
-                            <div class="form-group">
-                                <textarea class="form-control" #contenido="ngModel" name="contenido" placeholder="Escribe un Comentario" [(ngModel)]="comment.contenido"
-                                    minlength="4"></textarea>
-                                <br>
-                                <div *ngIf="contenido.invalid && (contenido.dirty || contenido.touched)" class="alert alert-danger">
-                                    <span *ngIf="contenido.errors.required">
-                                        El comentario no puede estar vacio.
-                                    </span>
-                                    <span *ngIf="contenido.errors.minlength">
-                                        El comentario debe tener al menos 4 caracteres.
-                                    </span>
-                                </div>
-                            </div>
-                            <button type="submit" [disabled]="submitted || !contenido.valid" [class.btn-pulse]="submitted" class="btn btn-success pull-right btn-sm"
-                                (click)="sendComent()">Publicar</button>
-                        </nb-card-body>
-                    </nb-card>
                 </div>
             </div>
         </div>
     </nb-card-body>
+    <nb-card-footer>
+        <div class="form-group">
+            <textarea class="form-control" #contenido="ngModel" name="contenido" [(ngModel)]="comment.contenido" placeholder="Escribe un Comentario"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success pull-right btn-sm" (click)="sendComment()">Comentar</button>
+    </nb-card-footer>
 </nb-card>
 <nb-card>
     <nb-card-header>

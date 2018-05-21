@@ -20,12 +20,20 @@ import {
 } from '@nebular/theme';
 
 import {
+  CropperModalComponent,
   FooterComponent,
   HeaderComponent,
   HeaderTwoComponent,
+  ImageComponent,
   SearchInputComponent,
   ThemeSettingsComponent,
   TinyMCEComponent,
+  signalAllComponent,
+  newsAllComponent,
+  userDesignComponent,
+  commentComponent,
+
+  
 } from './components';
 import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe } from './pipes';
 import {
@@ -51,8 +59,10 @@ const NB_MODULES = [
 
 const COMPONENTS = [
   ImageCropperComponent,
+  //CropperModalComponent,
   HeaderComponent,
   HeaderTwoComponent,
+  ImageComponent,
   FooterComponent,
   SearchInputComponent,
   ThemeSettingsComponent,
