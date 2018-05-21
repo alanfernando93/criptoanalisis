@@ -293,7 +293,6 @@ module.exports = (Signal, ctx, ctx2) => {
       else
         return false;
     });
-    console.log(pos.length);
     if (pos.length == 1 || pos.length == 2) {
       getprom(pos, tipo);
       return false;
@@ -319,7 +318,6 @@ module.exports = (Signal, ctx, ctx2) => {
   function modprec(signalId, type, value) {
     Signal.findById(signalId)
     .then(data=>{
-      console.log(data);
       var x = 0;
       // type sera true en caso de exito
       if (type && data.PEP > 0) {
