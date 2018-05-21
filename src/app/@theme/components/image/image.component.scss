@@ -1,0 +1,38 @@
+@import '../../../@theme/styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/bootstrap/breakpoints';
+
+@include nb-install-component() {
+    
+    .inputfile-5:focus + label,
+    .inputfile-5.has-focus + label,
+    .inputfile-5 + label:hover {
+        color:black;
+    }
+    
+    .inputfile-5 + label img {
+        width: 300px;
+        height: 200px;
+        display: block;
+    }
+    
+    @include media-breakpoint-up(xs) {
+        label[for="file-5"] {
+            max-width: 127%;
+            // height: 200px;
+            // display: block;
+        }
+
+        .iborrainputfile{
+            font-size: 11px;
+            // width: 100%;
+            padding: 5px;
+        }
+    }
+
+    .iborrainputfile {
+        //font-size:12px; 
+        position: relative;
+        top: -28px;
+    }
+}

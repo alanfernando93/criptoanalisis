@@ -1,0 +1,99 @@
+@import '../../../@theme/styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/bootstrap/breakpoints';
+
+@include nb-install-component() {
+
+    .list-btn{
+        a{
+            width: 100%;
+            text-align: left;
+            padding: 5px;
+            padding-left: 12px;
+        }
+    }
+
+    .list-text{
+        border: 2px solid #dadfe6;
+        padding: 7px;
+        border-radius: 2px;
+        div:first-child{
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bolder;
+        }
+    }
+
+    .cardCrypto{
+        padding-left: 77px;
+        padding-top: 15px;
+        padding-bottom: 33px;
+        border: 1px solid black;
+        background-color: #dadfe6;
+        div:first-child{
+            height: 25%;
+            padding-bottom: 15px; 
+            div:first-child{
+                background-color: red;
+                color: white;
+                border: 1px solid red;
+                border-radius: 2px;
+                padding: 2px;
+            }
+            div:last-child{
+                padding: 2px;
+                border: 1px solid orange;
+                background-color: orange;
+                color: orangered;
+                border-radius: 2px;
+            }
+        }
+    }
+
+    @include media-breakpoint-up(sm) {
+        .cardCrypto{
+            padding-left: 77px;
+            padding-top: 15px;
+            padding-bottom: 33px;
+            border: 1px solid black;
+            background-color: #dadfe6;
+        }
+
+    }
+
+    @include media-breakpoint-down(sm) {
+        .news{
+            padding-right: 0;
+        }
+        .cardCrypto{
+            padding-left: 15px;
+            padding-top: 15px;
+            padding-bottom: 33px;
+            border: 1px solid black;
+            background-color: #dadfe6;
+            div:first-child{
+                height: 25%;
+                padding-bottom: 15px; 
+                font-size: 9px;
+                div:first-child{
+                    background-color: red;
+                    color: white;
+                    border: 1px solid red;
+                    border-radius: 3px;
+                    padding: 2px;
+                }
+                div:last-child{
+                    padding: 2px;
+                    border: 1px solid orange;
+                    background-color: orange;
+                    color: orangered;
+                    border-radius: 3px;
+                }
+            }
+
+            div:last-child{
+                text-align: right;
+                font-size: 9px;                
+            }
+        }
+    }
+}
