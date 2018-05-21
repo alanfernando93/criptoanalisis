@@ -1,10 +1,12 @@
 <span class="chat-img pull-left" *ngIf="dataCommUser">
     <a placement="right" [ngbPopover]="popContentComment" triggers="mouseover">
-        <!-- <img *ngIf="dataUserPerfil" class="img-circle rounded-circle" src="{{dataUserImage}}"> -->
-        <div *ngIf="dataUserPerfil" class="design_user">
-            <ng-container> {{ getInitials(dataUserSymbol) }} </ng-container>
-        </div>
-    </a>
+        <img *ngIf="dataUserPerfil; else UserOptions" class="img-circle rounded-circle" src="comment.user.perfil">
+        <ng-template #UserOptions>
+            <div class="design_user">
+                <ng-container> {{ getInitials(dataUserSymbol) }} </ng-container>
+            </div>    
+        </ng-template>
+        </a>
 </span>
 <div class="chat-body clearfix" *ngIf="dataCommUser">
     <div class="header">

@@ -35,9 +35,8 @@ export class newsViewComponent implements OnInit {
     private userService: UserService) {
     route.params.subscribe(val => {
       this.idNews = val.newsId;
-      this.getNewsCommentById();
+      
       this.getCommentWithUser();
-      this.getNewsById();
       this.getNewsCommentCount();
       this.getNewsWithUser();
     });
