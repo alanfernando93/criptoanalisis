@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class NewsService extends Session{
-  private baseUrl = environment.apiUrl;
+  private baseUrl = this.getApiRest();
 
   constructor(private http: Http, 
               private socket: Socket, 

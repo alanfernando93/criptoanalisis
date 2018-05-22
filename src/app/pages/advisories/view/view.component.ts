@@ -4,7 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 
 import { AdvisoriesService } from '../advisories.service';
 import { elementAt } from 'rxjs/operator/elementAt';
-import { environment } from '../../../../environments/environment';
+import { _GLOBAL } from '../../../common/ConfigSettings';
 
 @Component({
   selector: 'ngx-view',
@@ -12,7 +12,7 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./view.component.scss']
 })
 export class ViewComponent implements OnInit {
-  idUser = environment.userId;
+  idUser = _GLOBAL.apiUrl;
   advisory: any;
   coment: any;
   comment: {};

@@ -6,8 +6,7 @@ import { environment } from "../../environments/environment";
 
 @Injectable()
 export class profileService extends Session{
-    private baseUrl = environment.apiUrl;
-
+    private baseUrl = this.getApiRest();
     constructor(
         private http: Http,
     ){
