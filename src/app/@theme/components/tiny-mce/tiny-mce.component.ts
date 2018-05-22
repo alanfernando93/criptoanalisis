@@ -41,7 +41,7 @@ export class TinyMCEComponent extends Session implements OnDestroy, AfterViewIni
   imageCollection: any = [];
 
   editor;
-  baseUrl = environment.apiUrl;
+  baseUrl = this.getApiRest();
 
   constructor(
     private host: ElementRef,

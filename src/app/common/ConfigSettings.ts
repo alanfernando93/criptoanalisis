@@ -1,3 +1,8 @@
+export const _GLOBAL = {
+  apiUrl: 'http://191.101.228.157:8080/api/',
+  Url: 'http://191.101.228.157:8080',
+}
+
 export const configCrud = {
     message: {
         success: "Se guardo con exito!!!",

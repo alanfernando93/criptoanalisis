@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { environment } from '../../../environments/environment';
 
 import 'rxjs/add/operator/map';
+import { Session } from '../../@core/data/session';
 
 @Injectable()
- export class AdvisoriesService {
-    private baseUrl = environment.apiUrl;
+ export class AdvisoriesService extends Session{
+    private baseUrl = this.getApiRest()
     //private token = environment.usertoken;
-    private userId = environment.userId;
+    private userId = this.getUserId();
     
     
     
     
     constructor(private http: Http){
-
+        super();
     }
 
     getAdvisories(){

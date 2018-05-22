@@ -8,7 +8,7 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
 import { DataModule } from './data/data.module';
 import { AnalyticsService } from './utils/analytics.service';
 
-import { environment } from '../../environments/environment';
+import { _GLOBAL } from '../common/ConfigSettings';
  
 const NB_CORE_PROVIDERS = [
   ...DataModule.forRoot().providers,
@@ -17,7 +17,7 @@ const NB_CORE_PROVIDERS = [
       email: {
         service: NbEmailPassAuthProvider,
         config: {
-          baseEndpoint: environment.apiUrl,
+          baseEndpoint: _GLOBAL.apiUrl,
           login: {
             redirectDelay: 500,
             rememberMe: true,

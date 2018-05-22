@@ -1,4 +1,4 @@
-import { environment } from "../../../environments/environment";
+import { _GLOBAL } from '../../common/ConfigSettings';
 
 export class Session {
 
@@ -14,7 +14,7 @@ export class Session {
     }
 
     public getApiRest() {
-        return environment.apiUrl;
+        return _GLOBAL.apiUrl;
     }
 
     static getStorage(key) {

@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class CoinsService extends Session {
 
-    private baseUrl = environment.apiUrl;
+    private baseUrl = this.getApiRest();
     private table = "monedas";
 
     constructor(private http: Http) {
