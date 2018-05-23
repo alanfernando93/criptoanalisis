@@ -10,6 +10,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { isNumber } from '@ng-bootstrap/ng-bootstrap/util/util';
+import { showToast } from '../../../common/functions';
+import { ToasterService } from 'angular2-toaster';
 
 @Component({
   selector: 'ngx-publish-coin',
@@ -35,6 +37,7 @@ export class CoinComponent implements OnInit {
     private modalService: NgbModal,
     private coinsService: CoinsService,
     private marketService: MarketsService,
+    private toastService: ToasterService,
   ) { }
 
   ngOnInit() {
@@ -67,14 +70,15 @@ export class CoinComponent implements OnInit {
     })
   }
 
-  open(enlace, id) {
+  open(enlace, id, nombre) {
     let div;
     this.coinsService.getTextForm(enlace.toLowerCase()).subscribe(data => {
       div = document.getElementById('body');
       div.innerHTML = data['_body'];
       this.form = document.getElementById('form');
-      this.form.setAttribute('class', enlace + " " + id);
+      this.form.setAttribute('class', enlace + " " + id + " " + nombre);
       if (this.forms[enlace]) {
+        console.log(this.forms[enlace]["id"]);
         length = this.form.length;
         for (let i = 0; i < length; i++) {
           if (this.form[i].type === 'checkbox' || this.form[i].type === 'radio') {
@@ -87,15 +91,15 @@ export class CoinComponent implements OnInit {
     });
     this.modalService.open(this.content).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-      this.getParamsForm(enlace);
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       this.getParamsForm(enlace);
     });
   }
 
-  getParamsForm(id) {
+  getParamsForm(enlace, id?:string) {
     let data = {};
+    if(id !== undefined) data["id"] = id;
     length = this.form.length;
     for (let i = 0; i < length; i++) {
       if (this.form[i].type === 'checkbox' || this.form[i].type === 'radio') {
@@ -104,7 +108,7 @@ export class CoinComponent implements OnInit {
         data[this.form[i].name] = this.form[i].value;
       }
     }
-    this.forms[id] = data;
+    this.forms[enlace] = data;
   }
 
   submit(callback) {
@@ -124,8 +128,14 @@ export class CoinComponent implements OnInit {
       }
     }
     this.coinsService.setCoinContent(this.newsCoins).subscribe(res => {
-      delete this.forms[clas[0]];
+      let button = document.getElementById(clas[0]);
+      button.setAttribute('class', 'rounded sub btn btn-success');     
+      
       callback('Close click');
+      if (this.forms[clas[0]] == undefined) {
+        this.getParamsForm(clas[0], res.id)
+      }
+      showToast(this.toastService, 'success', clas[2] + " insertada con exito");
     })
   }
 

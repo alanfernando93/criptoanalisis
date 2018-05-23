@@ -43,7 +43,7 @@
               <div id="collapseExample" [ngbCollapse]="title.isCollapsed" *ngIf="title.subtitles.length > 0">
                 <div class="card">
                   <div class="card-body">
-                    <button class="rounded sub btn btn-secondary" *ngFor="let subtitle of title.subtitles" (click)="open(subtitle.enlace, subtitle.id)">{{subtitle.nombre}} </button>
+                    <button class="rounded sub btn btn-secondary" *ngFor="let subtitle of title.subtitles" id="{{subtitle.enlace}}" (click)="open(subtitle.enlace, subtitle.id, subtitle.nombre)">{{subtitle.nombre}} </button>
                   </div>
                 </div>
               </div>
@@ -82,6 +82,6 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="submit(c)">Guardar</button>
-    <button type="button" class="btn btn-primary" (click)="c('Close click')">Close</button>
+    <!-- <button type="button" class="btn btn-primary" (click)="c('Close click')">Close</button> -->
   </div>
 </ng-template>
