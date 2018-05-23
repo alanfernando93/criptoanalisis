@@ -35,13 +35,19 @@ export class CoinsService extends Session {
         return "?access_token=" + this.getToken();
     }
 
-    getTitle(){
+    getTitle() {
         return this.http.get(this.baseUrl + "titulos" + this.getAuth())
             .map(resp => resp.json())
     }
-    
-    getTextForm(file){
-        return this.http.get(this.baseUrl + "containers/forms/download/"+ file )
+
+    getTextForm(file) {
+        return this.http.get(this.baseUrl + "containers/forms/download/" + file)
             .map(resp => resp)
+    }
+
+    setCoinContent(coin) {
+        coin.usuarioId = this.getUserId();
+        return this.http.post(this.baseUrl + "contenidoMonedas" + this.getAuth(), coin)
+            .map(resp => resp.json());
     }
 }
