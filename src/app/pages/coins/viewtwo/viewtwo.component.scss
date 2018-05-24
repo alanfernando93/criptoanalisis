@@ -47,6 +47,9 @@
                 border-radius: 2px;
             }
         }
+        div>p{
+            width: 100%;
+        }
     }
 
     @include media-breakpoint-up(sm) {

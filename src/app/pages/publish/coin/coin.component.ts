@@ -41,14 +41,8 @@ export class CoinComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.coinsService.getCoinsName().subscribe(data => {
-      this.coins = data.monedas;
-    })
-    this.marketService.getMarkets().subscribe(data => {
-      data.forEach(element => {
-        this.markets.push(element.nombre)
-      });
-    })
+    this.coinsService.getCoinsName().subscribe(data => this.coins = data.monedas)
+    this.marketService.getMarkets().subscribe(data => data.forEach(element => this.markets.push(element.nombre)))
     this.coinsService.getTitle().subscribe(data => {
       let subs = []
       data.forEach(element => {
@@ -86,11 +80,10 @@ export class CoinComponent implements OnInit {
         }
         length = this.form.length;
         for (let i = 0; i < length; i++) {
-          if (this.form[i].type === 'checkbox' || this.form[i].type === 'radio') {
+          if (this.form[i].type === 'checkbox' || this.form[i].type === 'radio')
             this.form[i].checked = this.forms[enlace][this.form[i].id]
-          } else {
+          else
             this.form[i].value = this.forms[enlace][this.form[i].name]
-          }
         }
       }
     });
@@ -111,12 +104,9 @@ export class CoinComponent implements OnInit {
     length = data.length;
     for (let i = 0; i < length; i++) {
       if (data[i].type === 'checkbox' || this.form[i].type === 'radio') {
-        if (data[i].checked) {
-          this.newsCoins.calificacion = data[i].value;
-        }
-      } else {
+        if (data[i].checked) this.newsCoins.calificacion = data[i].value;
+      } else
         this.newsCoins.contenido = data[i].value;
-      }
     }
     this.coinsService.setCoinContent(this.newsCoins, this.forms[clas[0]] == undefined ? "undefined" : this.forms[clas[0]].id).subscribe(res => {
       let button = document.getElementById(clas[0]);
@@ -131,26 +121,22 @@ export class CoinComponent implements OnInit {
 
   getParamsForm(enlace) {
     if (this.forms[enlace] == undefined) this.forms[enlace] = {};
-
     length = this.form.length;
     for (let i = 0; i < length; i++) {
-      if (this.form[i].type === 'checkbox' || this.form[i].type === 'radio') {
-        this.forms[enlace][this.form[i].id] = this.form[i].checked
-      } else {
+      if (this.form[i].type === 'checkbox' || this.form[i].type === 'radio')
+        this.forms[enlace][this.form[i].id] = this.form[i].checked;
+      else
         this.forms[enlace][this.form[i].name] = this.form[i].value;
-      }
     }
-    // this.forms[enlace] = data;
   }
 
   private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
+    if (reason === ModalDismissReasons.ESC)
       return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+    else if (reason === ModalDismissReasons.BACKDROP_CLICK)
       return 'by clicking on a backdrop';
-    } else {
+    else
       return `with: ${reason}`;
-    }
   }
 
   formatter = (x: { name: string }) => x.name;

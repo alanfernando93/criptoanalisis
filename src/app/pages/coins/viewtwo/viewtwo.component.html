@@ -105,17 +105,14 @@
               </div>
             </div>
             <br>
-            <div class="container new">
+            <div class="container new" *ngFor="let content of titleContent"  >
               <div class="row cardCrypto">
                 <div class="col-12 row justify-content-between">
                   <div class="col-8 col-md-5 text-center">CALIFICACION: 23/35 - Confiabilidad: 23%</div>
                   <div class="col-3 col-md-2 text-center">GRATIS </div>
                 </div>
                 <div class="col-12 row">
-                  <p class="text-justify">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget
-                    metus. Nullam id dolor id nibh ultricies vehicula ut id elit at eget metus. Nullam id dolor id nibh ultricies
-                    vehicula ut id elit. at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit ... ver mas
-                    ...</p>
+                  <p class="text-justify">{{content.contenido}} ver mas...</p>
                 </div>
                 <div class="row">
                   <div class="col align-self-start">

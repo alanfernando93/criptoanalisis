@@ -53,13 +53,7 @@ export class CoinsService extends Session {
             return this.http.put(`${this.baseUrl}contenidoMonedas/${id}${this.getAuth()}`, coin).map(resp => resp.json());
     }
 
-    /**
-     * 
-     * @param data object update
-     * @param id reference id coin content
-     */
-    updateCoinContet(data, id) {
-        data.usuarioId = this.getUserId();
-
+    getTitleConclusion(id){
+        return this.http.get(`${this.baseUrl}titulos/${id}/contenido${this.getAuth()}`).map(resp=>resp.json())
     }
 }
