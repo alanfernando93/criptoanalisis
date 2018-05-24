@@ -22,6 +22,7 @@ export class newsViewComponent implements OnInit {
   like: number;
   dislike: number;
   comment: any = {};
+  denuncia: any = {};
   answer: any = {};
   commentById: any = [];
   connectionCom;
@@ -46,8 +47,9 @@ export class newsViewComponent implements OnInit {
     this.ansNews();
   }
 
-  getNewsById() {
+  getNewsById(event) {
     this.newsService.getById(this.idNews).subscribe(data => {
+      event.target.closest("nb-card").remove();
       data ? this.news = data : {};
     });
   }
@@ -137,6 +139,13 @@ export class newsViewComponent implements OnInit {
     this.comment.noticiaId = this.idNews;
     this.newsService.postNewsComment(this.comment).subscribe(data => {
       this.comment = {};
+    });
+  }
+
+  sendDenuncia() {
+    this.denuncia.denunciadoId = this.news.usuarioId;
+    this.newsService.postDenuncias(this.denuncia).subscribe(data => {
+      this.denuncia = {};
     });
   }
 

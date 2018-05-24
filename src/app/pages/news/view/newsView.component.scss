@@ -1,9 +1,39 @@
-.content {
-    margin-top: 1rem;
+.box { 
+    background: white; 
+    display:block; 
 }
 
-.subtitle {
-    margin-top: 1rem;
+.line { 
+    border-left:1px solid lightgray; 
+}
+
+.box3 { 
+    margin:0 auto; 
+    width: 49%; 
+    min-width: 250px; 
+    display: inline-block; 
+    padding: .5% 2.5%; 
+    padding-bottom: 50px;
+}
+
+.box3 h1{ 
+    font-weight:normal; 
+    font-size:15pt; 
+    margin:0 auto;  
+    color:#5385c1; 
+}
+
+
+hr.line { 
+    background-color:#dbdbdb; 
+    width:80%; 
+    margin:0 auto; 
+}
+
+.content {
+    color: #9a9a9a;
+    font-size: 11pt;
+    padding-top: 15px;
 }
 
 .delike {
@@ -14,12 +44,6 @@
     &:hover{
         color: #8b9dc3;
     }
-}
-
-.vetical{
-    width: 1px;
-    height: 144px;
-    background-color: #8b9dc3;
 }
 
 
@@ -104,4 +128,16 @@
 }
 .userData {
     margin-top: 8px;
+}
+
+.subtitle {
+    margin-top: 10px
+}
+
+.user_data {
+    margin-top: 8px;
+}
+
+.imagen{
+    width: 100% !important;
 }

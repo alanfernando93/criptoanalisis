@@ -158,5 +158,11 @@ export class NewsService extends Session{
     return this.http.post(this.baseUrl + 'noticias', body)
     .map((res: Response) => res.json());
   }
+  
+  postDenuncias(denuncia){
+    denuncia.denunciaId = this.getUserId();
+    return this.http.post(this.baseUrl + 'denuncias', denuncia)
+    .map(res => res.json());
+}
 
 }
