@@ -45,9 +45,21 @@ export class CoinsService extends Session {
             .map(resp => resp)
     }
 
-    setCoinContent(coin) {
+    setCoinContent(coin, id) {
         coin.usuarioId = this.getUserId();
-        return this.http.post(this.baseUrl + "contenidoMonedas" + this.getAuth(), coin)
-            .map(resp => resp.json());
+        if (id === "undefined")
+            return this.http.post(this.baseUrl + "contenidoMonedas" + this.getAuth(), coin).map(resp => resp.json());
+        else
+            return this.http.put(`${this.baseUrl}contenidoMonedas/${id}${this.getAuth()}`, coin).map(resp => resp.json());
+    }
+
+    /**
+     * 
+     * @param data object update
+     * @param id reference id coin content
+     */
+    updateCoinContet(data, id) {
+        data.usuarioId = this.getUserId();
+
     }
 }

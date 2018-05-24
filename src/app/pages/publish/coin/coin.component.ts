@@ -71,14 +71,19 @@ export class CoinComponent implements OnInit {
   }
 
   open(enlace, id, nombre) {
-    let div;
+    let div, divModal: any, modalTitle: any;
     this.coinsService.getTextForm(enlace.toLowerCase()).subscribe(data => {
       div = document.getElementById('body');
       div.innerHTML = data['_body'];
       this.form = document.getElementById('form');
       this.form.setAttribute('class', enlace + " " + id + " " + nombre);
       if (this.forms[enlace]) {
-        console.log(this.forms[enlace]["id"]);
+        if (this.forms[enlace]["id"] !== undefined) {
+          divModal = document.getElementsByClassName('modal-footer')[0];
+          modalTitle = document.getElementsByClassName("modal-title")[0]
+          divModal.firstElementChild.innerText = "Modificar";
+          modalTitle.innerHTML = "Editar " + nombre;
+        }
         length = this.form.length;
         for (let i = 0; i < length; i++) {
           if (this.form[i].type === 'checkbox' || this.form[i].type === 'radio') {
@@ -97,20 +102,6 @@ export class CoinComponent implements OnInit {
     });
   }
 
-  getParamsForm(enlace, id?:string) {
-    let data = {};
-    if(id !== undefined) data["id"] = id;
-    length = this.form.length;
-    for (let i = 0; i < length; i++) {
-      if (this.form[i].type === 'checkbox' || this.form[i].type === 'radio') {
-        data[this.form[i].id] = this.form[i].checked
-      } else {
-        data[this.form[i].name] = this.form[i].value;
-      }
-    }
-    this.forms[enlace] = data;
-  }
-
   submit(callback) {
     let data: any = document.getElementById('form');
     let clas = data.className.split(" ");
@@ -127,16 +118,29 @@ export class CoinComponent implements OnInit {
         this.newsCoins.contenido = data[i].value;
       }
     }
-    this.coinsService.setCoinContent(this.newsCoins).subscribe(res => {
+    this.coinsService.setCoinContent(this.newsCoins, this.forms[clas[0]] == undefined ? "undefined" : this.forms[clas[0]].id).subscribe(res => {
       let button = document.getElementById(clas[0]);
-      button.setAttribute('class', 'rounded sub btn btn-success');     
-      
+      button.setAttribute('class', 'rounded sub btn btn-success');
+
       callback('Close click');
-      if (this.forms[clas[0]] == undefined) {
-        this.getParamsForm(clas[0], res.id)
-      }
+      if (this.forms[clas[0]] == undefined) this.getParamsForm(clas[0])
+      this.forms[clas[0]].id = res.id;
       showToast(this.toastService, 'success', clas[2] + " insertada con exito");
     })
+  }
+
+  getParamsForm(enlace) {
+    if (this.forms[enlace] == undefined) this.forms[enlace] = {};
+
+    length = this.form.length;
+    for (let i = 0; i < length; i++) {
+      if (this.form[i].type === 'checkbox' || this.form[i].type === 'radio') {
+        this.forms[enlace][this.form[i].id] = this.form[i].checked
+      } else {
+        this.forms[enlace][this.form[i].name] = this.form[i].value;
+      }
+    }
+    // this.forms[enlace] = data;
   }
 
   private getDismissReason(reason: any): string {
