@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToasterModule } from 'angular2-toaster';
 import { ImageCropperComponent } from 'ng2-img-cropper';
+import { MomentModule } from 'angular2-moment';
+import * as moment from 'moment';
 
 import {
   NbActionsModule,
@@ -55,6 +57,7 @@ const NB_MODULES = [
   NbSidebarModule,
   NbCheckboxModule,
   NgbModule,
+  MomentModule
 ];
 
 const COMPONENTS = [
@@ -67,7 +70,9 @@ const COMPONENTS = [
   SearchInputComponent,
   ThemeSettingsComponent,
   TinyMCEComponent,
-  SampleLayoutComponent
+  SampleLayoutComponent,
+  userDesignComponent,
+  commentComponent,
 ];
 
 const PIPES = [

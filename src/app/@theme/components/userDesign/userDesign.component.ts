@@ -9,7 +9,7 @@ import { Http, Response } from '@angular/http';
 export class userDesignComponent {
 
     @Input() dataCommUser: any = [];
-    @Input() dataUserPerfil: any = [];
+    @Input() dataUserPerfil: any;
     @Input() dataUserImage: any = [];
     @Input() dataUserSymbol: any = [];
     @Input() dataUserName: any = [];
