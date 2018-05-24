@@ -143,7 +143,7 @@ module.exports = (Usuario) => {
     returns: {arg: 'user', type: 'object'},
   });
 
-  Usuario.famaUser = (userId, punto, coinType) => {
+  Usuario.famaUser = (userId, punto, coinType, fide) => {
     Usuario.findById(userId)
       .then(data => {
         Usuario.app.models.moneda.find({
@@ -169,6 +169,7 @@ module.exports = (Usuario) => {
           }
           Usuario.updateAll({id: userId}, {
             puntos: data.puntos + punto,
+            fidelidad: (data.fidelidad > 50) ? data.fidelidad + 2 * fide : data.fidelidad + fide,
             fama: data.fama,
           }).then(data => {
           });

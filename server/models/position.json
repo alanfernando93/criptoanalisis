@@ -23,7 +23,7 @@
       "type": "date",
       "default": "$now"
     },
-    "reached":{
+    "reached": {
       "type": "boolean",
       "default": false
     }

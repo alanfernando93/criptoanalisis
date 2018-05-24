@@ -130,7 +130,7 @@ module.exports = (Noticia, ctx, ctx2) => {
       console.log(index2);
       likenotif(ctx.result.id, idUser, userId);
     }
-    Noticia.app.models.usuario.famaUser(userId, _variable.rpl, coinNews);
+    Noticia.app.models.usuario.famaUser(userId, _variable.rpl, coinNews, _variable.rpfl);
     next();
   });
 
@@ -147,7 +147,7 @@ module.exports = (Noticia, ctx, ctx2) => {
       ctx.result.likes.total = ctx.result.likes.total - 1;
       ctx.method.ctor.like(idn, idUser);
     }
-    Noticia.app.models.usuario.famaUser(userId, _variable.rpd, coinNews);
+    Noticia.app.models.usuario.famaUser(userId, _variable.rpl, coinNews, _variable.rpfd);
     next();
   });
 
@@ -252,7 +252,6 @@ module.exports = (Noticia, ctx, ctx2) => {
     var iterable = [], iterabley = [];
     ctx.result.imgsEditor = [];
     var aux;
-
     var x = dbx.filesSearch({ path: '/news', query: ctx.result.usuarioId + '-perfil-' + ctx.result.id}).then(r => {
       ctx.result.perfilName = r.matches[0].metadata.name;
       var y = dbx.filesGetTemporaryLink({path: '/news/' + ctx.result.perfilName}).then(resp => {

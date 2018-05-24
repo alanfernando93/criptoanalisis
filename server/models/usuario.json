@@ -34,20 +34,16 @@
     },
     "precision": {
       "type": "object",
-      "default": {"valor": 0, "nropost": 0}
+      "default": {
+        "valor": 0,
+        "nropost": 0
+      }
     },
     "fidelidad": {
       "type": "number",
       "required": false
     },
     "fama": {
-      "type": [
-        "object"
-      ],
-      "required": false,
-      "default": "[]"
-    },
-    "denuncias": {
       "type": [
         "object"
       ],
@@ -152,7 +148,19 @@
       "type": "hasMany",
       "model": "usuario",
       "foreignKey": "posterId",
-      "through": "posterId"
+      "through": "followUser"
+    },
+    "denuncia": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignKey": "denuncianteId",
+      "through": "denuncia"
+    },
+    "denunciado": {
+      "type": "hasMany",
+      "model": "usuario",
+      "foreignKey": "denunciadoId",
+      "through": "denuncia"
     }
   },
   "acls": [
