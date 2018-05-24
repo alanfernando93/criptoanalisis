@@ -6,50 +6,15 @@
                     <nb-user [name]="contentUser?.username" [picture]="contentUser?.perfil"></nb-user>
                 </a>
             </div>
-            <div class="col-4 col-md-1">
+            <div class="col-3 col-md-1">
                 <h5>
                     <span class="badge badge-primary font-w-light user_data">{{contentUser.puntos}} P</span>
                 </h5>
             </div>
-            <div class="col-4 col-md-6">
+            <div class="col-5 col-md-7">
                 <h5>
                     <span class="badge badge-info font-w-light user_data">{{contentUser.fidelidad}} F</span>
                 </h5>
-            </div>
-            <div class="col-md-2">
-                <a class="btn btn-outline-secondary pull-right" placement="left" [ngbPopover]="popContentDenuncia" popoverTitle="Tipo de Denuncia">
-                    denunciar
-                </a>
-                <ng-template #popContentDenuncia>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="demo-radio col-md-10">
-                                <label class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input" [(ngModel)]="denuncia.tipo" value="El anuncio era inapropiado">
-                                    <span class="custom-control-indicator"></span>
-                                    <span class="custom-control-description">El anuncio era inapropiado</span>
-                                </label>
-                                <label class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input" [(ngModel)]="denuncia.tipo" value="No me interesa el anuncio">
-                                    <span class="custom-control-indicator"></span>
-                                    <span class="custom-control-description">No me interesa el anuncio</span>
-                                </label>
-                                <label class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input" [(ngModel)]="denuncia.tipo" value="El anuncio tapa el contenido">
-                                    <span class="custom-control-indicator"></span>
-                                    <span class="custom-control-description">El anuncio tapa el contenido</span>
-                                </label>
-                            </div>
-                            <form>
-                                <div class="form-group">
-                                    <h6 class="text-body">Comentario</h6>
-                                    <textarea class="form-control" #contenido="ngModel" name="contenido" [(ngModel)]="denuncia.comentario" placeholder="Escribe un Comentario"></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-primary btn-tn pull-right" (click)="sendDenuncia()">Denunciar</button>
-                            </form>
-                        </div>
-                    </div>
-                </ng-template>
             </div>
         </div>
     </nb-card-header>
@@ -66,7 +31,42 @@
 <nb-card>
     <nb-card-header>
         <div class="row" *ngIf="news">
-            <h4 class="col-12 col-md-12 text-body">{{news.titulo}}</h4>
+            <h4 class="col-12 col-md-10 text-body">{{news.titulo}}</h4>
+            <div class="col-4 col-md-2">
+                    <a class="btn btn-outline-secondary pull-right btn-tn" placement="left" [ngbPopover]="popContentDenuncia" popoverTitle="Tipo de Denuncia">
+                        denunciar
+                    </a>
+                    <ng-template #popContentDenuncia>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="demo-radio col-md-10">
+                                    <label class="custom-control custom-radio">
+                                        <input type="radio" class="custom-control-input" [(ngModel)]="denuncia.tipo" value="El anuncio era inapropiado">
+                                        <span class="custom-control-indicator"></span>
+                                        <span class="custom-control-description">El anuncio era inapropiado</span>
+                                    </label>
+                                    <label class="custom-control custom-radio">
+                                        <input type="radio" class="custom-control-input" [(ngModel)]="denuncia.tipo" value="No me interesa el anuncio">
+                                        <span class="custom-control-indicator"></span>
+                                        <span class="custom-control-description">No me interesa el anuncio</span>
+                                    </label>
+                                    <label class="custom-control custom-radio">
+                                        <input type="radio" class="custom-control-input" [(ngModel)]="denuncia.tipo" value="El anuncio tapa el contenido">
+                                        <span class="custom-control-indicator"></span>
+                                        <span class="custom-control-description">El anuncio tapa el contenido</span>
+                                    </label>
+                                </div>
+                                <form>
+                                    <div class="form-group">
+                                        <h6 class="text-body">Comentario</h6>
+                                        <textarea class="form-control" #contenido="ngModel" name="contenido" [(ngModel)]="denuncia.comentario" placeholder="Escribe un Comentario"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-tn pull-right" (click)="sendDenuncia()">Denunciar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
             <div class="col-6 col-md-6">
                 <h4 class="subtitle">
                     <span class="badge badge-primary">{{news.tipo_moneda}}</span>
@@ -158,7 +158,7 @@
                 El Comentario debe tener al menos 4 caracteres
             </span>
         </div>
-        <button type="submit" [disabled]="submitted || !contenido.valid" [class.btn-pulse]="submitted" class="btn btn-success pull-right btn-sm"
+        <button type="submit" [disabled]="submitted || !contenido.valid || contenido.required" [class.btn-pulse]="submitted" class="btn btn-success pull-right btn-sm"
             (click)="sendComment()">Comentar</button>
     </nb-card-footer>
 </nb-card>

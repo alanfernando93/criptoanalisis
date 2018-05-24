@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class MarketsService extends Session{
 
-    private baseUrl = environment.apiUrl;
+    private baseUrl = this.getApiRest();
 
     constructor(private http: Http){
         super()

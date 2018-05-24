@@ -8,9 +8,5 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 
 export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:3000/api/',
-  Url: 'http://localhost:3000',
-  usertoken: localStorage.getItem('auth_app_token'),
-  userId: localStorage.getItem('userId'),
+  production: false
 };

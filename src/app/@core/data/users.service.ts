@@ -4,15 +4,13 @@ import { Http } from "@angular/http";
 import { Socket } from 'ng-socket-io';
 import { Session } from "./session"
 
-import { environment } from "../../../environments/environment";
-
 import "rxjs/add/observable/of";
 
 let counter = 0;
 
 @Injectable()
 export class UserService extends Session {
-  private baseUrl = environment.apiUrl;
+  private baseUrl = this.getApiRest();
 
   constructor(
     private http: Http,

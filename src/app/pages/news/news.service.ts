@@ -4,13 +4,12 @@ import { Http, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Session } from '../../@core/data/session';
-import { environment } from '../../../environments/environment';
 
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class NewsService extends Session{
-  private baseUrl = environment.apiUrl;
+  private baseUrl = this.getApiRest();
 
   constructor(private http: Http, 
               private socket: Socket, 
