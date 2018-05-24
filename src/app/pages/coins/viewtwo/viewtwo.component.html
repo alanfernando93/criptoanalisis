@@ -112,11 +112,11 @@
                   <div class="col-3 col-md-2 text-center">GRATIS </div>
                 </div>
                 <div class="col-12 row">
-                  <p class="text-justify">{{content.contenido}} ver mas...</p>
+                  <p class="text-justify">{{content.contenido}}</p>
                 </div>
                 <div class="row">
                   <div class="col align-self-start">
-                    <i class="fa fa-user"></i>Juan Perez: 25 p, 20 eth, 5 xrp
+                    <i class="fa fa-user"></i>{{content.user.nombre}} {{content.user.apellido}} 25 p, 20 eth, 5 xrp
                   </div>
                 </div>
                 <div class="col-12 row justify-content-between">
@@ -126,6 +126,21 @@
                     <i class="fa fa-thumbs-up"></i>15
                     <i class="fa fa-thumbs-down"></i>7
                   </div>
+                </div>
+                <div class="clearfix">
+                  <span class="meta-data"></span>
+                  <span class="meta-data pull-right">
+                    <a>
+                      <i class="fa fa-thumbs-o-down"></i>22</a>
+                  </span>
+                  <span class="meta-data pull-right">
+                    <a>
+                      <i class="fa fa-thumbs-o-up"></i>24</a>
+                  </span>
+                  <!-- <span class="meta-data pull-right" *ngFor="let count of news.count">
+                    <a>
+                      <i class="fa fa-comment-o"></i>4</a>
+                  </span> -->
                 </div>
               </div>
               <br>
