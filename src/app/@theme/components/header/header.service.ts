@@ -3,11 +3,11 @@ import {Socket} from 'ng-socket-io';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {Http, Response} from '@angular/http';
-import {environment} from '../../../../environments/environment';
+
 import { Session } from '../../../@core/data/session';
 @Injectable()
 export class HeaderService extends Session{
-    private baseUrl= environment.apiUrl;
+    private baseUrl= this.getApiRest();
     constructor(private socket: Socket, private http: Http){
         super();
     }
