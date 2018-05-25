@@ -87,20 +87,20 @@ export class CoinComponent implements OnInit {
           modalTitle.innerHTML = "Editar " + nombre;
         }
         length = this.formHtml.length;
-        for (let i = 0; i < length; i++) {
-          if (this.formHtml[i].type === 'checkbox' || this.formHtml[i].type === 'radio')
-            this.formHtml[i].checked = this.forms[enlace][this.formHtml[i].id]
+        for (let item of this.formHtml) {
+          if (item.type === 'checkbox' || item.type === 'radio')
+            item.checked = this.forms[enlace][item.id]
           else
-            this.formHtml[i].value = this.forms[enlace][this.formHtml[i].name]
+            item.value = this.forms[enlace][item.name]
         }
       }
     });
     this.modalService.open(this.content).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      if (this.forms[enlace].id == undefined) document.getElementById(enlace).setAttribute('class', 'rounded sub btn btn-warning');
+      if (this.forms[enlace] == undefined )
       this.getParamsForm(enlace);
+      if (this.forms[enlace] == undefined ) document.getElementById(enlace).setAttribute('class', 'rounded sub btn btn-warning');
     });
   }
 
@@ -149,20 +149,20 @@ export class CoinComponent implements OnInit {
   }
 
   formatter = (x) => {
-    console.log(x);
-
-    this.isCoin = true;
+    this.isCoin = false;
     if (x.name != undefined) {
+      this.isCoin = true;
       this.userService.getCoinContent(x.id).subscribe(data => {
-        console.log(data);
+        Array.from(document.getElementsByClassName('sub')).forEach(element => element.setAttribute('class', 'rounded sub btn btn-secondary'));
+        this.forms = {};
         data.forEach(element => {
           this.coinsService.getTitleById(element.tituloId).subscribe(title => {
-            console.log(title);
             this.forms[title.enlace] = {};
             this.forms[title.enlace].conclusion = element.contenido;
             this.forms[title.enlace].id = element.id;
             this.forms[title.enlace]["customRadio" + element.calificacion] = true;
             let button = document.getElementById(title.enlace);
+            console.log(this.forms);
             button.setAttribute('class', 'rounded sub btn btn-success');
           })
         });
