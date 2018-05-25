@@ -1,8 +1,6 @@
 export const _GLOBAL = {
-//   apiUrl: 'http://backend.criptoanalisis.org/api/',
-//   Url: 'http://191.101.228.157:8080',
-apiUrl: 'http://192.168.1.15:3000/api/',
-Url: 'http://192.168.1.15:3000',
+  apiUrl: 'http://backend.criptoanalisis.org/api/',
+  Url: 'http://191.101.228.157:8080',
 }
 
 export const configCrud = {
