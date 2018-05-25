@@ -6,7 +6,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AnalyticsService } from './@core/utils/analytics.service';
 import { MomentModule } from 'angular2-moment';
-import * as moment from 'moment';
+
 
 @Component({
   selector: 'ngx-app',
@@ -15,7 +15,7 @@ import * as moment from 'moment';
 export class AppComponent implements OnInit {
 
   constructor(private analytics: AnalyticsService) {
-    moment.locale('es');
+    
   }
 
   ngOnInit(): void {

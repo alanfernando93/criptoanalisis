@@ -53,9 +53,11 @@
                     <a [routerLink]="['/pages/signals/signals-view', signal.id]">
                         <img src="{{signal.perfilLink}}" class="card-img-top d-none d-sm-block">
                         <div class="card-body row">
-                            <span class="text-left col-5 col-sm-5">
-                                De Pago
-                            </span>
+                            <div class="text-left col-5 col-sm-5" *ngFor="let content of signal.contentUser">
+                                <span *ngIf="content.precision.valor > 50">
+                                    De pago
+                                </span>
+                                </div>
                             <span class="text-right col-7 col-sm-7" *ngFor="let coins of signal.position">
                                 {{coins.moneda1}} / {{coins.moneda2}}
                             </span>
