@@ -5,16 +5,16 @@
   <div class="container">
     <div class="row col">
       <div class="input-group">
-        <input id="typeahead-template" type="text" class="form-control" [(ngModel)]="coin" [ngbTypeahead]="searchCoins" [resultTemplate]="rt" [inputFormatter]="formatter"/>
+        <input id="typeahead-template" type="text" class="form-control" [(ngModel)]="coin" [ngbTypeahead]="searchCoins" [resultTemplate]="rt" [inputFormatter]="formatter" placeholder="Insert Coin"/>        
         <div class="input-group-append" ngbDropdown>
           <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" ngbDropdownToggle>
             <span class="sr-only">Toggle Dropdown</span>
           </button>
           <ul class="dropdown-menu scroll-list" style="background-color:white;color:black" ngbDropdownMenu>
-            <li class="dropdown-item" *ngFor="let c of coins" (click)="this.coin = c">{{c.name}}</li>
+            <li class="dropdown-item" *ngFor="let c of coins" (click)="coin = c">{{c.name}}</li>
           </ul>
         </div>
-      </div>
+      </div>      
     </div>
     <div class="row col">
       <div class="input-group">

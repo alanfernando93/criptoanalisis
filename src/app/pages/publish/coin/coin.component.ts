@@ -12,6 +12,10 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import { isNumber } from '@ng-bootstrap/ng-bootstrap/util/util';
 import { showToast } from '../../../common/functions';
 import { ToasterService } from 'angular2-toaster';
+import { isString, isNull } from 'util';
+import { filter } from 'rxjs/operators/filter';
+import { forEach } from '@angular/router/src/utils/collection';
+import { UserService } from '../../../@core/data/users.service';
 
 @Component({
   selector: 'ngx-publish-coin',
@@ -22,6 +26,7 @@ export class CoinComponent implements OnInit {
   @ViewChild('content') content: TemplateRef<any>
 
   closeResult: string;
+  isCoin: boolean = false;
 
   coins: any = []
   markets: any = []
@@ -30,7 +35,7 @@ export class CoinComponent implements OnInit {
   newsCoins: any = {};
   market: any;
 
-  form: any;
+  formHtml: any;
   forms: any = {};
 
   constructor(
@@ -38,39 +43,42 @@ export class CoinComponent implements OnInit {
     private coinsService: CoinsService,
     private marketService: MarketsService,
     private toastService: ToasterService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
     this.coinsService.getCoinsName().subscribe(data => this.coins = data.monedas)
     this.marketService.getMarkets().subscribe(data => data.forEach(element => this.markets.push(element.nombre)))
     this.coinsService.getTitle().subscribe(data => {
-      let subs = []
-      data.forEach(element => {
-        if (!isNumber(element.correspondencia)) {
-          element.subtitles = []
-          element.isCollapsed = true
-          this.titles.push(element)
-        } else
-          subs.push(element)
-      });
-      this.titles.forEach((element, index) => {
-        subs.forEach(data => {
-          if (element.id === data.correspondencia) {
-            delete data.correspondencia
-            element.subtitles.push(data)
+      this.titles = data.filter(item => item.correspondencia == null);
+      this.titles.forEach(element => {
+        element.subtitles = data.filter(obj => {
+          if (obj.correspondencia == element.id) {
+            delete obj.correspondencia;
+            return obj;
           }
-        })
+        });
+        element.isCollapsed = true
       });
     })
   }
 
   open(enlace, id, nombre) {
+    if (!this.isCoin) {
+      showToast(this.toastService, 'info', 'Seleccione una moneda');
+      Array.from(document.getElementsByClassName('sub')).forEach(element => element.setAttribute('disabled', 'true'));
+      setTimeout(() => {
+        Array.from(document.getElementsByClassName('sub')).forEach(element => element.removeAttribute('disabled'));
+        this.toastService.clear();
+      }, 1000);
+      return;
+    }
     let div, divModal: any, modalTitle: any;
     this.coinsService.getTextForm(enlace.toLowerCase()).subscribe(data => {
       div = document.getElementById('body');
       div.innerHTML = data['_body'];
-      this.form = document.getElementById('form');
-      this.form.setAttribute('class', enlace + " " + id + " " + nombre);
+      this.formHtml = document.getElementById('form');
+      this.formHtml.setAttribute('class', enlace + " " + id + " " + nombre);
       if (this.forms[enlace]) {
         if (this.forms[enlace]["id"] !== undefined) {
           divModal = document.getElementsByClassName('modal-footer')[0];
@@ -78,12 +86,12 @@ export class CoinComponent implements OnInit {
           divModal.firstElementChild.innerText = "Modificar";
           modalTitle.innerHTML = "Editar " + nombre;
         }
-        length = this.form.length;
+        length = this.formHtml.length;
         for (let i = 0; i < length; i++) {
-          if (this.form[i].type === 'checkbox' || this.form[i].type === 'radio')
-            this.form[i].checked = this.forms[enlace][this.form[i].id]
+          if (this.formHtml[i].type === 'checkbox' || this.formHtml[i].type === 'radio')
+            this.formHtml[i].checked = this.forms[enlace][this.formHtml[i].id]
           else
-            this.form[i].value = this.forms[enlace][this.form[i].name]
+            this.formHtml[i].value = this.forms[enlace][this.formHtml[i].name]
         }
       }
     });
@@ -91,6 +99,7 @@ export class CoinComponent implements OnInit {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      if (this.forms[enlace].id == undefined) document.getElementById(enlace).setAttribute('class', 'rounded sub btn btn-warning');
       this.getParamsForm(enlace);
     });
   }
@@ -103,7 +112,7 @@ export class CoinComponent implements OnInit {
     this.newsCoins.monedaId = this.coin.id;
     length = data.length;
     for (let i = 0; i < length; i++) {
-      if (data[i].type === 'checkbox' || this.form[i].type === 'radio') {
+      if (data[i].type === 'checkbox' || this.formHtml[i].type === 'radio') {
         if (data[i].checked) this.newsCoins.calificacion = data[i].value;
       } else
         this.newsCoins.contenido = data[i].value;
@@ -121,12 +130,12 @@ export class CoinComponent implements OnInit {
 
   getParamsForm(enlace) {
     if (this.forms[enlace] == undefined) this.forms[enlace] = {};
-    length = this.form.length;
-    for (let i = 0; i < length; i++) {
-      if (this.form[i].type === 'checkbox' || this.form[i].type === 'radio')
-        this.forms[enlace][this.form[i].id] = this.form[i].checked;
+    length = this.formHtml.length;
+    for (let tag of this.formHtml) {
+      if (tag.type === 'checkbox' || tag.type === 'radio')
+        this.forms[enlace][tag.id] = tag.checked;
       else
-        this.forms[enlace][this.form[i].name] = this.form[i].value;
+        this.forms[enlace][tag.name] = tag.value;
     }
   }
 
@@ -139,7 +148,28 @@ export class CoinComponent implements OnInit {
       return `with: ${reason}`;
   }
 
-  formatter = (x: { name: string }) => x.name;
+  formatter = (x) => {
+    console.log(x);
+
+    this.isCoin = true;
+    if (x.name != undefined) {
+      this.userService.getCoinContent(x.id).subscribe(data => {
+        console.log(data);
+        data.forEach(element => {
+          this.coinsService.getTitleById(element.tituloId).subscribe(title => {
+            console.log(title);
+            this.forms[title.enlace] = {};
+            this.forms[title.enlace].conclusion = element.contenido;
+            this.forms[title.enlace].id = element.id;
+            this.forms[title.enlace]["customRadio" + element.calificacion] = true;
+            let button = document.getElementById(title.enlace);
+            button.setAttribute('class', 'rounded sub btn btn-success');
+          })
+        });
+      })
+    }
+    return x.name;
+  };
 
   searchCoins = (text$: Observable<string>) =>
     text$
