@@ -50,8 +50,8 @@ export class UserService extends Session {
       .map(resp => resp.json());
   }
 
-  getAuth() {
-    return "?access_token=" + this.getToken()
+  getAuth(filter = "") {
+    return `?${filter}access_token=${this.getToken()}`
   }
   connect() {
     this.socket.emit('join', this.getUserId());
@@ -87,6 +87,11 @@ export class UserService extends Session {
   getSignalSByUser(id) {
     return this.http.get(this.baseUrl + 'usuarios/' + id + '/signals')
       .map(res => res.json());
+  }
+
+  getCoinContent(coinId, userId = this.getUserId()) {
+    return this.http.get(`${this.baseUrl}usuarios/${userId}/contenidoMoneda${this.getAuth("[filter][where][monedaId]=" + coinId)}`)
+      .map(resp => resp.json())
   }
 
 }

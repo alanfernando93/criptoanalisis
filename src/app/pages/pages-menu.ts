@@ -56,18 +56,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/ui-features/buttons',
       },
       {
-        title: 'Grid',
-        link: '/pages/ui-features/grid',
-      },
-      {
-        title: 'Icons',
-        link: '/pages/ui-features/icons',
-      },
-      {
-        title: 'Modals',
-        link: '/pages/ui-features/modals',
-      },
-      {
         title: 'Typography',
         link: '/pages/ui-features/typography',
       },
@@ -75,35 +63,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Animated Searches',
         link: '/pages/ui-features/search-fields',
       },
-      {
-        title: 'Tabs',
-        link: '/pages/ui-features/tabs',
-      },
-    ],
-  },{
-    title: 'Forms',
-    icon: 'nb-compose',
-    children: [
-      {
-        title: 'Form Inputs',
-        link: '/pages/forms/inputs',
-      },
-      {
-        title: 'Form Layouts',
-        link: '/pages/forms/layouts',
-      },
-    ],
-  },{
-    title: 'Components',
-    icon: 'nb-gear',
-    children: [
-      {
-        title: 'Tree',
-        link: '/pages/components/tree',
-      }, {
-        title: 'Notifications',
-        link: '/pages/components/notifications',
-      }
     ],
   },{
     title: 'News',
@@ -153,28 +112,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'List Signals',
         link: '/pages/signals/signals-list',
-      },
-    ],
-  },
-  {
-    title: 'Auth',
-    icon: 'nb-locked',
-    children: [
-      {
-        title: 'Login',
-        link: '/auth/login',
-      },
-      {
-        title: 'Register',
-        link: '/auth/register',
-      },
-      {
-        title: 'Request Password',
-        link: '/auth/request-password',
-      },
-      {
-        title: 'Reset Password',
-        link: '/auth/reset-password',
       },
     ],
   }

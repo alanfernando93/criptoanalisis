@@ -47,6 +47,10 @@
                 border-radius: 2px;
             }
         }
+        div>p{
+            white-space: normal;
+            cursor: pointer;
+        }
     }
 
     @include media-breakpoint-up(sm) {
