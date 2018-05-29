@@ -6,8 +6,17 @@ import { UserService } from "../../../@core/data/users.service";
 
 @Component({
   selector: 'ngx-signalsList',
-  templateUrl: './signalsList.component.html',
-  styleUrls: ['./signalsList.component.scss'],
+  template: `<ngx-signalAll [listSignal]="signals" design="col-lg-4 col-md-4 col-sm-6"></ngx-signalAll>
+  <nb-card *ngIf="count > 6">
+      <nb-card-body>
+        <div class="row block-level-buttons">
+          <div class="col-md-12">
+            <button type="button" class="btn btn-outline-primary btn-block" (click)="Upload()">Ver mas</button>
+          </div>
+        </div>
+      </nb-card-body>
+    </nb-card>`,
+  styles: [``],
 })
 export class signalsListComponent implements OnInit {
 
