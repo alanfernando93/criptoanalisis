@@ -25,15 +25,15 @@ import { UserService } from '../../../@core/data/users.service';
 export class CoinComponent implements OnInit {
   @ViewChild('content') content: TemplateRef<any>
 
-  closeResult: string;
   isCoin: boolean = false;
 
   coins: any = []
-  markets: any = []
-  titles: any = [];
   coin: any = {};
-  newsCoins: any = {};
+  markets: any = []
   market: any;
+
+  titles: any = [];
+  newsCoins: any = {};
 
   formHtml: any;
   forms: any = {};
@@ -63,7 +63,15 @@ export class CoinComponent implements OnInit {
     })
   }
 
-  open(enlace, id, nombre) {
+  keyUp(event){
+    if(event.target.value == ""){
+      Array.from(document.getElementsByClassName('sub')).forEach(element => element.setAttribute('class', 'rounded sub btn btn-secondary'));
+      this.isCoin = false;
+      this.coin = {};
+    }
+  }
+
+  open(enlace, id, nombre) {    
     if (!this.isCoin) {
       showToast(this.toastService, 'info', 'Seleccione una moneda');
       Array.from(document.getElementsByClassName('sub')).forEach(element => element.setAttribute('disabled', 'true'));
@@ -79,6 +87,8 @@ export class CoinComponent implements OnInit {
       div.innerHTML = data['_body'];
       this.formHtml = document.getElementById('form');
       this.formHtml.setAttribute('class', enlace + " " + id + " " + nombre);
+      modalTitle = document.getElementsByClassName("modal-title")[0]
+      modalTitle.innerHTML = nombre;
       if (this.forms[enlace]) {
         if (this.forms[enlace]["id"] !== undefined) {
           divModal = document.getElementsByClassName('modal-footer')[0];
@@ -96,11 +106,8 @@ export class CoinComponent implements OnInit {
       }
     });
     this.modalService.open(this.content).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
-      if (this.forms[enlace] == undefined )
       this.getParamsForm(enlace);
-      if (this.forms[enlace] == undefined ) document.getElementById(enlace).setAttribute('class', 'rounded sub btn btn-warning');
     });
   }
 
@@ -162,7 +169,6 @@ export class CoinComponent implements OnInit {
             this.forms[title.enlace].id = element.id;
             this.forms[title.enlace]["customRadio" + element.calificacion] = true;
             let button = document.getElementById(title.enlace);
-            console.log(this.forms);
             button.setAttribute('class', 'rounded sub btn btn-success');
           })
         });

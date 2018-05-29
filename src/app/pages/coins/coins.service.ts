@@ -31,9 +31,9 @@ export class CoinsService extends Session {
             .map((res: Response) => res.json());
     }
 
-    getAuth() {
-        return "?access_token=" + this.getToken();
-    }
+    getAuth(filter:any = "") {
+        return `?${filter}access_token=${this.getToken()}`
+      }
 
     getTitle() {
         return this.http.get(this.baseUrl + "titulos" + this.getAuth())
@@ -58,7 +58,7 @@ export class CoinsService extends Session {
             return this.http.put(`${this.baseUrl}contenidoMonedas/${id}${this.getAuth()}`, coin).map(resp => resp.json());
     }
 
-    getTitleConclusion(id) {
-        return this.http.get(`${this.baseUrl}titulos/${id}/contenido${this.getAuth()}`).map(resp => resp.json())
+    getTitleConclusion(id, filter:any = "") {
+        return this.http.get(`${this.baseUrl}titulos/${id}/contenido${this.getAuth(filter)}`).map(resp => resp.json())
     }
 }

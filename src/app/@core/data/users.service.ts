@@ -89,8 +89,8 @@ export class UserService extends Session {
       .map(res => res.json());
   }
 
-  getCoinContent(coinId) {
-    return this.http.get(`${this.baseUrl}usuarios/${this.getUserId()}/contenidoMoneda${this.getAuth("[filter][where][monedaId]=" + coinId)}`)
+  getCoinContent(coinId, userId = this.getUserId()) {
+    return this.http.get(`${this.baseUrl}usuarios/${userId}/contenidoMoneda${this.getAuth("[filter][where][monedaId]=" + coinId)}`)
       .map(resp => resp.json())
   }
 

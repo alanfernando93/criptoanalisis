@@ -5,7 +5,7 @@
   <div class="container">
     <div class="row col">
       <div class="input-group">
-        <input id="typeahead-template" type="text" class="form-control" [(ngModel)]="coin" [ngbTypeahead]="searchCoins" [resultTemplate]="rt" [inputFormatter]="formatter" placeholder="Insert Coin"/>        
+        <input id="typeahead-template" type="text" class="form-control" (keyup)="keyUp($event)" [(ngModel)]="coin" [ngbTypeahead]="searchCoins" [resultTemplate]="rt" [inputFormatter]="formatter" placeholder="Insert Coin"/>        
         <div class="input-group-append" ngbDropdown>
           <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" ngbDropdownToggle>
             <span class="sr-only">Toggle Dropdown</span>
