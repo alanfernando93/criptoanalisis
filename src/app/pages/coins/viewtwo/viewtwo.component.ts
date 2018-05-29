@@ -40,41 +40,36 @@ export class ViewtwoComponent implements OnInit, OnDestroy {
   }
 
   SelectAccordion(selected) {
-    let collectionButtons: any = document.getElementById(selected.panelId + '-header').closest('ngb-accordion').querySelectorAll('button');
+    let collectionButtons: any = document.getElementById(selected.panelId + '-header').closest('ngb-accordion').querySelectorAll('input');
     collectionButtons.forEach(element => element.remove());
     let btn1 = document.createElement('input');
-    btn1.setAttribute('class', 'btn btn-primary btn-tn pull-right');
+    btn1.setAttribute('class', 'btn btn-primary btn-tn');
     btn1.setAttribute('type', 'button');
-    
-    btn1.value = "Ir";
+
+    btn1.value = "Nuevo";
     let btn2 = document.createElement('input');
-    btn2.setAttribute('class', 'btn btn-primary btn-tn pull-right');
-    btn2.setAttribute('type', 'hidden');
+    btn2.setAttribute('class', 'btn btn-primary btn-tn');
+    btn2.setAttribute('type', 'button');
     btn2.onclick = (btn) => {
-      let bt = <HTMLButtonElement>btn.target;
-      bt.setAttribute('type','hidden');
-      btn3.setAttribute('type','button');
-      let content = <Element>bt.closest('.card').querySelector('div[id="'+selected.panelId+'"]').firstElementChild;
-      content.removeAttribute('style');
-      content.setAttribute('contenteditable',"false");
+      let bt = <HTMLInputElement>btn.target;
+      let content = <Element>bt.closest('.card').querySelector('div[id="' + selected.panelId + '"]').firstElementChild;
+      if (bt.value == "Editar") {
+        bt.value = "Sugerir";
+        content.setAttribute('style', 'background-color: bisque;')
+        content.setAttribute('contenteditable', "true");
+      } else {
+        bt.value = "Editar";
+        content.removeAttribute('style');
+        content.setAttribute('contenteditable', "false");
+      }
     }
-    btn2.value = "Guardar";
-    let btn3 = document.createElement('input');
-    btn3.setAttribute('class', 'btn btn-primary btn-tn pull-right');
-    btn3.setAttribute('type', 'button');
-    btn3.onclick = (btn) => {
-      let bt = <HTMLButtonElement>btn.target;
-      bt.setAttribute('type','hidden');
-      btn2.setAttribute('type','button');
-      let content = bt.closest('.card').querySelector('div[id="'+selected.panelId+'"]').firstElementChild;
-      content.setAttribute('style','background-color: bisque;')
-      content.setAttribute('contenteditable',"true");
-    }
-    btn3.value = "Editar";
+    btn2.value = "Editar";
     if (selected.nextState === true) {
-      document.getElementById(selected.panelId + '-header').appendChild(btn3);
-      document.getElementById(selected.panelId + '-header').appendChild(btn2);
-      document.getElementById(selected.panelId + '-header').appendChild(btn1);
+      let div = document.createElement('div');
+      div.setAttribute('class', 'btn-group btn-group-toggle pull-right');
+      div.appendChild(btn1);
+      div.appendChild(btn2);
+      document.getElementById(selected.panelId + '-header').appendChild(div);
     }
   }
 
