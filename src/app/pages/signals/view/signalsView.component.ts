@@ -50,6 +50,7 @@ export class signalsViewComponent implements OnInit {
   getSignalById() {
     this.signalsService.getById(this.idSignal).subscribe(data => {
       data ? this.signal = data : {};
+      console.log(data);
     });
   }
 

@@ -7,7 +7,7 @@ import {environment} from '../../../environments/environment';
 import { Session } from '../../@core/data/session';
 @Injectable()
 export class ChatService extends Session{
-  private baseUrl= environment.apiUrl;
+  private baseUrl= this.getApiRest();
   private chatId = 0;
 
   constructor(private socket: Socket, private http: Http) {

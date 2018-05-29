@@ -4,20 +4,30 @@ import { ActivatedRoute, Params } from '@angular/router';
 
 import { AdvisoriesService } from '../advisories.service';
 import { elementAt } from 'rxjs/operator/elementAt';
+<<<<<<< HEAD
 import { environment } from '../../../../environments/environment';
 import {ListComponent} from  '../list/list.component';
 import { HorarioComponent } from "../../../@theme/components/horario/horario.component";
 import { Output,Input, EventEmitter } from '@angular/core';
 import { Session } from '../../../@core/data/session';
+=======
+import { _GLOBAL } from '../../../common/ConfigSettings';
+
+>>>>>>> develop
 @Component({
   selector: 'ngx-view',
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss']
 })
+<<<<<<< HEAD
 export class ViewComponent extends Session implements OnInit {
   @ViewChild('h5') tab;
   idUser = this.getUserId();
   
+=======
+export class ViewComponent implements OnInit {
+  idUser = _GLOBAL.apiUrl;
+>>>>>>> develop
   advisory: any;
   coment: any;
   comment: {};

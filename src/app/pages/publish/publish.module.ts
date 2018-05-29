@@ -18,6 +18,7 @@ import { SignalsService } from '../signals/signals.service';
 import { AdvisoriesService } from '../advisories/advisories.service';
 
 import { CropperModalComponent } from '../../@theme/components/cropper/croppermodal.component';
+import { BitFinexCrypto } from '../../common/bitfinex';
 
 @NgModule({
     imports: [
@@ -35,6 +36,10 @@ import { CropperModalComponent } from '../../@theme/components/cropper/croppermo
         CropperModalComponent
     ],
     entryComponents: [CropperModalComponent],
+<<<<<<< HEAD
     providers: [NewsService,CoinsService,SignalsService,MarketsService,AdvisoriesService],
+=======
+    providers: [NewsService,CoinsService,SignalsService,MarketsService,BitFinexCrypto],
+>>>>>>> develop
 })
 export class PublishModule { }

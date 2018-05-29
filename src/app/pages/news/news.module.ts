@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 
 import { ThemeModule } from './../../@theme/theme.module';
 import { newsAllComponent } from '../../@theme/components/newsAll/newsAll.component';
-import { commentComponent } from '../../@theme/components/comment/comment.component';
-import { userDesignComponent } from '../../@theme/components/userDesign/userDesign.component';
 import { NewsRoutingModule, routedComponents } from './news-routing.module';
 import { FormsModule } from '@angular/forms';
-import { MomentModule } from 'angular2-moment';
+
 import { newsListComponent } from './list/newsList.component';
+import {commentComponent} from '../../@theme/components/comment/comment.component'
+import {userDesignComponent} from '../../@theme/components/'
 import { newsViewComponent } from './view/newsView.component';
 import { NewsService } from './news.service';
 
@@ -15,7 +15,6 @@ import { NewsService } from './news.service';
   imports: [
     ThemeModule,
     NewsRoutingModule,
-    MomentModule,
     FormsModule
     
   ],
@@ -23,8 +22,6 @@ import { NewsService } from './news.service';
     newsListComponent,
     newsViewComponent,
     newsAllComponent,
-    commentComponent,
-    userDesignComponent
   ],
   declarations:[
     ...routedComponents,

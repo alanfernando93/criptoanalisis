@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToasterModule } from 'angular2-toaster';
 import { ImageCropperComponent } from 'ng2-img-cropper';
+import { MomentModule } from 'angular2-moment';
+import * as moment from 'moment';
 
 import {
   NbActionsModule,
@@ -20,10 +22,12 @@ import {
 } from '@nebular/theme';
 
 import {
+  CropperModalComponent,
   FooterComponent,
   HorarioComponent,
   HeaderComponent,
   HeaderTwoComponent,
+  ImageComponent,
   SearchInputComponent,
   ThemeSettingsComponent,
   TinyMCEComponent,
@@ -57,26 +61,30 @@ const NB_MODULES = [
   NbSidebarModule,
   NbCheckboxModule,
   NgbModule,
+  MomentModule
 ];
 
 const COMPONENTS = [
   ImageCropperComponent,
+  //CropperModalComponent,
   HeaderComponent,
   HeaderTwoComponent,
+  ImageComponent,
   FooterComponent,
   SearchInputComponent,
   ThemeSettingsComponent,
   TinyMCEComponent,
   SampleLayoutComponent,
   HorarioComponent,
-  advisoriesAllComponent
+  advisoriesAllComponent,
+  userDesignComponent,
+  commentComponent,
 ];
 
 const PIPES = [
   CapitalizePipe,
   PluralPipe,
   RoundPipe,
-  TimingPipe,
 ];
 
 const NB_THEME_PROVIDERS = [

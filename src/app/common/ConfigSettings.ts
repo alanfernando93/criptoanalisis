@@ -1,3 +1,8 @@
+export const _GLOBAL = {
+  apiUrl: 'http://191.101.228.157:8080/api/',
+  Url: 'http://191.101.228.157:8080',
+}
+
 export const configCrud = {
     message: {
         success: "Se guardo con exito!!!",
@@ -19,7 +24,7 @@ export const configImage = {
         "image/bmp"
     ),
     message: {
-        succes: "La imagen se cargo exitosamente",
+        success: "La imagen se cargo exitosamente",
         warning: "Las imagenes permitidas son: png,jpg,jpeg,bmp",
         error: "Vuelva a intertarlo",
     }
@@ -30,3 +35,26 @@ export const dBox = {
     key: 'zn0kbmrq6ed8rme',
     secret: 'vrm42gw40yjlaa4'
 }
+
+export const typeCoinByDefault = [{
+    id: 'USD'
+}, {
+    id: 'BTC'
+}, {
+    id: 'ETH'
+}]
+
+export const typeOfOffer = [{
+    title: 'Comprar',
+    key: true,
+}, {
+    title: 'Vender',
+    key: false,
+}]
+export const TipoSalida = [{
+    title: 'Take Profit',
+    key: true,
+}, {
+    title: 'Stop Profit',
+    key: false,
+}];

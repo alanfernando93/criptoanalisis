@@ -16,15 +16,7 @@
         </div>
       </div>
       <div class="col-md-6">
-        <div class="file-field">
-          <label>Seleccione imagen pricipal</label>
-          <a (click)="openCropper()" class="upload" placement="right" ngbTooltip="Subir Imagen">
-            <i class="fa fa-2x fa-upload"></i>
-          </a>
-          <div class="z-depth-1-half mb-4" style="width:300px;height:200px">
-            <img [src]="url" class="img-fluid" id="image">
-          </div>
-        </div>
+        <ngx-image (onImageSelected)="myFile = $event"></ngx-image>
       </div>
     </div>
 

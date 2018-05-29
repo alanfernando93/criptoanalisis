@@ -20,6 +20,10 @@
   @include ngx-pace-theme();
 };
 
+a{
+  text-decoration: none !important;
+}
+
 .caro1{
   .carousel-control-prev {
     top: -130px;

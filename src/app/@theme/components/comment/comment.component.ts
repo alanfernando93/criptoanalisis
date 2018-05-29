@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'ngx-comment',
@@ -14,6 +15,7 @@ export class commentComponent {
   @Input() answer: any;
 
   constructor() {
+    moment.locale('es');
   }
   onAnswer($event) {
     var input = $event.target.closest(".panel-footer").firstElementChild.firstElementChild;

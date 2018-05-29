@@ -17,9 +17,9 @@ import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 //import {ShareButtonsModule} from 'ngx-sharebuttons';
-import { environment } from '../environments/environment';
+import { _GLOBAL } from './common/ConfigSettings';
 
-const config: SocketIoConfig = { url:'http://localhost:3000', options:{}};
+const config: SocketIoConfig = { url:_GLOBAL.Url, options:{}};
 
 import { AuthGuard } from './auth-guard.service';
 

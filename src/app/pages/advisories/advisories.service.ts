@@ -8,8 +8,8 @@ import { Session } from '../../@core/data/session';
 import 'rxjs/add/operator/map';
 
 @Injectable()
- export class AdvisoriesService extends Session {
-    private baseUrl = environment.apiUrl;
+ export class AdvisoriesService extends Session{
+    private baseUrl = this.getApiRest()
     //private token = environment.usertoken;
     private userId = this.getUserId();
     
