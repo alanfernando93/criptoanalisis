@@ -1,6 +1,7 @@
 'use strict';
 var loopback = require('loopback');
 var base64Img = require('base64-img');
+var _variable = require('../variable');
 module.exports = (Usuario) => {
   Usuario.validatesLengthOf('password', {
     min: 5, message:
@@ -169,7 +170,7 @@ module.exports = (Usuario) => {
           }
           Usuario.updateAll({id: userId}, {
             puntos: data.puntos + punto,
-            fidelidad: (data.fidelidad > 50) ? data.fidelidad + 2 * fide : data.fidelidad + fide,
+            fiabilidad: (data.fiabilidad > 50) ? data.fiabilidad + _variable.rpda * fide : data.fiabilidad + fide,
             fama: data.fama,
           }).then(data => {
           });

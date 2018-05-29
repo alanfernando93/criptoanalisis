@@ -39,7 +39,7 @@
         "nropost": 0
       }
     },
-    "fidelidad": {
+    "fiabilidad": {
       "type": "number",
       "required": false
     },

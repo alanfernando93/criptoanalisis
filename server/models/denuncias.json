@@ -15,6 +15,15 @@
       "type": "string",
       "required": false
     },
+    "lugar": {
+      "type": "string",
+      "required": false
+
+    },
+    "lugarId": {
+      "type": "number",
+      "required": false
+    },
     "fecha_create": {
       "type": "date",
       "default": "$now"
