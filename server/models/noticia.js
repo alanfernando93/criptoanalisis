@@ -117,9 +117,7 @@ module.exports = (Noticia, ctx, ctx2) => {
     var idn = ctx.req.params.id;
     var idUser = ctx.req.query.userId;
     var userId = ctx.result.usuarioId;
-    console.log(userId);
     var coinNews = ctx.result.tipo_moneda;
-    console.log(coinNews);
     var index = ctx.result.dislikes.users.indexOf(idUser);
     if (index > -1) {
       var d = ctx.result.dislikes.users.splice(index, 1);
