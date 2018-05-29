@@ -36,10 +36,6 @@ import { BitFinexCrypto } from '../../common/bitfinex';
         CropperModalComponent
     ],
     entryComponents: [CropperModalComponent],
-<<<<<<< HEAD
-    providers: [NewsService,CoinsService,SignalsService,MarketsService,AdvisoriesService],
-=======
-    providers: [NewsService,CoinsService,SignalsService,MarketsService,BitFinexCrypto],
->>>>>>> develop
+    providers: [NewsService,CoinsService,SignalsService,MarketsService,AdvisoriesService,BitFinexCrypto],
 })
 export class PublishModule { }
