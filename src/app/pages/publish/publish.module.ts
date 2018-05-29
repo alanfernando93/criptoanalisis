@@ -8,11 +8,15 @@ import { PublishComponent} from './publish.component';
 import { PublishNewsComponent } from './news/news.component';
 import { SignalComponent } from './signal/signal.component';
 import { CoinComponent } from './coin/coin.component';
+import { AdvisoryComponent } from './advisory/advisory.component';
+//import { HorarioComponent } from "../../@theme/components/horario/horario.component";
 
 import { NewsService } from '../news/news.service';
 import { CoinsService } from '../coins/coins.service';
 import { MarketsService } from "../markets/markets.service";
 import { SignalsService } from '../signals/signals.service';
+import { AdvisoriesService } from '../advisories/advisories.service';
+
 import { CropperModalComponent } from '../../@theme/components/cropper/croppermodal.component';
 import { BitFinexCrypto } from '../../common/bitfinex';
 
@@ -24,11 +28,14 @@ import { BitFinexCrypto } from '../../common/bitfinex';
     declarations: [
         PublishComponent,
         PublishNewsComponent,
-        SignalComponent,
+        //HorarioComponent,
+    
+        SignalComponent, 
         CoinComponent,
-        CropperModalComponent,
+        AdvisoryComponent,
+        CropperModalComponent
     ],
     entryComponents: [CropperModalComponent],
-    providers: [NewsService,CoinsService,SignalsService,MarketsService,BitFinexCrypto],
+    providers: [NewsService,CoinsService,SignalsService,MarketsService,AdvisoriesService,BitFinexCrypto],
 })
 export class PublishModule { }

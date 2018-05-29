@@ -42,9 +42,6 @@
         "../node_modules/tinymce/plugins/table/plugin.min.js",
         "../node_modules/tinymce/plugins/imagetools/plugin.min.js",
         "../node_modules/tinymce/plugins/image/plugin.min.js",
-        "./assets/vendors/echarts.min.js",
-        "./assets/vendors/echarts.world.min.js",
-        "../node_modules/chart.js/dist/Chart.min.js",
         "../node_modules/dropbox/dist/Dropbox-sdk.min.js",
         "../node_modules/dropbox/dist/DropboxTeam-sdk.min.js"
       ],

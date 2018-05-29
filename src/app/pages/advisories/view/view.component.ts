@@ -1,9 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { AdvisoriesService } from '../advisories.service';
 import { elementAt } from 'rxjs/operator/elementAt';
+import { environment } from '../../../../environments/environment';
+import {ListComponent} from  '../list/list.component';
+import { HorarioComponent } from "../../../@theme/components/horario/horario.component";
+import { Output,Input, EventEmitter } from '@angular/core';
+import { Session } from '../../../@core/data/session';
 import { _GLOBAL } from '../../../common/ConfigSettings';
 
 @Component({
@@ -11,8 +16,10 @@ import { _GLOBAL } from '../../../common/ConfigSettings';
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss']
 })
-export class ViewComponent implements OnInit {
-  idUser = _GLOBAL.apiUrl;
+export class ViewComponent extends Session implements OnInit {
+  @ViewChild('h5') tab;
+  idUser = this.getUserId();
+  
   advisory: any;
   coment: any;
   comment: {};
@@ -25,6 +32,15 @@ export class ViewComponent implements OnInit {
   comentid: any;
   answers: any;
   ans: any;
+  slots2 = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  ];
   id;
   like: number;
   dislike: number;
@@ -33,12 +49,18 @@ export class ViewComponent implements OnInit {
   infouser: any;
   contentAnswer: any;
   position: string;
-
+  advisories: any;
+  modalidad1:any;
+  modalidad2:any;
+  advisoriesbyid: any;
+ 
   constructor(
     private http: Http,
     private route: ActivatedRoute,
-    private advisoriesService: AdvisoriesService
+    private advisoriesService: AdvisoriesService,
+        
   ) {
+    super()
 
   }
 
@@ -48,7 +70,7 @@ export class ViewComponent implements OnInit {
     this.getAdvisorycommentcontById()
     this.getAdvisoriesWithUser()
     this.getusername()
-
+    
   }
 
   getAdvisoryByIduser() {
@@ -57,6 +79,22 @@ export class ViewComponent implements OnInit {
 
       this.advisoriesService.getAdvisoriesId(this.id).subscribe((advisories) => {
         this.advisory = advisories;
+        this.advisory.contentUser = [];
+                  this.advisory.contentUser.push(advisories);
+                  this.advisory.mod1 = " ";
+                  this.advisory.mod2 = " ";
+                  this.advisory.mod1 = this.advisory.modalidad[0];
+                  this.advisory.mod2 = this.advisory.modalidad[1];
+                 
+                  for(var i=0;i<=this.advisory.horarios.length;i++)
+                  {
+                    
+                this.slots2[this.advisory.horarios[i].dia][this.advisory.horarios[i].hora]=1;
+                    
+                  }
+                   //this.onGetHorario.slots= this.advisory.horarios;
+             console.log(this.advisory.horarios+"estos son los horarios")
+             console.log(this.tab);         
       });
     });
   }
@@ -111,7 +149,7 @@ export class ViewComponent implements OnInit {
     });
   }
 
-
+  
   getAdvisoriesWithUser() {
     this.route.params.forEach((params: Params) => {
       let id = params['advisoryId'];

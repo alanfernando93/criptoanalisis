@@ -1,0 +1,26 @@
+
+
+   
+          <table  class="my-timetable table-responsive-sm" #tab>
+            <colgroup>
+              <col span="1" width="9%">
+              <col *ngFor="let i of loop(0, 8, 1)" span="1" width="13%">
+            </colgroup>
+            <thead>
+              <th></th>
+              <th *ngFor="let d of days;let k=index" (click)="toggle('day', k)">{{d}}</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let i of loop(0, 23, 1)">
+                <th (click)="toggle('hour', 0, i)">{{i + ':00'}}</th>
+                <td *ngFor="let j of loop(0, 6, 1)" (mousedown)="select(true, j, i)" (mouseup)="select(false)" (mouseover)="toggle('slot', j, i)" (click)="toggle('slot', j, i)"   [ngClass]="{selected:slots[j][i]}"></td>
+              </tr>
+            </tbody>
+          </table>            
+    
+   
+        
+   
+            
+                
+

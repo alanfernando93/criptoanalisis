@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { environment } from '../../../environments/environment';
+import { Session } from '../../@core/data/session';
+
 
 import 'rxjs/add/operator/map';
-import { Session } from '../../@core/data/session';
 
 @Injectable()
  export class AdvisoriesService extends Session{
@@ -15,7 +17,7 @@ import { Session } from '../../@core/data/session';
     
     
     constructor(private http: Http){
-        super();
+      super()
     }
 
     getAdvisories(){
@@ -98,6 +100,19 @@ import { Session } from '../../@core/data/session';
         return this.http.get(this.baseUrl + 'usuarios/' + id)
           .map((res: Response) => res.json());
     }
+    
+    getadvisoriesbyuserid(id){
+        return this.http.get(this.baseUrl +'usuarios/'+id +'/asesoriaPersonals')
+        .map((res: Response) => res.json())
+    }
+    insert(body) {
+        body.usuarioId = this.getUserId();
+        return this.http.post(this.baseUrl + 'asesoria_personals', body).map((res: Response) => res.json());
+      }
+      getUserByNews(id) {
+        return this.http.get(this.baseUrl + 'asesoria_personals/' + id + '/usuario')
+          .map((res: Response) => res.json());
+      }
     
     
  }

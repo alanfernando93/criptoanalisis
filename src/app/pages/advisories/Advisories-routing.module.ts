@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AdvisoriesComponent } from './advisories.component';
 import { ListComponent } from './list/list.component';
+
+
 import { ViewComponent } from './view/view.component';
 import { InstruccionComponent } from './instruccion/instruccion.component';
 import { PagoComponent } from './pago/pago.component';

@@ -38,11 +38,11 @@
                     <img class="card-img-top d-none d-sm-block" src="{{signal.perfilLink}}">
                     <div class="card-block" *ngFor="let content of signal.contentUser">
                         <div class="row">
-                            <nb-user class="col-6 col-md-8" [menu]="" [name]="content?.username" [picture]="content?.perfil"></nb-user>
+                            <nb-user class="col-6 col-md-7" [menu]="" [name]="content?.username" [picture]="content?.perfil"></nb-user>
                             <h5 class="col-3 col-md-3">
                                 <span class="badge badge-secondary user">{{content.puntos}} P</span>
                             </h5>
-                            <h5 class="col-3 col-md-3">
+                            <h5 class="col-3 col-md-2">
                                 <span class="badge badge-secondary user">{{content.fidelidad}} F</span>
                             </h5>
                         </div>

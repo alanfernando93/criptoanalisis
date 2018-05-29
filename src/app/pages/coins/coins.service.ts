@@ -31,17 +31,34 @@ export class CoinsService extends Session {
             .map((res: Response) => res.json());
     }
 
-    getAuth() {
-        return "?access_token=" + this.getToken();
-    }
+    getAuth(filter:any = "") {
+        return `?${filter}access_token=${this.getToken()}`
+      }
 
-    getTitle(){
+    getTitle() {
         return this.http.get(this.baseUrl + "titulos" + this.getAuth())
             .map(resp => resp.json())
     }
-    
-    getTextForm(file){
-        return this.http.get(this.baseUrl + "containers/forms/download/"+ file )
+
+    getTitleById(id) {
+        return this.http.get(`${this.baseUrl}titulos/${id}${this.getAuth()}`)
+            .map(resp => resp.json());
+    }
+
+    getTextForm(file) {
+        return this.http.get(this.baseUrl + "containers/forms/download/" + file)
             .map(resp => resp)
+    }
+
+    setCoinContent(coin, id) {
+        coin.usuarioId = this.getUserId();
+        if (id === "undefined")
+            return this.http.post(this.baseUrl + "contenidoMonedas" + this.getAuth(), coin).map(resp => resp.json());
+        else
+            return this.http.put(`${this.baseUrl}contenidoMonedas/${id}${this.getAuth()}`, coin).map(resp => resp.json());
+    }
+
+    getTitleConclusion(id, filter:any = "") {
+        return this.http.get(`${this.baseUrl}titulos/${id}/contenido${this.getAuth(filter)}`).map(resp => resp.json())
     }
 }

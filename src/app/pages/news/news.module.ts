@@ -25,7 +25,7 @@ import { NewsService } from './news.service';
     ...routedComponents,
     newsListComponent,
     newsViewComponent,
-    newsAllComponent
+    newsAllComponent,
   ],
   providers:[NewsService]
 })
