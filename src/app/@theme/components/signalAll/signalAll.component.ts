@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
     selector: 'ngx-signalAll',
@@ -10,8 +11,10 @@ export class signalAllComponent {
     @Input() listSignal: any;
     @Input() design: any;
 
-    constructor(){
+    pagado: number = 50; 
 
+    constructor(){
+        moment.locale('es');
     }
 
 }

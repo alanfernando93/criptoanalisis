@@ -10,6 +10,9 @@ export class newsAllComponent {
 
     @Input() listNews: any;
     @Input() design: any;
+    @Input() precision: any;
+
+    pagado: number = 50;
 
     constructor(){
         moment.locale('es');

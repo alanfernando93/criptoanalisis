@@ -8,7 +8,10 @@
             <div class="caption">
               <div class="tag">
                 <a href="#">{{news.tipo_moneda}}</a>
-                <a href="#" class="pull-right">Oferta </a>
+                <a href="#" class="pull-right" *ngIf="precision > pagado else free">De pago</a>
+              <ng-template #free>
+                  <a href="#" class="pull-right">Oferta</a>  
+              </ng-template>
               </div>
               <div class="title">
                 <a [routerLink]="['/pages/news/news-view', news.id]">{{news.titulo}}</a>

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import {ChatComponent} from './chat/chat.component';
+import { ChatComponent } from './chat/chat.component';
 import { PublishComponent } from './publish/publish.component';
 
 import { AuthGuard } from '../auth-guard.service';

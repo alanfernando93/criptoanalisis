@@ -33,7 +33,6 @@ export class signalsListComponent implements OnInit {
   getSignals() {
     this.signalsService.getAllLimit(this.limit, this.increment).subscribe(data => {
       data ? this.signals = data : {};
-      console.log(data);
       this.signals.forEach((element, index) => {
         let signalId = this.signals[index].id;
         this.userBySignals(signalId, index);
@@ -45,7 +44,7 @@ export class signalsListComponent implements OnInit {
 
   connSignals() {
     this.connection = this.signalsService.getSignals().subscribe(data => {
-      let datos: any = data; 
+      let datos: any = data;
       this.signals.unshift(data);
       this.signals.forEach((element, index) => {
         this.userBySignals(datos.usuarioId, index);
@@ -76,14 +75,14 @@ export class signalsListComponent implements OnInit {
     });
   }
 
-  getPosition(id, index){
+  getPosition(id, index) {
     return this.signalsService.getPositionBySignal(id).subscribe(data => {
       this.signals[index].position = [];
       this.signals[index].position.push(data[0]);
     });
   }
 
-  getCount(){
+  getCount() {
     this.signalsService.getSignalsCount().subscribe(data => {
       this.count = data.count;
     });
