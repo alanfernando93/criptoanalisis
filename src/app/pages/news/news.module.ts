@@ -6,6 +6,8 @@ import { NewsRoutingModule, routedComponents } from './news-routing.module';
 import { FormsModule } from '@angular/forms';
 
 import { newsListComponent } from './list/newsList.component';
+import {commentComponent} from '../../@theme/components/comment/comment.component'
+import {userDesignComponent} from '../../@theme/components/'
 import { newsViewComponent } from './view/newsView.component';
 import { NewsService } from './news.service';
 
@@ -25,7 +27,9 @@ import { NewsService } from './news.service';
     ...routedComponents,
     newsListComponent,
     newsViewComponent,
-    newsAllComponent
+    commentComponent,
+    userDesignComponent,
+    newsAllComponent,
   ],
   providers:[NewsService]
 })
