@@ -24,6 +24,7 @@ import {
 import {
   CropperModalComponent,
   FooterComponent,
+  HorarioComponent,
   HeaderComponent,
   HeaderTwoComponent,
   ImageComponent,
@@ -34,6 +35,9 @@ import {
   newsAllComponent,
   userDesignComponent,
   commentComponent,
+  advisoriesAllComponent
+
+  
 
   
 } from './components';
@@ -71,6 +75,8 @@ const COMPONENTS = [
   ThemeSettingsComponent,
   TinyMCEComponent,
   SampleLayoutComponent,
+  HorarioComponent,
+  advisoriesAllComponent,
   userDesignComponent,
   commentComponent,
 ];
@@ -79,7 +85,6 @@ const PIPES = [
   CapitalizePipe,
   PluralPipe,
   RoundPipe,
-  TimingPipe,
 ];
 
 const NB_THEME_PROVIDERS = [
