@@ -31,6 +31,9 @@ import {
   newsAllComponent,
   userDesignComponent,
   commentComponent,
+  advisoriesAllComponent
+
+  
 
   
 } from './components';
@@ -65,7 +68,8 @@ const COMPONENTS = [
   ThemeSettingsComponent,
   TinyMCEComponent,
   SampleLayoutComponent,
-  HorarioComponent
+  HorarioComponent,
+  advisoriesAllComponent
 ];
 
 const PIPES = [

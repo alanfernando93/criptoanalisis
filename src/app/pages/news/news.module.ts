@@ -32,7 +32,7 @@ import { NewsService } from './news.service';
     newsViewComponent,
     commentComponent,
     userDesignComponent,
-    newsAllComponent
+    newsAllComponent,
   ],
   providers:[NewsService]
 })

@@ -7,8 +7,9 @@ import { UserService } from "../../../@core/data/users.service";
 import { NbAuthJWTToken, NbAuthService } from "@nebular/auth";
 
 
+
 @Component({
-    selector: 'ngx-list',
+    selector: 'ngx-list-coach',
     templateUrl: './list.component.html',
     styleUrls: ['./list.component.scss']
 })
@@ -17,6 +18,7 @@ export class ListComponent extends Session implements OnInit {
     modalidad1:any;
     modalidad2:any;
     advisoriesbyid: any;
+    virtual:any;
     private userId = this.getUserId();
     user: any = null;
 
@@ -48,15 +50,6 @@ export class ListComponent extends Session implements OnInit {
             this.advisories = data;
             
             
-            /*this.advisories.forEach((element, index) => {
-          
-                this.modalidad1= this.advisories[index];
-                console.log("hola"+this.modalidad1.modalidad[0])
-                this.modalidad1= this.advisories[index].modalidad[0];
-                this.modalidad2= this.advisories[index].modalidad[1];
-                
-                
-              });*/
               this.advisories.forEach((element, index) => {
                 let newsId = this.advisories[index].id;
                 this.AdvisoriesService.getUserByNews(newsId).subscribe(data => {
@@ -65,6 +58,7 @@ export class ListComponent extends Session implements OnInit {
                   this.advisories[index].mod1 = " ";
                   this.advisories[index].mod2 = " ";
                   this.advisories[index].mod1 = this.advisories[index].modalidad[0];
+                  this.virtual=this.advisories[index].modalidad[0];
                   this.advisories[index].mod2 = this.advisories[index].modalidad[1];
                   
                 });
@@ -76,7 +70,7 @@ export class ListComponent extends Session implements OnInit {
     getadvisoriesbyid(){
         this.AdvisoriesService.getadvisoriesbyuserid(this.userId).subscribe(data => {
             this.advisoriesbyid = data;
-            //console.log(this.userId)
+           
         });
     }
 }

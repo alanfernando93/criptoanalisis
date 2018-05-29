@@ -4,6 +4,9 @@ import { AdvisoryRoutingModule, routedComponents } from './Advisories-routing.mo
 import { AdvisoriesService } from './advisories.service';
 import { HorarioComponent } from '../../@theme/components';
 
+//import { userDesignComponent } from '../../@theme/components';
+
+
 @NgModule({
   imports: [
       ThemeModule,
@@ -11,7 +14,10 @@ import { HorarioComponent } from '../../@theme/components';
   ],
   declarations:[
       ...routedComponents,
+      
+ //     userDesignComponent
   ],
-  providers:[AdvisoriesService]
+  exports:[]
+,  providers:[AdvisoriesService]
 })
 export class AdvisoryModule {}

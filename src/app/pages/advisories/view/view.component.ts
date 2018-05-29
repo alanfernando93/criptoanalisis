@@ -8,14 +8,15 @@ import { environment } from '../../../../environments/environment';
 import {ListComponent} from  '../list/list.component';
 import { HorarioComponent } from "../../../@theme/components/horario/horario.component";
 import { Output,Input, EventEmitter } from '@angular/core';
+import { Session } from '../../../@core/data/session';
 @Component({
   selector: 'ngx-view',
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss']
 })
-export class ViewComponent implements OnInit {
+export class ViewComponent extends Session implements OnInit {
   @ViewChild('h5') tab;
-  idUser = environment.userId;
+  idUser = this.getUserId();
   
   advisory: any;
   coment: any;
@@ -55,8 +56,9 @@ export class ViewComponent implements OnInit {
     private http: Http,
     private route: ActivatedRoute,
     private advisoriesService: AdvisoriesService,
-    
+        
   ) {
+    super()
 
   }
 
