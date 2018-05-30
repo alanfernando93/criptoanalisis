@@ -78,9 +78,9 @@ import { NbLoginComponent } from '@nebular/auth';
         <small class="form-text">Or connect with:</small>
 
         <div class="socials">
-          <a href="https://github.com/akveo" target="_blank" class="socicon-github"></a>
-          <a href="https://www.facebook.com/akveo/" target="_blank" class="socicon-facebook"></a>
-          <a href="https://twitter.com/akveo_inc" target="_blank" class="socicon-twitter"></a>
+          <a href="https://github.com/akveo" target="_blank" class="socicon-github"><i class="fa fa-github"></i></a>
+          <a href="https://www.facebook.com/akveo/" target="_blank" class="socicon-facebook"><i class="fa fa-facebook"></i></a>
+          <a href="https://twitter.com/akveo_inc" target="_blank" class="socicon-twitter"><i class="fa fa-twitter"></i></a>
         </div>
 
         <small class="form-text">
