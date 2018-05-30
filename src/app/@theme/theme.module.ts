@@ -35,6 +35,8 @@ import {
   newsAllComponent,
   userDesignComponent,
   commentComponent,
+  denunciaComponent,
+  shareComponent,
   advisoriesAllComponent
 
   
@@ -79,6 +81,8 @@ const COMPONENTS = [
   advisoriesAllComponent,
   userDesignComponent,
   commentComponent,
+  denunciaComponent,
+  shareComponent
 ];
 
 const PIPES = [

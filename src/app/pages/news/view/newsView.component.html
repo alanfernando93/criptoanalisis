@@ -11,11 +11,20 @@
                     <span class="badge badge-primary font-w-light user_data">{{contentUser.puntos}} P</span>
                 </h5>
             </div>
-            <div class="col-5 col-md-7">
+            <div class="col-5 col-md-1">
                 <h5>
                     <span class="badge badge-info font-w-light user_data">{{contentUser.fidelidad}} F</span>
                 </h5>
             </div>
+            <div class="col-3 col-md-1" *ngIf="contentUser.fidelidad > 50 else elseBlock">
+                <i class="fa fa-2x fa-graduation-cap"></i>
+            </div>
+            <ng-template #elseBlock>
+                <i class="fa fa-2x fa-male"></i>
+            </ng-template>
+            <!-- <ng-template #thenBlock>
+                <i class="fa fa-user-graduate"></i>
+            </ng-template> -->
         </div>
     </nb-card-header>
 </nb-card>
@@ -32,41 +41,7 @@
     <nb-card-header>
         <div class="row" *ngIf="news">
             <h4 class="col-12 col-md-10 text-body">{{news.titulo}}</h4>
-            <div class="col-4 col-md-2">
-                    <a class="btn btn-outline-secondary pull-right btn-tn" placement="left" [ngbPopover]="popContentDenuncia" popoverTitle="Tipo de Denuncia">
-                        denunciar
-                    </a>
-                    <ng-template #popContentDenuncia>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="demo-radio col-md-10">
-                                    <label class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" [(ngModel)]="denuncia.tipo" value="El anuncio era inapropiado">
-                                        <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description">El anuncio era inapropiado</span>
-                                    </label>
-                                    <label class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" [(ngModel)]="denuncia.tipo" value="No me interesa el anuncio">
-                                        <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description">No me interesa el anuncio</span>
-                                    </label>
-                                    <label class="custom-control custom-radio">
-                                        <input type="radio" class="custom-control-input" [(ngModel)]="denuncia.tipo" value="El anuncio tapa el contenido">
-                                        <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description">El anuncio tapa el contenido</span>
-                                    </label>
-                                </div>
-                                <form>
-                                    <div class="form-group">
-                                        <h6 class="text-body">Comentario</h6>
-                                        <textarea class="form-control" #contenido="ngModel" name="contenido" [(ngModel)]="denuncia.comentario" placeholder="Escribe un Comentario"></textarea>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-tn pull-right" (click)="sendDenuncia()">Denunciar</button>
-                                </form>
-                            </div>
-                        </div>
-                    </ng-template>
-                </div>
+            <ngx-denuncia Design="col-4 col-md-2" tipCom="noticia" [userIdNews]="news.usuarioId" [newsId]="news.id" nalugar="noticias"></ngx-denuncia>
             <div class="col-6 col-md-6">
                 <h4 class="subtitle">
                     <span class="badge badge-primary">{{news.tipo_moneda}}</span>
@@ -104,31 +79,7 @@
         </div>
     </nb-card-footer>
 </nb-card>
-<nb-card>
-    <nb-card-header>
-        <div class="row">
-            <div class="col-12 col-md-2">
-                <h5 class="text-body compartir">Compartir : </h5>
-            </div>
-            <div class="col-12 col-md-3">
-                <div class="text-center center-block">
-                    <a href="#">
-                        <i id="social-fb" class="fa fa-facebook-square fa-3x social"></i>
-                    </a>
-                    <a href="#">
-                        <i id="social-tw" class="fa fa-twitter-square fa-3x social"></i>
-                    </a>
-                    <a href="#">
-                        <i id="social-gp" class="fa fa-google-plus-square fa-3x social"></i>
-                    </a>
-                    <a href="#">
-                        <i id="social-em" class="fa fa-envelope-square fa-3x social"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nb-card-header>
-</nb-card>
+<ngx-share></ngx-share>
 <nb-card *ngIf="news">
     <nb-card-body>
         <div class="row">

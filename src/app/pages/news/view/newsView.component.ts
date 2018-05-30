@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -36,7 +36,6 @@ export class newsViewComponent implements OnInit {
     private userService: UserService) {
     route.params.subscribe(val => {
       this.idNews = val.newsId;
-      
       this.getCommentWithUser();
       this.getNewsCommentCount();
       this.getNewsWithUser();

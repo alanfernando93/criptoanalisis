@@ -11,6 +11,6 @@ export * from './newsAll/newsAll.component';
 export * from './signalAll/signalAll.component';
 export * from './userDesign/userDesign.component';
 export * from './comment/comment.component';
+export * from './denuncia/denuncia.component';
+export * from './share/share.component';
 export * from './advisoriesAll/advisoriesAll.component';
-
-
