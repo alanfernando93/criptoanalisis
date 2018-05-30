@@ -34,7 +34,6 @@ export class Session {
             return true;
         }else{
             return false;
-            // this.router.navigate(["/auth/login"]);
         }
     }
 }
