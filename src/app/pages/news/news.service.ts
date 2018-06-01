@@ -17,6 +17,10 @@ export class NewsService extends Session{
     super();
   }
 
+  siExisteUser(){
+    return this.getToken();
+  }
+
   getAll() {
     return this.http.get(this.baseUrl + 'noticias')
       .map((res: Response) => res.json());
@@ -98,12 +102,12 @@ export class NewsService extends Session{
       .map((res: Response) => res.json());
   }
 
-  postNewsComment(comments) {
+  postNewsComment(comment) {
     if(!this.isAuth()){
       return new Observable<any>(()=>{this.router.navigate(["/auth/login"])});
     }
-    comments.userId = this.getUserId();
-    return this.http.post(this.baseUrl + '/comentario_noticia', comments)
+    comment.userId = this.getUserId();
+    return this.http.post(this.baseUrl + '/comentario_noticia', comment)
       .map((res: Response) => res.json());
   }
 

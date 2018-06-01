@@ -29,9 +29,10 @@
                             </div>
                             <div class="panel-footer">
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control resinput" id="{{comment.id}}" name="{{i}}" placeholder="Escribe tu respuesta aqui" />
+                                    <input class="form-control resinput" name="{{i}}" placeholder="Escribe tu respuesta aqui"
+                                    minlength="4" required="required"/>
                                 </div>
-                                <button class="btn btn-primary btn-tn resbotton" id="btn-chat" (click)="onAnswer($event)">Responder</button>
+                                <button type="submit" [disabled]="submitted" [class.btn-pulse]="submitted"  class="btn btn-primary btn-tn resbotton" id="btn-chat" (click)="onAnswer($event)">Responder</button>
                             </div>
                         </div>
                     </div>

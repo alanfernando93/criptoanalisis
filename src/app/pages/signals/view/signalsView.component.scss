@@ -1,33 +1,5 @@
-a{
-  cursor: pointer !important;
-}
-.fa {
-  padding: 4px;
-  font-size: 24px;
-  width: 40px;
-  text-align: center;
-  text-decoration: none;
-  margin: -4px 1px;
-  border-radius: 18px;
-  &:hover {
-    opacity: 0.7;
-  }
-}
-
-.date{
-  line-height: 1.8em;  
-}
-.foto_user{
-  border-radius: 3.25rem;
-  width: 4%;
-}
-.popover_user{
-  border-radius: 1.25rem;
-  width: 55%;
-}
-
 .user_data {
-  margin-top: 9px;
+  margin-top: 7px;
 }
 
 .content_image{
@@ -35,42 +7,6 @@ a{
   height: 15%;
 }
 
-.image_user {
-  width: 85%;
-}
-
-.image_useranswer{
-  width: 100%;
-}
-
-.design_user {
-  color: #a4abb3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 2.5rem;
-  width: 2.5rem;
-  background: #ffffff;
-  border: solid 2px #bcc3cc;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.drop{
-  left: 1px !important;
-  left: 15px !important;
-  top: 8px;
-  padding: 0px;
-}
-.bton-seguir{
-  padding-top: 10px;
-}
-.pop_style{
-  background-color: #D8DFE7 !important;
-  border: 1px solid cornsilk !important;
-}
-.image_pop{
-  border: 1px solid #b7bec6;
-}
 .scrollable-menu {
   height: auto;
   max-height: 150px;

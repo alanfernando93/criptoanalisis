@@ -26,10 +26,10 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
   template: `
     <nb-layout [center]="layout.id === 'center-column'" windowMode>
     
-    <nb-layout-header>
+    <nb-layout-header fixed>
       <ngx-header [position]="sidebar.id === 'right' ? 'normal': 'inverse'"></ngx-header>    
     </nb-layout-header>
-    <nb-layout-header>
+    <nb-layout-header fixed>
         <ngx-headertwo [position]="sidebar.id === 'right' ? 'normal': 'inverse'"></ngx-headertwo>    
     </nb-layout-header>
       

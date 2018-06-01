@@ -1,6 +1,6 @@
 export const _GLOBAL = {
-    apiUrl: 'http://191.101.228.157:8080/api/',
-    Url: 'http://191.101.228.157:8080',
+    apiUrl: 'http://localhost:3000/api/',
+    Url: 'http://localhost:3000',
     // apiUrl: 'http://192.168.100.106:3000/api/',
     // Url: 'http://192.168.100.106:3000',
 }
@@ -34,7 +34,7 @@ export const configImage = {
 
 export const dBox = {
     token: 'NirdHiRLreAAAAAAAAAAWz7lcT2HvMv-XoyOD7wF7dHE4l0f1lMkL6aXd-kv-V_w',
-    key: 'zn0kbmrq6ed8rme',
+    key: '',
     secret: 'vrm42gw40yjlaa4'
 }
 

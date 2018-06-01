@@ -176,7 +176,8 @@ export class HeaderComponent implements OnInit {
             this.showToast(user.username, 'le gusto tu noticia');
             this.setnewContent('likeNews','le gusto tu noticia',user.username,this.req.senderId,
             user.perfil,notif[0].id);
-          })
+          });
+          break;
         }
         case 'likeSig': {
           this.headerService.getUser(this.req.emmiterId).subscribe(user=>{

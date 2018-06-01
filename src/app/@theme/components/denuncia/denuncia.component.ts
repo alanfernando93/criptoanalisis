@@ -5,7 +5,7 @@ import { NewsService } from '../../../pages/news/news.service';
 @Component({
     selector: 'ngx-denuncia',
     template: `<div class="Design">
-    <a class="btn btn-outline-secondary pull-right btn-tn" placement="left" [ngbPopover]="popContentDenuncia" popoverTitle="Tipo de Denuncia">
+    <a class="btn btn-outline-secondary btn-tn" placement="left" [ngbPopover]="popContentDenuncia" popoverTitle="Tipo de Denuncia">
         denunciar
     </a>
     <ng-template #popContentDenuncia>

@@ -38,6 +38,7 @@ export class signalsViewComponent implements OnInit {
         this.getSignalWithUser();
         this.getSignalCommentCount();
         this.getCommentWithUser();
+        this.getSignalCommentById();
       });
   }
 
@@ -78,6 +79,9 @@ export class signalsViewComponent implements OnInit {
     this.connectionAns = this.signalsService.getSignalsAns().subscribe(data => {
       let comPosition = data["positionComment"];
       this.signalsAnswer = data;
+      if (this.commentById[comPosition].res == undefined) {
+        this.commentById[comPosition].res = [];
+      }
       this.commentById[comPosition].res.push(data);
       this.getUserAnswer(comPosition);
     });

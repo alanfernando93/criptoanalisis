@@ -5,12 +5,7 @@ import { Http, Response } from '@angular/http';
     selector: 'ngx-userDesign',
     template: `<span class="chat-img pull-left" *ngIf="dataCommUser">
     <a placement="right" [ngbPopover]="popContentComment" triggers="mouseover">
-        <img *ngIf="dataUserPerfil; else UserOptions" class="img-circle rounded-circle" src="comment.user.perfil">
-        <ng-template #UserOptions>
-            <div class="design_user">
-                <ng-container> {{ getInitials(dataUserSymbol) }} </ng-container>
-            </div>    
-        </ng-template>
+        <img *ngIf="dataUserSymbol" class="img-circle rounded-circle" src="../../../../assets/images/letra.png">
         </a>
 </span>
 <div class="chat-body clearfix" *ngIf="dataCommUser">
@@ -109,16 +104,16 @@ export class userDesignComponent {
     @Input() dataUserFama: any = [];
     @Input() dataAnswer: any = [];
     @Input() dataUserId: any = [];
-    
-    constructor(){
+
+    constructor() {
 
     }
 
     getInitials(name) {
         if (name) {
-          var names = name.split(' ');
-          return names.map(function (n) { return n.charAt(0); }).splice(0, 2).join('').toUpperCase();
+            var names = name.split(' ');
+            return names.map(function (n) { return n.charAt(0); }).splice(0, 2).join('').toUpperCase();
         }
         return '';
-      }
+    }
 }
