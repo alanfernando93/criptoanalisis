@@ -1,5 +1,4 @@
 import { NgModule } from "@angular/core";
-
 import { ThemeModule } from '../@theme/theme.module';
 
 import { NgxAuthComponent } from "./auth.component";

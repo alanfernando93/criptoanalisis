@@ -20,6 +20,7 @@ const routes: Routes = [{
   }, {
     path: 'publish',
     component: PublishComponent,
+    canActivate: [AuthGuard]
   }, {
     path: 'ui-features',
     loadChildren: './ui-features/ui-features.module#UiFeaturesModule',

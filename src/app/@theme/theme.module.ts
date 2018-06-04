@@ -27,9 +27,8 @@ import {
   HorarioComponent,
   HeaderComponent,
   HeaderTwoComponent,
-  ImageComponent,
+  ImageModalComponent,
   SearchInputComponent,
-  ThemeSettingsComponent,
   TinyMCEComponent,
   signalAllComponent,
   newsAllComponent,
@@ -37,11 +36,7 @@ import {
   commentComponent,
   denunciaComponent,
   shareComponent,
-  advisoriesAllComponent
-
-  
-
-  
+  advisoriesAllComponent  
 } from './components';
 import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe } from './pipes';
 import {
@@ -71,10 +66,9 @@ const COMPONENTS = [
   //CropperModalComponent,
   HeaderComponent,
   HeaderTwoComponent,
-  ImageComponent,
+  ImageModalComponent,
   FooterComponent,
   SearchInputComponent,
-  ThemeSettingsComponent,
   TinyMCEComponent,
   SampleLayoutComponent,
   HorarioComponent,

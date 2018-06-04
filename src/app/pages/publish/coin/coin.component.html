@@ -30,9 +30,9 @@
         </div>
       </div>
     </div>
-    <div class="row col">
+    <div class="row col justify-content-md-center">
       <div class="input-group">
-        <div class="card">
+        <div class="card" style="width: 100%">
           <div class="card-header">
             Favor especifique los detalles para esta moneda, hagalo de forma secuencial:
           </div>
@@ -43,7 +43,7 @@
               <div id="collapseExample" [ngbCollapse]="title.isCollapsed" *ngIf="title.subtitles.length > 0">
                 <div class="card">
                   <div class="card-body">
-                    <button class="rounded sub btn btn-secondary" *ngFor="let subtitle of title.subtitles" id="{{subtitle.enlace}}" (click)="open(subtitle.enlace, subtitle.id, subtitle.nombre)">{{subtitle.nombre}} </button>
+                    <button class="rounded sub btn btn-secondary" *ngFor="let subtitle of title.subtitles" id="{{subtitle.enlace}}" (click)="open(subtitle.enlace, subtitle.id, subtitle.nombre)">{{subtitle.nombre}}</button>
                   </div>
                 </div>
               </div>

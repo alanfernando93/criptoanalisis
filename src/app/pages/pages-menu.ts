@@ -8,20 +8,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true,
   },
   {
-    title: 'Publish',
-    icon: 'fa fa-fire',
-    link: '/pages/publish',
-    home: true,
-  },
-  {
     title: 'Asesoria Principiantes',
     icon: 'nb-compose',
     link: '/pages/dashboard',
     home: true,
-  },{
-    title: 'chat',
-    icon: 'ion-paper-airplane',
-    link: '/pages/chat'
   },{
     title: 'Tutoriales',
     icon: 'nb-home',
@@ -64,15 +54,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/ui-features/search-fields',
       },
     ],
-  },{
-    title: 'News',
-    icon: 'nb-layout-sidebar-right',
-    children: [
-      {
-        title: 'List News',
-        link: '/pages/news/news-list',
-      },
-    ],
   },
   {
     title: 'Advisory',
@@ -103,15 +84,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'View Coins',
         link: '/pages/coins/view'
-      },
-    ],
-  },{
-    title: 'Signals',
-    icon: 'nb-paper-plane',
-    children: [
-      {
-        title: 'List Signals',
-        link: '/pages/signals/signals-list',
       },
     ],
   }
