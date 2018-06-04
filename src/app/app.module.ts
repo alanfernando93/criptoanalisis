@@ -19,7 +19,7 @@ import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 //import {ShareButtonsModule} from 'ngx-sharebuttons';
 import { environment } from '../environments/environment';
 
-const config: SocketIoConfig = { url:environment.Url, options:{}};
+const config: SocketIoConfig = { url:environment.Url, options:{secure: true}};
 
 import { AuthGuard } from './auth-guard.service';
 

@@ -87,12 +87,14 @@ export class HeaderComponent implements OnInit {
           }
           case 'news':{
             this.headerService.findNews(element.senderId).subscribe(news=>{
-              this.setcontent(news.tipo.moneda,news.titulo,null,index);
+              console.log(news);
+              this.setcontent(news.tipo_moneda,news.titulo,null,index);
             });
             break;
           }
           case 'signal':{
             this.headerService.findsignal(element.senderId).subscribe(signal=>{
+              console.log(signal);
               let content = (signal.signal.tipo)?  'compra de señal': 'publico una nueva señal';
               this.setcontent(signal.signal.usuario.username,content,signal.signal.usuario.perfil,index);
             });
