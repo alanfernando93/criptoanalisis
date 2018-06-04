@@ -23,9 +23,9 @@ import { CropperModalComponent } from '../cropper/croppermodal.component';
     </div>
   </div>
   `,
-  styleUrls: ['./image.component.scss']
+  styleUrls: ['./image-modal.component.scss']
 })
-export class ImageComponent {
+export class ImageModalComponent {
   @Output() onImageSelected = new EventEmitter<any>();
 
   myFile: any;

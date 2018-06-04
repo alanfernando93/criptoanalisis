@@ -14,6 +14,7 @@ import { async } from "@angular/core/testing";
 import { showToast } from "../../../common/functions";
 import { configCrud } from "../../../common/ConfigSettings";
 import { DropboxCripto } from "../../../common/dropbox";
+import { Validators, FormGroup, FormBuilder } from "@angular/forms";
 
 declare var tinymce: any;
 
@@ -32,6 +33,7 @@ export class PublishNewsComponent implements OnInit {
   closeResult: string;
   newsPublish: any = {};
   coins: any = [];
+  Form: FormGroup
 
   selectedView = {
     name: "Seleccione Moneda"
@@ -47,7 +49,10 @@ export class PublishNewsComponent implements OnInit {
     private router: Router,
     private toasterService: ToasterService,
     private dropbox: DropboxCripto,
-  ) { }
+    private fb: FormBuilder
+  ) { this.Form = this.fb.group({
+    title: ['', Validators.compose([Validators.required, Validators.minLength(4) ])]
+  }) }
 
   ngOnInit() {
     if (this.idNew != null) {
@@ -98,18 +103,17 @@ export class PublishNewsComponent implements OnInit {
     var uno = await this.refreshEditor1();
     var dos = await this.refreshEditor2();
     var tres = await this.refreshEditor3();
+    
     this.newsPublish.tipo_moneda = this.selectedView.name;
     this.newsService.insert(this.newsPublish).subscribe(resp => {
       this.dropbox.imageUploadDropbox(this.myFile, this.newsService.getUserId(), 'news', 'perfil-' + resp.id).then(resp => {
-        this.type = 'success'
         this.content = configCrud.message.success + ' noticias';
-        showToast(this.toasterService, this.type, this.content);
-        this.router.navigate(["/pages/news/list"]);
+        showToast(this.toasterService, 'success', this.content);
+        this.router.navigate(["/pages/news/news-list"]);
       });
     }, error => {
-      this.type = 'error'
       this.content = configCrud.message.error + ' noticias';
-      showToast(this.toasterService, this.type, this.content);
+      showToast(this.toasterService, 'error', this.content);
     });
   }
 
