@@ -36,11 +36,7 @@ import {
   commentComponent,
   denunciaComponent,
   shareComponent,
-  advisoriesAllComponent
-
-  
-
-  
+  advisoriesAllComponent  
 } from './components';
 import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe } from './pipes';
 import {

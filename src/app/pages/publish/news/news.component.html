@@ -3,7 +3,10 @@
     <div class="row col">
       <div class="col-md-6">
         <div class="row inputgroup">
-          <input type="text" placeholder="Titulo de la noticia" [(ngModel)]="newsPublish.titulo" class="form-control">
+          <input type="text" placeholder="Titulo de la noticia" [(ngModel)]="newsPublish.titulo" class="form-control" required>
+          <div class="invalid-feedback">
+            Please choose a username.
+          </div>
         </div>
         <div class="row input-group">
           <div class="dropdown" ngbDropdown>

@@ -1,11 +1,8 @@
 import { _GLOBAL } from '../../common/ConfigSettings';
 
-export class Session {
+export abstract class Session {
 
-    constructor(){
-    }
-
-    getUserId(){
+    getUserId() {
         return localStorage.getItem('userId')
     }
 
@@ -25,15 +22,11 @@ export class Session {
         localStorage.setItem(key, value);
     }
 
-    static removeStorage(key){
+    static removeStorage(key) {
         localStorage.removeItem(key);
     }
-    
-    isAuth(){
-        if (this.getUserId() && this.getToken()) {
-            return true;
-        }else{
-            return false;
-        }
+
+    isAuth() {
+        return (this.getUserId() && this.getToken()) ? true : false;
     }
 }

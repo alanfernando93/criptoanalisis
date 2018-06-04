@@ -23,14 +23,14 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
   selector: "nb-sample-layout",
   styleUrls: ["./sample.layout.scss"],
   template: `
-  <nb-layout [center]="true" windowMode>    
+  <nb-layout windowMode>    
     <nb-layout-header>
       <ngx-header [position]="'normal'"></ngx-header>    
     </nb-layout-header>
     <nb-layout-header>
         <ngx-headertwo [position]="'normal'"></ngx-headertwo>    
     </nb-layout-header>      
-    <nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive [left]="true">
+    <nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive>
       <nb-sidebar-header class="d-block d-sm-none" *ngIf="user">
         <nb-user [menu]="" [name]="user?.username" [picture]="user?.perfil" ></nb-user>
         <nb-action>
@@ -88,12 +88,8 @@ export class SampleLayoutComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.onTokenChange().subscribe((token: NbAuthJWTToken) => {
-      if (token.getValue() && localStorage.length != 0) {
-        let id = localStorage.getItem("userId")
-        this.userService.getById(id).subscribe(resp => this.user = resp)
-      }
-    });
+    if(!this.userService.isAuth()) return;
+    this.userService.getCurrentUser().subscribe(data => this.user = data)
   }
 
   signin() {
@@ -105,7 +101,6 @@ export class SampleLayoutComponent implements OnInit {
   }
   logout() {
     localStorage.clear();
-    this.user = null;
     this.router.navigate(["/"]);
   }
   profile() {

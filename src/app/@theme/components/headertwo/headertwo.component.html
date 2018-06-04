@@ -20,13 +20,6 @@
             <i class="nb-plus-circled"></i>
         </a>
     </div>
-    <!--
-    <div class="container-btn d-block d-sm-none">
-        <a class="btn btn-secondary btn-tn">
-            Ico's
-        </a>
-    </div>
-    -->
     <div class="container-btn d-block d-sm-block d-md-none">
         <a class="btn btn-secondary btn-tn">
             <i class="nb-rainy"></i>
@@ -34,37 +27,22 @@
     </div>
     <ul class="nav left">
         <li class="nav-item">
-            <a class="nav-link d-none d-sm-none d-md-block" href="#">
+            <a class="nav-link d-none d-sm-none d-md-block" (click)="routerLink('/pages/publish')">
                 <span>PUBLICAR</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link d-none d-sm-none d-md-block" href="#">
+            <a class="nav-link d-none d-sm-none d-md-block" (click)="routerLink('/pages/signals/signals-list')">
                 <span>SEÑALES</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link d-none d-sm-none d-md-block" href="#">
+            <a class="nav-link d-none d-sm-none d-md-block" (click)="routerLink('/pages/news/news-list')">
                 <span>NOTICIAS</span>
             </a>
         </li>
-        <!--
-        <nb-action>
-            <div class="dropdown ghost-dropdown d-none d-sm-block" ngbDropdown>
-                <a class="btn btn-primary nav-item" type="button" ngbDropdownToggle>
-                    Ico's
-                </a>
-                <ul class="dropdown-menu ico" ngbDropdownMenu>
-                    <li class="dropdown-item">Icon Button 4</li>
-                    <li class="dropdown-item">Hero Button</li>
-                    <div class="dropdown-divider"></div>
-                    <li class="dropdown-item">Default</li>
-                </ul>
-            </div>
-        </nb-action>
-    -->
         <div class="dropdown ghost-dropdown dropheader" ngbDropdown>
-            <button class="btn btn-primary d-none d-sm-none d-md-block" type="button" ngbDropdownToggle style="border: 0px;">
+            <button class="btn btn-primary d-none d-sm-none d-md-block" type="button" ngbDropdownToggle style="border: 0px;cursor: pointer;">
                 Mercado
             </button>
             <ul class="dropdown-menu" ngbDropdownMenu style="width: 150%;">
@@ -89,7 +67,7 @@
             </ul>
         </div>
         <li class="nav-item">
-            <a class="nav-link d-none d-sm-none d-md-block">
+            <a class="nav-link d-none d-sm-none d-md-block" (click)="routerLink('/pages/chat')">
                 <span>CHAT</span>
             </a>
         </li>

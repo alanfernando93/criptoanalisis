@@ -23,4 +23,12 @@
         margin-bottom: 15px; 
         border-radius: 2.25rem !important;
     }
+
+    @include media-breakpoint-down(sm) {
+        .title, .sub{
+            width: 100%;
+            font-size: 10px;
+            white-space: normal;
+        }        
+    }
 }

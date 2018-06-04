@@ -101,15 +101,13 @@ export class PublishNewsComponent implements OnInit {
     this.newsPublish.tipo_moneda = this.selectedView.name;
     this.newsService.insert(this.newsPublish).subscribe(resp => {
       this.dropbox.imageUploadDropbox(this.myFile, this.newsService.getUserId(), 'news', 'perfil-' + resp.id).then(resp => {
-        this.type = 'success'
         this.content = configCrud.message.success + ' noticias';
-        showToast(this.toasterService, this.type, this.content);
-        this.router.navigate(["/pages/news/list"]);
+        showToast(this.toasterService, 'success', this.content);
+        this.router.navigate(["/pages/news/news-list"]);
       });
     }, error => {
-      this.type = 'error'
       this.content = configCrud.message.error + ' noticias';
-      showToast(this.toasterService, this.type, this.content);
+      showToast(this.toasterService, 'error', this.content);
     });
   }
 

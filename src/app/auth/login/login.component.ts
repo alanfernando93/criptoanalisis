@@ -5,7 +5,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { NbLoginComponent, NbAuthService } from '@nebular/auth';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 
 @Component({
   selector: 'ngx-login',
@@ -92,16 +92,4 @@ import { ActivatedRoute, Router } from '@angular/router';
   `,
 })
 export class NgxLoginComponent extends NbLoginComponent {
-
-  // constructor(
-  //   service: NbAuthService,
-  //   private route: ActivatedRoute,
-  //   router: Router
-  // ) {
-  //   super(null,null,null)
-  //   console.log("login");
-  //   this.route.params.subscribe(resp => {
-  //     console.log(resp);
-  //   })
-  // }
 }
