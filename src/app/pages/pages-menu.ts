@@ -13,10 +13,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/dashboard',
     home: true,
   },{
-    title: 'chat',
-    icon: 'ion-paper-airplane',
-    link: '/pages/chat'
-  },{
     title: 'Tutoriales',
     icon: 'nb-home',
     link: '/pages/dashboard',
