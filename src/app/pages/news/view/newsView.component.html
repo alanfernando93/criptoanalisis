@@ -79,7 +79,9 @@
         </div>
     </nb-card-footer>
 </nb-card>
-<ngx-share></ngx-share>
+<div *ngIf="news">
+    <ngx-share titlefacebook="{{news.titulo}}" descripfacebook="{{news.contenido}}" imagefacebook="{{news.perfilLink}}" titletwitter="{{news.titulo}}" tagtwitter="{{news.contenido}}" titlelinkedin="{{news.titulo}}" descrilinkedin="{{news.contenido}}" titlewhatsapp="{{news.titulo}}" descripwhatsapp="{{news.contenido}}"></ngx-share>
+</div>
 <nb-card *ngIf="news">
     <nb-card-body>
         <div class="row">

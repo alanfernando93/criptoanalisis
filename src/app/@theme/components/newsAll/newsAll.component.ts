@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 
 @Component({
@@ -19,7 +20,7 @@ import * as moment from 'moment';
               </ng-template>
               </div>
               <div class="title">
-                <a [routerLink]="['/pages/news/news-view', news.id]">{{news.titulo}}</a>
+                <a (click)="routerLink('/pages/news/news-view', news.id)">{{news.titulo}}</a>
               </div>
               <div class="clearfix">
                 <span class="meta-data">{{news.fecha_create | amTimeAgo}}</span>
@@ -173,7 +174,13 @@ export class newsAllComponent {
 
     pagado: number = 50;
 
-    constructor(){
+    constructor(
+      private router: Router
+    ){
         moment.locale('es');
+    }
+
+    routerLink(url, params?){
+      this.router.navigate([url, params]);
     }
 }

@@ -1,4 +1,4 @@
-<div class="header-container left">
+ <div class="header-container left">
     <div class="container-btn d-block d-sm-block d-md-none">
         <a class="btn btn-secondary btn-tn">
             <i class="nb-edit"></i>
@@ -20,18 +20,12 @@
             <i class="nb-plus-circled"></i>
         </a>
     </div>
-    <!--
-    <div class="container-btn d-block d-sm-none">
-        <a class="btn btn-secondary btn-tn">
-            Ico's
-        </a>
-    </div>
-    -->
     <div class="container-btn d-block d-sm-block d-md-none">
         <a class="btn btn-secondary btn-tn">
             <i class="nb-rainy"></i>
         </a>
     </div>
+    <!--
     <ul class="nav left">
         <li class="nav-item">
             <a class="nav-link d-none d-sm-none d-md-block" href="#">
@@ -44,25 +38,10 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link d-none d-sm-none d-md-block" href="#">
+            <a class="nav-link d-none d-sm-none d-md-block" (click)="newsAll()">
                 <span>NOTICIAS</span>
             </a>
         </li>
-        <!--
-        <nb-action>
-            <div class="dropdown ghost-dropdown d-none d-sm-block" ngbDropdown>
-                <a class="btn btn-primary nav-item" type="button" ngbDropdownToggle>
-                    Ico's
-                </a>
-                <ul class="dropdown-menu ico" ngbDropdownMenu>
-                    <li class="dropdown-item">Icon Button 4</li>
-                    <li class="dropdown-item">Hero Button</li>
-                    <div class="dropdown-divider"></div>
-                    <li class="dropdown-item">Default</li>
-                </ul>
-            </div>
-        </nb-action>
-    -->
         <div class="dropdown ghost-dropdown dropheader" ngbDropdown>
             <button class="btn btn-primary d-none d-sm-none d-md-block" type="button" ngbDropdownToggle style="border: 0px;">
                 Mercado
@@ -95,6 +74,91 @@
         </li>
     </ul>
 </div>
+<nb-actions size="medium" class="header-container right">
+    <nb-action>
+        <div class="">
+            <a href="#" class="ion ion-social-youtube"></a>
+        </div>
+    </nb-action>
+    <nb-action>
+        <div class="">
+            <a href="#" class="ion ion-social-twitter"></a>
+        </div>
+    </nb-action>
+    <nb-action>
+        <div class="">
+            <a href="#" class="ion ion-social-facebook"></a>
+        </div>
+    </nb-action>
+    <nb-action>
+        <h6 class="text-hint">Siguenos : </h6>
+    </nb-action>
+</nb-actions> -->
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light left">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <div class="container-btn">
+                    <a class="btn btn-secondary btn-demo">PUBLICAR</a>
+                </div>
+            </li>
+            <li class="nav-item active">
+                <div class="container-btn">
+                    <a class="btn btn-secondary btn-demo">SEÑALES</a>
+                </div>
+            </li>
+            <li class="nav-item active">
+                <div class="container-btn">
+                    <a class="btn btn-secondary btn-demo">NOTICIAS</a>
+                </div>
+            </li>
+            <li class="nav-item active">
+                <div class="dropdown" ngbDropdown>
+                    <button class="btn btn-outline-secondary" type="button" ngbDropdownToggle>
+                        mercados
+                    </button>
+                    <ul class="dropdown-menu" ngbDropdownMenu>
+                        <li class="dropdown-item">Icon Button 2</li>
+                        <li class="dropdown-item">Hero Button</li>
+                        <li class="dropdown-item">Default</li>
+                    </ul>
+                </div>
+            </li>
+            <!-- <div class="dropdown ghost-dropdown dropheader" ngbDropdown>
+                    <button class="btn btn-primary d-none d-sm-none d-md-block" type="button" ngbDropdownToggle>
+                        Mercado
+                    </button>
+                    <ul class="dropdown-menu" ngbDropdownMenu>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Buscar">
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <li class="dropdown-submenu dropdown-item">
+                            <a class="dropdown ghost-dropdown" ngbDropdown>mercado</a>
+                            <ul class="dropdown-menu submenu">
+                                <li class="dropdown-item">
+                                    <a>Action</a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a href="#">Action</a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a href="#">Action</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div> -->
+            <li class="nav-item active">
+                <div class="container-btn">
+                    <a class="btn btn-secondary btn-demo">CHAT</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
 <nb-actions size="medium" class="header-container right">
     <nb-action>
         <div class="">

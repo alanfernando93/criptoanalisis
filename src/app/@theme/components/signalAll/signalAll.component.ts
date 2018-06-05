@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 
 @Component({
@@ -36,10 +37,10 @@ import * as moment from 'moment';
     </div>
 </div> -->
 <div class="row mb-5">
-    <div class="col-sm-6 col-md-4 mt-4" *ngFor="let signal of listSignal">
+    <div class="{{design}}" *ngFor="let signal of listSignal">
         <nb-card>
             <div class="card card-inverse card-info">
-                <a [routerLink]="['/pages/signals/signals-view', signal.id]">
+                <a (click)="routerLink('/pages/signals/signals-view', signal.id)">
                     <img class="card-img-top d-none d-sm-block" src="{{signal.perfilLink}}">
                     <div class="card-block" *ngFor="let content of signal.contentUser">
                         <div class="row">
@@ -221,8 +222,13 @@ export class signalAllComponent {
 
     pagado: number = 50; 
 
-    constructor(){
+    constructor(
+        private router: Router
+    ){
         moment.locale('es');
     }
-
+    
+    routerLink(url, params?){
+        this.router.navigate([url, params]);
+    }
 }

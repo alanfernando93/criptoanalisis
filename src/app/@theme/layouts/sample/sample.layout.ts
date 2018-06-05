@@ -24,12 +24,12 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
   selector: "nb-sample-layout",
   styleUrls: ["./sample.layout.scss"],
   template: `
-    <nb-layout [center]="layout.id === 'center-column'" windowMode>
     
-    <nb-layout-header fixed>
-      <ngx-header [position]="sidebar.id === 'right' ? 'normal': 'inverse'"></ngx-header>    
-    </nb-layout-header>
-    <nb-layout-header fixed>
+  <nb-layout [center]="layout.id === 'center-column'" windowMode>
+      <nb-layout-header>
+        <ngx-header [position]="sidebar.id === 'left' ? 'normal': 'inverse'"></ngx-header>
+      </nb-layout-header>   
+    <nb-layout-header>
         <ngx-headertwo [position]="sidebar.id === 'right' ? 'normal': 'inverse'"></ngx-headertwo>    
     </nb-layout-header>
       
@@ -188,11 +188,11 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
       );
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.authService.onTokenChange().subscribe((token: NbAuthJWTToken) => {
       if (token.getValue() && localStorage.length != 0) {
         let id = localStorage.getItem("userId")
-        this.userService.getById(id).subscribe(resp=> this.user = resp)
+        this.userService.getById(id).subscribe(resp => this.user = resp)
       }
     });
   }

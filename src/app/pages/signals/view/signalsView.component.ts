@@ -35,10 +35,10 @@ export class signalsViewComponent implements OnInit {
     private userService: UserService) {
       route.params.subscribe(val=>{
         this.idSignal = val.signalId;
+        this.getSignalCommentById();
         this.getSignalWithUser();
         this.getSignalCommentCount();
         this.getCommentWithUser();
-        this.getSignalCommentById();
       });
   }
 

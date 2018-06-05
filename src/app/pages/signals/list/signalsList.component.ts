@@ -6,7 +6,7 @@ import { UserService } from "../../../@core/data/users.service";
 
 @Component({
   selector: 'ngx-signalsList',
-  template: `<ngx-signalAll [listSignal]="signals" design="col-lg-4 col-md-4 col-sm-6"></ngx-signalAll>
+  template: `<ngx-signalAll [listSignal]="signals" design="col-sm-6 col-md-4 mt-4"></ngx-signalAll>
   <nb-card *ngIf="count > 6">
       <nb-card-body>
         <div class="row block-level-buttons">

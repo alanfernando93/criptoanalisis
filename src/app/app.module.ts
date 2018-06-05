@@ -16,7 +16,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { ThemeModule } from './@theme/theme.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
-//import {ShareButtonsModule} from 'ngx-sharebuttons';
 import { _GLOBAL } from './common/ConfigSettings';
 
 const config: SocketIoConfig = { url:_GLOBAL.Url, options:{}};
@@ -37,7 +36,6 @@ import { DropboxCripto } from "./common/dropbox";
     FormsModule,
     AppRoutingModule,
 
-    
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
