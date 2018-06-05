@@ -80,7 +80,9 @@
     </nb-card-footer>
 </nb-card>
 <div *ngIf="news">
-    <ngx-share titleShare="{{news.titulo}}" descripShare="{{news.contenido}}" imageShare="{{news.perfilLink}}"></ngx-share>
+    <ngx-share titleFacebook="{{news.titulo}}" descripFacebook="{{news.contenido}}" imageFacebook="{{news.perfilLink}}" tagTwitter="{{news.contenido}}"
+        sbTitle="{{news.titulo}}" titleLinkedin="{{news.titulo}}" descripLinkedin="{{news.contenido}}" titleWhatsapp="{{news.titulo}}"
+        descripWhatsapp="{{news.contenido}}"></ngx-share>
 </div>
 <nb-card *ngIf="news">
     <nb-card-body>
@@ -105,11 +107,16 @@
         </div>
         <div *ngIf="contenido.invalid && (contenido.dirty || contenido.touched)" class="alert alert-danger">
             <div *ngIf="contenido.errors.required">
-                Comentario vacio <strong *ngIf="!siExUser">para poder comentar tienes que <a [routerLink]="['/auth/login']">iniciar session</a></strong>
+                Comentario vacio
+                <strong *ngIf="!siExUser">para poder comentar tienes que
+                    <a [routerLink]="['/auth/login']">iniciar session</a>
+                </strong>
             </div>
             <div *ngIf="contenido.errors.minlength">
                 El comentario debe tener al menos 4 caracteres
-                <a [routerLink]="['/auth/login']" *ngIf="!siExUser"> y para poder comentar tienes que<strong> iniciar session</strong></a>
+                <a [routerLink]="['/auth/login']" *ngIf="!siExUser"> y para poder comentar tienes que
+                    <strong> iniciar session</strong>
+                </a>
             </div>
         </div>
         <button type="submit" [disabled]="submitted || !contenido.valid || contenido.required" [class.btn-pulse]="submitted" class="btn btn-success pull-right btn-sm"

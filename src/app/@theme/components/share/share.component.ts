@@ -10,10 +10,10 @@ import { Component, Input } from '@angular/core';
             </div>
           <div class="col-md-8">
           <ul class="social-network social-circle">
-              <li><a shareButton="facebook" [sbTitle]="titleShare" [sbDescription]="descripShare" [sbImage]="imageShare" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
-              <li><a shareButton="twitter" [sbTags]="descripShare" [sbTitle]="titleShare" class="icoTwitter"><i class="fa fa-twitter"></i></a></li>
-              <li><a shareButton="linkedin" [sbDescription]="descripShare" [sbTitle]="titleShare" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
-              <li><a shareButton="whatsapp" [sbTitle]="titleShare" [sbDescription]="descripShare" class="icoWhatsapp"><i class="fa fa-whatsapp"></i></a></li>
+              <li><a md-raised-button shareButton="facebook" [sbTitle]="titleFacebook" [sbDescription]="descripFacebook" [sbImage]="imageFacebook" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+              <li><a md-raised-button shareButton="twitter" [sbTitle]="titleTwitter" [sbTags]="tagTwitter" class="icoTwitter"><i class="fa fa-twitter"></i></a></li>
+              <li><a md-raised-button shareButton="linkedin" [sbDescription]="descripLinkedin" [sbTitle]="titleLinkedin" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+              <li><a md-raised-button shareButton="whatsapp" [sbTitle]="titleWhatsapp" [sbDescription]="descripWhatsapp" class="icoWhatsapp"><i class="fa fa-whatsapp"></i></a></li>
           </ul>				
       </div>
         </div>
@@ -108,10 +108,18 @@ import { Component, Input } from '@angular/core';
 })
 export class shareComponent {
 
-    @Input() titleShare: any = [];
-    @Input() descripShare: any = [];
-    @Input() imageShare: any;
-    @Input() tagShare: any = [];
+    @Input() titleFacebook: any = [];
+    @Input() descripFacebook: any = [];
+    @Input() imageFacebook: any;
+    
+    @Input() titleTwitter: any = [];
+    @Input() tagTwitter: any = [];
+
+    @Input() titleLinkedin: any = [];
+    @Input() descripLinkedin: any = [];
+
+    @Input() titleWhatsapp: any = [];
+    @Input() descripWhatsapp: any = [];
 
     constructor() {
 

@@ -5,7 +5,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { AnalyticsService } from './@core/utils/analytics.service';
-import { MomentModule } from 'angular2-moment';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -14,11 +14,17 @@ import { MomentModule } from 'angular2-moment';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private analytics: AnalyticsService) {
-    
-  }
+  constructor(
+    public translate: TranslateService,
+    private analytics: AnalyticsService
+  ) { }
 
   ngOnInit(): void {
     this.analytics.trackPageViews();
+
+    // this.translate.addLangs(['en', 'fr', 'es']);
+    // this.translate.setDefaultLang('en');
+    // const browserLang = this.translate.getBrowserLang();
+    // this.translate.use(browserLang.match(/en|fr|es/) ? browserLang : 'en');
   }
 }

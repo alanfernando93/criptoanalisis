@@ -1,0 +1,44 @@
+{
+  "HOME": {
+    "TITLE": "Hello Angular with ngx-translate!",
+    "SELECT": "Change language"
+  },
+  "publish": "Publish",
+  "signals": "Signals",
+  "news": "News",
+  "market": "Market",
+  "chat": "Chat",
+  "menu": {
+    "dashboard": "Dashboard",
+    "advice": "beginners advice",
+    "tutorials": "Tutorials",
+    "events": "Events",
+    "win": "Win $CA tokens",
+    "us": "About Us",
+    "group" : "FEATURES",
+    "feature" : {
+      "feature":"UI Features",
+      "button": "Buttons",
+      "typography": "Typography",
+      "animated": "Animated Searches"
+    },
+    "advisory" : {
+      "advisory": "Advisory",
+      "list": "List advisory",
+      "tab": "Tab advisory"
+    },
+    "market": {
+      "market": "Markets",
+      "list": "List Markets"
+    },
+    "coin" : {
+      "coin": "Coins",
+      "view": "View Coins"
+    }
+  },
+  "footer":{
+    "create": "Created with ♥ by",
+    "company": "Akveo",
+    "year" : "2017"
+  }
+}
