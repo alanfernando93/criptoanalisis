@@ -10,9 +10,9 @@ import { CoinsService } from "../../coins/coins.service";
 import { configCrud, typeCoinByDefault, typeOfOffer, TipoSalida } from '../../../common/ConfigSettings';
 import { showToast } from '../../../common/functions'
 import { DropboxCripto } from "../../../common/dropbox";
-import { BitFinexCrypto } from '../../../common/bitfinex';
 
 import 'style-loader!angular2-toaster/toaster.css';
+import { CryptoCompareService } from '../../../@core/data/cryptocompare.service';
 
 @Component({
   selector: 'ngx-publish-signal',
@@ -73,7 +73,7 @@ export class SignalComponent implements OnInit, OnDestroy {
     private router: Router,
     private toasterService: ToasterService,
     private dropbox: DropboxCripto,
-    private bitcoin: BitFinexCrypto
+    private bitcoin: CryptoCompareService
   ) { }
 
   ngOnInit() {
