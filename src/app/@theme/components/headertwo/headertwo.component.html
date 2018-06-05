@@ -28,22 +28,22 @@
     <!--
     <ul class="nav left">
         <li class="nav-item">
-            <a class="nav-link d-none d-sm-none d-md-block" href="#">
+            <a class="nav-link d-none d-sm-none d-md-block" (click)="routerLink('/pages/publish')">
                 <span>PUBLICAR</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link d-none d-sm-none d-md-block" href="#">
+            <a class="nav-link d-none d-sm-none d-md-block" (click)="routerLink('/pages/signals/signals-list')">
                 <span>SEÑALES</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link d-none d-sm-none d-md-block" (click)="newsAll()">
+            <a class="nav-link d-none d-sm-none d-md-block" (click)="routerLink('/pages/news/news-list')">
                 <span>NOTICIAS</span>
             </a>
         </li>
         <div class="dropdown ghost-dropdown dropheader" ngbDropdown>
-            <button class="btn btn-primary d-none d-sm-none d-md-block" type="button" ngbDropdownToggle style="border: 0px;">
+            <button class="btn btn-primary d-none d-sm-none d-md-block" type="button" ngbDropdownToggle style="border: 0px;cursor: pointer;">
                 Mercado
             </button>
             <ul class="dropdown-menu" ngbDropdownMenu style="width: 150%;">
@@ -68,7 +68,7 @@
             </ul>
         </div>
         <li class="nav-item">
-            <a class="nav-link d-none d-sm-none d-md-block">
+            <a class="nav-link d-none d-sm-none d-md-block" (click)="routerLink('/pages/chat')">
                 <span>CHAT</span>
             </a>
         </li>

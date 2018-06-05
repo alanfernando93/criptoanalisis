@@ -10,7 +10,6 @@ import {
 } from "@nebular/theme";
 import { NbAuthJWTToken, NbAuthService } from "@nebular/auth";
 
-import { StateService } from "../../../@core/data/state.service";
 import { UserService } from "../../../@core/data/users.service";
 
 import { Subscription } from "rxjs/Subscription";
@@ -24,184 +23,73 @@ import { MENU_ITEMS } from "../../../pages/pages-menu";
   selector: "nb-sample-layout",
   styleUrls: ["./sample.layout.scss"],
   template: `
-    
-  <nb-layout [center]="layout.id === 'center-column'" windowMode>
-      <nb-layout-header>
-        <ngx-header [position]="sidebar.id === 'left' ? 'normal': 'inverse'"></ngx-header>
-      </nb-layout-header>   
+  <nb-layout windowMode>    
     <nb-layout-header>
-        <ngx-headertwo [position]="sidebar.id === 'right' ? 'normal': 'inverse'"></ngx-headertwo>    
+      <ngx-header [position]="'normal'"></ngx-header>    
     </nb-layout-header>
-      
-      <nb-sidebar class="menu-sidebar"
-                   tag="menu-sidebar"
-                   responsive
-                   [right]="sidebar.id === 'left'">
+    <nb-layout-header>
+        <ngx-headertwo [position]="'normal'"></ngx-headertwo>    
+    </nb-layout-header>      
+    <nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive>
+      <nb-sidebar-header class="d-block d-sm-none" *ngIf="user">
+        <nb-user [menu]="" [name]="user?.username" [picture]="user?.perfil" ></nb-user>
+        <nb-action>
+          <span class="badge badge-secondary">2 $CA</span>
+        </nb-action>
+        <nb-action>
+          <span class="badge badge-secondary">17 F</span>
+        </nb-action>
+        <nb-action>
+          <span class="badge badge-secondary">25 P</span>
+        </nb-action>
+        <hr>
+        <div>
+          <nb-action>
+            <a class="btn btn-primary btn-tn" (click)="profile()">Profile</a>
+          </nb-action>
+          <nb-action>
+            <a class="btn btn-primary btn-tn" (click)="logout()">Log out</a>
+          </nb-action>
+        </div>
+      </nb-sidebar-header>
 
-        <nb-sidebar-header class="d-block d-sm-none" *ngIf="user">
-          <nb-user [menu]="" [name]="user?.username" [picture]="user?.perfil" ></nb-user>
-            <nb-action>
-              <span class="badge badge-secondary">2 $CA</span>
-            </nb-action>
-            <nb-action>
-              <span class="badge badge-secondary">17 F</span>
-            </nb-action>
-            <nb-action>
-              <span class="badge badge-secondary">25 P</span>
-            </nb-action>
-            <hr>
-            <div>
-            <nb-action>
-            <a class="btn btn-primary btn-tn" (click)="profile()">
-              Profile
-            </a>
-          </nb-action>
-          <nb-action>
-            <a class="btn btn-primary btn-tn" (click)="logout()">
-              Log out
-            </a>
-          </nb-action>
-          </div>
-            <!--
-          <a href="#" class="btn btn-hero-success main-btn d-block d-sm-block">
-            <i class="ion ion-social-github"></i> <span>Support Us</span>
-          </a>
-          -->
-        </nb-sidebar-header>
-
-        <nb-sidebar-header *ngIf="!user" class="d-block d-sm-none">
-          <nb-action>
-            <a class="btn btn-primary btn-tn" (click)="signup()">
-              Sign Up
-            </a>
-          </nb-action>
-          <nb-action>
-            <a class="btn btn-primary btn-tn" (click)="signin()" >
-              Log In
-            </a>
-          </nb-action>
-        </nb-sidebar-header>
+      <nb-sidebar-header *ngIf="!user" class="d-block d-sm-none">
+        <nb-action>
+          <a class="btn btn-primary btn-tn" (click)="signup()">Sign Up</a>
+        </nb-action>
+        <nb-action>
+          <a class="btn btn-primary btn-tn" (click)="signin()" >Log In</a>
+        </nb-action>
+      </nb-sidebar-header>
 
         <!-- <ng-content select="nb-menu"></ng-content> -->
-        <nb-menu [items]="menu"></nb-menu>
-      </nb-sidebar>
+      <nb-menu [items]="menu" [autoCollapse]="true"></nb-menu>
+    </nb-sidebar>
 
-      <nb-layout-column class="main-content">
-        <ng-content select="router-outlet"></ng-content>
-      </nb-layout-column>
+    <nb-layout-column class="main-content">
+      <ng-content select="router-outlet"></ng-content>
+    </nb-layout-column>
 
-
-      <nb-layout-footer fixed>
-        <ngx-footer></ngx-footer>
-      </nb-layout-footer>
-
-
-    </nb-layout>
+    <nb-layout-footer fixed>
+      <ngx-footer></ngx-footer>
+    </nb-layout-footer>
+  </nb-layout>
   `
 })
-export class SampleLayoutComponent implements OnDestroy, OnInit {
+export class SampleLayoutComponent implements OnInit {
   menu = MENU_ITEMS;
   user;
 
-  subMenu: NbMenuItem[] = [
-    {
-      title: "PAGE LEVEL MENU",
-      group: true
-    },
-    {
-      title: "Buttons",
-      icon: "ion ion-android-radio-button-off",
-      link: "/pages/ui-features/buttons"
-    },
-    {
-      title: "Grid",
-      icon: "ion ion-android-radio-button-off",
-      link: "/pages/ui-features/grid"
-    },
-    {
-      title: "Icons",
-      icon: "ion ion-android-radio-button-off",
-      link: "/pages/ui-features/icons"
-    },
-    {
-      title: "Modals",
-      icon: "ion ion-android-radio-button-off",
-      link: "/pages/ui-features/modals"
-    },
-    {
-      title: "Typography",
-      icon: "ion ion-android-radio-button-off",
-      link: "/pages/ui-features/typography"
-    },
-    {
-      title: "Animated Searches",
-      icon: "ion ion-android-radio-button-off",
-      link: "/pages/ui-features/search-fields"
-    },
-    {
-      title: "Tabs",
-      icon: "ion ion-android-radio-button-off",
-      link: "/pages/ui-features/tabs"
-    }
-  ];
-  layout: any = {};
-  sidebar: any = {};
-
-  protected layoutState$: Subscription;
-  protected sidebarState$: Subscription;
-  protected menuClick$: Subscription;
-
   constructor(
-    protected stateService: StateService,
-    protected menuService: NbMenuService,
-    protected themeService: NbThemeService,
-    protected bpService: NbMediaBreakpointsService,
-    protected sidebarService: NbSidebarService,
     protected userService: UserService,
     protected router: Router,
     private authService: NbAuthService
   ) {
-    this.layoutState$ = this.stateService
-      .onLayoutState()
-      .subscribe((layout: string) => (this.layout = layout));
-
-    this.sidebarState$ = this.stateService
-      .onSidebarState()
-      .subscribe((sidebar: string) => {
-        this.sidebar = sidebar;
-      });
-
-    const isBp = this.bpService.getByName("is");
-    this.menuClick$ = this.menuService
-      .onItemSelect()
-      .withLatestFrom(this.themeService.onMediaQueryChange())
-      .delay(20)
-      .subscribe(
-        ([item, [bpFrom, bpTo]]: [
-          any,
-          [NbMediaBreakpoint, NbMediaBreakpoint]
-        ]) => {
-          if (bpTo.width <= isBp.width) {
-            this.sidebarService.collapse("menu-sidebar");
-          }
-        }
-      );
   }
 
   ngOnInit() {
-    this.authService.onTokenChange().subscribe((token: NbAuthJWTToken) => {
-      if (token.getValue() && localStorage.length != 0) {
-        let id = localStorage.getItem("userId")
-        this.userService.getById(id).subscribe(resp => this.user = resp)
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    this.layoutState$.unsubscribe();
-    this.sidebarState$.unsubscribe();
-    this.menuClick$.unsubscribe();
-    this.user = null;
+    if(!this.userService.isAuth()) return;
+    this.userService.getCurrentUser().subscribe(data => this.user = data)
   }
 
   signin() {
@@ -213,7 +101,6 @@ export class SampleLayoutComponent implements OnDestroy, OnInit {
   }
   logout() {
     localStorage.clear();
-    this.user = null;
     this.router.navigate(["/"]);
   }
   profile() {

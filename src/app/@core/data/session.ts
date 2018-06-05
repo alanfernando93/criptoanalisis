@@ -1,12 +1,9 @@
 import { _GLOBAL } from '../../common/ConfigSettings';
 
-export class Session {
+export abstract class Session {
 
-    constructor(){
-    }
-
-    getUserId(){
-        return localStorage.getItem('userId');
+    getUserId() {
+        return localStorage.getItem('userId')
     }
 
     getToken() {
@@ -25,16 +22,11 @@ export class Session {
         localStorage.setItem(key, value);
     }
 
-    static removeStorage(key){
+    static removeStorage(key) {
         localStorage.removeItem(key);
     }
-    
-    isAuth(){
-        if (this.getUserId() && this.getToken()) {
-            return true;
-        }else{
-            return false;
-            // this.router.navigate(["/auth/login"]);
-        }
+
+    isAuth() {
+        return (this.getUserId() && this.getToken()) ? true : false;
     }
 }

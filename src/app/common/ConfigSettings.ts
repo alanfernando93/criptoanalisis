@@ -1,8 +1,6 @@
 export const _GLOBAL = {
     apiUrl: 'http://localhost:3000/api/',
     Url: 'http://localhost:3000',
-    // apiUrl: 'http://192.168.100.106:3000/api/',
-    // Url: 'http://192.168.100.106:3000',
 }
 
 export const configCrud = {

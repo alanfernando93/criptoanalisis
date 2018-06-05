@@ -12,7 +12,7 @@ export class HeaderService extends Session{
         super();
     }
     getNotifications(){
-        return this.http.get(this.baseUrl+ 'notifications?[filter][where][usuarioId]='+this.getUserId())
+        return this.http.get(this.baseUrl+ 'notifications?[filter][limit]=7&[filter][where][usuarioId]='+this.getUserId())
         .map((res: Response) => res.json());
     }
     getUser(id: number){
