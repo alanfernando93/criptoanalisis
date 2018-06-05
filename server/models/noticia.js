@@ -238,12 +238,11 @@ module.exports = (Noticia, ctx, ctx2) => {
         console.log(error);
       });
       iterablex.push(x);
-
     });
     Promise.all(iterablex).then(values => {
       Promise.all(iterabley).then(valor => {
         next();
-      })
+      });
     });
   });
 
