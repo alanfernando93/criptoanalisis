@@ -3,10 +3,10 @@
         <div class="row">
             <div class="col-12 col-md-8">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <span *ngIf="reciever!=undefined">
+                    <span *ngIf="reciever.id!=undefined">
                         <nb-user [picture]="reciever.picture" [name]="reciever.name" [title]="reciever.status"></nb-user>
                     </span>
-                    <div ngbDropdown placement="left-top" class="d-inline-block">
+                    <div ngbDropdown placement="left-top" class="d-inline-block pull-right">
                         <button class="btn btn-outline-primary" [disabled]="reciever.id==undefined" id="dropdownBasic1" ngbDropdownToggle>
                             <i class="fa fa-cog"></i>
                         </button>

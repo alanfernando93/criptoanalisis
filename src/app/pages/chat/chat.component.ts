@@ -53,7 +53,6 @@ export class ChatComponent implements OnInit {
   getchats(){
     this.chatService.getUsers().subscribe(data =>{
       this.contacts = data;
-      console.log(this.contacts);
     });
   };
   // se conecta al usuario y deja la anterios sala
@@ -119,7 +118,6 @@ export class ChatComponent implements OnInit {
   }
   sendRequest(){
     this.chatService.CreateRequest(this.reciever.id).subscribe(data=>{
-      console.log('peticion enviada');
     });
   }
   open(content) {
@@ -145,7 +143,6 @@ export class ChatComponent implements OnInit {
       case 'free': {
         this.chatType = undefined;
         this.chatService.finishFreeChat(this.reciever.id).subscribe(data=>{
-          console.log(data);
         });
         // poner consulta de finalizacion
         break;
@@ -153,7 +150,6 @@ export class ChatComponent implements OnInit {
       case 'pay': {
         this.chatType = undefined;
         this.chatService.finishPayChat(this.reciever.id).subscribe(data=>{
-          console.log(data);
         });
         // poner consulta de finalizacion
         break;

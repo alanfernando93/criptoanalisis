@@ -4,8 +4,6 @@ import { ChatService } from '../chat.service';
 import { forEach } from '@angular/router/src/utils/collection';
 @Component({
   selector: 'ngx-contacts',
-  styleUrls: ['./contacts.component.scss'],
-  templateUrl: './contacts.component.html',
 })
 export class ContactsComponent implements OnInit, OnDestroy {
 
