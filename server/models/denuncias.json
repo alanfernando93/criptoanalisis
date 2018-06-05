@@ -1,0 +1,47 @@
+{
+  "name": "denuncia",
+  "plural": "denuncias",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "comentario": {
+      "type": "string",
+      "required": false
+    },
+    "tipo": {
+      "type": "string",
+      "required": false
+    },
+    "lugar": {
+      "type": "string",
+      "required": false
+
+    },
+    "lugarId": {
+      "type": "number",
+      "required": false
+    },
+    "fecha_create": {
+      "type": "date",
+      "default": "$now"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "denuncia": {
+      "type": "belongsTo",
+      "model": "usuario",
+      "foreignkey": "denuncianteId"
+    },
+    "denunciado": {
+      "type": "belongsTo",
+      "model": "usuario",
+      "foreignkey": "denunciadoId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

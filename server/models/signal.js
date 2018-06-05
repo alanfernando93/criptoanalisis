@@ -16,7 +16,7 @@ var _async2 = _interopRequireDefault(_async);
 var _variable = require('../variable');
 
 var Dropbox = require('dropbox').Dropbox;
-var dbx = new Dropbox({ accessToken: _variable.token });
+var dbx = new Dropbox({accessToken: _variable.token});
 dbx.setClientId(_variable.key);
 
 function _interopRequireDefault(obj) {
@@ -31,7 +31,7 @@ module.exports = (Signal, ctx, ctx2) => {
     endpoint: '/:id/dislike',
     dislikes: 'dislikes',
     userModel: 'usuario',
-    description: ' dislikes ' + Signal.definition.name + ' instance for the given userId'
+    description: ' dislikes ' + Signal.definition.name + ' instance for the given userId',
   }, ctx);
 
   // agregando propiedad dislike a noticia
@@ -111,7 +111,7 @@ module.exports = (Signal, ctx, ctx2) => {
     if (index2 > -1) {
       likenotif(idn, idUser, ctx.result.usuarioId);
     }
-    Signal.app.models.usuario.famaUser(idUser, _variable.rpl, coinSignal);
+    Signal.app.models.usuario.famaUser(idUser, _variable.rpl, coinSignal, _variable.rpfl);
     next();
   });
 
@@ -120,10 +120,7 @@ module.exports = (Signal, ctx, ctx2) => {
   Signal.afterRemote('dislike', (ctx, signal, next) => {
     var idn = ctx.req.params.id;
     var idUser = ctx.req.query.userId;
-    // Signal.app.models.position.afterRemote('create', (ctx, position, next) => {
-    //   var coinSignal = ctx.result.moneda1;
-    //   console.log(coinSignal);
-    // });
+    var userId = ctx.result.usuarioId;
     var coinNews = ctx.result.tipo_moneda;
     var index = ctx.result.likes.users.indexOf(idUser);
     if (index > -1) {
@@ -131,7 +128,7 @@ module.exports = (Signal, ctx, ctx2) => {
       ctx.result.likes.total = ctx.result.likes.total - 1;
       ctx.method.ctor.like(idn, idUser);
     }
-    signal.app.models.usuario.famaUser(idUser, _variable.rpd, coinNews);
+    signal.app.models.usuario.famaUser(idUser, _variable.rpd, coinNews, _variable.rpfd);
     next();
   });
 
@@ -387,7 +384,7 @@ module.exports = (Signal, ctx, ctx2) => {
           aux = ctx.result.AnalisisFundamental.replace(element, resp.link);
           ctx.result.AnalisisFundamental = aux;
         }).catch(error => {
-          console.log(error)
+          console.log(error);
         });
         iterable.push(x);
       });

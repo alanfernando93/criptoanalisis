@@ -1,6 +1,7 @@
 'use strict';
 var loopback = require('loopback');
 var base64Img = require('base64-img');
+var _variable = require('../variable');
 module.exports = (Usuario) => {
   Usuario.validatesLengthOf('password', {
     min: 5, message:
@@ -143,7 +144,7 @@ module.exports = (Usuario) => {
     returns: {arg: 'user', type: 'object'},
   });
 
-  Usuario.famaUser = (userId, punto, coinType) => {
+  Usuario.famaUser = (userId, punto, coinType, fide) => {
     Usuario.findById(userId)
       .then(data => {
         Usuario.app.models.moneda.find({
@@ -169,6 +170,7 @@ module.exports = (Usuario) => {
           }
           Usuario.updateAll({id: userId}, {
             puntos: data.puntos + punto,
+            fiabilidad: (data.fiabilidad > 50) ? data.fiabilidad + _variable.rpda * fide : data.fiabilidad + fide,
             fama: data.fama,
           }).then(data => {
           });

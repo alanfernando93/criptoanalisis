@@ -5,6 +5,9 @@ module.exports.rps = 3;
 module.exports.rpc = 2;
 module.exports.rpl = 1;
 module.exports.rpd = -1;
+module.exports.rpfl = 2;
+module.exports.rpfd = -2;
+module.exports.rpda = 3;
 
 /**
  * variables para configuracion de dropbox
