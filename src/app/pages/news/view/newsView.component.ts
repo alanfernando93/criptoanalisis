@@ -27,6 +27,7 @@ export class newsViewComponent implements OnInit {
   commentById: any = [];
   connectionCom;
   connectionAns;
+  siExUser = this.newsService.siExisteUser();
 
   constructor(
     private http: Http,
@@ -36,6 +37,7 @@ export class newsViewComponent implements OnInit {
     private userService: UserService) {
     route.params.subscribe(val => {
       this.idNews = val.newsId;
+      this.getNewsCommentById();
       this.getCommentWithUser();
       this.getNewsCommentCount();
       this.getNewsWithUser();
@@ -44,6 +46,10 @@ export class newsViewComponent implements OnInit {
   ngOnInit() {
     this.connNews();
     this.ansNews();
+  }
+
+  userLogin(){
+    return this.newsService.getUserId();
   }
 
   getNewsById(event) {
@@ -70,7 +76,7 @@ export class newsViewComponent implements OnInit {
       let commData: any = data;
       this.commentById.push(data);
       this.getNewsCommentCount();
-      this.getUserComm(commData.userId, this.commentById.length -1);
+      this.getUserComm(commData.userId, this.commentById.length - 1);
     });
   }
 
@@ -78,6 +84,9 @@ export class newsViewComponent implements OnInit {
     this.connectionAns = this.newsService.getNewsAns().subscribe(data => {
       let ComPosition = data["positionComment"];
       this.newsAnswer = data;
+      if (this.commentById[ComPosition].res == undefined) {
+        this.commentById[ComPosition].res = [];
+      }
       this.commentById[ComPosition].res.push(data);
       this.getUserAnswer(ComPosition);
     });

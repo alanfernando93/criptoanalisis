@@ -13,10 +13,10 @@
             </div>
             <div class="col-5 col-md-1">
                 <h5>
-                    <span class="badge badge-info font-w-light user_data">{{contentUser.fidelidad}} F</span>
+                    <span class="badge badge-info font-w-light user_data">{{contentUser.fiabilidad}} F</span>
                 </h5>
             </div>
-            <div class="col-3 col-md-1" *ngIf="contentUser.fidelidad > 50 else elseBlock">
+            <div class="col-3 col-md-1" *ngIf="contentUser.fiabilidad > 50 else elseBlock">
                 <i class="fa fa-2x fa-graduation-cap"></i>
             </div>
             <ng-template #elseBlock>
@@ -41,7 +41,7 @@
     <nb-card-header>
         <div class="row" *ngIf="news">
             <h4 class="col-12 col-md-10 text-body">{{news.titulo}}</h4>
-            <ngx-denuncia Design="col-4 col-md-2" tipCom="noticia" [userIdNews]="news.usuarioId" [newsId]="news.id" nalugar="noticias"></ngx-denuncia>
+            <ngx-denuncia Design="col-12 col-md-2" tipCom="noticia" [userIdNews]="news.usuarioId" [newsId]="news.id" nalugar="noticias"></ngx-denuncia>
             <div class="col-6 col-md-6">
                 <h4 class="subtitle">
                     <span class="badge badge-primary">{{news.tipo_moneda}}</span>
@@ -79,7 +79,11 @@
         </div>
     </nb-card-footer>
 </nb-card>
-<ngx-share></ngx-share>
+<div *ngIf="news">
+    <ngx-share titleFacebook="{{news.titulo}}" descripFacebook="{{news.contenido}}" imageFacebook="{{news.perfilLink}}" tagTwitter="{{news.contenido}}"
+        sbTitle="{{news.titulo}}" titleLinkedin="{{news.titulo}}" descripLinkedin="{{news.contenido}}" titleWhatsapp="{{news.titulo}}"
+        descripWhatsapp="{{news.contenido}}"></ngx-share>
+</div>
 <nb-card *ngIf="news">
     <nb-card-body>
         <div class="row">
@@ -99,15 +103,21 @@
     <nb-card-footer>
         <div class="form-group">
             <textarea class="form-control" #contenido="ngModel" name="contenido" [(ngModel)]="comment.contenido" placeholder="Escribe un Comentario"
-                minlength="4"></textarea>
+                minlength="4" required="required"></textarea>
         </div>
         <div *ngIf="contenido.invalid && (contenido.dirty || contenido.touched)" class="alert alert-danger">
-            <span *ngIf="contenido.errors.required">
-                El Comentario no puede estar vacio
-            </span>
-            <span *ngIf="contenido.errors.minlength">
-                El Comentario debe tener al menos 4 caracteres
-            </span>
+            <div *ngIf="contenido.errors.required">
+                Comentario vacio
+                <strong *ngIf="!siExUser">para poder comentar tienes que
+                    <a [routerLink]="['/auth/login']">iniciar session</a>
+                </strong>
+            </div>
+            <div *ngIf="contenido.errors.minlength">
+                El comentario debe tener al menos 4 caracteres
+                <a [routerLink]="['/auth/login']" *ngIf="!siExUser"> y para poder comentar tienes que
+                    <strong> iniciar session</strong>
+                </a>
+            </div>
         </div>
         <button type="submit" [disabled]="submitted || !contenido.valid || contenido.required" [class.btn-pulse]="submitted" class="btn btn-success pull-right btn-sm"
             (click)="sendComment()">Comentar</button>

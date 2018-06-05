@@ -35,6 +35,7 @@ export class signalsViewComponent implements OnInit {
     private userService: UserService) {
       route.params.subscribe(val=>{
         this.idSignal = val.signalId;
+        this.getSignalCommentById();
         this.getSignalWithUser();
         this.getSignalCommentCount();
         this.getCommentWithUser();
@@ -78,6 +79,9 @@ export class signalsViewComponent implements OnInit {
     this.connectionAns = this.signalsService.getSignalsAns().subscribe(data => {
       let comPosition = data["positionComment"];
       this.signalsAnswer = data;
+      if (this.commentById[comPosition].res == undefined) {
+        this.commentById[comPosition].res = [];
+      }
       this.commentById[comPosition].res.push(data);
       this.getUserAnswer(comPosition);
     });

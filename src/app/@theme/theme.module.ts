@@ -5,6 +5,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToasterModule } from 'angular2-toaster';
 import { ImageCropperComponent } from 'ng2-img-cropper';
 import { MomentModule } from 'angular2-moment';
+import { ShareButtonsModule } from 'ngx-sharebuttons';
 import * as moment from 'moment';
 
 import {
@@ -58,7 +59,8 @@ const NB_MODULES = [
   NbSidebarModule,
   NbCheckboxModule,
   NgbModule,
-  MomentModule
+  MomentModule,
+  ShareButtonsModule
 ];
 
 const COMPONENTS = [
@@ -76,7 +78,9 @@ const COMPONENTS = [
   userDesignComponent,
   commentComponent,
   denunciaComponent,
-  shareComponent
+  shareComponent,
+  newsAllComponent,
+  signalAllComponent
 ];
 
 const PIPES = [
@@ -104,6 +108,7 @@ const NB_THEME_PROVIDERS = [
   ).providers,
   ...NbSidebarModule.forRoot().providers,
   ...NbMenuModule.forRoot().providers,
+     ShareButtonsModule.forRoot().providers,
 ];
 
 @NgModule({

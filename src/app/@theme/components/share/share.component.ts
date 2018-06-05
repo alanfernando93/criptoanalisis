@@ -8,108 +8,120 @@ import { Component, Input } from '@angular/core';
             <div class="col-12 col-md-2">
                 <h5 class="text-body compartir">Compartir : </h5>
             </div>
-            <div class="col-12 col-md-3">
-                <div class="text-center center-block">
-                    <a href="#">
-                        <i id="social-fb" class="fa fa-facebook-square fa-3x social"></i>
-                    </a>
-                    <a href="#">
-                        <i id="social-tw" class="fa fa-twitter-square fa-3x social"></i>
-                    </a>
-                    <a href="#">
-                        <i id="social-gp" class="fa fa-google-plus-square fa-3x social"></i>
-                    </a>
-                    <a href="#">
-                        <i id="social-em" class="fa fa-envelope-square fa-3x social"></i>
-                    </a>
-                </div>
-            </div>
+          <div class="col-md-8">
+          <ul class="social-network social-circle">
+              <li><a md-raised-button shareButton="facebook" [sbTitle]="titleFacebook" [sbDescription]="descripFacebook" [sbImage]="imageFacebook" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+              <li><a md-raised-button shareButton="twitter" [sbTitle]="titleTwitter" [sbTags]="tagTwitter" class="icoTwitter"><i class="fa fa-twitter"></i></a></li>
+              <li><a md-raised-button shareButton="linkedin" [sbDescription]="descripLinkedin" [sbTitle]="titleLinkedin" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+              <li><a md-raised-button shareButton="whatsapp" [sbTitle]="titleWhatsapp" [sbDescription]="descripWhatsapp" class="icoWhatsapp"><i class="fa fa-whatsapp"></i></a></li>
+          </ul>				
+      </div>
         </div>
     </nb-card-header>
 </nb-card>`,
-    styles: [`.social li {
-        background: none repeat scroll 0 0 #B5B5B5;
-        border: 2px solid #B5B5B5;
-        -webkit-border-radius: 50%;
-        -moz-border-radius: 50%;
-        -o-border-radius: 50%;
-        -ms-border-radius: 50%;
-        border-radius: 50%;
-        float: left;
-        height: 36px;
-        line-height: 36px;
-        margin: 0 8px 0 0;
+    styles: [`
+    
+    /* footer social icons */
+    ul.social-network {
+        list-style: none;
+        display: inline;
+        margin-left:0 !important;
         padding: 0;
+    }
+    ul.social-network li {
+        display: inline;
+        margin: 0 5px;
+    }
+    
+    
+    /* footer social icons */
+    .social-network a.icoRss:hover {
+        background-color: #F56505;
+    }
+    .social-network a.icoFacebook:hover {
+        background-color:#3B5998;
+    }
+    .social-network a.icoTwitter:hover {
+        background-color:#33ccff;
+    }
+    .social-network a.icoGoogle:hover {
+        background-color:#BD3518;
+    }
+    .social-network a.icoVimeo:hover {
+        background-color:#0590B8;
+    }
+    .social-network a.icoLinkedin:hover {
+        background-color:#007bb7;
+    }
+    .social-network a.icoWhatsapp:hover {
+        background-color:#25d366;
+    }
+    .social-network a.icoRss:hover i, .social-network a.icoFacebook:hover i, .social-network a.icoTwitter:hover i,
+    .social-network a.icoGoogle:hover i, .social-network a.icoVimeo:hover i, .social-network a.icoLinkedin:hover i {
+        color:#fff;
+    }
+    a.socialIcon:hover, .socialHoverClass {
+        color:#44BCDD;
+    }
+    
+    .social-circle li a {
+        display:inline-block;
+        position:relative;
+        margin:0 auto 0 auto;
+        -moz-border-radius:50%;
+        -webkit-border-radius:50%;
+        border-radius:50%;
+        text-align:center;
+        width: 50px;
+        height: 50px;
+        font-size:20px;
+    }
+    .social-circle li i {
+        margin:0;
+        line-height:50px;
         text-align: center;
-        width: 36px;
-        text-decoration: none;
-        transition: all 0.5s ease 0s;
-        -moz-transition: all 0.5s ease 0s;
-        -webkit-transition: all 0.5s ease 0s;
-        -ms-transition: all 0.5s ease 0s;
-        -o-transition: all 0.5s ease 0s;
-    }
-    .social li:hover {
-        transform: scale(1.15) rotate(360deg);
-        -webkit-transform: scale(1.1) rotate(360deg);
-        -moz-transform: scale(1.1) rotate(360deg);
-        -ms-transform: scale(1.1) rotate(360deg);
-        -o-transform: scale(1.1) rotate(360deg);
-    }
-    .social li a {
-        color: #EDEFF1;
-    }
-    .social li:hover {
-        border: 2px solid #2c3e50;
-        background: #2c3e50;
-    }
-    .social li a i {
-        font-size: 16px;
-        margin: 0 0 0 5px;
-        color: #EDEFF1 !important;
     }
     
-    
-    .social:hover {
-        -webkit-transform: scale(1.1);
-        -moz-transform: scale(1.1);
-        -o-transform: scale(1.1);
+    .social-circle li a:hover i, .triggeredHover {
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -ms--transform: rotate(360deg);
+        transform: rotate(360deg);
+        -webkit-transition: all 1.2s;
+        -moz-transition: all 1.2s;
+        -o-transition: all 1.2s;
+        -ms-transition: all 1.2s;
+        transition: all 1.2s;
     }
-    .social {
-        -webkit-transform: scale(0.8);
-        /* Browser Variations: */
-        
-        -moz-transform: scale(0.8);
-        -o-transform: scale(0.8);
-        -webkit-transition-duration: 0.5s;
-        -moz-transition-duration: 0.5s;
-        -o-transition-duration: 0.5s;
-    }
-    
-    /*
-       Multicoloured Hover Variations
-    */
-    
-    #social-fb:hover {
-        color: #3B5998;
-    }
-    #social-tw:hover {
-        color: #4099FF;
-    }
-    #social-gp:hover {
-        color: #d34836;
-    }
-    #social-em:hover {
-        color: #f39c12;
+    .social-circle i {
+        color: #fff;
+        -webkit-transition: all 1.8s;
+        -moz-transition: all 1.8s;
+        -o-transition: all 1.8s;
+        -ms-transition: all 1.8s;
+        transition: all 1.8s;
     }
     
-    .compartir {
-        margin-top: 18px;
+    a {
+     background-color: #D3D3D3;   
     }`]
 })
 export class shareComponent {
+
+    @Input() titleFacebook: any = [];
+    @Input() descripFacebook: any = [];
+    @Input() imageFacebook: any;
     
-    constructor(){
+    @Input() titleTwitter: any = [];
+    @Input() tagTwitter: any = [];
+
+    @Input() titleLinkedin: any = [];
+    @Input() descripLinkedin: any = [];
+
+    @Input() titleWhatsapp: any = [];
+    @Input() descripWhatsapp: any = [];
+
+    constructor() {
 
     }
 }

@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 
 @Component({
@@ -14,7 +15,9 @@ export class commentComponent {
   @Input() fama: any;
   @Input() answer: any;
 
-  constructor() {
+  constructor(
+    private router: Router
+  ) {
     moment.locale('es');
   }
   onAnswer($event) {
@@ -26,6 +29,10 @@ export class commentComponent {
     };
     input.value = "";
     this.onObject.emit(data);
+  }
+
+  signin() {
+    this.router.navigate(["/auth/login"]);
   }
 
 }

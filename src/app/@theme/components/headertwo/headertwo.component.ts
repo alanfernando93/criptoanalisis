@@ -38,4 +38,5 @@ export class HeaderTwoComponent implements OnInit {
             markets ? this.markets = markets : '';
         }, error => { });
     }
+
 }

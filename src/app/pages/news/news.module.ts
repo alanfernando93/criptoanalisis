@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 
 import { ThemeModule } from './../../@theme/theme.module';
-import { newsAllComponent } from '../../@theme/components/newsAll/newsAll.component';
 import { NewsRoutingModule, routedComponents } from './news-routing.module';
 import { FormsModule } from '@angular/forms';
 
@@ -19,13 +18,11 @@ import { NewsService } from './news.service';
   exports:[
     newsListComponent,
     newsViewComponent,
-    newsAllComponent,
   ],
   declarations:[
     ...routedComponents,
     newsListComponent,
-    newsViewComponent,
-    newsAllComponent,
+    newsViewComponent
   ],
   providers:[NewsService]
 })

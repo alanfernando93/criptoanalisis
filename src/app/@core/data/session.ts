@@ -7,7 +7,7 @@ export abstract class Session {
     }
 
     getToken() {
-        return localStorage.getItem('auth_app_token')
+        return localStorage.getItem('auth_app_token');
     }
 
     public getApiRest() {

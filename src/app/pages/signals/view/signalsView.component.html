@@ -6,16 +6,25 @@
                     <nb-user [name]="contentUser?.username" [picture]="contentUser?.perfil"></nb-user>
                 </a>
             </div>
-            <div class="col-4 col-md-1">
+            <div class="col-3 col-md-1">
                 <h5>
                     <span class="badge badge-primary font-w-light user_data">{{contentUser.puntos}} P</span>
                 </h5>
             </div>
-            <div class="col-4 col-md-1">
+            <div class="col-5 col-md-1">
                 <h5>
-                    <span class="badge badge-info font-w-light user_data">{{contentUser.fidelidad}} F</span>
+                    <span class="badge badge-info font-w-light user_data">{{contentUser.fiabilidad}} F</span>
                 </h5>
             </div>
+            <div class="col-3 col-md-1" *ngIf="contentUser.fiabilidad > 50 else elseBlock">
+                <i class="fa fa-2x fa-graduation-cap"></i>
+            </div>
+            <ng-template #elseBlock>
+                <i class="fa fa-2x fa-male"></i>
+            </ng-template>
+            <!-- <ng-template #thenBlock>
+                <i class="fa fa-user-graduate"></i>
+            </ng-template> -->
         </div>
     </nb-card-header>
 </nb-card>
@@ -171,17 +180,21 @@
     </nb-card-body>
     <nb-card-footer>
         <div class="form-group">
-            <textarea class="form-control" #contenido="ngModel" name="contenido" [(ngModel)]="comment.contenido" placeholder="Escribe un Comentario"></textarea>
+            <textarea class="form-control" #contenido="ngModel" name="contenido" [(ngModel)]="comment.contenido" placeholder="Escribe un Comentario"
+                minlength="4"></textarea>
         </div>
-        <div *ngIf="contenido.invalid && (contenido.dirty || contenido.touched)" class="alert alert-danger">
-            <span *ngIf="contenido.errors.required">
+        <div *ngIf="contenido.invalid && contenido.touched" class="alert alert-danger">
+            <div *ngIf="contenido.errors.required">
                 El Comentario no puede estar vacio
-            </span>
-            <span *ngIf="contenido.errors.minlength">
+                <a [routerLink]="['/auth/login']">y para poder comentar tienes que iniciar session</a>
+            </div>
+            <div *ngIf="contenido.errors.minlength">
                 El Comentario debe tener al menos 4 caracteres
-            </span>
+                <a [routerLink]="['/auth/login']"> y para poder comentar tienes que iniciar session</a>
+            </div>
         </div>
-        <button type="submit" class="btn btn-success pull-right btn-sm" (click)="sendComment()">Comentar</button>
+        <button type="submit" [disabled]="submitted || !contenido.valid || contenido.required" [class.btn-pulse]="submitted" class="btn btn-success pull-right btn-sm"
+            (click)="sendComment()">Comentar</button>
     </nb-card-footer>
 </nb-card>
 <nb-card>

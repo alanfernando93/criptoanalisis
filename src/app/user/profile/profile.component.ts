@@ -50,6 +50,8 @@ export class ProfileComponent implements OnInit{
 
   getNewsByUser(){
     this.userService.getNewsByUser(this.user.id).subscribe(data => {
+      console.log(data);
+      
       return this.newsUser = data;
     });
   }
