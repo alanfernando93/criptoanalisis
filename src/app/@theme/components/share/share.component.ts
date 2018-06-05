@@ -10,10 +10,10 @@ import { Component, Input } from '@angular/core';
             </div>
           <div class="col-md-8">
           <ul class="social-network social-circle">
-              <li><a shareButton="facebook" [sbTitle]="titlefacebook" [sbDescription]="descripfacebook" [sbImage]="imagefacebook" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
-              <li><a shareButton="twitter" [sbTitle]="tagtwitter" [sbTags]="titletwitter" class="icoTwitter"><i class="fa fa-twitter"></i></a></li>
-              <li><a shareButton="linkedin" [sbTitle]="titlelinkedin" [sbDescription]="descrilinkedin" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
-              <li><a shareButton="whatsapp" [sbTitle]="titlewhatsapp" [sbDescription]="descripwhatsapp" class="icoWhatsapp"><i class="fa fa-whatsapp"></i></a></li>
+              <li><a shareButton="facebook" [sbTitle]="titleShare" [sbDescription]="descripShare" [sbImage]="imageShare" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+              <li><a shareButton="twitter" [sbTags]="descripShare" [sbTitle]="titleShare" class="icoTwitter"><i class="fa fa-twitter"></i></a></li>
+              <li><a shareButton="linkedin" [sbDescription]="descripShare" [sbTitle]="titleShare" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+              <li><a shareButton="whatsapp" [sbTitle]="titleShare" [sbDescription]="descripShare" class="icoWhatsapp"><i class="fa fa-whatsapp"></i></a></li>
           </ul>				
       </div>
         </div>
@@ -108,18 +108,10 @@ import { Component, Input } from '@angular/core';
 })
 export class shareComponent {
 
-    @Input() titletwitter: any = [];
-    @Input() tagtwitter: any = [];
-
-    @Input() titlefacebook: any = [];
-    @Input() descripfacebook: any = [];
-    @Input() imagefacebook: any;
-
-    @Input() titlelinkedin: any = [];
-    @Input() descrilinkedin: any = [];
-
-    @Input() titlewhatsapp: any;
-    @Input() descripwhatsapp: any;
+    @Input() titleShare: any = [];
+    @Input() descripShare: any = [];
+    @Input() imageShare: any;
+    @Input() tagShare: any = [];
 
     constructor() {
 
