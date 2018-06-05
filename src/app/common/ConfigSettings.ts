@@ -1,6 +1,6 @@
 export const _GLOBAL = {
     apiUrl: 'https://backend.criptoanalisis.org/api/',
-    Url: 'https://backend.criptoanalisis.org',
+    Url: 'https://backend.criptoanalisis.org/',
 }
 
 export const configCrud = {
