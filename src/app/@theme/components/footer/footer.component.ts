@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input, Pipe, PipeTransform } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ngx-footer',
   styleUrls: ['./footer.component.scss'],
   template: `
-    <span class="created-by">Created with ♥ by <b><a href="https://akveo.com" target="_blank">Akveo</a></b> 2017</span>
+    <span class="created-by">{{ 'footer.create' | translate }} <b><a href="https://akveo.com" target="_blank">{{ 'footer.company' | translate }}</a></b> {{ 'footer.year' | translate }}</span>
     <div class="socials">
       <a href="#" target="_blank" class="ion ion-social-github"></a>
       <a href="#" target="_blank" class="ion ion-social-facebook"></a>
@@ -14,4 +15,5 @@ import { Component } from '@angular/core';
   `,
 })
 export class FooterComponent {
+  constructor(private translate: TranslateService){ }
 }

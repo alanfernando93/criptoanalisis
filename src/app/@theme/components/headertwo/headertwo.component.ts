@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MarketsService } from '../../../pages/markets/markets.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: "ngx-headertwo",
@@ -16,10 +17,15 @@ export class HeaderTwoComponent implements OnInit {
 
     constructor(
         public router: Router,
-        private marketsService: MarketsService
+        private marketsService: MarketsService,
+        private translate: TranslateService
     ) { }
 
     ngOnInit() {
+        this.translate.addLangs(['en', 'fr', 'es']);
+        this.translate.setDefaultLang('en');
+        const browserLang = this.translate.getBrowserLang();
+        this.translate.use(browserLang.match(/en|fr|es/) ? browserLang : 'en');
         this.getMarket();
     }
 

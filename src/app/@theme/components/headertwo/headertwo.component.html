@@ -28,7 +28,7 @@
     <ul class="nav left">
         <li class="nav-item">
             <a class="nav-link d-none d-sm-none d-md-block" (click)="routerLink('/pages/publish')">
-                <span>PUBLICAR</span>
+                <span>{{ 'publish' | translate }}</span>
             </a>
         </li>
         <li class="nav-item">
@@ -91,5 +91,15 @@
     </nb-action>
     <nb-action>
         <h6 class="text-hint">Siguenos : </h6>
+    </nb-action>
+    <nb-action>
+        <div>
+            <label>
+                {{ 'HOME.SELECT' | translate }}
+                <select #langSelect (change)="translate.use(langSelect.value)">
+                    <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+                </select>
+            </label>
+        </div>
     </nb-action>
 </nb-actions>

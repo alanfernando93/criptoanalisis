@@ -1,0 +1,21 @@
+{
+  "HOME": {
+    "TITLE": "Hola Angular con ngx-translate!",
+    "SELECT": "Cambiando Lenguaje"
+  },
+  "publish": "PUBLICAR",
+  "menu": {
+    "dashboard": "Dashboard",
+    "staff": {
+      "staff": "Personal",
+      "list": "Lista"
+    },
+    "users": "Usuarios",
+    "settings": "Ajustes"
+  },
+  "footer":{
+    "create": "Creado con ♥ por",
+    "company": "Akveo",
+    "year" : "2017"
+  }
+}
