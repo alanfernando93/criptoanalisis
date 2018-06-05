@@ -22,10 +22,10 @@ export class HeaderTwoComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.translate.addLangs(['en', 'fr', 'es']);
-        this.translate.setDefaultLang('en');
+        this.translate.addLangs(['en', 'es']);
+        this.translate.setDefaultLang('es');
         const browserLang = this.translate.getBrowserLang();
-        this.translate.use(browserLang.match(/en|fr|es/) ? browserLang : 'en');
+        this.translate.use(browserLang.match(/en|es/) ? browserLang : 'es');
         this.getMarket();
     }
 

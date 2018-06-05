@@ -49,7 +49,7 @@
         <button class="btn btn-lg btn-primary" (click)="open(content)"> Vista Previa </button>
       </div>
       <div class="col-md-3">
-        <button class="btn btn-success" id="submit" [disabled]="!Form.valid" (click)="onSave()"> Publicar </button>
+        <button class="btn btn-success" id="submit" [disabled]="!Form.valid && !myFile" (click)="onSave()"> Publicar </button>
       </div>
     </div>
   </nb-card-footer>
