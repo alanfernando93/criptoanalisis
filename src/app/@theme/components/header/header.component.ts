@@ -82,7 +82,7 @@ export class HeaderComponent implements OnInit {
           }
           case 'news': {
             this.headerService.findNews(element.senderId).subscribe(news => {
-              this.setcontent(news.tipo.moneda, news.titulo, null, index);
+              this.setcontent(news.tipo_moneda, news.titulo, null, index);
             });
             break;
           }
