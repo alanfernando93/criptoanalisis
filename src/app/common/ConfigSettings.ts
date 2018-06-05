@@ -32,7 +32,7 @@ export const configImage = {
 
 export const dBox = {
     token: 'NirdHiRLreAAAAAAAAAAWz7lcT2HvMv-XoyOD7wF7dHE4l0f1lMkL6aXd-kv-V_w',
-    key: '',
+    key: 'zn0kbmrq6ed8rme',
     secret: 'vrm42gw40yjlaa4'
 }
 
