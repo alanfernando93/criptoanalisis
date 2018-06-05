@@ -139,5 +139,9 @@
   "followUser": {
     "dataSource": "db",
     "public": true
+  },
+  "denuncia": {
+    "dataSource": "db",
+    "public": true
   }
 }

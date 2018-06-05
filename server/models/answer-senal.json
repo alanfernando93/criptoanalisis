@@ -30,7 +30,7 @@
       "model": "comentario_senal",
       "foreignKey": ""
     },
-    "signal":{
+    "signal": {
       "type": "belongsTo",
       "model": "signal",
       "foreignKey": ""
