@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { SignalsService } from '../signals.service';
@@ -31,12 +32,10 @@ export class signalsViewComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private signalsService: SignalsService,
-    private userService: UserService, ) {
+    private userService: UserService) {
       route.params.subscribe(val=>{
         this.idSignal = val.signalId;
-        this.getSignalCommentById();
         this.getSignalWithUser();
-        this.getSignalById();
         this.getSignalCommentCount();
         this.getCommentWithUser();
       });
@@ -47,8 +46,9 @@ export class signalsViewComponent implements OnInit {
     this.anSignals();
   }
   
-  getSignalById() {
+  getSignalById(event) {
     this.signalsService.getById(this.idSignal).subscribe(data => {
+      event.target.closest("nb-card").remove();
       data ? this.signal = data : {};
     });
   }

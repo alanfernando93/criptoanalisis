@@ -1,46 +1,55 @@
 <nb-card>
     <nb-card-header>
         <div class="row" *ngIf="contentUser">
-            <div class="col-6 col-sm-9 col-md-2">
-                <nb-user [menu]="" [name]="contentUser?.username" [picture]="contentUser?.perfil"></nb-user>
+            <div class="col-12 col-md-2">
+                <a [routerLink]="['/user/profile/', contentUser.id]">
+                    <nb-user [name]="contentUser?.username" [picture]="contentUser?.perfil"></nb-user>
+                </a>
             </div>
-            <div class="col-3 col-sm-4 col-md-1">
+            <div class="col-4 col-md-1">
                 <h5>
                     <span class="badge badge-primary font-w-light user_data">{{contentUser.puntos}} P</span>
                 </h5>
             </div>
-            <div class="col-4 col-md-1" *ngFor="let famaUser of contentUser.fama.firsttwo">
+            <div class="col-4 col-md-1">
                 <h5>
-                    <span class="badge badge-info font-w-light user_data">{{famaUser.valor}} {{famaUser.symbol}}</span>
+                    <span class="badge badge-info font-w-light user_data">{{contentUser.fidelidad}} F</span>
                 </h5>
-            </div>
-            <div class="d-none d-sm-block dropdown drop" ngbDropdown>
-                <button type="button" class="btn btn-info btn-tn" ngbDropdownToggle>ver mas fama</button>
-                <ul class="dropdown-menu scrollable-menu" ngbDropdownMenu>
-                    <li class="dropdown-item" *ngFor="let famaUser of contentUser.fama.last">{{famaUser.valor}} {{famaUser.symbol}}</li>
-                </ul>
             </div>
         </div>
     </nb-card-header>
 </nb-card>
 <nb-card>
+    <nb-card-body>
+        <div class="row block-level-buttons">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-outline-primary btn-block" (click)="getSignalById($event)">Mostrar contenido</button>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>
+<nb-card>
     <nb-card-header>
         <div class="row" *ngIf="signal">
-            <div *ngIf="signal.tipo == true; else otro" class="col-12 col-md-10">
+            <div *ngIf="signal.tipo == true; else otro" class="col-10 col-md-10">
                 <h4 class="text-success">COMPRAR</h4>
             </div>
             <ng-template #otro>
-                <div class="col-12 col-md-10">
+                <div class="col-10 col-md-10">
                     <h4 class="text-danger">VENDER</h4>
                 </div>
             </ng-template>
+            <ngx-denuncia Design="col-2 col-md-2" tipCom="señal" [userIdNews]="signal.usuarioId" [newsId]="signal.id" nalugar="señales"></ngx-denuncia>
             <div class="col-12 col-md-2">
-                <span class="text-hint pull-right">{{signal.FechaCreate | amTimeAgo}}</span>
+                <span class="text-hint">{{signal.FechaCreate | amTimeAgo}}</span>
             </div>
         </div>
     </nb-card-header>
     <nb-card-body>
         <div class="row" *ngIf="signal">
+            <div class="col-md-12 col-12">
+                <img class="image img-fluid" src="{{signal.perfilLink}}">
+            </div>
             <div class="col-12 col-md-6">
                 <div class="row">
                     <h3 class="btn btn-hero-primary col-12 col-md-12">Analisis fundamental</h3>
@@ -130,37 +139,23 @@
             </div>
         </div>
     </nb-card-body>
-</nb-card>
-<nb-card>
-    <nb-card-body>
+    <nb-card-footer>
         <div class="row" *ngIf="signal">
-            <div class="col-md-2 col-sm-12 col-12">
-                <h5>Compartir : </h5>
-            </div>
-            <div class="col-md-1 col-sm-2 col-2">
-                <button shareButton="facebook" md-raised-button showCount="true" class="fa fa-facebook" title="title" description="description"
-                    image="image"></button>
-            </div>
-            <div class="col-md-1 col-sm-2 col-2">
-                <button shareButton="twitter" sbDescription="description" md-raised-button class="fa fa-twitter"></button>
-            </div>
-            <div class="col-md-4 col-sm-2 col-2">
-                <button shareButton="facebook" sbDescription="description" md-raised-button class="fa fa-google"></button>
-            </div>
-            <div class="col-md-2 col-sm-2 col-4 socials">
-                <a class="font-w-light up pull-right" (click)="sendLike()">
+            <div class="col-md-1 col-sm-2 col-4 socials">
+                <a class="font-w-light up" (click)="sendLike()">
                     <i class="fa fa-thumbs-up"></i>{{signal.likes.total}}</a>
             </div>
-            <div class="col-md-2 col-sm-2 col-4 socials">
-                <a class="font-w-light down pull-right" (click)="sendDislike()">
+            <div class="col-md-4 col-sm-2 col-4 socials">
+                <a class="font-w-light down" (click)="sendDislike()">
                     <i class="fa fa-thumbs-down"></i>{{signal.dislikes.total}}</a>
             </div>
         </div>
-    </nb-card-body>
+    </nb-card-footer>
 </nb-card>
-<nb-card>
+<ngx-share></ngx-share>
+<nb-card *ngIf="signal">
     <nb-card-body>
-        <div class="row" *ngIf="signal">
+        <div class="row">
             <div class="col-12 col-md-12">
                 <div class="dropdown" ngbDropdown>
                     <button type="button" class="btn btn-hero-info btn-block" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="isCollapsed"
@@ -177,6 +172,14 @@
     <nb-card-footer>
         <div class="form-group">
             <textarea class="form-control" #contenido="ngModel" name="contenido" [(ngModel)]="comment.contenido" placeholder="Escribe un Comentario"></textarea>
+        </div>
+        <div *ngIf="contenido.invalid && (contenido.dirty || contenido.touched)" class="alert alert-danger">
+            <span *ngIf="contenido.errors.required">
+                El Comentario no puede estar vacio
+            </span>
+            <span *ngIf="contenido.errors.minlength">
+                El Comentario debe tener al menos 4 caracteres
+            </span>
         </div>
         <button type="submit" class="btn btn-success pull-right btn-sm" (click)="sendComment()">Comentar</button>
     </nb-card-footer>

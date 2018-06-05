@@ -115,6 +115,8 @@ export class SignalComponent implements OnInit, OnDestroy {
     this.signal.visible = true;
     this.signal.tipo = this.tipoSignal.key;
     this.signal.count = "";
+    this.signal.moneda1 = this.moneda1;
+    this.signal.moneda2 = this.moneda2;
     let positions = (this.posEntrada.concat(this.posSalida).concat(this.posLoss));
     this.signalsService.add(this.signal).subscribe(resp => {
       this.dropbox.imageUploadDropbox(this.myFile, this.signalsService.getUserId(), 'signals', 'perfil-' + resp.id).then(resp => {
@@ -136,6 +138,7 @@ export class SignalComponent implements OnInit, OnDestroy {
       });
       showToast(this.toasterService, this.type, this.content);
     }, error => {
+      console.error(error);
       this.type = 'error'
       this.content = configCrud.message.error + ' señales';
       showToast(this.toasterService, this.type, this.content);
@@ -229,24 +232,22 @@ export class SignalComponent implements OnInit, OnDestroy {
     let data2 = $events.target.closest(`#${option}-data`).children[2];
 
     var data = {
-      moneda1: this.moneda1,
       valor: data1.value,
-      moneda2: this.moneda2,
       // porcentajeCapital: data2.value,
-      positionId: 0
+      puntoId: 0
     };
     if (!data1.value /*|| !data2.value*/) {
       showToast(this.toasterService, 'info', '!!!Campo vacio');
       return
     }
     switch (option) {
-      case 'puntEntr': data.positionId = 3;
+      case 'puntEntr': data.puntoId = 3;
         this.posEntrada.push(data);
         break;
-      case 'tipSal': data.positionId = 2;
+      case 'tipSal': data.puntoId = 2;
         this.posSalida.push(data);
         break;
-      case 'stopLoss': data.positionId = 1;
+      case 'stopLoss': data.puntoId = 1;
         this.posLoss.push(data);
         break;
     }

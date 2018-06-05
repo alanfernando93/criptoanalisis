@@ -1,11 +1,8 @@
-import { environment } from "../../../environments/environment";
+import { _GLOBAL } from '../../common/ConfigSettings';
 
-export class Session {
+export abstract class Session {
 
-    constructor(){
-    }
-
-    getUserId(){
+    getUserId() {
         return localStorage.getItem('userId')
     }
 
@@ -14,7 +11,7 @@ export class Session {
     }
 
     public getApiRest() {
-        return environment.apiUrl;
+        return _GLOBAL.apiUrl;
     }
 
     static getStorage(key) {
@@ -25,16 +22,11 @@ export class Session {
         localStorage.setItem(key, value);
     }
 
-    static removeStorage(key){
+    static removeStorage(key) {
         localStorage.removeItem(key);
     }
-    
-    isAuth(){
-        if (this.getUserId() && this.getToken()) {
-            return true;
-        }else{
-            return false;
-            // this.router.navigate(["/auth/login"]);
-        }
+
+    isAuth() {
+        return (this.getUserId() && this.getToken()) ? true : false;
     }
 }

@@ -1,11 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { Router } from '@angular/router';
 
-import { NbMenuService, NbSidebarService } from '@nebular/theme';
-import { AnalyticsService } from '../../../@core/utils/analytics.service';
 import { MarketsService } from '../../../pages/markets/markets.service';
-
-import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
 
 @Component({
     selector: "ngx-headertwo",
@@ -19,22 +15,21 @@ export class HeaderTwoComponent implements OnInit {
     markets: any;
 
     constructor(
-        private sidebarService: NbSidebarService,
-        private menuService: NbMenuService,
-        private analyticsService: AnalyticsService,
-        private authService: NbAuthService,
+        public router: Router,
         private marketsService: MarketsService
-    ){}
+    ) { }
 
     ngOnInit() {
         this.getMarket();
     }
 
+    routerLink(url) {
+        this.router.navigate([url]);
+    }
+
     getMarket() {
-        this.marketsService.getMarkets().subscribe(
-            markets => {
-                markets ? this.markets = markets : '';
-            }
-        );
+        this.marketsService.getMarkets().subscribe(markets => {
+            markets ? this.markets = markets : '';
+        }, error => { });
     }
 }

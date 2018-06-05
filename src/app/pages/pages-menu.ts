@@ -8,12 +8,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true,
   },
   {
-    title: 'Publish',
-    icon: 'fa fa-fire',
-    link: '/pages/publish',
-    home: true,
-  },
-  {
     title: 'Asesoria Principiantes',
     icon: 'nb-compose',
     link: '/pages/dashboard',
@@ -56,62 +50,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/ui-features/buttons',
       },
       {
-        title: 'Grid',
-        link: '/pages/ui-features/grid',
-      },
-      {
-        title: 'Icons',
-        link: '/pages/ui-features/icons',
-      },
-      {
-        title: 'Modals',
-        link: '/pages/ui-features/modals',
-      },
-      {
         title: 'Typography',
         link: '/pages/ui-features/typography',
       },
       {
         title: 'Animated Searches',
         link: '/pages/ui-features/search-fields',
-      },
-      {
-        title: 'Tabs',
-        link: '/pages/ui-features/tabs',
-      },
-    ],
-  },{
-    title: 'Forms',
-    icon: 'nb-compose',
-    children: [
-      {
-        title: 'Form Inputs',
-        link: '/pages/forms/inputs',
-      },
-      {
-        title: 'Form Layouts',
-        link: '/pages/forms/layouts',
-      },
-    ],
-  },{
-    title: 'Components',
-    icon: 'nb-gear',
-    children: [
-      {
-        title: 'Tree',
-        link: '/pages/components/tree',
-      }, {
-        title: 'Notifications',
-        link: '/pages/components/notifications',
-      }
-    ],
-  },{
-    title: 'News',
-    icon: 'nb-layout-sidebar-right',
-    children: [
-      {
-        title: 'List News',
-        link: '/pages/news/news-list',
       },
     ],
   },
@@ -123,6 +67,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'List advisory',
         link: '/pages/advisories/list',
       },
+      {
+        title: 'Tab advisory',
+        link: '/pages/advisories/tab',
+      }
     ],
   },{
     title: 'Markets',
@@ -140,37 +88,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'View Coins',
         link: '/pages/coins/view'
-      },
-    ],
-  },{
-    title: 'Signals',
-    icon: 'nb-paper-plane',
-    children: [
-      {
-        title: 'List Signals',
-        link: '/pages/signals/signals-list',
-      },
-    ],
-  },
-  {
-    title: 'Auth',
-    icon: 'nb-locked',
-    children: [
-      {
-        title: 'Login',
-        link: '/auth/login',
-      },
-      {
-        title: 'Register',
-        link: '/auth/register',
-      },
-      {
-        title: 'Request Password',
-        link: '/auth/request-password',
-      },
-      {
-        title: 'Reset Password',
-        link: '/auth/reset-password',
       },
     ],
   }

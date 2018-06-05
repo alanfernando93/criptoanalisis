@@ -9,8 +9,6 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://191.101.228.157:4000/api/',
-  Url: 'http://191.101.228.157',
-  usertoken: localStorage.getItem('auth_app_token'),
-  userId: localStorage.getItem('userId'),
+ 
+  
 };

@@ -1,18 +1,14 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { Http } from "@angular/http";
 import { Socket } from 'ng-socket-io';
 import { Session } from "./session"
 
-import { environment } from "../../../environments/environment";
-
 import "rxjs/add/observable/of";
-
-let counter = 0;
 
 @Injectable()
 export class UserService extends Session {
-  private baseUrl = environment.apiUrl;
+  private baseUrl = this.getApiRest();
 
   constructor(
     private http: Http,
@@ -20,13 +16,15 @@ export class UserService extends Session {
   ) { super() }
 
   getById(id) {
-    return this.http.get(this.baseUrl + "usuarios/" + id + '?filter[fields][nombre]=true&filter[fields][apellido]=true&filter[fields][puntos]=true&filter[fields][precision]=true&filter[fields][fama]=true&filter[fields][username]=true&filter[fields][perfil]=true&filter[fields][id]=true')
+    return this.http.get(this.baseUrl + "usuarios/" + id + '?filter[fields][nombre]=true&filter[fields][apellido]=true&filter[fields][puntos]=true&filter[fields][fidelidad]=true&filter[fields][precision]=true&filter[fields][fama]=true&filter[fields][username]=true&filter[fields][perfil]=true&filter[fields][id]=true')
       .map(resp => resp.json());
   }
+
   getTotalInfo(id) {
     return this.http.get(this.baseUrl + "usuarios/" + id)
       .map(resp => resp.json());
   }
+
   /**
    * Retorna el usuario logeado o en actual session
    * 
@@ -52,12 +50,14 @@ export class UserService extends Session {
       .map(resp => resp.json());
   }
 
-  getAuth() {
-    return "?access_token=" + this.getToken()
+  getAuth(filter = "") {
+    return `?${filter}access_token=${this.getToken()}`
   }
+
   connect() {
     this.socket.emit('join', this.getUserId());
   }
+
   Request() {
     let observable = new Observable(observer => {
       this.socket.on('request', (data) => {
@@ -69,11 +69,9 @@ export class UserService extends Session {
     })
     return observable;
   }
+
   followUser(id) {
-    return this.http.post(this.baseUrl + 'followUsers/follow', {
-      followerId: this.getUserId(),
-      posterId: id
-    })
+    return this.http.post(this.baseUrl + 'followUsers/follow', { followerId: this.getUserId(), posterId: id })
       .map(resp => resp.json())
   }
   isfollow(id) {
@@ -89,6 +87,11 @@ export class UserService extends Session {
   getSignalSByUser(id) {
     return this.http.get(this.baseUrl + 'usuarios/' + id + '/signals')
       .map(res => res.json());
+  }
+
+  getCoinContent(coinId, userId = this.getUserId()) {
+    return this.http.get(`${this.baseUrl}usuarios/${userId}/contenidoMoneda${this.getAuth("[filter][where][monedaId]=" + coinId)}`)
+      .map(resp => resp.json())
   }
 
 }

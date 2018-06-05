@@ -3,16 +3,16 @@ import {Socket} from 'ng-socket-io';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {Http, Response} from '@angular/http';
-import {environment} from '../../../../environments/environment';
+
 import { Session } from '../../../@core/data/session';
 @Injectable()
 export class HeaderService extends Session{
-    private baseUrl= environment.apiUrl;
+    private baseUrl= this.getApiRest();
     constructor(private socket: Socket, private http: Http){
         super();
     }
     getNotifications(){
-        return this.http.get(this.baseUrl+ 'notifications?[filter][where][usuarioId]='+this.getUserId())
+        return this.http.get(this.baseUrl+ 'notifications?[filter][limit]=7&[filter][where][usuarioId]='+this.getUserId())
         .map((res: Response) => res.json());
     }
     getUser(id: number){

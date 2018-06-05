@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -22,6 +22,7 @@ export class newsViewComponent implements OnInit {
   like: number;
   dislike: number;
   comment: any = {};
+  denuncia: any = {};
   answer: any = {};
   commentById: any = [];
   connectionCom;
@@ -35,9 +36,7 @@ export class newsViewComponent implements OnInit {
     private userService: UserService) {
     route.params.subscribe(val => {
       this.idNews = val.newsId;
-      this.getNewsCommentById();
       this.getCommentWithUser();
-      this.getNewsById();
       this.getNewsCommentCount();
       this.getNewsWithUser();
     });
@@ -47,8 +46,9 @@ export class newsViewComponent implements OnInit {
     this.ansNews();
   }
 
-  getNewsById() {
+  getNewsById(event) {
     this.newsService.getById(this.idNews).subscribe(data => {
+      event.target.closest("nb-card").remove();
       data ? this.news = data : {};
     });
   }
@@ -138,6 +138,13 @@ export class newsViewComponent implements OnInit {
     this.comment.noticiaId = this.idNews;
     this.newsService.postNewsComment(this.comment).subscribe(data => {
       this.comment = {};
+    });
+  }
+
+  sendDenuncia() {
+    this.denuncia.denunciadoId = this.news.usuarioId;
+    this.newsService.postDenuncias(this.denuncia).subscribe(data => {
+      this.denuncia = {};
     });
   }
 

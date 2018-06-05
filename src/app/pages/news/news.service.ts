@@ -4,13 +4,12 @@ import { Http, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Session } from '../../@core/data/session';
-import { environment } from '../../../environments/environment';
 
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class NewsService extends Session{
-  private baseUrl = environment.apiUrl;
+  private baseUrl = this.getApiRest();
 
   constructor(private http: Http, 
               private socket: Socket, 
@@ -158,5 +157,11 @@ export class NewsService extends Session{
     return this.http.post(this.baseUrl + 'noticias', body)
     .map((res: Response) => res.json());
   }
+  
+  postDenuncias(denuncia){
+    denuncia.denunciaId = this.getUserId();
+    return this.http.post(this.baseUrl + 'denuncias', denuncia)
+    .map(res => res.json());
+}
 
 }

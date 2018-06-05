@@ -1,53 +1,59 @@
-<nb-card-body>
-  <toaster-container [toasterconfig]="config"></toaster-container>
-  <div class="container">
-    <div class="row col">
-      <div class="col-md-6">
-        <div class="row inputgroup">
-          <input type="text" placeholder="Titulo de la noticia" [(ngModel)]="newsPublish.titulo" class="form-control">
-        </div>
-        <div class="row input-group">
-          <div class="dropdown" ngbDropdown>
-            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{selectedView.name}} </button>
-            <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
-              <li class="dropdown-item" *ngFor="let coin of coins" (click)="this.selectedView = coin">{{coin.name}}</li>
-            </ul>
+<form [formGroup]="Form">
+  <nb-card-body>
+    <div class="container">
+      <div class="row col">
+        <div class="col-md-6">
+          <div class="row inputgroup">
+            <input type="text" placeholder="Titulo de la noticia" [(ngModel)]="newsPublish.titulo" class="form-control" formControlName="title">
+            <p class="text-danger">
+              <span *ngIf="Form.controls['title'].touched && !Form.controls['title'].valid">
+                titulo es requerido
+              </span>
+            </p>
+          </div>
+          <div class="row input-group">
+            <div class="dropdown" ngbDropdown>
+              <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{selectedView.name}} </button>
+              <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
+                <li class="dropdown-item" *ngFor="let coin of coins" (click)="this.selectedView = coin">{{coin.name}}</li>
+              </ul>
+            </div>
           </div>
         </div>
+        <div class="col-md-6">
+          <ngx-image (onImageSelected)="myFile = $event"></ngx-image>
+        </div>
       </div>
-      <div class="col-md-6">
-        <ngx-image (onImageSelected)="myFile = $event"></ngx-image>
-      </div>
-    </div>
 
-    <div class="row col inputgroup">
-      <label for="inputContenNews">Contenido de la noticia</label>
-      <ngx-tiny-mce [height]="150" (onEditorKeyup)="content1 = $event" [serviceFolder]="'news'">
-      </ngx-tiny-mce>
+      <div class="row col inputgroup">
+        <label for="inputContenNews">Contenido de la noticia</label>
+        <ngx-tiny-mce [height]="150" (onEditorKeyup)="content1 = $event" [serviceFolder]="'news'">
+        </ngx-tiny-mce>
+      </div>
+      <div class="row col inputgroup">
+        <label>Conjeturas sobre el precio</label>
+        <ngx-tiny-mce [height]="90" (onEditorKeyup)="content2 = $event" [serviceFolder]="'news'">
+        </ngx-tiny-mce>
+      </div>
+      <div class="row col inputgroup">
+        <label>Conjeturas sobre otras monedas (* Opcional)</label>
+        <ngx-tiny-mce [height]="90" (onEditorKeyup)="content3 = $event" [serviceFolder]="'news'">
+        </ngx-tiny-mce>
+      </div>
     </div>
-    <div class="row col inputgroup">
-      <label>Conjeturas sobre el precio</label>
-      <ngx-tiny-mce [height]="90" (onEditorKeyup)="content2 = $event" [serviceFolder]="'news'">
-      </ngx-tiny-mce>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="row justify-content-between">
+      <div class="col-md-6">
+        <button class="btn btn-hero-secondary btn-demo"> Cancelar </button>
+        <button class="btn btn-lg btn-primary" (click)="open(content)"> Vista Previa </button>
+      </div>
+      <div class="col-md-3">
+        <button class="btn btn-success" id="submit" [disabled]="!Form.valid" (click)="onSave()"> Publicar </button>
+      </div>
     </div>
-    <div class="row col inputgroup">
-      <label>Conjeturas sobre otras monedas (* Opcional)</label>
-      <ngx-tiny-mce [height]="90" (onEditorKeyup)="content3 = $event" [serviceFolder]="'news'">
-      </ngx-tiny-mce>
-    </div>
-  </div>
-</nb-card-body>
-<nb-card-footer>
-  <div class="row justify-content-between">
-    <div class="col-md-6">
-      <button class="btn btn-hero-secondary btn-demo"> Cancelar </button>
-      <button class="btn btn-lg btn-primary" (click)="open(content)"> Vista Previa </button>
-    </div>
-    <div class="col-md-3">
-      <button class="btn btn-success" id="submit" (click)="onSave()"> Publicar </button>
-    </div>
-  </div>
-</nb-card-footer>
+  </nb-card-footer>
+</form>
 
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
