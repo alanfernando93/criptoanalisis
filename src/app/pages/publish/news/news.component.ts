@@ -25,6 +25,7 @@ declare var tinymce: any;
 })
 export class PublishNewsComponent implements OnInit {
   @Input() idNew: String = null;
+  config: ToasterConfig;
 
   myFile: any;
   content1: String;
@@ -95,12 +96,12 @@ export class PublishNewsComponent implements OnInit {
       this.newsService.insert(this.newsPublish).subscribe(resp => {
         this.dropbox.imageUploadDropbox(this.myFile, this.newsService.getUserId(), 'news', 'perfil-' + resp.id).then(resp => {
           this.content = configCrud.message.success + ' noticias';
-          showToast(this.toasterService, 'success', this.content);
+          this.showToast('success', this.content);
           this.router.navigate(["/pages/news/news-list"]);
         });
       }, error => {
         this.content = configCrud.message.error + ' noticias';
-        showToast(this.toasterService, 'error', this.content);
+        this.showToast('error', this.content);
       });
     })
 
@@ -122,5 +123,26 @@ export class PublishNewsComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  private showToast(type: string, body: string, title: string = null) {
+    this.config = new ToasterConfig({
+      positionClass: 'toast-top-right',
+      timeout: 5000,
+      newestOnTop: true,
+      tapToDismiss: true,
+      preventDuplicates: true,
+      animation: 'flyRight',
+      limit: 5,
+    });
+    const toast: Toast = {
+      type: type,
+      title: title,
+      body: body,
+      timeout: 5000,
+      showCloseButton: true,
+      bodyOutputType: BodyOutputType.TrustedHtml,
+    };
+    this.toasterService.popAsync(toast);
   }
 }
