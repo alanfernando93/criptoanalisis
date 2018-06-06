@@ -1,7 +1,9 @@
 <nb-card>
     <nb-card-body>
-        <ngb-tabset [activeId]="select" (tabChange)="Select($event)" >
-            <ngb-tab title="News" [id]="1" >
+        <ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="200" [showSpinner]="false" [direction]="'rightToLeftIncreased'"
+            [color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"></ng-progress>
+        <ngb-tabset [activeId]="select" (tabChange)="Select($event)">
+            <ngb-tab title="News" [id]="1">
                 <ng-template ngbTabContent>
                     <ngx-publish-news [idNew]="idNew"></ngx-publish-news>
                 </ng-template>

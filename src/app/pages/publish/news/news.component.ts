@@ -15,6 +15,7 @@ import { showToast } from "../../../common/functions";
 import { configCrud } from "../../../common/ConfigSettings";
 import { DropboxCripto } from "../../../common/dropbox";
 import { Validators, FormGroup, FormBuilder } from "@angular/forms";
+import { NgProgress } from 'ngx-progressbar';
 
 declare var tinymce: any;
 
@@ -50,7 +51,8 @@ export class PublishNewsComponent implements OnInit {
     private router: Router,
     private toasterService: ToasterService,
     private dropbox: DropboxCripto,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public ngProgress: NgProgress
   ) {
     this.Form = this.fb.group({
       title: ['', Validators.compose([Validators.required, Validators.minLength(4)])]
@@ -69,42 +71,47 @@ export class PublishNewsComponent implements OnInit {
   }
 
   async onSave() {
-    let editor1, editor2, editor3;
-    editor1 = new Promise(resolve => {
-      tinymce.editors[0].uploadImages(() => {
-        this.newsPublish.contenido = tinymce.editors[0].getContent()
-        resolve("get edito 1");
-      })
+    
+    this.ngProgress.start();
+    this.coinsService.getAll().subscribe(resp => {
+      console.log(resp)
+      this.ngProgress.done();
     });
+    // let editor1, editor2, editor3;
+    // editor1 = new Promise(resolve => {
+    //   tinymce.editors[0].uploadImages(() => {
+    //     this.newsPublish.contenido = tinymce.editors[0].getContent()
+    //     resolve("get edito 1");
+    //   })
+    // });
 
-    editor2 = new Promise(resolve => {
-      tinymce.editors[1].uploadImages(() => {
-        this.newsPublish.conj_precio = tinymce.editors[1].getContent()
-        resolve('get edito 2');
-      })
-    });
+    // editor2 = new Promise(resolve => {
+    //   tinymce.editors[1].uploadImages(() => {
+    //     this.newsPublish.conj_precio = tinymce.editors[1].getContent()
+    //     resolve('get edito 2');
+    //   })
+    // });
 
-    editor3 = new Promise(resolve => {
-      tinymce.editors[2].uploadImages(() => {
-        this.newsPublish.conj_moneda = tinymce.editors[2].getContent()
-        resolve("get edito 3");
-      })
-    });
+    // editor3 = new Promise(resolve => {
+    //   tinymce.editors[2].uploadImages(() => {
+    //     this.newsPublish.conj_moneda = tinymce.editors[2].getContent()
+    //     resolve("get edito 3");
+    //   })
+    // });
 
-    Promise.all([editor1, editor2, editor3]).then(values => {
-      this.newsPublish.tipo_moneda = this.selectedView.name;
-      this.newsService.insert(this.newsPublish).subscribe(resp => {
-        this.dropbox.imageUploadDropbox(this.myFile, this.newsService.getUserId(), 'news', 'perfil-' + resp.id).then(resp => {
-          this.content = configCrud.message.success + ' noticias';
-          this.showToast('success', this.content);
-          this.router.navigate(["/pages/news/news-list"]);
-        });
-      }, error => {
-        this.content = configCrud.message.error + ' noticias';
-        this.showToast('error', this.content);
-      });
-    })
-
+    // Promise.all([editor1, editor2, editor3]).then(values => {
+    //   this.newsPublish.tipo_moneda = this.selectedView.name;
+    //   this.newsService.insert(this.newsPublish).subscribe(resp => {
+    //     this.dropbox.imageUploadDropbox(this.myFile, this.newsService.getUserId(), 'news', 'perfil-' + resp.id).then(resp => {
+    //       this.content = configCrud.message.success + ' noticias';
+    //       this.showToast('success', this.content);
+    //       this.router.navigate(["/pages/news/news-list"]);
+    //     });
+    //   }, error => {
+    //     this.content = configCrud.message.error + ' noticias';
+    //     this.showToast('error', this.content);
+    //   });
+    // })
   }
 
   open(content) {
