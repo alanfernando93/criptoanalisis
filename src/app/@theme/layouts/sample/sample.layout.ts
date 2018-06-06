@@ -29,12 +29,14 @@ import { MenuItem } from '../../../pages/menu-item';
   template: `
   <nb-layout windowMode>    
     <nb-layout-header>
-      <ngx-header [position]="'normal'"></ngx-header>    
+      <ngx-header [position]="'right'"></ngx-header>    
     </nb-layout-header>
     <nb-layout-header>
-        <ngx-headertwo [position]="'normal'"></ngx-headertwo>    
+        <ngx-headertwo [position]="'right'"></ngx-headertwo>    
     </nb-layout-header>      
-    <nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive>
+    <nb-sidebar class="menu-sidebar" tag="menu-sidebar"
+     responsive
+     [right]="true">
       <nb-sidebar-header class="d-block d-sm-none" *ngIf="user">
         <nb-user [menu]="" [name]="user?.username" [picture]="user?.perfil" ></nb-user>
         <nb-action>
