@@ -1,3 +1,4 @@
+<ngx-preload></ngx-preload>
 <form [formGroup]="Form">
   <nb-card-body>
     <div class="container">
@@ -51,6 +52,7 @@
       <div class="col-md-3">
         <button class="btn btn-success" id="submit" [disabled]="!Form.valid && !myFile" (click)="onSave()"> Publicar </button>
       </div>
+    
     </div>
   </nb-card-footer>
 </form>

@@ -1,0 +1,30 @@
+@import '../../../@theme/styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/bootstrap/breakpoints';
+
+@include nb-install-component() {
+    .preload{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: #ffffffbd;
+        z-index: 1000;
+        img{
+            position: fixed;
+            left: calc(100% - 70%);
+            height: calc(100% - 75%);
+        }
+    }
+
+    @include media-breakpoint-down(sm){
+        .preload{
+            img{
+                position: fixed;
+                left: calc(100% - 55%);
+                height: calc(100% - 75%);
+            }
+        }
+    }
+}

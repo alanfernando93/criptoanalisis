@@ -37,7 +37,8 @@ import {
   commentComponent,
   denunciaComponent,
   shareComponent,
-  advisoriesAllComponent  
+  advisoriesAllComponent,
+  PreloadComponent
 } from './components';
 import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe } from './pipes';
 import {
@@ -65,7 +66,6 @@ const NB_MODULES = [
 
 const COMPONENTS = [
   ImageCropperComponent,
-  //CropperModalComponent,
   HeaderComponent,
   HeaderTwoComponent,
   ImageModalComponent,
@@ -80,7 +80,8 @@ const COMPONENTS = [
   denunciaComponent,
   shareComponent,
   newsAllComponent,
-  signalAllComponent
+  signalAllComponent,
+  PreloadComponent
 ];
 
 const PIPES = [

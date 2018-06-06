@@ -60,7 +60,7 @@ export class SignalsService extends Session {
     }
 
     getAllLimit(count, inc) {
-        return this.http.get(this.baseUrl + 'signals' + '?&filter[order]=FechaCreate%20DESC&filter[limit]=' + count + '&filter[skip]=' + inc)
+        return this.http.get(this.baseUrl + 'signals' + '?filter[order]=FechaCreate%20DESC&filter[limit]=' + count + '&filter[skip]=' + inc)
             .map((res: Response) => res.json())
     }
 

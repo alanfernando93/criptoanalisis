@@ -8,14 +8,11 @@ import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-
 import { NewsService } from "../../news/news.service";
 import { CoinsService } from "../../coins/coins.service";
 
-// import { CropperModalComponent } from '../../../@theme/components/cropper/croppermodal.component';
-
 import { async } from "@angular/core/testing";
 import { showToast } from "../../../common/functions";
 import { configCrud } from "../../../common/ConfigSettings";
 import { DropboxCripto } from "../../../common/dropbox";
 import { Validators, FormGroup, FormBuilder } from "@angular/forms";
-import { NgProgress } from 'ngx-progressbar';
 
 declare var tinymce: any;
 
@@ -26,7 +23,6 @@ declare var tinymce: any;
 })
 export class PublishNewsComponent implements OnInit {
   @Input() idNew: String = null;
-  config: ToasterConfig;
 
   myFile: any;
   content1: String;
@@ -51,8 +47,7 @@ export class PublishNewsComponent implements OnInit {
     private router: Router,
     private toasterService: ToasterService,
     private dropbox: DropboxCripto,
-    private fb: FormBuilder,
-    public ngProgress: NgProgress
+    private fb: FormBuilder
   ) {
     this.Form = this.fb.group({
       title: ['', Validators.compose([Validators.required, Validators.minLength(4)])]
@@ -71,47 +66,42 @@ export class PublishNewsComponent implements OnInit {
   }
 
   async onSave() {
-    
-    this.ngProgress.start();
-    this.coinsService.getAll().subscribe(resp => {
-      console.log(resp)
-      this.ngProgress.done();
+    let editor1, editor2, editor3;
+    editor1 = new Promise(resolve => {
+      tinymce.editors[0].uploadImages(() => {
+        this.newsPublish.contenido = tinymce.editors[0].getContent()
+        resolve("get edito 1");
+      })
     });
-    // let editor1, editor2, editor3;
-    // editor1 = new Promise(resolve => {
-    //   tinymce.editors[0].uploadImages(() => {
-    //     this.newsPublish.contenido = tinymce.editors[0].getContent()
-    //     resolve("get edito 1");
-    //   })
-    // });
 
-    // editor2 = new Promise(resolve => {
-    //   tinymce.editors[1].uploadImages(() => {
-    //     this.newsPublish.conj_precio = tinymce.editors[1].getContent()
-    //     resolve('get edito 2');
-    //   })
-    // });
+    editor2 = new Promise(resolve => {
+      tinymce.editors[1].uploadImages(() => {
+        this.newsPublish.conj_precio = tinymce.editors[1].getContent()
+        resolve('get edito 2');
+      })
+    });
 
-    // editor3 = new Promise(resolve => {
-    //   tinymce.editors[2].uploadImages(() => {
-    //     this.newsPublish.conj_moneda = tinymce.editors[2].getContent()
-    //     resolve("get edito 3");
-    //   })
-    // });
+    editor3 = new Promise(resolve => {
+      tinymce.editors[2].uploadImages(() => {
+        this.newsPublish.conj_moneda = tinymce.editors[2].getContent()
+        resolve("get edito 3");
+      })
+    });
 
-    // Promise.all([editor1, editor2, editor3]).then(values => {
-    //   this.newsPublish.tipo_moneda = this.selectedView.name;
-    //   this.newsService.insert(this.newsPublish).subscribe(resp => {
-    //     this.dropbox.imageUploadDropbox(this.myFile, this.newsService.getUserId(), 'news', 'perfil-' + resp.id).then(resp => {
-    //       this.content = configCrud.message.success + ' noticias';
-    //       this.showToast('success', this.content);
-    //       this.router.navigate(["/pages/news/news-list"]);
-    //     });
-    //   }, error => {
-    //     this.content = configCrud.message.error + ' noticias';
-    //     this.showToast('error', this.content);
-    //   });
-    // })
+    Promise.all([editor1, editor2, editor3]).then(values => {
+      this.newsPublish.tipo_moneda = this.selectedView.name;
+      this.newsService.insert(this.newsPublish).subscribe(resp => {
+        this.dropbox.imageUploadDropbox(this.myFile, this.newsService.getUserId(), 'news', 'perfil-' + resp.id).then(resp => {
+          this.content = configCrud.message.success + ' noticias';
+          showToast(this.toasterService, 'success', this.content);
+          this.router.navigate(["/pages/news/news-list"]);
+        });
+      }, error => {
+        this.content = configCrud.message.error + ' noticias';
+        showToast(this.toasterService, 'error', this.content);
+      });
+    })
+
   }
 
   open(content) {
@@ -130,26 +120,5 @@ export class PublishNewsComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
-  }
-
-  private showToast(type: string, body: string, title: string = null) {
-    this.config = new ToasterConfig({
-      positionClass: 'toast-top-right',
-      timeout: 5000,
-      newestOnTop: true,
-      tapToDismiss: true,
-      preventDuplicates: true,
-      animation: 'flyRight',
-      limit: 5,
-    });
-    const toast: Toast = {
-      type: type,
-      title: title,
-      body: body,
-      timeout: 1500,
-      showCloseButton: true,
-      bodyOutputType: BodyOutputType.TrustedHtml,
-    };
-    this.toasterService.popAsync(toast);
   }
 }
