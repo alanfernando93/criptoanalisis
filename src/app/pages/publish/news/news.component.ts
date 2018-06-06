@@ -139,7 +139,7 @@ export class PublishNewsComponent implements OnInit {
       type: type,
       title: title,
       body: body,
-      timeout: 500,
+      timeout: 1500,
       showCloseButton: true,
       bodyOutputType: BodyOutputType.TrustedHtml,
     };
