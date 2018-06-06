@@ -133,7 +133,7 @@ export class CropperModalComponent {
       type: type,
       title: title,
       body: body,
-      timeout: 5000,
+      timeout: 500,
       showCloseButton: true,
       bodyOutputType: BodyOutputType.TrustedHtml,
     };

@@ -19,7 +19,7 @@ export class SignalsService extends Session {
     }
 
     getAll() {
-        return this.http.get(this.baseUrl + 'signals' + '?access_token=' + this.getToken())
+        return this.http.get(this.baseUrl + 'signals')
             .map((res: Response) => res.json())
     }
 
@@ -60,7 +60,7 @@ export class SignalsService extends Session {
     }
 
     getAllLimit(count, inc) {
-        return this.http.get(this.baseUrl + 'signals' + '?access_token=' + this.getToken() + '&filter[order]=FechaCreate%20DESC&filter[limit]=' + count + '&filter[skip]=' + inc)
+        return this.http.get(this.baseUrl + 'signals' + '?&filter[order]=FechaCreate%20DESC&filter[limit]=' + count + '&filter[skip]=' + inc)
             .map((res: Response) => res.json())
     }
 
@@ -95,7 +95,7 @@ export class SignalsService extends Session {
     }
 
     getSignalsCount() {
-        return this.http.get(this.baseUrl + 'signals/' + 'count?access_token=' + this.getToken())
+        return this.http.get(this.baseUrl + 'signals/' + 'count')
             .map(resp => resp.json());
     }
 
