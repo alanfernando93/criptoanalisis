@@ -14,6 +14,8 @@ import { DropboxCripto } from "../../../common/dropbox";
 import 'style-loader!angular2-toaster/toaster.css';
 import { CryptoCompareService } from '../../../@core/data/cryptocompare.service';
 
+declare var tinymce: any;
+
 @Component({
   selector: 'ngx-publish-signal',
   styleUrls: ['./signal.component.scss'],
@@ -23,6 +25,8 @@ import { CryptoCompareService } from '../../../@core/data/cryptocompare.service'
 export class SignalComponent implements OnInit, OnDestroy {
   @Input() idSignal: String = null;
   data: string;
+
+  isPreload: boolean = false;
 
   myFile: File;
   puntEntr = 1;
@@ -65,6 +69,9 @@ export class SignalComponent implements OnInit, OnDestroy {
   currentPrice;
   style: any = {};
 
+  editor1: Promise<any>;
+  editor2: Promise<any>;
+
   constructor(
     private modalService: NgbModal,
     private renderer: Renderer2,
@@ -88,61 +95,55 @@ export class SignalComponent implements OnInit, OnDestroy {
     });
   }
 
-  refreshEditor1() {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        tinymce.editors[0].uploadImages(() => {
-          this.signal.AnalisisFundamental = tinymce.editors[0].getContent()
-          resolve("get edito 1");
-        })
-      }, 2000);
+  onSave() {
+    this.isPreload = true;
+    this.editor1 = new Promise(resolve => {
+      tinymce.editors[0].uploadImages(() => {
+        this.signal.AnalisisFundamental = tinymce.editors[0].getContent()
+        resolve("get edito 1");
+      })
     });
-  }
-  refreshEditor2() {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        tinymce.editors[1].uploadImages(() => {
-          this.signal.AnalisisTecnico = tinymce.editors[1].getContent()
-          resolve('get edito 2');
-        })
-      }, 2000);
-    });
-  }
 
-  async onSave() {
-    var uno = await this.refreshEditor1();
-    var dos = await this.refreshEditor2();
+    this.editor2 = new Promise(resolve => {
+      tinymce.editors[1].uploadImages(() => {
+        this.signal.AnalisisTecnico = tinymce.editors[1].getContent()
+        resolve('get edito 2');
+      })
+    });
     this.signal.visible = true;
     this.signal.tipo = this.tipoSignal.key;
     this.signal.count = "";
     this.signal.moneda1 = this.moneda1;
     this.signal.moneda2 = this.moneda2;
     let positions = (this.posEntrada.concat(this.posSalida).concat(this.posLoss));
-    this.signalsService.add(this.signal).subscribe(resp => {
-      this.dropbox.imageUploadDropbox(this.myFile, this.signalsService.getUserId(), 'signals', 'perfil-' + resp.id).then(resp => {
-        this.type = 'success'
-        this.content = configCrud.message.success + ' señales';
+    Promise.all([this.editor1, this.editor2]).then(() => {
+      this.signalsService.add(this.signal).subscribe(resp => {
+        this.dropbox.imageUploadDropbox(this.myFile, this.signalsService.getUserId(), 'signals', 'perfil-' + resp.id).then(resp => {
+          this.type = 'success'
+          this.isPreload = false;
+          this.content = configCrud.message.success + ' señales';
+          showToast(this.toasterService, this.type, this.content);
+          this.router.navigate(["/pages/signals/list"]);
+        });
+        let id = resp.id;
+        positions.forEach((value, key) => {
+          positions[key].signalId = id
+          this.signalsService.setPosition(positions[key]).subscribe(respo => { })
+          this.type = 'success'
+          this.content = configCrud.message.success;
+        }, erro => {
+          this.isPreload = false;
+          this.type = 'error'
+          this.content = configCrud.message.error + " los puntos";
+        });
         showToast(this.toasterService, this.type, this.content);
-        this.router.navigate(["/pages/signals/list"]);
-      });
-      let id = resp.id;
-      positions.forEach((value, key) => {
-        positions[key].signalId = id
-        this.signalsService.setPosition(positions[key]).subscribe(respo => {
-        })
-        this.type = 'success'
-        this.content = configCrud.message.success;
-      }, erro => {
+      }, error => {
+        this.isPreload = false;
         this.type = 'error'
-        this.content = configCrud.message.error + " los puntos";
+        this.content = configCrud.message.error + ' señales';
+        showToast(this.toasterService, this.type, this.content);
       });
-      showToast(this.toasterService, this.type, this.content);
-    }, error => {
-      console.error(error);
-      this.type = 'error'
-      this.content = configCrud.message.error + ' señales';
-      showToast(this.toasterService, this.type, this.content);
-    });
+    })
   }
 
   selected(coin, data) {
@@ -192,18 +193,18 @@ export class SignalComponent implements OnInit, OnDestroy {
     }
   }
 
-  keyPress($event) {    
+  keyPress($event) {
     let parent = $event.target.parentNode;
     let data1 = $event.target;
     if (this.moneda1 == "Moneda1" || this.moneda2 == "Moneda2") {
       data1.value = "";
-      showToast(this.toasterService, 'warning', 'Debe Seleccionar primero las monedas');      
+      showToast(this.toasterService, 'warning', 'Debe Seleccionar primero las monedas');
       return;
     }
     let span = document.createElement('span');
-    span.setAttribute('class','form-text error');
-    span.setAttribute('role','alert');
-    span.setAttribute('style','color: #721c24;background-color: #f8d7da;');
+    span.setAttribute('class', 'form-text error');
+    span.setAttribute('role', 'alert');
+    span.setAttribute('style', 'color: #721c24;background-color: #f8d7da;');
     let porcPrice: any = parseFloat((this.currentPrice * 0.3).toString()).toFixed(2);
     let admittedPriceMen = this.currentPrice - porcPrice;
     let admittedProceMay = this.currentPrice + porcPrice;
@@ -216,7 +217,7 @@ export class SignalComponent implements OnInit, OnDestroy {
       }, 1000);
       return;
     }
-    if(data1.value >= admittedProceMay) {
+    if (data1.value >= admittedProceMay) {
       span.innerHTML = "El valor ingresado es muy alto"
       parent.after(span);
       setTimeout(() => {

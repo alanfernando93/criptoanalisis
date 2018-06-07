@@ -8,7 +8,6 @@ import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-
 import { NewsService } from "../../news/news.service";
 import { CoinsService } from "../../coins/coins.service";
 
-import { async } from "@angular/core/testing";
 import { showToast } from "../../../common/functions";
 import { configCrud } from "../../../common/ConfigSettings";
 import { DropboxCripto } from "../../../common/dropbox";
@@ -33,12 +32,18 @@ export class PublishNewsComponent implements OnInit {
   coins: any = [];
   Form: FormGroup
 
+  isPreload: boolean = false;
+
   selectedView = {
     name: "Seleccione Moneda"
   };
 
   content = `I'm cool toaster!`;
   type = 'default';
+
+  editor1: Promise<any>;
+  editor2: Promise<any>;
+  editor3: Promise<any>;
 
   constructor(
     private modalService: NgbModal,
@@ -65,38 +70,39 @@ export class PublishNewsComponent implements OnInit {
     });
   }
 
-  async onSave() {
-    let editor1, editor2, editor3;
-    editor1 = new Promise(resolve => {
+  onSave(event) {
+    this.isPreload = true;
+    this.editor1 = new Promise(resolve => {
       tinymce.editors[0].uploadImages(() => {
         this.newsPublish.contenido = tinymce.editors[0].getContent()
         resolve("get edito 1");
       })
     });
 
-    editor2 = new Promise(resolve => {
+    this.editor2 = new Promise(resolve => {
       tinymce.editors[1].uploadImages(() => {
         this.newsPublish.conj_precio = tinymce.editors[1].getContent()
         resolve('get edito 2');
       })
     });
 
-    editor3 = new Promise(resolve => {
+    this.editor3 = new Promise(resolve => {
       tinymce.editors[2].uploadImages(() => {
         this.newsPublish.conj_moneda = tinymce.editors[2].getContent()
         resolve("get edito 3");
       })
     });
-
-    Promise.all([editor1, editor2, editor3]).then(values => {
+    Promise.all([this.editor1, this.editor2, this.editor3]).then(values => {
       this.newsPublish.tipo_moneda = this.selectedView.name;
       this.newsService.insert(this.newsPublish).subscribe(resp => {
         this.dropbox.imageUploadDropbox(this.myFile, this.newsService.getUserId(), 'news', 'perfil-' + resp.id).then(resp => {
+          this.isPreload = false;
           this.content = configCrud.message.success + ' noticias';
           showToast(this.toasterService, 'success', this.content);
           this.router.navigate(["/pages/news/news-list"]);
         });
       }, error => {
+        this.isPreload = false;
         this.content = configCrud.message.error + ' noticias';
         showToast(this.toasterService, 'error', this.content);
       });

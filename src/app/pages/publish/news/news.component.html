@@ -1,4 +1,6 @@
-<ngx-preload></ngx-preload>
+<div *ngIf="isPreload" >
+  <ngx-preload></ngx-preload>
+</div>
 <form [formGroup]="Form">
   <nb-card-body>
     <div class="container">
@@ -50,7 +52,7 @@
         <button class="btn btn-lg btn-primary" (click)="open(content)"> Vista Previa </button>
       </div>
       <div class="col-md-3">
-        <button class="btn btn-success" id="submit" [disabled]="!Form.valid && !myFile" (click)="onSave()"> Publicar </button>
+        <button class="btn btn-success" id="submit" [disabled]="!Form.valid && !myFile" (click)="onSave($event)"> Publicar </button>
       </div>
     
     </div>

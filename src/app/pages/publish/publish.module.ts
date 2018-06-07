@@ -19,7 +19,6 @@ import { AdvisoriesService } from '../advisories/advisories.service';
 
 import { CropperModalComponent } from '../../@theme/components/cropper/croppermodal.component';
 import { CryptoCompareService } from '../../@core/data/cryptocompare.service';
-import { NgProgressModule } from 'ngx-progressbar';
 
 const Services = [
     NewsService,
@@ -33,14 +32,12 @@ const Services = [
 @NgModule({
     imports: [
         ThemeModule,
-        ToasterModule,
-        NgProgressModule
+        ToasterModule
     ],
     declarations: [
         PublishComponent,
         PublishNewsComponent,
         //HorarioComponent,
-
         SignalComponent,
         CoinComponent,
         AdvisoryComponent,

@@ -77,7 +77,7 @@ export class CropperModalComponent {
     this.cropperSettings.canvasHeight = 300;
     this.cropperSettings.preserveSize = true;
     this.data = {};
-    
+
     if (screen.width <= 414) {
       this.cropperSettings.canvasWidth = 250;
       this.cropperSettings.canvasHeight = 200;
@@ -94,7 +94,7 @@ export class CropperModalComponent {
     let format = configImage.type.find(element => element === file.type)
     // console.log(`${format} == ${file.type}`);
     if (format === undefined) {
-      this.showToast('warning', configImage.message.warning);
+      showToast(this.toasterService, 'warning', configImage.message.warning);
       return;
     };
 
@@ -106,7 +106,7 @@ export class CropperModalComponent {
       image.src = loadEvent.target.result;
       console.log(image.height + 'px X ' + image.width + "px");
       this.cropper.setImage(image);
-      this.showToast('success', configImage.message.success);
+      showToast(this.toasterService, 'success', configImage.message.success);
     };
     myReader.readAsDataURL(file);
   }
@@ -117,26 +117,5 @@ export class CropperModalComponent {
 
   getImageFile() {
     return parseToFile(this.data.image);
-  }
-
-  private showToast(type: string, body: string, title: string = null) {
-    this.config = new ToasterConfig({
-      positionClass: 'toast-top-right',
-      timeout: 5000,
-      newestOnTop: true,
-      tapToDismiss: true,
-      preventDuplicates: true,
-      animation: 'flyRight',
-      limit: 5,
-    });
-    const toast: Toast = {
-      type: type,
-      title: title,
-      body: body,
-      timeout: 1500,
-      showCloseButton: true,
-      bodyOutputType: BodyOutputType.TrustedHtml,
-    };
-    this.toasterService.popAsync(toast);
   }
 }
