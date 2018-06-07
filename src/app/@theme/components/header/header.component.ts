@@ -19,7 +19,7 @@ import 'style-loader!angular2-toaster/toaster.css';
 })
 export class HeaderComponent implements OnInit {
 
-  @Input() position = "normal";
+  @Input() position;
 
   user: any = null;
   connection;

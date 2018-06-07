@@ -8,14 +8,14 @@ import { Component, Input } from '@angular/core';
             <div class="col-12 col-md-2">
                 <h5 class="text-body compartir">Compartir : </h5>
             </div>
-          <div class="col-md-8">
-          <ul class="social-network social-circle">
-              <li><a md-raised-button shareButton="facebook" [sbTitle]="titleFacebook" [sbDescription]="descripFacebook" [sbImage]="imageFacebook" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
-              <li><a md-raised-button shareButton="twitter" [sbTitle]="titleTwitter" [sbTags]="tagTwitter" class="icoTwitter"><i class="fa fa-twitter"></i></a></li>
-              <li><a md-raised-button shareButton="linkedin" [sbDescription]="descripLinkedin" [sbTitle]="titleLinkedin" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
-              <li><a md-raised-button shareButton="whatsapp" [sbTitle]="titleWhatsapp" [sbDescription]="descripWhatsapp" class="icoWhatsapp"><i class="fa fa-whatsapp"></i></a></li>
-          </ul>				
-      </div>
+           <div class="col-md-8">
+            <ul class="social-network social-circle">
+              <li><a shareButton="facebook" [sbTitle]="titleFacebook" [sbDescription]="descripFacebook" [sbImage]="imageFacebook" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+              <li><a shareButton="twitter" [sbTitle]="titleTwitter" [sbTags]="tagTwitter" class="icoTwitter"><i class="fa fa-twitter"></i></a></li>
+              <li><a shareButton="linkedin" [sbTitle]="titleLinkedin" [sbDescription]="descripLinkedin" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+              <li><a shareButton="whatsapp" [sbTitle]='titleWhatsapp' [sbDescription]='descripWhatsapp' class="icoWhatsapp"><i class="fa fa-whatsapp"></i></a></li>
+            </ul>				
+        </div>
         </div>
     </nb-card-header>
 </nb-card>`,
@@ -101,6 +101,10 @@ import { Component, Input } from '@angular/core';
         -ms-transition: all 1.8s;
         transition: all 1.8s;
     }
+
+    .compartir {
+        margin-top: 0.8rem;
+    }
     
     a {
      background-color: #D3D3D3;   
@@ -111,7 +115,7 @@ export class shareComponent {
     @Input() titleFacebook: any = [];
     @Input() descripFacebook: any = [];
     @Input() imageFacebook: any;
-    
+
     @Input() titleTwitter: any = [];
     @Input() tagTwitter: any = [];
 
