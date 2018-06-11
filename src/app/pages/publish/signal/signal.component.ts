@@ -24,19 +24,15 @@ declare var tinymce: any;
 
 export class SignalComponent implements OnInit, OnDestroy {
   @Input() idSignal: String = null;
-  data: string;
 
   isPreload: boolean = false;
 
   myFile: File;
-  puntEntr = 1;
-  tipSal = 1;
+  entryPoint = 1;
+  tipoSalida = 1;
   stopLoss = 1;
 
   signal: any = {};
-
-  contenido1: String;
-  contenido2: String;
 
   moneda1: String = "Moneda1"
   moneda2: String = "Moneda2"
@@ -152,17 +148,17 @@ export class SignalComponent implements OnInit, OnDestroy {
     else
       this.moneda2 = data;
 
-    let div1 = document.getElementById('puntEntr')
+    let div1 = document.getElementById('entryPoint')
     let div2 = document.getElementById('stopLoss')
-    let div3 = document.getElementById('tipSal')
+    let div3 = document.getElementById('tipoSalida')
     this.clearForm(div1);
     this.clearForm(div2);
     this.clearForm(div3);
     this.posEntrada = [];
     this.posSalida = [];
     this.posLoss = [];
-    this.puntEntr = 1;
-    this.tipSal = 1;
+    this.entryPoint = 1;
+    this.tipoSalida = 1;
     this.stopLoss = 1;
     if (this.moneda1 != "Moneda1" && this.moneda2 != "Moneda2") {
       let money = this.coins.find(element => element.name == this.moneda1)
@@ -242,10 +238,10 @@ export class SignalComponent implements OnInit, OnDestroy {
       return
     }
     switch (option) {
-      case 'puntEntr': data.puntoId = 3;
+      case 'entryPoint': data.puntoId = 3;
         this.posEntrada.push(data);
         break;
-      case 'tipSal': data.puntoId = 2;
+      case 'tipoSalida': data.puntoId = 2;
         this.posSalida.push(data);
         break;
       case 'stopLoss': data.puntoId = 1;
@@ -275,9 +271,9 @@ export class SignalComponent implements OnInit, OnDestroy {
     this.renderer.listen(d1, 'change', $events => {
       var input = $events.target;
       switch (option) {
-        case 'puntEntr': this.posEntrada[input.id].valor = input.value.split(' ')[0];
+        case 'entryPoint': this.posEntrada[input.id].valor = input.value.split(' ')[0];
           break;
-        case 'tipSal': this.posSalida[input.id].valor = input.value.split(' ')[0];
+        case 'tipoSalida': this.posSalida[input.id].valor = input.value.split(' ')[0];
           break;
         case 'stopLoss': this.posLoss[input.id].valor = input.value.split(' ')[0];
           break;
@@ -296,9 +292,9 @@ export class SignalComponent implements OnInit, OnDestroy {
     //   console.log(this.posEntrada)
     //   var input = $events.target;
     //   switch (option) {
-    //     case 'puntEntr': this.posEntrada[input.id].porcentajeCapital = input.value.split(' ')[0];
+    //     case 'entryPoint': this.posEntrada[input.id].porcentajeCapital = input.value.split(' ')[0];
     //       break;
-    //     case 'tipSal': this.posSalida[input.id].porcentajeCapital = input.value.split(' ')[0];
+    //     case 'tipoSalida': this.posSalida[input.id].porcentajeCapital = input.value.split(' ')[0];
     //       break;
     //     case 'stopLoss': this.posLoss[input.id].porcentajeCapital = input.value.split(' ')[0];
     //       break;
@@ -365,11 +361,11 @@ export class SignalComponent implements OnInit, OnDestroy {
     // data2.value = '';
 
     switch (option) {
-      case 'puntEntr': this.puntEntr += 1;
-        if (this.puntEntr < 4) return;
+      case 'entryPoint': this.entryPoint += 1;
+        if (this.entryPoint < 4) return;
         break;
-      case 'tipSal': this.tipSal += 1;
-        if (this.tipSal < 4) return;
+      case 'tipoSalida': this.tipoSalida += 1;
+        if (this.tipoSalida < 4) return;
         break;
       case 'stopLoss': this.stopLoss += 1;
         if (this.stopLoss < 2) return;
@@ -392,8 +388,8 @@ export class SignalComponent implements OnInit, OnDestroy {
       collection[4].id = '' + (i - 1);
     }
     switch (opc) {
-      case 'puntEntr': this.puntEntr = node.length - 1; this.posEntrada.splice(id, 1); break;
-      case 'tipSal': this.tipSal = node.length - 1; this.posSalida.splice(id, 1); break;
+      case 'entryPoint': this.entryPoint = node.length - 1; this.posEntrada.splice(id, 1); break;
+      case 'tipoSalida': this.tipoSalida = node.length - 1; this.posSalida.splice(id, 1); break;
       case 'stopLoss': this.stopLoss = node.length - 1; this.posLoss.splice(id, 1); break;
     }
 

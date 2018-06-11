@@ -24,10 +24,7 @@ export class PublishNewsComponent implements OnInit {
   @Input() idNew: String = null;
 
   myFile: any;
-  content1: String;
-  content2: String;
-  content3: String;
-  closeResult: string;
+  
   newsPublish: any = {};
   coins: any = [];
   Form: FormGroup
@@ -111,11 +108,7 @@ export class PublishNewsComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService.open(content, { size: 'lg' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.modalService.open(content, { size: 'lg' }).result.then((result) => { }, (reason) => { });
   }
 
   private getDismissReason(reason: any): string {
