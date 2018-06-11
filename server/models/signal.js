@@ -2,27 +2,18 @@
 // tipo: true comprar false: vender;
 var io = require('socket.io-client');
 var _promise = require('babel-runtime/core-js/promise');
-
 var _promise2 = _interopRequireDefault(_promise);
-
 var _assign = require('babel-runtime/core-js/object/assign');
-
 var _assign2 = _interopRequireDefault(_assign);
-
 var _async = require('async');
-
 var _async2 = _interopRequireDefault(_async);
-
 var _variable = require('../variable');
-
 var Dropbox = require('dropbox').Dropbox;
 var dbx = new Dropbox({accessToken: _variable.token});
 dbx.setClientId(_variable.key);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {default: obj};
 }
-
 module.exports = (Signal, ctx, ctx2) => {
   const HttpErrors = require('http-errors');
   // ctx para dislike
@@ -31,11 +22,16 @@ module.exports = (Signal, ctx, ctx2) => {
     endpoint: '/:id/dislike',
     dislikes: 'dislikes',
     userModel: 'usuario',
-    description: ' dislikes ' + Signal.definition.name + ' instance for the given userId',
+    description: ' dislikes ' +
+    Signal.definition.name + ' instance for the given userId',
   }, ctx);
 
   // agregando propiedad dislike a noticia
-  Signal.defineProperty(ctx.dislikes, {type: Object, default: {total: 0, users: []}});
+  Signal.defineProperty(ctx.dislikes, {
+    type: Object, default: {
+      total: 0, users: [],
+    },
+  });
 
   // dislike metodo remoto
   Signal[ctx.method] = (id, userId, finish) => {
@@ -55,12 +51,14 @@ module.exports = (Signal, ctx, ctx2) => {
           return reject(err);
         }
         if (!results.modelInstance) {
-          err = new Error('No Model instance of ' + Signal.definition.name + ' with id ' + id + ' was found');
+          err = new Error('No Model instance of ' +
+           Signal.definition.name + ' with id ' + id + ' was found');
           if (typeof finish === 'function') finish(err);
           return reject(err);
         }
         if (!results.userInstance) {
-          err = new Error('No Model instance of ' + ctx.userModel + ' with id ' + userId + ' was found');
+          err = new Error('No Model instance of ' +
+          ctx.userModel + ' with id ' + userId + ' was found');
           if (typeof finish === 'function') finish(err);
           return reject(err);
         }
@@ -74,7 +72,8 @@ module.exports = (Signal, ctx, ctx2) => {
         } else {
           results.modelInstance[ctx.dislikes].users.splice(index, 1);
         }
-        results.modelInstance[ctx.dislikes].total = results.modelInstance[ctx.dislikes].users.length;
+        results.modelInstance[ctx.dislikes].total =
+        results.modelInstance[ctx.dislikes].users.length;
         results.modelInstance.save((saveerr, result) => {
           if (saveerr) reject(saveerr);
           if (typeof finish === 'function') {
@@ -89,7 +88,9 @@ module.exports = (Signal, ctx, ctx2) => {
 
   // Endpoint settings
   Signal.remoteMethod(ctx.method, {
-    accepts: [{arg: 'id', type: 'string', required: true}, {arg: 'userId', type: 'string', required: true}],
+    accepts: [{arg: 'id', type: 'string', required: true}, {
+      arg: 'userId', type: 'string', required: true,
+    }],
     returns: {root: true, type: 'object'},
     http: {path: ctx.endpoint, verb: 'get'},
     description: ctx.description,
@@ -111,14 +112,15 @@ module.exports = (Signal, ctx, ctx2) => {
     if (index2 > -1) {
       likenotif(idn, idUser, ctx.result.usuarioId);
     }
-    Signal.app.models.usuario.famaUser(idUser, _variable.rpl, coinSignal, _variable.rpfl);
+    Signal.app.models.usuario.famaUser(idUser, _variable.rpl,
+      coinSignal, _variable.rpfl);
     next();
   });
 
   // hook para quitar like si le damos dislike
 
   Signal.afterRemote('dislike', (ctx, signal, next) => {
-    var idn = ctx.req.params.id;
+    var idNoticia = ctx.req.params.id;
     var idUser = ctx.req.query.userId;
     var userId = ctx.result.usuarioId;
     var coinNews = ctx.result.tipo_moneda;
@@ -126,9 +128,10 @@ module.exports = (Signal, ctx, ctx2) => {
     if (index > -1) {
       ctx.result.likes.users.splice(index, 1);
       ctx.result.likes.total = ctx.result.likes.total - 1;
-      ctx.method.ctor.like(idn, idUser);
+      ctx.method.ctor.like(idNoticia, idUser);
     }
-    signal.app.models.usuario.famaUser(idUser, _variable.rpd, coinNews, _variable.rpfd);
+    signal.app.models.usuario.famaUser(idUser, _variable.rpd,
+      coinNews, _variable.rpfd);
     next();
   });
 
@@ -147,7 +150,7 @@ module.exports = (Signal, ctx, ctx2) => {
       where: {
         visible: 'gratuito',
       },
-      include: ['puntos']
+      include: ['puntos'],
     }, cb);
   };
 
@@ -235,7 +238,9 @@ module.exports = (Signal, ctx, ctx2) => {
     socket.on('connect', function(socket) {
       console.log('Connected!');
     });
-    socket.emit('SubAdd', {subs: [`0~Poloniex~${ctx.result.moneda1}~${ctx.result.moneda2}`]});
+    socket.emit('SubAdd', {
+      subs: [`0~Poloniex~${ctx.result.moneda1}~${ctx.result.moneda2}`],
+    });
     Signal.app.models.position.find({
       where: {signalId: ctx.result.id},
     }).then(data=> {
@@ -247,33 +252,60 @@ module.exports = (Signal, ctx, ctx2) => {
             switch (element.puntoId) {
               // flujo en caso de punto de entrada
               case 1: {
-                if ((ctx.result.tipo && element.valor >= x[8]) || (!ctx.result.tipo && x[8] >= element.valor)) {
+                if ((ctx.result.tipo && element.valor >= x[8]) ||
+                (!ctx.result.tipo && x[8] >= element.valor)) {
                   pos[index].reached = true;
-                  Signal.app.models.position.updateAll({id: element.id}, {reached: true});
+                  Signal.app.models.position.updateAll({
+                    id: element.id,
+                  }, {
+                    reached: true,
+                  });
                   Signal.updateAll({id: ctx.result.id}, {estado: 'activo'});
                   getstatus(pos, 1);
                 }
                 break;
               }
               case 2: {
-                if ((ctx.result.tipo && element.valor <= x[8]) || (!ctx.result.tipo && element.valor >= x[8])) {
+                if ((ctx.result.tipo && element.valor <= x[8]) ||
+                 (!ctx.result.tipo && element.valor >= x[8])) {
                   pos[index].reached = true;
-                  Signal.app.models.position.updateAll({id: element.id}, {reached: true});
+                  Signal.app.models.position.updateAll({
+                    id: element.id,
+                  }, {
+                    reached: true,
+                  });
                   if (getstatus(pos, 2)) {
                     modprec(ctx.result.id, true);
-                    socket.emit('SubRemove', {subs: [`0~Poloniex~${ctx.result.moneda1}~${ctx.result.moneda2}`]});
+                    socket.emit('SubRemove', {
+                      subs: [`0~Poloniex~${
+                        ctx.result.moneda1
+                      }~${
+                        ctx.result.moneda2
+                      }`],
+                    });
                   }
                   Signal.updateAll({id: ctx.result.id}, {estado: 'exito'});
                 };
                 break;
               }
               case 3: {
-                if ((ctx.result.tipo && element.valor >= x[8]) || (!ctx.result.tipo && element.valor <= x[8])) {
+                if ((ctx.result.tipo && element.valor >= x[8]) ||
+                 (!ctx.result.tipo && element.valor <= x[8])) {
                   pos[index].reached = true;
-                  Signal.app.models.position.updateAll({id: element.id}, {reached: true});
+                  Signal.app.models.position.updateAll({
+                    id: element.id,
+                  }, {
+                    reached: true,
+                  });
                   Signal.updateAll({id: ctx.result.id}, {estado: 'fracaso'});
                   modprec(ctx.result.id, false, element.valor);
-                  socket.emit('SubRemove', {subs: [`0~Poloniex~${ctx.result.moneda1}~${ctx.result.moneda2}`]});
+                  socket.emit('SubRemove', {
+                    subs: [`0~Poloniex~${
+                      ctx.result.moneda1
+                    }~${
+                      ctx.result.moneda2
+                    }`],
+                  });
                 };
               }
             };
@@ -332,10 +364,15 @@ module.exports = (Signal, ctx, ctx2) => {
   Signal.afterRemote('find', (ctx, noticia, next) => {
     var iterablex = [], iterabley = [];
     ctx.result.forEach((element, index) => {
-      var x = dbx.filesSearch({ path: '/signals', query: '' + element.usuarioId + '-perfil-' + element.id + '' }).then(r => {
+      var x = dbx.filesSearch({
+        path: '/signals', query: '' +
+        element.usuarioId + '-perfil-' + element.id + '',
+      }).then(r => {
         console.log('nombre');
         ctx.result[index].perfilName = r.matches[0].metadata.name;
-        var x = dbx.filesGetTemporaryLink({ path: '/signals/' + ctx.result[index].perfilName }).then(resp => {
+        var x = dbx.filesGetTemporaryLink({
+          path: '/signals/' + ctx.result[index].perfilName,
+        }).then(resp => {
           console.log('link');
 
           ctx.result[index].perfilLink = resp.link;
@@ -347,12 +384,11 @@ module.exports = (Signal, ctx, ctx2) => {
         console.log(error);
       });
       iterablex.push(x);
-
     });
     Promise.all(iterablex).then(values => {
       Promise.all(iterabley).then(valor => {
         next();
-      })
+      });
     });
   });
 
@@ -361,13 +397,16 @@ module.exports = (Signal, ctx, ctx2) => {
     ctx.result.imgsEditor = [];
     var aux;
 
-    var x = dbx.filesSearch({ path: '/signals', query: ctx.result.usuarioId + '-perfil-' + ctx.result.id }).then(r => {
-
+    var x = dbx.filesSearch({
+      path: '/signals', query: ctx.result.usuarioId + '-perfil-' + ctx.result.id
+    }).then(r =>  {
       ctx.result.perfilName = r.matches[0].metadata.name;
-      var y = dbx.filesGetTemporaryLink({ path: '/signals/' + ctx.result.perfilName }).then(resp => {
+      var y = dbx.filesGetTemporaryLink({
+        path: '/signals/' + ctx.result.perfilName,
+      }).then(resp => {
         ctx.result.perfilLink = resp.link;
       }).catch(error => {
-        console.log(error)
+        console.log(error);
       });
       iterabley.push(y);
     }).catch(error => {
@@ -380,7 +419,9 @@ module.exports = (Signal, ctx, ctx2) => {
       codImg.forEach((element) => {
         var nameImg = element.split(':')[1];
         ctx.result.imgsEditor.push(nameImg);
-        var x = dbx.filesGetTemporaryLink({ path: '/signals/' + nameImg }).then(resp => {
+        var x = dbx.filesGetTemporaryLink({
+          path: '/signals/' + nameImg,
+        }).then(resp => {
           aux = ctx.result.AnalisisFundamental.replace(element, resp.link);
           ctx.result.AnalisisFundamental = aux;
         }).catch(error => {
@@ -395,7 +436,9 @@ module.exports = (Signal, ctx, ctx2) => {
       codImg.forEach((element) => {
         var nameImg = element.split(':')[1];
         ctx.result.imgsEditor.push(nameImg);
-        var x = dbx.filesGetTemporaryLink({ path: '/signals/' + nameImg }).then(resp => {
+        var x = dbx.filesGetTemporaryLink({
+          path: '/signals/' + nameImg,
+        }).then(resp => {
           aux = ctx.result.AnalisisTecnico.replace(element, resp.link);
           ctx.result.AnalisisTecnico = aux;
         }).catch(error => {

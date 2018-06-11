@@ -1,27 +1,18 @@
 'use strict';
 
 var _promise = require('babel-runtime/core-js/promise');
-
 var _promise2 = _interopRequireDefault(_promise);
-
 var _assign = require('babel-runtime/core-js/object/assign');
-
 var _assign2 = _interopRequireDefault(_assign);
-
 var _async = require('async');
-
 var _async2 = _interopRequireDefault(_async);
-
 var _variable = require('../variable');
-
 var Dropbox = require('dropbox').Dropbox;
 var dbx = new Dropbox({accessToken: _variable.token});
 dbx.setClientId(_variable.key);
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {default: obj};
 }
-
 module.exports = (Noticia, ctx, ctx2) => {
   Noticia.upload = (req, res, cb) => {
     var Container = Noticia.app.models.Container;
@@ -29,7 +20,6 @@ module.exports = (Noticia, ctx, ctx2) => {
     Container.createContainer({name: 'news' + id}, (err, c) => {
     });
   };
-
   Noticia.remoteMethod(
     'upload',
     {
@@ -49,11 +39,14 @@ module.exports = (Noticia, ctx, ctx2) => {
     endpoint: '/:id/dislike',
     dislikes: 'dislikes',
     userModel: 'usuario',
-    description: ' dislikes ' + Noticia.definition.name + ' instance for the given userId'
+    description: ' dislikes ' + Noticia.definition.name +
+    ' instance for the given userId',
   }, ctx);
 
   // agregando propiedad dislike a noticia
-  Noticia.defineProperty(ctx.dislikes, { type: Object, default: { total: 0, users: [] } });
+  Noticia.defineProperty(ctx.dislikes, {
+    type: Object, default: {total: 0, users: []},
+  });
 
   // dislike metodo remoto
   Noticia[ctx.method] = (id, userId, finish) => {
@@ -64,7 +57,8 @@ module.exports = (Noticia, ctx, ctx2) => {
           return Noticia.findById(id, next);
         },
         userInstance: function userInstance(next) {
-          return Noticia.dataSource.models[ctx.userModel].findById(userId, next);
+          return Noticia.dataSource.models[ctx.userModel].
+          findById(userId, next);
         },
       }, (err, results) => {
         // Handle Errors
@@ -73,12 +67,14 @@ module.exports = (Noticia, ctx, ctx2) => {
           return reject(err);
         }
         if (!results.modelInstance) {
-          err = new Error('No Model instance of ' + Noticia.definition.name + ' with id ' + id + ' was found');
+          err = new Error('No Model instance of ' +
+          Noticia.definition.name + ' with id ' + id + ' was found');
           if (typeof finish === 'function') finish(err);
           return reject(err);
         }
         if (!results.userInstance) {
-          err = new Error('No Model instance of ' + ctx.userModel + ' with id ' + userId + ' was found');
+          err = new Error('No Model instance of ' +
+          ctx.userModel + ' with id ' + userId + ' was found');
           if (typeof finish === 'function') finish(err);
           return reject(err);
         }
@@ -92,9 +88,10 @@ module.exports = (Noticia, ctx, ctx2) => {
         } else {
           results.modelInstance[ctx.dislikes].users.splice(index, 1);
         }
-        results.modelInstance[ctx.dislikes].total = results.modelInstance[ctx.dislikes].users.length;
-        results.modelInstance.save((saveerr, result) => {
-          if (saveerr) reject(saveerr);
+        results.modelInstance[ctx.dislikes].total =
+        results.modelInstance[ctx.dislikes].users.length;
+        results.modelInstance.save((saver, result) => {
+          if (saver) reject(saver);
           if (typeof finish === 'function') {
             finish(err, result);
           } else {
@@ -106,37 +103,41 @@ module.exports = (Noticia, ctx, ctx2) => {
   };
   // Endpoint settings
   Noticia.remoteMethod(ctx.method, {
-    accepts: [{ arg: 'id', type: 'string', required: true }, { arg: 'userId', type: 'string', required: true }],
-    returns: { root: true, type: 'object' },
-    http: { path: ctx.endpoint, verb: 'get' },
+    accepts: [{arg: 'id', type: 'string', required: true},
+    {arg: 'userId', type: 'string', required: true}],
+    returns: {root: true, type: 'object'},
+    http: {path: ctx.endpoint, verb: 'get'},
     description: ctx.description,
   });
 
   // hook para quitar dislike si le damos like
   Noticia.afterRemote('like', (ctx, noticia, next) => {
-    var idn = ctx.req.params.id;
+    var idNoticia = ctx.req.params.id;
     var idUser = ctx.req.query.userId;
     var userId = ctx.result.usuarioId;
+    console.log(userId);
     var coinNews = ctx.result.tipo_moneda;
+    console.log(coinNews);
     var index = ctx.result.dislikes.users.indexOf(idUser);
     if (index > -1) {
       var d = ctx.result.dislikes.users.splice(index, 1);
       var d2 = ctx.result.dislikes.total = ctx.result.dislikes.total - 1;
       var d = ctx.result.dislikes;
-      ctx.method.ctor.dislike(idn, idUser);
+      ctx.method.ctor.dislike(idNoticia, idUser);
     }
     var index2 = ctx.result.likes.users.indexOf(idUser);
     if (index2 > -1) {
       likenotif(ctx.result.id, idUser, userId);
     }
-    Noticia.app.models.usuario.famaUser(userId, _variable.rpl, coinNews, _variable.rpfl);
+    Noticia.app.models.usuario.famaUser(userId, _variable.rpl,
+      coinNews, _variable.rpfl);
     next();
   });
 
   // hook para quitar like si le damos dislike
 
   Noticia.afterRemote('dislike', (ctx, noticia, next) => {
-    var idn = ctx.req.params.id;
+    var idNoticia = ctx.req.params.id;
     var idUser = ctx.req.query.userId;
     var userId = ctx.result.usuarioId;
     var coinNews = ctx.result.tipo_moneda;
@@ -144,9 +145,10 @@ module.exports = (Noticia, ctx, ctx2) => {
     if (index > -1) {
       ctx.result.likes.users.splice(index, 1);
       ctx.result.likes.total = ctx.result.likes.total - 1;
-      ctx.method.ctor.like(idn, idUser);
+      ctx.method.ctor.like(idNoticia, idUser);
     }
-    Noticia.app.models.usuario.famaUser(userId, _variable.rpl, coinNews, _variable.rpfd);
+    Noticia.app.models.usuario.famaUser(userId, _variable.rpl,
+      coinNews, _variable.rpfd);
     next();
   });
 
@@ -155,7 +157,9 @@ module.exports = (Noticia, ctx, ctx2) => {
     var tit = context.instance.titulo;
     var cont = context.instance.contenido;
     if (tit.length > 90) {
-      return next(new HttpErrors.BadRequest('Titulo debe tener como maximo 90 caracteres'));
+      return next(
+        new HttpErrors.BadRequest('Titulo debe tener como maximo 90 caracteres')
+      );
     }
     if (tit === ' ') {
       return next(new HttpErrors.BadRequest('Titulo es un campo requerido'));
@@ -164,7 +168,11 @@ module.exports = (Noticia, ctx, ctx2) => {
       return next(new HttpErrors.BadRequest('Contenido es un campo requerido'));
     }
     if (cont.length > 5000) {
-      return next(new HttpErrors.BadRequest('El contenido debe tener como maximo 5000 caracteres'));
+      return next(
+        new HttpErrors.BadRequest(
+          'El contenido debe tener como maximo 5000 caracteres'
+        )
+      );
     }
     next();
   });
@@ -174,7 +182,7 @@ module.exports = (Noticia, ctx, ctx2) => {
     Noticia.app.models.usuario.findById(userNews)
       .then(data => {
         Noticia.app.models.usuario.updateAll(
-          { id: userNews }, { puntos: data.puntos + 1 })
+          {id: userNews}, {puntos: data.puntos + 1})
           .then(data => {
             next();
           });
@@ -221,12 +229,22 @@ module.exports = (Noticia, ctx, ctx2) => {
   });
 
   Noticia.afterRemote('find', (ctx, noticia, next) => {
-    var iterablex = [], iterabley = [];
+    var iterablex = [];
+    var iterabley = [];
     ctx.result.forEach((element, index) => {
-      var x = dbx.filesSearch({path: '/news', query: '' + element.usuarioId + '-perfil-' + element.id + ''}).then(r => {
+      var x = dbx.filesSearch(
+        {
+          path: '/news',
+          query: '' + element.usuarioId + '-perfil-' + element.id + '',
+        }
+      ).then(r => {
         console.log('nombre');
         ctx.result[index].perfilName = r.matches[0].metadata.name;
-        var x = dbx.filesGetTemporaryLink({path: '/news/' + ctx.result[index].perfilName}).then(resp => {
+        var x = dbx.filesGetTemporaryLink(
+          {
+            path: '/news/' + ctx.result[index].perfilName,
+          }
+        ).then(resp => {
           console.log('link');
 
           ctx.result[index].perfilLink = resp.link;
@@ -247,12 +265,21 @@ module.exports = (Noticia, ctx, ctx2) => {
   });
 
   Noticia.afterRemote('findById', (ctx, noticia, next) => {
-    var iterable = [], iterabley = [];
+    var iterable = [];
+    var iterabley = [];
     ctx.result.imgsEditor = [];
     var aux;
-    var x = dbx.filesSearch({ path: '/news', query: ctx.result.usuarioId + '-perfil-' + ctx.result.id}).then(r => {
+    var x = dbx.filesSearch(
+      {
+        path: '/news', query: ctx.result.usuarioId + '-perfil-' + ctx.result.id,
+      }
+    ).then(r => {
       ctx.result.perfilName = r.matches[0].metadata.name;
-      var y = dbx.filesGetTemporaryLink({path: '/news/' + ctx.result.perfilName}).then(resp => {
+      var y = dbx.filesGetTemporaryLink(
+        {
+          path: '/news/' + ctx.result.perfilName,
+        }
+      ).then(resp => {
         ctx.result.perfilLink = resp.link;
       }).catch(error => {
         console.log(error);
@@ -269,7 +296,11 @@ module.exports = (Noticia, ctx, ctx2) => {
       codImg.forEach((element) => {
         var nameImg = element.split(':')[1];
         ctx.result.imgsEditor.push(nameImg);
-        var x = dbx.filesGetTemporaryLink({path: '/news/' + nameImg}).then(resp => {
+        var x = dbx.filesGetTemporaryLink(
+          {
+            path: '/news/' + nameImg,
+          }
+        ).then(resp => {
           aux = ctx.result.contenido.replace(element, resp.link);
           ctx.result.contenido = aux;
         }).catch(error => {
@@ -279,30 +310,38 @@ module.exports = (Noticia, ctx, ctx2) => {
       });
     }
 
-    codImg = ctx.result.conj_moneda.match(expReg);
+    codImg = ctx.result.conjMoneda.match(expReg);
     if (codImg) {
       codImg.forEach((element) => {
         var nameImg = element.split(':')[1];
         ctx.result.imgsEditor.push(nameImg);
-        var x = dbx.filesGetTemporaryLink({path: '/news/' + nameImg}).then(resp => {
-          aux = ctx.result.conj_moneda.replace(element, resp.link);
-          ctx.result.conj_moneda = aux;
+        var x = dbx.filesGetTemporaryLink(
+          {
+            path: '/news/' + nameImg,
+          }
+        ).then(resp => {
+          aux = ctx.result.conjMoneda.replace(element, resp.link);
+          ctx.result.conjMoneda = aux;
         }).catch(error => {
           console.log(error);
         });
         iterable.push(x);
       });
     }
-    codImg = ctx.result.conj_precio.match(expReg);
+    codImg = ctx.result.conjPrecio.match(expReg);
     if (codImg) {
       codImg.forEach((element) => {
         var nameImg = element.split(':')[1];
         ctx.result.imgsEditor.push(nameImg);
-        var x = dbx.filesGetTemporaryLink({path: '/news/' + nameImg}).then(resp => {
-          aux = ctx.result.conj_precio.replace(element, resp.link);
-          ctx.result.conj_precio = aux;
+        var x = dbx.filesGetTemporaryLink(
+          {
+            path: '/news/' + nameImg,
+          }
+        ).then(resp => {
+          aux = ctx.result.conjPrecio.replace(element, resp.link);
+          ctx.result.conjPrecio = aux;
         }).catch(error => {
-          console.log(error)
+          console.log(error);
         });
         iterable.push(x);
       });
