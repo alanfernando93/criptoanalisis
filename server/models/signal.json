@@ -54,8 +54,8 @@
       "default": 0
     },
     "PEP": {
-      "type": "number",
-      "default": 0
+        "type": "number",
+        "default": 0
     },
     "PSP": {
       "type": "number",
@@ -85,7 +85,7 @@
       "model": "comentario_senal",
       "foreignKey": ""
     },
-    "AnswerSenal": {
+    "AnswerSenal":{
       "type": "hasMany",
       "model": "answer-senal",
       "foreignKey": ""

@@ -15,30 +15,31 @@ var _async2 = _interopRequireDefault(_async);
 var _variable = require('../variable');
 
 var Dropbox = require('dropbox').Dropbox;
-var dbx = new Dropbox({accessToken: _variable.token});
+var dbx = new Dropbox({ accessToken: _variable.token });
 dbx.setClientId(_variable.key);
 
 function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {default: obj};
+  return obj && obj.__esModule ? obj : { default: obj };
 }
 
 module.exports = (Noticia, ctx, ctx2) => {
   Noticia.upload = (req, res, cb) => {
     var Container = Noticia.app.models.Container;
     var id = req.params.id;
-    Container.createContainer({name: 'news' + id}, (err, c) => {
+    Container.createContainer({ name: 'news' + id }, (err, c) => {
+      Container.upload(req, res, { container: 'news' + id }, cb);
     });
   };
 
   Noticia.remoteMethod(
     'upload',
     {
-      http: {path: '/:id/upload', verb: 'post'},
+      http: { path: '/:id/upload', verb: 'post' },
       accepts: [
-        {arg: 'req', type: 'object', 'http': {source: 'req'}},
-        {arg: 'res', type: 'object', 'http': {source: 'res'}},
+        { arg: 'req', type: 'object', 'http': { source: 'req' } },
+        { arg: 'res', type: 'object', 'http': { source: 'res' } },
       ],
-      returns: {arg: 'status', type: 'string'},
+      returns: { arg: 'status', type: 'string' },
     }
   );
 
@@ -127,9 +128,10 @@ module.exports = (Noticia, ctx, ctx2) => {
     }
     var index2 = ctx.result.likes.users.indexOf(idUser);
     if (index2 > -1) {
+      console.log(index2);
       likenotif(ctx.result.id, idUser, userId);
     }
-    Noticia.app.models.usuario.famaUser(userId, _variable.rpl, coinNews, _variable.rpfl);
+    Noticia.app.models.usuario.famaUser(userId, _variable.rpl, coinNews);
     next();
   });
 
@@ -146,7 +148,7 @@ module.exports = (Noticia, ctx, ctx2) => {
       ctx.result.likes.total = ctx.result.likes.total - 1;
       ctx.method.ctor.like(idn, idUser);
     }
-    Noticia.app.models.usuario.famaUser(userId, _variable.rpl, coinNews, _variable.rpfd);
+    Noticia.app.models.usuario.famaUser(userId, _variable.rpd, coinNews);
     next();
   });
 
@@ -223,15 +225,15 @@ module.exports = (Noticia, ctx, ctx2) => {
   Noticia.afterRemote('find', (ctx, noticia, next) => {
     var iterablex = [], iterabley = [];
     ctx.result.forEach((element, index) => {
-      var x = dbx.filesSearch({path: '/news', query: '' + element.usuarioId + '-perfil-' + element.id + ''}).then(r => {
+      var x = dbx.filesSearch({ path: '/news', query: '' + element.usuarioId + '-perfil-' + element.id + '' }).then(r => {
         console.log('nombre');
         ctx.result[index].perfilName = r.matches[0].metadata.name;
-        var x = dbx.filesGetTemporaryLink({path: '/news/' + ctx.result[index].perfilName}).then(resp => {
+        var x = dbx.filesGetTemporaryLink({ path: '/news/' + ctx.result[index].perfilName }).then(resp => {
           console.log('link');
 
           ctx.result[index].perfilLink = resp.link;
         }).catch(error => {
-          console.log(error);
+          console.log(error)
         });
         iterabley.push(x);
       }).catch(error => {
@@ -251,17 +253,19 @@ module.exports = (Noticia, ctx, ctx2) => {
     var iterable = [], iterabley = [];
     ctx.result.imgsEditor = [];
     var aux;
-    var x = dbx.filesSearch({ path: '/news', query: ctx.result.usuarioId + '-perfil-' + ctx.result.id}).then(r => {
+
+    var x = dbx.filesSearch({ path: '/news', query: ctx.result.usuarioId + '-perfil-' + ctx.result.id }).then(r => {
+
       ctx.result.perfilName = r.matches[0].metadata.name;
-      var y = dbx.filesGetTemporaryLink({path: '/news/' + ctx.result.perfilName}).then(resp => {
+      var y = dbx.filesGetTemporaryLink({ path: '/news/' + ctx.result.perfilName }).then(resp => {
         ctx.result.perfilLink = resp.link;
       }).catch(error => {
-        console.log(error);
+        console.log(error)
       });
       iterabley.push(y);
     }).catch(error => {
       console.log(error);
-    });
+    })
     iterable.push(x);
 
     var expReg = /dropbox:["']{0,1}([^"' >]*)/g;
@@ -270,11 +274,11 @@ module.exports = (Noticia, ctx, ctx2) => {
       codImg.forEach((element) => {
         var nameImg = element.split(':')[1];
         ctx.result.imgsEditor.push(nameImg);
-        var x = dbx.filesGetTemporaryLink({path: '/news/' + nameImg}).then(resp => {
+        var x = dbx.filesGetTemporaryLink({ path: '/news/' + nameImg }).then(resp => {
           aux = ctx.result.contenido.replace(element, resp.link);
           ctx.result.contenido = aux;
         }).catch(error => {
-          console.log(error);
+          console.log(error)
         });
         iterable.push(x);
       });
@@ -285,21 +289,22 @@ module.exports = (Noticia, ctx, ctx2) => {
       codImg.forEach((element) => {
         var nameImg = element.split(':')[1];
         ctx.result.imgsEditor.push(nameImg);
-        var x = dbx.filesGetTemporaryLink({path: '/news/' + nameImg}).then(resp => {
+        var x = dbx.filesGetTemporaryLink({ path: '/news/' + nameImg }).then(resp => {
           aux = ctx.result.conj_moneda.replace(element, resp.link);
           ctx.result.conj_moneda = aux;
         }).catch(error => {
-          console.log(error);
+          console.log(error)
         });
         iterable.push(x);
       });
     }
+    
     codImg = ctx.result.conj_precio.match(expReg);
     if (codImg) {
       codImg.forEach((element) => {
         var nameImg = element.split(':')[1];
         ctx.result.imgsEditor.push(nameImg);
-        var x = dbx.filesGetTemporaryLink({path: '/news/' + nameImg}).then(resp => {
+        var x = dbx.filesGetTemporaryLink({ path: '/news/' + nameImg }).then(resp => {
           aux = ctx.result.conj_precio.replace(element, resp.link);
           ctx.result.conj_precio = aux;
         }).catch(error => {
@@ -311,8 +316,9 @@ module.exports = (Noticia, ctx, ctx2) => {
     Promise.all(iterable).then(values => {
       Promise.all(iterabley).then(value => {
         next();
-      });
+      })
     });
+
   });
   function likenotif(newsId, userId, owner) {
     var io = Noticia.app.io;

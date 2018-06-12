@@ -24,7 +24,7 @@
       "type": "number",
       "required": true
     },
-    "emmiterId": {
+    "emmiterId":{
       "type": "number"
     }
   },
