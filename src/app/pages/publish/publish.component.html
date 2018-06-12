@@ -1,7 +1,7 @@
 <nb-card>
     <nb-card-body>
-        <ngb-tabset [activeId]="select" (tabChange)="Select($event)" >
-            <ngb-tab title="News" [id]="1" >
+        <ngb-tabset [activeId]="select" (tabChange)="Select($event)">
+            <ngb-tab title="News" [id]="1">
                 <ng-template ngbTabContent>
                     <ngx-publish-news [idNew]="idNew"></ngx-publish-news>
                 </ng-template>

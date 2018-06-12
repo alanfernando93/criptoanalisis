@@ -44,7 +44,7 @@ export function parseToFile(dataURI): File {
  * @param msg 
  */
 export function showToast(service: ToasterService, type: string, msg: string, title:string = null) {
-  this.config = new ToasterConfig({
+  const config = new ToasterConfig({
     positionClass: 'toast-top-right',
     timeout: 5000,
     newestOnTop: true,
