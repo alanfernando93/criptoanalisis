@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.dataSources.db.autoupdate('messageRoom', function(err) {
+  app.dataSources.db.automigrate('messageRoom', function(err) {
     if (err)
       throw err;
     app.models.messageRoom.create({
@@ -12,7 +12,7 @@ module.exports = function(app) {
         console.log('mensaje insertado', data);
     });
   });
-  app.dataSources.db.autoupdate('userMessage', function(err) {
+  app.dataSources.db.automigrate('userMessage', function(err) {
     if (err)
       throw err;
     app.models.userMessage.create({
