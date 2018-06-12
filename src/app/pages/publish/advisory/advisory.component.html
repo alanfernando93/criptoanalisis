@@ -1,13 +1,13 @@
+<nb-card>
+    
+</nb-card>
 <nb-card-body>
     <toaster-container [toasterconfig]="config"></toaster-container>
     <div class="container">
-
         <div class="row" style="padding-bottom: 24px">
             <div class="col-12 col-md-6">
                 <div class="row inputgroup">
                     <input type="text" placeholder="Titulo de la asesoria" [(ngModel)]="advisoriesPublish.titulo" class="form-control">
-
-
                 </div>
             </div>
         </div>
@@ -19,7 +19,9 @@
 
                 </div>
             </div>
-            <div class="col-6 col-md-3"  ><i class="fa fa-viacoin fa-2x" style="padding-left:20px;padding-top: 10px"></i></div>
+            <div class="col-6 col-md-3">
+                <i class="fa fa-viacoin fa-2x" style="padding-left:20px;padding-top: 10px"></i>
+            </div>
         </div>
 
 
@@ -82,8 +84,8 @@
         </div>
 
     </div>
-    
-    
+
+
 
 
     <div class="dropdown" ngbDropdown style="padding-bottom:24px">
@@ -92,16 +94,16 @@
             <i class="fas fa-calendar-alt"> Seleccione HORARIO</i>
         </button>
         <div id="collapseExample" [ngbCollapse]="!isCollapsed2">
-    
-    
+
+
             <div class="card" style="padding-left: 20px;padding-top: 15px">
-                <ngx-horario (onGetObject)="advisoriesPublish.horarios=$event"></ngx-horario>                      
+                <ngx-schedule (onGetObject)="advisoriesPublish.horarios=$event"></ngx-schedule>
             </div>
-    
+
         </div>
-    
-    </div> 
-      
+
+    </div>
+
 
 
 
@@ -151,13 +153,9 @@
     </div>
     <div class="row inputgroup" style="padding-bottom:24px">
         <div class="col-12">
-
-            <ngx-tiny-mce [height]="150" (onEditorKeyup)="keyupHandlerFunction($event,'T')">
-            </ngx-tiny-mce>
+            <ngx-tiny-mce [height]="150" (onEditorKeyup)="keyupHandlerFunction($event,'T')"></ngx-tiny-mce>
         </div>
     </div>
-
-
     <div class="row" style="padding-bottom:24px">
         <div class="col-12">
             <h5>terminos del coach(coloque las reglas del coaching)</h5>
@@ -165,16 +163,11 @@
     </div>
     <div class="row inputgroup" style="padding-bottom:24px">
         <div class="col-12">
-
             <ngx-tiny-mce [height]="150" (onEditorKeyup)="keyupHandlerFunction($event,'Ter')">
             </ngx-tiny-mce>
         </div>
     </div>
-    
-
-
 </nb-card-body>
-
 <nb-card-footer>
     <div class="row justify-content-between">
         <div class="col-md-6">

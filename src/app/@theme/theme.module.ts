@@ -25,7 +25,7 @@ import {
 import {
   CropperModalComponent,
   FooterComponent,
-  HorarioComponent,
+  scheduleComponent,
   HeaderComponent,
   HeaderTwoComponent,
   ImageModalComponent,
@@ -35,7 +35,7 @@ import {
   newsAllComponent,
   userDesignComponent,
   commentComponent,
-  denunciaComponent,
+  complaintComponent,
   shareComponent,
   advisoriesAllComponent  
 } from './components';
@@ -73,11 +73,11 @@ const COMPONENTS = [
   SearchInputComponent,
   TinyMCEComponent,
   SampleLayoutComponent,
-  HorarioComponent,
+  scheduleComponent,
   advisoriesAllComponent,
   userDesignComponent,
   commentComponent,
-  denunciaComponent,
+  complaintComponent,
   shareComponent,
   newsAllComponent,
   signalAllComponent

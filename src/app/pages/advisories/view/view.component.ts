@@ -6,7 +6,7 @@ import { AdvisoriesService } from '../advisories.service';
 import { elementAt } from 'rxjs/operator/elementAt';
 import { environment } from '../../../../environments/environment';
 import {ListComponent} from  '../list/list.component';
-import { HorarioComponent } from "../../../@theme/components/horario/horario.component";
+import { scheduleComponent } from "../../../@theme/components/schedule/schedule.component";
 import { Output,Input, EventEmitter } from '@angular/core';
 import { Session } from '../../../@core/data/session';
 import { _GLOBAL } from '../../../common/ConfigSettings';

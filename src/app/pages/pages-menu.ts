@@ -43,29 +43,6 @@ export const MENU_ITEMS: MenuItem[] = [{
   key: 'group',
 },
 {
-  title: 'UI Funciones',
-  icon: 'nb-keypad',
-  link: '/pages/ui-features',
-  key: 'feature',
-  children: [
-    {
-      title: 'Butones',
-      link: '/pages/ui-features/buttons',
-      key: 'button',
-    },
-    {
-      title: 'Tipografia',
-      link: '/pages/ui-features/typography',
-      key: 'typography',
-    },
-    {
-      title: 'Búsquedas animadas',
-      link: '/pages/ui-features/search-fields',
-      key: 'animated',
-    },
-  ],
-},
-{
   title: 'Consultivo',
   icon: 'nb-layout-sidebar-right',
   key: 'advisory',
