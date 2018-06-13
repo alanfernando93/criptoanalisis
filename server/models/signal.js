@@ -9,7 +9,7 @@ var _async = require('async');
 var _async2 = _interopRequireDefault(_async);
 var _variable = require('../variable');
 var Dropbox = require('dropbox').Dropbox;
-var dbx = new Dropbox({ accessToken: _variable.token });
+var dbx = new Dropbox({accessToken: _variable.token});
 dbx.setClientId(_variable.key);
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {default: obj};
@@ -22,12 +22,7 @@ module.exports = (Signal, ctx, ctx2) => {
     endpoint: '/:id/dislike',
     dislikes: 'dislikes',
     userModel: 'usuario',
-<<<<<<< HEAD
-    description: ' dislikes ' + Signal.definition.name + ' instance for the given userId'
-=======
-    description: ' dislikes ' +
-    Signal.definition.name + ' instance for the given userId',
->>>>>>> d12500b8b4c40cba71157980640520444d10db35
+    description: ' dislikes ' + Signal.definition.name + ' instance for the given userId',
   }, ctx);
 
   // agregando propiedad dislike a noticia
@@ -116,12 +111,7 @@ module.exports = (Signal, ctx, ctx2) => {
     if (index2 > -1) {
       likenotif(idn, idUser, ctx.result.usuarioId);
     }
-<<<<<<< HEAD
     Signal.app.models.usuario.famaUser(idUser, _variable.rpl, coinSignal);
-=======
-    Signal.app.models.usuario.famaUser(idUser, _variable.rpl,
-      coinSignal, _variable.rpfl);
->>>>>>> d12500b8b4c40cba71157980640520444d10db35
     next();
   });
 
@@ -141,12 +131,7 @@ module.exports = (Signal, ctx, ctx2) => {
       ctx.result.likes.total = ctx.result.likes.total - 1;
       ctx.method.ctor.like(idNoticia, idUser);
     }
-<<<<<<< HEAD
     signal.app.models.usuario.famaUser(idUser, _variable.rpd, coinNews);
-=======
-    signal.app.models.usuario.famaUser(idUser, _variable.rpd,
-      coinNews, _variable.rpfd);
->>>>>>> d12500b8b4c40cba71157980640520444d10db35
     next();
   });
 
@@ -292,11 +277,7 @@ module.exports = (Signal, ctx, ctx2) => {
                   if (getstatus(pos, 2)) {
                     modprec(ctx.result.id, true);
                     socket.emit('SubRemove', {
-                      subs: [`0~Poloniex~${
-                        ctx.result.moneda1
-                      }~${
-                        ctx.result.moneda2
-                      }`],
+                      subs: [`0~Poloniex~${ctx.result.moneda1}~${ctx.result.moneda2}`],
                     });
                   }
                   Signal.updateAll({id: ctx.result.id}, {estado: 'exito'});
@@ -314,12 +295,7 @@ module.exports = (Signal, ctx, ctx2) => {
                   });
                   Signal.updateAll({id: ctx.result.id}, {estado: 'fracaso'});
                   modprec(ctx.result.id, false, element.valor);
-                  socket.emit('SubRemove', {
-                    subs: [`0~Poloniex~${
-                      ctx.result.moneda1
-                    }~${
-                      ctx.result.moneda2
-                    }`],
+                  socket.emit('SubRemove', {subs: [`0~Poloniex~${ctx.result.moneda1}~${ctx.result.moneda2}`],
                   });
                 };
               }
@@ -389,7 +365,6 @@ module.exports = (Signal, ctx, ctx2) => {
           path: '/signals/' + ctx.result[index].perfilName,
         }).then(resp => {
           console.log('link');
-
           ctx.result[index].perfilLink = resp.link;
         }).catch(error => {
           console.log(error);
@@ -440,12 +415,11 @@ module.exports = (Signal, ctx, ctx2) => {
           aux = ctx.result.AnalisisFundamental.replace(element, resp.link);
           ctx.result.AnalisisFundamental = aux;
         }).catch(error => {
-          console.log(error)
+          console.log(error);
         });
         iterable.push(x);
       });
     }
-
     codImg = ctx.result.AnalisisTecnico.match(expReg);
     if (codImg) {
       codImg.forEach((element) => {

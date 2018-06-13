@@ -17,8 +17,8 @@ module.exports = (Noticia, ctx, ctx2) => {
   Noticia.upload = (req, res, cb) => {
     var Container = Noticia.app.models.Container;
     var id = req.params.id;
-    Container.createContainer({ name: 'news' + id }, (err, c) => {
-      Container.upload(req, res, { container: 'news' + id }, cb);
+    Container.createContainer({name: 'news' + id}, (err, c) => {
+      Container.upload(req, res, {container: 'news' + id}, cb);
     });
   };
   Noticia.remoteMethod(
@@ -251,7 +251,7 @@ module.exports = (Noticia, ctx, ctx2) => {
 
           ctx.result[index].perfilLink = resp.link;
         }).catch(error => {
-          console.log(error)
+          console.log(error);
         });
         iterabley.push(x);
       }).catch(error => {
@@ -263,7 +263,7 @@ module.exports = (Noticia, ctx, ctx2) => {
     Promise.all(iterablex).then(values => {
       Promise.all(iterabley).then(valor => {
         next();
-      })
+      });
     });
   });
 
@@ -285,12 +285,12 @@ module.exports = (Noticia, ctx, ctx2) => {
       ).then(resp => {
         ctx.result.perfilLink = resp.link;
       }).catch(error => {
-        console.log(error)
+        console.log(error);
       });
       iterabley.push(y);
     }).catch(error => {
       console.log(error);
-    })
+    });
     iterable.push(x);
 
     var expReg = /dropbox:["']{0,1}([^"' >]*)/g;
@@ -307,13 +307,13 @@ module.exports = (Noticia, ctx, ctx2) => {
           aux = ctx.result.contenido.replace(element, resp.link);
           ctx.result.contenido = aux;
         }).catch(error => {
-          console.log(error)
+          console.log(error);
         });
         iterable.push(x);
       });
     }
 
-    codImg = ctx.result.conjMoneda.match(expReg);
+    codImg = ctx.result.conj_moneda.match(expReg);
     if (codImg) {
       codImg.forEach((element) => {
         var nameImg = element.split(':')[1];
@@ -323,15 +323,15 @@ module.exports = (Noticia, ctx, ctx2) => {
             path: '/news/' + nameImg,
           }
         ).then(resp => {
-          aux = ctx.result.conjMoneda.replace(element, resp.link);
+          aux = ctx.result.conj_moneda.replace(element, resp.link);
           ctx.result.conjMoneda = aux;
         }).catch(error => {
-          console.log(error)
+          console.log(error);
         });
         iterable.push(x);
       });
     }
-    codImg = ctx.result.conjPrecio.match(expReg);
+    codImg = ctx.result.conj_precio.match(expReg);
     if (codImg) {
       codImg.forEach((element) => {
         var nameImg = element.split(':')[1];
@@ -341,8 +341,8 @@ module.exports = (Noticia, ctx, ctx2) => {
             path: '/news/' + nameImg,
           }
         ).then(resp => {
-          aux = ctx.result.conjPrecio.replace(element, resp.link);
-          ctx.result.conjPrecio = aux;
+          aux = ctx.result.conj_precio.replace(element, resp.link);
+          ctx.result.conj_precio = aux;
         }).catch(error => {
           console.log(error);
         });
@@ -352,9 +352,8 @@ module.exports = (Noticia, ctx, ctx2) => {
     Promise.all(iterable).then(values => {
       Promise.all(iterabley).then(value => {
         next();
-      })
+      });
     });
-
   });
   function likenotif(newsId, userId, owner) {
     var io = Noticia.app.io;
