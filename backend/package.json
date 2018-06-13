@@ -1,0 +1,44 @@
+{
+  "name": "criptoanalisis",
+  "version": "1.0.0",
+  "main": "server/server.js",
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "start": "node .",
+    "posttest": "npm run lint && nsp check"
+  },
+  "dependencies": {
+    "base64-img": "^1.0.3",
+    "compression": "^1.0.3",
+    "cors": "^2.5.2",
+    "dropbox": "^4.0.4",
+    "helmet": "^1.3.0",
+    "i18n": "^0.8.3",
+    "loopback": "^3.0.0",
+    "loopback-boot": "^2.6.5",
+    "loopback-component-explorer": "^4.0.0",
+    "loopback-component-storage": "^3.3.1",
+    "loopback-connector-mysql": "^5.2.0",
+    "loopback-i18n": "^1.1.4",
+    "loopback-likes-mixin": "^1.0.2",
+    "serve-favicon": "^2.0.1",
+    "socket.io": "^2.0.4",
+    "strong-error-handler": "^2.0.0",
+    "strong-globalize": "^2.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.17.1",
+    "eslint-config-loopback": "^8.0.0",
+    "nsp": "^2.1.0"
+  },
+  "repository": {
+    "type": "",
+    "url": ""
+  },
+  "license": "UNLICENSED",
+  "description": "criptoanalisis",
+  "author": ""
+}
