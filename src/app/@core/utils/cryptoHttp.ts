@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { _GLOBAL } from '../../common/ConfigSettings';
 
 export class CryptoHttp {
@@ -10,10 +10,24 @@ export class CryptoHttp {
         private http: HttpClient
     ) { }
 
-    get(url: string) {
-        return this.http.get(url).toPromise();
+    get(model: string) {
+        return this.http.get(`${this.baseUrl}${model}`).toPromise().catch(this.handleError);
     }
 
-    post(url) { }
+    post(model: string, body: any) {
+        return this.http.post(`${this.baseUrl}${model}`, body).toPromise().catch(this.handleError);
+    }
+
+    put(model: string, body: any) {
+        return this.http.put(`${this.baseUrl}${model}`, body).toPromise().catch(this.handleError);
+    }
+
+    delete(model: string) {
+        return this.http.delete(`${this.baseUrl}${model}`).toPromise().catch(this.handleError);
+    }
+
+    private handleError = (err: HttpErrorResponse) => {
+
+    }
 
 }
