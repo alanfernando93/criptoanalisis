@@ -10,9 +10,11 @@ import { CoinsService } from "../../coins/coins.service";
 import { configCrud, typeCoinByDefault, typeOfOffer, TipoSalida } from '../../../common/ConfigSettings';
 import { showToast } from '../../../common/functions'
 import { DropboxCripto } from "../../../common/dropbox";
-import { BitFinexCrypto } from '../../../common/bitfinex';
 
 import 'style-loader!angular2-toaster/toaster.css';
+import { CryptoCompareService } from '../../../@core/data/cryptocompare.service';
+
+declare var tinymce: any;
 
 @Component({
   selector: 'ngx-publish-signal',
@@ -22,17 +24,15 @@ import 'style-loader!angular2-toaster/toaster.css';
 
 export class SignalComponent implements OnInit, OnDestroy {
   @Input() idSignal: String = null;
-  data: string;
+
+  isPreload: boolean = false;
 
   myFile: File;
-  puntEntr = 1;
-  tipSal = 1;
+  entryPoint = 1;
+  tipoSalida = 1;
   stopLoss = 1;
 
   signal: any = {};
-
-  contenido1: String;
-  contenido2: String;
 
   moneda1: String = "Moneda1"
   moneda2: String = "Moneda2"
@@ -65,6 +65,9 @@ export class SignalComponent implements OnInit, OnDestroy {
   currentPrice;
   style: any = {};
 
+  editor1: Promise<any>;
+  editor2: Promise<any>;
+
   constructor(
     private modalService: NgbModal,
     private renderer: Renderer2,
@@ -73,7 +76,7 @@ export class SignalComponent implements OnInit, OnDestroy {
     private router: Router,
     private toasterService: ToasterService,
     private dropbox: DropboxCripto,
-    private bitcoin: BitFinexCrypto
+    private bitcoin: CryptoCompareService
   ) { }
 
   ngOnInit() {
@@ -88,61 +91,55 @@ export class SignalComponent implements OnInit, OnDestroy {
     });
   }
 
-  refreshEditor1() {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        tinymce.editors[0].uploadImages(() => {
-          this.signal.AnalisisFundamental = tinymce.editors[0].getContent()
-          resolve("get edito 1");
-        })
-      }, 2000);
+  onSave() {
+    this.isPreload = true;
+    this.editor1 = new Promise(resolve => {
+      tinymce.editors[0].uploadImages(() => {
+        this.signal.AnalisisFundamental = tinymce.editors[0].getContent()
+        resolve("get edito 1");
+      })
     });
-  }
-  refreshEditor2() {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        tinymce.editors[1].uploadImages(() => {
-          this.signal.AnalisisTecnico = tinymce.editors[1].getContent()
-          resolve('get edito 2');
-        })
-      }, 2000);
-    });
-  }
 
-  async onSave() {
-    var uno = await this.refreshEditor1();
-    var dos = await this.refreshEditor2();
+    this.editor2 = new Promise(resolve => {
+      tinymce.editors[1].uploadImages(() => {
+        this.signal.AnalisisTecnico = tinymce.editors[1].getContent()
+        resolve('get edito 2');
+      })
+    });
     this.signal.visible = true;
     this.signal.tipo = this.tipoSignal.key;
     this.signal.count = "";
     this.signal.moneda1 = this.moneda1;
     this.signal.moneda2 = this.moneda2;
     let positions = (this.posEntrada.concat(this.posSalida).concat(this.posLoss));
-    this.signalsService.add(this.signal).subscribe(resp => {
-      this.dropbox.imageUploadDropbox(this.myFile, this.signalsService.getUserId(), 'signals', 'perfil-' + resp.id).then(resp => {
-        this.type = 'success'
-        this.content = configCrud.message.success + ' señales';
+    Promise.all([this.editor1, this.editor2]).then(() => {
+      this.signalsService.add(this.signal).subscribe(resp => {
+        this.dropbox.imageUploadDropbox(this.myFile, this.signalsService.getUserId(), 'signals', 'perfil-' + resp.id).then(resp => {
+          this.type = 'success'
+          this.isPreload = false;
+          this.content = configCrud.message.success + ' señales';
+          showToast(this.toasterService, this.type, this.content);
+          this.router.navigate(["/pages/signals/list"]);
+        });
+        let id = resp.id;
+        positions.forEach((value, key) => {
+          positions[key].signalId = id
+          this.signalsService.setPosition(positions[key]).subscribe(respo => { })
+          this.type = 'success'
+          this.content = configCrud.message.success;
+        }, erro => {
+          this.isPreload = false;
+          this.type = 'error'
+          this.content = configCrud.message.error + " los puntos";
+        });
         showToast(this.toasterService, this.type, this.content);
-        this.router.navigate(["/pages/signals/list"]);
-      });
-      let id = resp.id;
-      positions.forEach((value, key) => {
-        positions[key].signalId = id
-        this.signalsService.setPosition(positions[key]).subscribe(respo => {
-        })
-        this.type = 'success'
-        this.content = configCrud.message.success;
-      }, erro => {
+      }, error => {
+        this.isPreload = false;
         this.type = 'error'
-        this.content = configCrud.message.error + " los puntos";
+        this.content = configCrud.message.error + ' señales';
+        showToast(this.toasterService, this.type, this.content);
       });
-      showToast(this.toasterService, this.type, this.content);
-    }, error => {
-      console.error(error);
-      this.type = 'error'
-      this.content = configCrud.message.error + ' señales';
-      showToast(this.toasterService, this.type, this.content);
-    });
+    })
   }
 
   selected(coin, data) {
@@ -151,17 +148,17 @@ export class SignalComponent implements OnInit, OnDestroy {
     else
       this.moneda2 = data;
 
-    let div1 = document.getElementById('puntEntr')
+    let div1 = document.getElementById('entryPoint')
     let div2 = document.getElementById('stopLoss')
-    let div3 = document.getElementById('tipSal')
+    let div3 = document.getElementById('tipoSalida')
     this.clearForm(div1);
     this.clearForm(div2);
     this.clearForm(div3);
     this.posEntrada = [];
     this.posSalida = [];
     this.posLoss = [];
-    this.puntEntr = 1;
-    this.tipSal = 1;
+    this.entryPoint = 1;
+    this.tipoSalida = 1;
     this.stopLoss = 1;
     if (this.moneda1 != "Moneda1" && this.moneda2 != "Moneda2") {
       let money = this.coins.find(element => element.name == this.moneda1)
@@ -192,18 +189,18 @@ export class SignalComponent implements OnInit, OnDestroy {
     }
   }
 
-  keyPress($event) {    
+  keyPress($event) {
     let parent = $event.target.parentNode;
     let data1 = $event.target;
     if (this.moneda1 == "Moneda1" || this.moneda2 == "Moneda2") {
       data1.value = "";
-      showToast(this.toasterService, 'warning', 'Debe Seleccionar primero las monedas');      
+      showToast(this.toasterService, 'warning', 'Debe Seleccionar primero las monedas');
       return;
     }
     let span = document.createElement('span');
-    span.setAttribute('class','form-text error');
-    span.setAttribute('role','alert');
-    span.setAttribute('style','color: #721c24;background-color: #f8d7da;');
+    span.setAttribute('class', 'form-text error');
+    span.setAttribute('role', 'alert');
+    span.setAttribute('style', 'color: #721c24;background-color: #f8d7da;');
     let porcPrice: any = parseFloat((this.currentPrice * 0.3).toString()).toFixed(2);
     let admittedPriceMen = this.currentPrice - porcPrice;
     let admittedProceMay = this.currentPrice + porcPrice;
@@ -216,7 +213,7 @@ export class SignalComponent implements OnInit, OnDestroy {
       }, 1000);
       return;
     }
-    if(data1.value >= admittedProceMay) {
+    if (data1.value >= admittedProceMay) {
       span.innerHTML = "El valor ingresado es muy alto"
       parent.after(span);
       setTimeout(() => {
@@ -241,10 +238,10 @@ export class SignalComponent implements OnInit, OnDestroy {
       return
     }
     switch (option) {
-      case 'puntEntr': data.puntoId = 3;
+      case 'entryPoint': data.puntoId = 3;
         this.posEntrada.push(data);
         break;
-      case 'tipSal': data.puntoId = 2;
+      case 'tipoSalida': data.puntoId = 2;
         this.posSalida.push(data);
         break;
       case 'stopLoss': data.puntoId = 1;
@@ -274,9 +271,9 @@ export class SignalComponent implements OnInit, OnDestroy {
     this.renderer.listen(d1, 'change', $events => {
       var input = $events.target;
       switch (option) {
-        case 'puntEntr': this.posEntrada[input.id].valor = input.value.split(' ')[0];
+        case 'entryPoint': this.posEntrada[input.id].valor = input.value.split(' ')[0];
           break;
-        case 'tipSal': this.posSalida[input.id].valor = input.value.split(' ')[0];
+        case 'tipoSalida': this.posSalida[input.id].valor = input.value.split(' ')[0];
           break;
         case 'stopLoss': this.posLoss[input.id].valor = input.value.split(' ')[0];
           break;
@@ -295,9 +292,9 @@ export class SignalComponent implements OnInit, OnDestroy {
     //   console.log(this.posEntrada)
     //   var input = $events.target;
     //   switch (option) {
-    //     case 'puntEntr': this.posEntrada[input.id].porcentajeCapital = input.value.split(' ')[0];
+    //     case 'entryPoint': this.posEntrada[input.id].porcentajeCapital = input.value.split(' ')[0];
     //       break;
-    //     case 'tipSal': this.posSalida[input.id].porcentajeCapital = input.value.split(' ')[0];
+    //     case 'tipoSalida': this.posSalida[input.id].porcentajeCapital = input.value.split(' ')[0];
     //       break;
     //     case 'stopLoss': this.posLoss[input.id].porcentajeCapital = input.value.split(' ')[0];
     //       break;
@@ -364,11 +361,11 @@ export class SignalComponent implements OnInit, OnDestroy {
     // data2.value = '';
 
     switch (option) {
-      case 'puntEntr': this.puntEntr += 1;
-        if (this.puntEntr < 4) return;
+      case 'entryPoint': this.entryPoint += 1;
+        if (this.entryPoint < 4) return;
         break;
-      case 'tipSal': this.tipSal += 1;
-        if (this.tipSal < 4) return;
+      case 'tipoSalida': this.tipoSalida += 1;
+        if (this.tipoSalida < 4) return;
         break;
       case 'stopLoss': this.stopLoss += 1;
         if (this.stopLoss < 2) return;
@@ -391,8 +388,8 @@ export class SignalComponent implements OnInit, OnDestroy {
       collection[4].id = '' + (i - 1);
     }
     switch (opc) {
-      case 'puntEntr': this.puntEntr = node.length - 1; this.posEntrada.splice(id, 1); break;
-      case 'tipSal': this.tipSal = node.length - 1; this.posSalida.splice(id, 1); break;
+      case 'entryPoint': this.entryPoint = node.length - 1; this.posEntrada.splice(id, 1); break;
+      case 'tipoSalida': this.tipoSalida = node.length - 1; this.posSalida.splice(id, 1); break;
       case 'stopLoss': this.stopLoss = node.length - 1; this.posLoss.splice(id, 1); break;
     }
 

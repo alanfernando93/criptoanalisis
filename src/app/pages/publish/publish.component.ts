@@ -13,14 +13,14 @@ import { Session } from '../../@core/data/session';
 
 export class PublishComponent implements OnInit {
     select:Number = parseInt(Session.getStorage('select'));
-    idNew:String;
+    idNews:String;
 
     constructor(        
         private router: Router,
         private route: ActivatedRoute
     ) {        
         this.route.params.subscribe((param) => {
-            this.idNew = param['idNew'];
+            this.idNews = param['idNews'];
         });
     }
 

@@ -75,9 +75,6 @@ export class NgxLayoutColumnComponent {
       <nav [class.fixed]="fixedValue">
         <ng-content></ng-content>  
       </nav>
-      <nav [class.fixed]="fixedValue">
-        <ng-content></ng-content>  
-      </nav>
     `,
 })
 export class NgxLayoutHeaderComponent {

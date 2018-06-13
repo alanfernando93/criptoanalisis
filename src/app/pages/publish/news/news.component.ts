@@ -8,9 +8,6 @@ import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-
 import { NewsService } from "../../news/news.service";
 import { CoinsService } from "../../coins/coins.service";
 
-// import { CropperModalComponent } from '../../../@theme/components/cropper/croppermodal.component';
-
-import { async } from "@angular/core/testing";
 import { showToast } from "../../../common/functions";
 import { configCrud } from "../../../common/ConfigSettings";
 import { DropboxCripto } from "../../../common/dropbox";
@@ -24,16 +21,15 @@ declare var tinymce: any;
   templateUrl: "news.component.html"
 })
 export class PublishNewsComponent implements OnInit {
-  @Input() idNew: String = null;  
+  @Input() idNew: String = null;
 
-  myFile:any;
-  content1: String;
-  content2: String;
-  content3: String;
-  closeResult: string;
+  myFile: any;
+  
   newsPublish: any = {};
   coins: any = [];
   Form: FormGroup
+
+  isPreload: boolean = false;
 
   selectedView = {
     name: "Seleccione Moneda"
@@ -41,6 +37,10 @@ export class PublishNewsComponent implements OnInit {
 
   content = `I'm cool toaster!`;
   type = 'default';
+
+  editor1: Promise<any>;
+  editor2: Promise<any>;
+  editor3: Promise<any>;
 
   constructor(
     private modalService: NgbModal,
@@ -50,9 +50,11 @@ export class PublishNewsComponent implements OnInit {
     private toasterService: ToasterService,
     private dropbox: DropboxCripto,
     private fb: FormBuilder
-  ) { this.Form = this.fb.group({
-    title: ['', Validators.compose([Validators.required, Validators.minLength(4) ])]
-  }) }
+  ) {
+    this.Form = this.fb.group({
+      title: ['', Validators.compose([Validators.required, Validators.minLength(4)])]
+    })
+  }
 
   ngOnInit() {
     if (this.idNew != null) {
@@ -65,64 +67,48 @@ export class PublishNewsComponent implements OnInit {
     });
   }
 
-  refreshEditor1() {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        tinymce.editors[0].uploadImages(() => {
-          this.newsPublish.contenido = tinymce.editors[0].getContent()
-          resolve("get edito 1");
-        })
-      }, 1000);
+  onSave(event) {
+    this.isPreload = true;
+    this.editor1 = new Promise(resolve => {
+      tinymce.editors[0].uploadImages(() => {
+        this.newsPublish.contenido = tinymce.editors[0].getContent()
+        resolve("get edito 1");
+      })
     });
-  }
 
-  refreshEditor2() {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        tinymce.editors[1].uploadImages(() => {
-          this.newsPublish.conj_precio = tinymce.editors[1].getContent()
-          resolve('get edito 2');
-        })
-
-      }, 1000);
+    this.editor2 = new Promise(resolve => {
+      tinymce.editors[1].uploadImages(() => {
+        this.newsPublish.conj_precio = tinymce.editors[1].getContent()
+        resolve('get edito 2');
+      })
     });
-  }
 
-  refreshEditor3() {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        tinymce.editors[2].uploadImages(() => {
-          this.newsPublish.conj_moneda = tinymce.editors[2].getContent()
-          resolve("get edito 3");
-        })
-      }, 1000);
+    this.editor3 = new Promise(resolve => {
+      tinymce.editors[2].uploadImages(() => {
+        this.newsPublish.conj_moneda = tinymce.editors[2].getContent()
+        resolve("get edito 3");
+      })
     });
-  }
-
-  async onSave() {
-    var uno = await this.refreshEditor1();
-    var dos = await this.refreshEditor2();
-    var tres = await this.refreshEditor3();
-    
-    this.newsPublish.tipo_moneda = this.selectedView.name;
-    this.newsService.insert(this.newsPublish).subscribe(resp => {
-      this.dropbox.imageUploadDropbox(this.myFile, this.newsService.getUserId(), 'news', 'perfil-' + resp.id).then(resp => {
-        this.content = configCrud.message.success + ' noticias';
-        showToast(this.toasterService, 'success', this.content);
-        this.router.navigate(["/pages/news/news-list"]);
+    Promise.all([this.editor1, this.editor2, this.editor3]).then(values => {
+      this.newsPublish.tipo_moneda = this.selectedView.name;
+      this.newsService.insert(this.newsPublish).subscribe(resp => {
+        this.dropbox.imageUploadDropbox(this.myFile, this.newsService.getUserId(), 'news', 'perfil-' + resp.id).then(resp => {
+          this.isPreload = false;
+          this.content = configCrud.message.success + ' noticias';
+          showToast(this.toasterService, 'success', this.content);
+          this.router.navigate(["/pages/news/news-list"]);
+        });
+      }, error => {
+        this.isPreload = false;
+        this.content = configCrud.message.error + ' noticias';
+        showToast(this.toasterService, 'error', this.content);
       });
-    }, error => {
-      this.content = configCrud.message.error + ' noticias';
-      showToast(this.toasterService, 'error', this.content);
-    });
+    })
+
   }
 
   open(content) {
-    this.modalService.open(content, { size: 'lg' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.modalService.open(content, { size: 'lg' }).result.then((result) => { }, (reason) => { });
   }
 
   private getDismissReason(reason: any): string {

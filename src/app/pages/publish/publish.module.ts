@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ThemeModule } from '../../@theme/theme.module';
 import { ToasterModule } from 'angular2-toaster';
 
-import { PublishComponent} from './publish.component';
+import { PublishComponent } from './publish.component';
 import { PublishNewsComponent } from './news/news.component';
 import { SignalComponent } from './signal/signal.component';
 import { CoinComponent } from './coin/coin.component';
@@ -18,7 +18,16 @@ import { SignalsService } from '../signals/signals.service';
 import { AdvisoriesService } from '../advisories/advisories.service';
 
 import { CropperModalComponent } from '../../@theme/components/cropper/croppermodal.component';
-import { BitFinexCrypto } from '../../common/bitfinex';
+import { CryptoCompareService } from '../../@core/data/cryptocompare.service';
+
+const Services = [
+    NewsService,
+    CoinsService,
+    SignalsService,
+    MarketsService,
+    AdvisoriesService,
+    CryptoCompareService
+]
 
 @NgModule({
     imports: [
@@ -29,13 +38,12 @@ import { BitFinexCrypto } from '../../common/bitfinex';
         PublishComponent,
         PublishNewsComponent,
         //HorarioComponent,
-    
-        SignalComponent, 
+        SignalComponent,
         CoinComponent,
         AdvisoryComponent,
         CropperModalComponent
     ],
     entryComponents: [CropperModalComponent],
-    providers: [NewsService,CoinsService,SignalsService,MarketsService,AdvisoriesService,BitFinexCrypto],
+    providers: Services
 })
 export class PublishModule { }

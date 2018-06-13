@@ -4,7 +4,7 @@ import { Socket } from 'ng-socket-io';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class BitFinexCrypto extends Socket {
+export class CryptoCompareService extends Socket {
 
     constructor(private http: Http) {
         super({ url: 'wss://streamer.cryptocompare.com', options: {} });

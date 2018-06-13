@@ -10,7 +10,7 @@ export class shareComponent {
     @Input() titleFacebook: any = [];
     @Input() descripFacebook: any = [];
     @Input() imageFacebook: any;
-    
+
     @Input() titleTwitter: any = [];
     @Input() tagTwitter: any = [];
 

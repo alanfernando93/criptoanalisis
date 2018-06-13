@@ -13,3 +13,4 @@ export * from './comment/comment.component';
 export * from './complaint/complaint.component';
 export * from './share/share.component';
 export * from './advisoriesAll/advisoriesAll.component';
+export * from './preload/preload.component';

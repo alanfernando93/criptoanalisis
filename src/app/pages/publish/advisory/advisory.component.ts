@@ -3,10 +3,7 @@ import { Router } from "@angular/router";
 import { Http, Response } from "@angular/http";
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-
-
 // import { NewsService } from "../../../services/news.service";
-
 // import { CoinsService } from "../../../services/coins.service";
 import { AdvisoriesService } from "../../advisories/advisories.service";
 import { AdvisoriesComponent } from "../../advisories/advisories.component";
@@ -163,9 +160,7 @@ export class AdvisoryComponent implements OnInit {
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
     }
-  
     
-  
     private showToast(type: string, title: string, body: string) {
       this.config = new ToasterConfig({
         positionClass: 'toast-top-right',
@@ -200,4 +195,3 @@ export class AdvisoryComponent implements OnInit {
   
     
   }
-  

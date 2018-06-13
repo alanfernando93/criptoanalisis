@@ -11,6 +11,7 @@ import { configImage } from '../../../common/ConfigSettings';
   templateUrl: './croppermodal.component.html'
 })
 export class CropperModalComponent {
+  config: ToasterConfig;
   @Input() name;
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
   cropperSettings: CropperSettings;
@@ -32,7 +33,7 @@ export class CropperModalComponent {
     this.cropperSettings.canvasHeight = 300;
     this.cropperSettings.preserveSize = true;
     this.data = {};
-    
+
     if (screen.width <= 414) {
       this.cropperSettings.canvasWidth = 250;
       this.cropperSettings.canvasHeight = 200;
@@ -45,7 +46,6 @@ export class CropperModalComponent {
     //max y min 
     var image: any = new Image();
     var file: File = $event.target.files[0];
-    console.log(file)
     var myReader: FileReader = new FileReader();
     let format = configImage.type.find(element => element === file.type)
     // console.log(`${format} == ${file.type}`);
@@ -74,5 +74,4 @@ export class CropperModalComponent {
   getImageFile() {
     return parseToFile(this.data.image);
   }
-
 }
