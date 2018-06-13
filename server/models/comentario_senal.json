@@ -1,0 +1,36 @@
+{
+  "name": "comentario_senal",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "contenido": {
+      "type": "string"
+    },
+    "userId": {
+      "type": "number"
+    },
+    "fecha_registro": {
+      "type": "date",
+      "required": false,
+      "default": "$now"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "answer-senals": {
+      "type": "hasMany",
+      "model": "answer-senal",
+      "foreignKey": ""
+    },
+    "signal": {
+      "type": "belongsTo",
+      "model": "signal",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

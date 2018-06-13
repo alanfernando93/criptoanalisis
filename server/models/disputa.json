@@ -1,0 +1,25 @@
+{
+  "name": "disputa",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "pagos_anteriores": {
+      "type": [
+        "object"
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {
+    "asesoriaPersonal": {
+      "type": "belongsTo",
+      "model": "asesoria_personal",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

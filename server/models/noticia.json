@@ -1,0 +1,102 @@
+{
+  "name": "noticia",
+  "plural": "noticias",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "Likes": [
+      {
+        "method": "like",
+        "endpoint": "/:id/like",
+        "likes": "likes",
+        "userModel": "usuario"
+      }
+    ]
+  },
+  "properties": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "contenido": {
+      "type": "string",
+      "required": true,
+      "dataType": "text"
+    },
+    "tipo_moneda": {
+      "type": "string",
+      "required": false
+    },
+    "conj_moneda": {
+      "type": "string",
+      "required": false
+    },
+    "fecha_create": {
+      "type": "date",
+      "default": "$now"
+    },
+    "conj_precio": {
+      "type": "string",
+      "required": false
+    },
+    "fuentes": {
+      "type": "string",
+      "required": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "usuario": {
+      "type": "belongsTo",
+      "model": "usuario",
+      "foreignKey": ""
+    },
+    "comentarioNoticia": {
+      "type": "hasMany",
+      "model": "comentario_noticia",
+      "foreignKey": ""
+    },
+    "answerNoticia": {
+      "type": "hasMany",
+      "model": "answer_noticia",
+      "foreignKey": ""
+    }
+  },
+  "acls": [
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "WRITE",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW",
+      "property": "*"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
+}
