@@ -1,20 +1,16 @@
 'use strict';
-var jsonfile = require('./defaultdata.json');
+var jsonfile = require('./defaultdata.js');
 module.exports = function createdefaultData(app) {
-  var fakedataArray = jsonfile.fakeDataArray;
-  fakedataArray.forEach(model => {
-    app.dataSources.db.automigrate(model.name)
+  Object.keys(jsonfile).forEach(name => {
+    app.dataSources.db.automigrate(name)
     .then(createdModel => {
-      var modelInstance = app.registry.modelBuilder.getModel(model.name);
-      var PromiseArray = [];
-      model.Array.forEach(jsonObject=>{
-        var createPromise = modelInstance.create(jsonObject);
-        PromiseArray.push(createPromise);
-      });
-      Promise.all(PromiseArray)
-      .catch(err=>{
-        console.log('error while inserting elements');
-      });
+      var modelInstance = app.registry.modelBuilder.getModel(name);
+      jsonfile[name].reduce((promise, element) => {
+        return promise.then(data=>{
+          return modelInstance.create(element);
+        });
+      }, Promise.resolve());
     });
   });
 };
+
