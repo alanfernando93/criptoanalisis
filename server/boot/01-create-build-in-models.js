@@ -2,7 +2,7 @@
 'use strict';
 var server = require('../server');
 var ds = server.dataSources.db;
-var lbTables = ['User', 'AccessToken', 'ACL', 'RoleMapping', 'Role'];
+var lbTables = ['AccessToken', 'ACL', 'RoleMapping', 'Role'];
 module.exports = function(app) {
   app.dataSources.db.autoupdate(lbTables, function(err, data) {
     if (err)

@@ -4,9 +4,10 @@ module.exports = function(Solicitud) {
   Solicitud.Pendientes = function(id, cb) {
     Solicitud.find({where:
     {and: [{or: [{senderId: id}, {recieverId: id}]},
-    {activo: true}, {aceptacion: false}]}})
+    {activo: true}]}})
       .then(data=>{
         var request = [];
+        console.log(data);
         data.forEach((element, index) => {
           var usuario = (element.senderId == id) ? element.recieverId : element.senderId;
           var x = Solicitud.app.models.Usuario.findById(usuario, {
@@ -66,22 +67,18 @@ module.exports = function(Solicitud) {
     ],
     returns: {arg: 'request', type: 'object'},
   });
-  // buscar una solicitud aceptada y activa
+  // buscar solicitudes pendientes
   Solicitud.findSol = function(sender, reciever, cb) {
-    Solicitud.findOne({
+    Solicitud.find({
       where: {
-        and: [
-          {or:
-          [{and: [
-              {senderId: sender},
-              {recieverId: reciever},
-          ]}, {and: [
-              {senderId: reciever},
-              {recieverId: sender},
-          ]}]},
-          {aceptacion: true},
-          {activo: true},
-        ],
+        or:
+        [{and: [
+          {senderId: sender},
+          {recieverId: reciever},
+        ]}, {and: [
+          {senderId: reciever},
+          {recieverId: sender},
+        ]}],
       },
     }, cb);
   };
@@ -110,28 +107,5 @@ module.exports = function(Solicitud) {
         'usuarioId': ctx.result.request.recieverId,
       });
     });
-  });
-  // finalizar chat
-  Solicitud.Finish = function(req, res, cb) {
-    Solicitud.updateAll({
-      or:
-      [{and: [
-          {senderId: req.body.sender},
-          {recieverId: req.body.reciever},
-      ]}, {and: [
-          {senderId: req.body.reciever},
-          {recieverId: req.body.sender},
-      ]}],
-    }, {
-      activo: false,
-    }, cb);
-  };
-  Solicitud.remoteMethod('Finish', {
-    http: {path: '/Finish', verb: 'post'},
-    accepts: [
-           {arg: 'req', type: 'object', 'http': {source: 'req'}},
-           {arg: 'res', type: 'object', 'http': {source: 'res'}},
-    ],
-    returns: {arg: 'finish', type: 'object'},
   });
 };
