@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { ThemeModule } from './../../@theme/theme.module';
 import { AdvisoryRoutingModule, routedComponents } from './Advisories-routing.module';
 import { AdvisoriesService } from './advisories.service';
-import { HorarioComponent } from '../../@theme/components';
+import { scheduleComponent } from '../../@theme/components';
 
 //import { userDesignComponent } from '../../@theme/components';
 

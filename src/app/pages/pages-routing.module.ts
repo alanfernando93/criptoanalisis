@@ -22,9 +22,6 @@ const routes: Routes = [{
     component: PublishComponent,
     canActivate: [AuthGuard]
   }, {
-    path: 'ui-features',
-    loadChildren: './ui-features/ui-features.module#UiFeaturesModule',
-  }, {
     path: 'advisories',
     loadChildren: './advisories/advisories.module#AdvisoryModule',
   }, {
