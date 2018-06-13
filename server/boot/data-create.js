@@ -8,7 +8,7 @@ module.exports = function(app) {
     connector: require('loopback-component-storage'),
     provider: 'filesystem',
     root: ruta,
-    allowedContentTypes: [// validacion de formato para subir imagen
+    allowedContentTypes: [
       'image/jpg',
       'image/jpeg',
       'image/png',

@@ -15,7 +15,4 @@ module.exports = function(app) {
       });
     });
   });
-  app.dataSources.db.autoupdate('position', function(err) {
-    if (err) throw err;
-  });
 };
