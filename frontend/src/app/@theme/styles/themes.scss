@@ -1,0 +1,64 @@
+// @nebular theming framework
+@import '~@nebular/theme/styles/theming';
+// @nebular out of the box themes
+@import '~@nebular/theme/styles/themes';
+
+// which themes you what to enable (empty to enable all)
+$nb-enabled-themes: (default, cosmic);
+
+$nb-themes: nb-register-theme((
+ // app wise variables for each theme
+  sidebar-header-gap: 2rem,
+  sidebar-header-height: initial,
+  layout-content-width: 1400px,
+
+  font-main: Roboto,
+  font-secondary: Exo,
+), default, default);
+
+$nb-themes: nb-register-theme((
+  // app wise variables for each theme
+  sidebar-header-gap: 2rem,
+  sidebar-header-height: initial,
+  layout-content-width: 1400px,
+
+  font-main: Roboto,
+  font-secondary: Exo,
+), cosmic, cosmic);
+
+
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.inputfile-1 + label {
+    color: #ffffff;
+    background-color: #32c5d2;
+}
+
+.inputfile + label {
+    max-width: 80%;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+}
+
+.inputfile + label svg {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    fill: currentColor;
+    margin-top: -0.25em;
+    margin-right: 0.25em;
+}

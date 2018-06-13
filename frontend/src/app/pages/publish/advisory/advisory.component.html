@@ -1,0 +1,306 @@
+<nb-card>
+    
+</nb-card>
+<nb-card-body>
+    <!-- <toaster-container [toasterconfig]="config"></toaster-container> -->
+    <div class="container">
+        <div class="row" style="padding-bottom: 24px">
+            <div class="col-12 col-md-6">
+                <div class="row inputgroup">
+                    <input type="text" placeholder="Titulo de la asesoria" [(ngModel)]="advisoriesPublish.titulo" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 24px">
+            <div class="col-6 col-md-3">
+                <div class="row inputgroup">
+                    <input type="text" placeholder="costo/hora" [(ngModel)]="advisoriesPublish.costo" class="form-control">
+
+
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <i class="fa fa-viacoin fa-2x" style="padding-left:20px;padding-top: 10px"></i>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <h5>modalidad</h5>
+        </div>
+    </div>
+
+    <div class="row" style="padding-bottom:24px">
+
+
+        <div class="col-6">
+            <div class="input-group-text">
+                <label>
+                    <input type="checkbox" [checked]="mod1" (change)="mod1 = !mod1" aria-label="Checkbox for following text input"> virtual</label>
+            </div>
+
+        </div>
+        <div class="col-6">
+            <div class="input-group-text">
+                <label>
+                    <input type="checkbox" [checked]="mod2" (change)="mod2 = !mod2" aria-label="Checkbox for following text input"> presencial</label>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+    <div class="row" style="padding-bottom:24px">
+        <div class="col-12 col-md-6">
+            <div class="dropdown" ngbDropdown>
+                <button type="button" class="btn btn-hero-info btn-block" (click)="isCollapsed3 = !isCollapsed3" [attr.aria-expanded]="!isCollapsed3"
+                    aria-controls="collapseExample" ngbDropdownToggle>
+                    {{tipoSignal.title}}
+                </button>
+                <div id="collapseExample" [ngbCollapse]="!isCollapsed3">
+
+
+                    <div class="card" style="padding-left: 20px;padding-top: 15px">
+                        <ul>
+                            <li *ngFor="let t of tipos" (click)="this.tipoSignal = t ;isCollapsed3 = !isCollapsed3" style="padding-bottom: 10px"> {{t.title}}</li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+
+
+
+    <div class="dropdown" ngbDropdown style="padding-bottom:24px">
+        <button type="button" class="btn btn-hero-info btn-block " (click)="isCollapsed2 = !isCollapsed2" [attr.aria-expanded]="!isCollapsed2"
+            aria-controls="collapseExample" ngbDropdownToggle>
+            <i class="fas fa-calendar-alt"> Seleccione HORARIO</i>
+        </button>
+        <div id="collapseExample" [ngbCollapse]="!isCollapsed2">
+
+
+            <div class="card" style="padding-left: 20px;padding-top: 15px">
+                <ngx-schedule (onGetObject)="advisoriesPublish.horarios=$event"></ngx-schedule>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="row" style="padding-bottom:24px">
+        <div class="col-12">
+
+            <div class="dropdown" ngbDropdown>
+                <button type="button" class="btn btn-hero-info btn-block" (click)="isCollapsed5 = !isCollapsed5" [attr.aria-expanded]="!isCollapsed5"
+                    aria-controls="collapseExample" ngbDropdownToggle>
+                    Seleccione el idioma
+                </button>
+                <div id="collapseExample" [ngbCollapse]="!isCollapsed5">
+
+
+                    <div class="card" style="padding-left: 20px;padding-top: 15px">
+                        <ul>
+                            <li style="padding-bottom: 10px">
+                                <input type="checkbox" [checked]="idi1" (change)="id1 = !idi1" aria-label="Checkbox for following text input"> español</li>
+                            <li style="padding-bottom: 10px">
+                                <input type="checkbox" [checked]="idi2" (change)="id2 = !idi2" aria-label="Checkbox for following text input"> ingles</li>
+                            <li style="padding-bottom: 10px">
+                                <input type="checkbox" [checked]="idi3" (change)="id3 = !idi3" aria-label="Checkbox for following text input"> aleman</li>
+                            <li style="padding-bottom: 10px">
+                                <input type="checkbox" [checked]="idi4" (change)="id4 = !idi4" aria-label="Checkbox for following text input"> frances</li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="padding-bottom:24px">
+        <div class="col-12">
+            <h5>contenido del coaching(coloque los temas del coaching)</h5>
+        </div>
+    </div>
+    <div class="row inputgroup" style="padding-bottom:24px">
+        <div class="col-12">
+            <ngx-tiny-mce [height]="150" (onEditorKeyup)="keyupHandlerFunction($event,'T')"></ngx-tiny-mce>
+        </div>
+    </div>
+    <div class="row" style="padding-bottom:24px">
+        <div class="col-12">
+            <h5>terminos del coach(coloque las reglas del coaching)</h5>
+        </div>
+    </div>
+    <div class="row inputgroup" style="padding-bottom:24px">
+        <div class="col-12">
+            <ngx-tiny-mce [height]="150" (onEditorKeyup)="keyupHandlerFunction($event,'Ter')">
+            </ngx-tiny-mce>
+        </div>
+    </div>
+</nb-card-body>
+<nb-card-footer>
+    <div class="row justify-content-between">
+        <div class="col-md-6">
+            <button class="btn btn-hero-secondary btn-demo"> Cancelar </button>
+
+
+            <button class="btn btn-lg btn-primary" (click)="open(content)"> Vista Previa </button>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-success" (click)="onSave()"> Publicar </button>
+        </div>
+    </div>
+</nb-card-footer>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Preview News</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <nb-card>
+            <nb-card>
+
+                <img class=" col-12 card-img-top " src="https://es.tradingview.com/i/jNGFZIAD/" alt="Card image">
+                <div class="card-block" style="background-color:skyblue">
+                    <h4 class="card-title" style="padding:5px 5px 5px 15px">
+                        <strong>{{advisoriesPublish.titulo}}</strong>
+                    </h4>
+                    <p class="card-text" style="padding-top:0px;padding-left:15px;padding-bottom:5px;">
+                        <i class="fa fa-map-marker fa-1x"></i>
+                        <span class="text-white">{{advisoriesPublish.ubicacion}}</span>
+                    </p>
+                </div>
+
+            </nb-card>
+            <nb-card>
+
+                <div class="row pad-top  mar-top" style="padding-left:10px;padding-right:20px">
+                    <div class="col-6">
+                        <small class="text-muted">
+                            <h5>8 $ctk / hr</h5>
+                        </small>
+                    </div>
+                    <div class="col-2">
+                        <span class="socials">
+                            <i class="fa fa-file-text-o">13</i>
+                        </span>
+                    </div>
+                    <div class="col-2 ">
+                        <a class="font-w-light up">
+                            <span class="socials">
+                                <i class="fa fa-thumbs-up fa-1x"></i>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-2">
+                        <a class="font-w-light up">
+                            <span class="socials">
+                                <i class="fa fa-thumbs-down"></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </nb-card>
+
+            <nb-card>
+                <div class="row pad-top" style="padding-left:10px;">
+                    <div class="col-8">
+                        <h5>Temas de Asesoria</h5>
+                    </div>
+                    <div class="col-12 pad-le" [innerHTML]="advisoriesPublish.contenido_asesoria">
+
+                    </div>
+                </div>
+
+                <div class="row  pad-top" style="padding-left:10px;padding-right:20px">
+                    <div class="col-12">
+                        <h5>Horarios</h5>
+                    </div>
+                    <div class="col-12">
+                        Lunes a Viernes: 18:00 - 22:00
+                    </div>
+                </div>
+
+            </nb-card>
+            <nb-card>
+                <div class="row  pad-top" style="padding-left:10px;padding-right:20px">
+                    <div class="col-12" *ngIf="contentuser">
+                        <h5>Acerca del Couch</h5>
+                        <div class="row">
+                            <div class="col-2">
+
+                                <img class="card-img" src="{{contentuser.perfil}}" alt="Card image" />
+                            </div>
+                            <div class="col-8">
+                                <p class="text-success">{{contentuser.nombre}}</p>
+                                <p>tiene verificacion de identidad</p>
+                                <p>5 es su nivel de ETHEREUM</p>
+                                <p>{{contentuser.precision}} es su precision para PREDICCIONES</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nb-card>
+            <nb-card>
+
+
+                <div class="dropdown" ngbDropdown>
+                    <button type="button" class="btn btn-hero-info btn-block" (click)="isCollapsed2 = !isCollapsed2" [attr.aria-expanded]="!isCollapsed2"
+                        aria-controls="collapseExample" ngbDropdownToggle>
+                        Terminos del Coach
+                    </button>
+                    <div id="collapseExample" [ngbCollapse]="!isCollapsed2">
+
+
+                        <div class="card" [innerHTML]="advisoriesPublish.terminos_coach" style="padding-left: 20px;padding-top: 15px">
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </nb-card>
+
+
+        </nb-card>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="c('Close click')">Close</button>
+    </div>
+</ng-template>

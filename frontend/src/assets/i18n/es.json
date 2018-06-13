@@ -1,0 +1,45 @@
+{
+  "HOME": {
+    "TITLE": "Hola Angular con ngx-translate!",
+    "SELECT": "Cambiando Lenguaje"
+  },
+  "publish": "Publicar",
+  "signals": "Señales",
+  "news": "Noticias",
+  "market": "Mercado",
+  "chat": "Mensaje",
+  "advice": "asesoria",
+  "menu": {
+    "dashboard": "Dashboard",
+    "advice": "Asesoria Principiantes",
+    "tutorials": "Tutoriales",
+    "events": "Eventos",
+    "win": "Gane $CA tokens",
+    "us": "Nosotros",
+    "group" : "FUNCIONES",
+    "feature" : {
+      "feature":"UI Funciones",
+      "button": "Butones",
+      "typography": "Tipografia",
+      "animated": "Búsquedas animadas"
+    },
+    "advisory" : {
+      "advisory": "Consultivo",
+      "list": "Lista Consultas",
+      "tab": "Asesor de Pestañas"
+    },
+    "market": {
+      "market": "Mercados",
+      "list": "Lista de Mercados"
+    },
+    "coin" : {
+      "coin": "Moneda",
+      "view": "Vista"
+    }
+  },
+  "footer":{
+    "create": "Creado con ♥ por",
+    "company": "Akveo",
+    "year" : "2017"
+  }
+}

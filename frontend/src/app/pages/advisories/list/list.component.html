@@ -1,0 +1,57 @@
+<nb-tabset>
+  <nb-tab tabTitle="Asesorias">
+    <nb-card>
+      <div class="row">
+        <div class="col-12">
+          <button type="button" class="btn btn-info btn-lg btn-block">Asesoria Personal Couching</button>
+        </div>
+
+      </div>
+    </nb-card>
+
+
+    <div class="row" style="padding-bottom:15px">
+      <div class="col-6">
+        <div class="dropdown" ngbDropdown>
+          <button class="btn btn-secondary btn-tn " type="button" ngbDropdownToggle>
+            mas cercanos
+          </button>
+          <ul class="dropdown-menu" ngbDropdownMenu>
+            <li class="dropdown-item">Icon Button 4</li>
+            <li class="dropdown-item">Hero Button</li>
+            <li class="dropdown-item">Default</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="dropdown" ngbDropdown>
+          <button class="btn btn btn-secondary btn-tn" type="button" ngbDropdownToggle>
+            solidity
+          </button>
+          <ul class="dropdown-menu" ngbDropdownMenu>
+            <li class="dropdown-item">Icon Button 4</li>
+            <li class="dropdown-item">Hero Button</li>
+            <li class="dropdown-item">Default</li>
+          </ul>
+        </div>
+
+
+      </div>
+    </div>
+
+   
+    <ngx-advisoriesAll [listAdvisories]="advisories" ></ngx-advisoriesAll>
+
+  
+    
+  </nb-tab>
+  <nb-tab tabTitle="mis Asesorias" *ngIf="user">
+    
+
+    <ngx-advisoriesAll [listAdvisories]="advisoriesbyid" ></ngx-advisoriesAll>
+    
+
+  </nb-tab>
+
+</nb-tabset>
+

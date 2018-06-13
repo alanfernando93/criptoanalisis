@@ -1,0 +1,205 @@
+<div *ngIf="isPreload">
+    <ngx-preload></ngx-preload>
+</div>
+<nb-card-body>
+    <div [ngStyle]="{'background-color':style.background,'color':style.color} ">
+        {{currentPrice}}
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="inputgroup col-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="row">
+                    <div class="col-12 col-lg-6 col-md-6 col-xl-6">
+                        <div class="dropdown" ngbDropdown>
+                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{tipoSignal.title}} </button>
+                            <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
+                                <li class="dropdown-item" *ngFor="let t of tipos" (click)="this.tipoSignal = t">{{t.title}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 col-md-6 col-xl-6">
+                        <div class="dropdown" ngbDropdown>
+                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{exchange}} </button>
+                            <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
+                                <!-- <li class="dropdown-item" *ngFor="let t of tipos" (click)="this.tipoSignal = t">{{t.title}}</li> -->
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-6 col-md-6 col-xl-6">
+                        <div class="dropdown" ngbDropdown>
+                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{moneda1}} </button>
+                            <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
+                                <li class="dropdown-item" *ngFor="let coin of coins" (click)="selected('m1',coin.name)">{{coin.name}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 col-md-6 col-xl-6">
+                        <div class="dropdown" ngbDropdown>
+                            <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{moneda2}} </button>
+                            <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
+                                <li class="dropdown-item" *ngFor="let type of types" (click)="selected('m2',type.id)">{{type.id}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="inputgroup col-12 col-md-6 col-lg-6 col-xl-6">
+                <ngx-image (onImageSelected)="myFile = $event"></ngx-image>
+            </div>
+        </div>
+        <div class="row col inputgroup">
+            <label>Contenido de la señal</label>
+            <ngx-tiny-mce [height]="150" [serviceFolder]="'signals'" (onEditorKeyup)="contenido1 = $event">
+            </ngx-tiny-mce>
+        </div>
+        <div class="row col inputgroup">
+            <label>Analisis Tecnico</label>
+            <ngx-tiny-mce [height]="90" [serviceFolder]="'signals'" (onEditorKeyup)="contenido2 = $event">
+            </ngx-tiny-mce>
+        </div>
+        <div class="row col inputgroup">
+            <div class="col-12 col-sm-6 col-md-6">
+                <div class="row col-lg-6 col-xl-6" id="puntEntr">
+                    <div class="row">
+                        <h5>Puntos de entrada</h5>
+                        <i class="fa fa-info-circle fa-1" [ngbTooltip]="tipContent"></i>
+                    </div>
+                    <div class="row">
+                        <div class="contenedor input-group" id="puntEntr-data">
+                            <span class="input-group-addon">Punto {{puntEntr}}</span>
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Valor (USD)" (keyup)="keyPress($event)">
+                            <!-- <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="% Capital"> -->
+                            <span id="btn" class="input-group-btn container-btn d-block d-sm-block d-md-block d-lg-none">
+                                <button class="btn btn-secondary btn-tn" (click)="onClickPuntos($event,'puntEntr',puntEntr)" data-toggle="tooltip" data-placement="top"
+                                    title="Añadir Punto">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </span>
+                            <span id="btn" class="input-group-btn">
+                                <button class="btn btn-secondary d-none d-sm-none d-md-none d-lg-block" (click)="onClickPuntos($event,'puntEntr',puntEntr)">
+                                    Añadir
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-lg-6 col-xl-6" id="stopLoss">
+                    <div class="row" style="width:100%">
+                        <h5>Stop Loss</h5>
+                        <i class="fa fa-info-circle fa-1" [ngbTooltip]="tipContent"></i>
+                    </div>
+                    <div class="row">
+                        <div class="contenedor input-group" id="stopLoss-data">
+                            <span class="input-group-addon">Punto {{stopLoss}}</span>
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Valor (USD)" (keyup)="keyPress($event)">
+                            <!-- <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="% Capital"> -->
+                            <span id="btn" class="input-group-btn container-btn d-block d-sm-block d-md-block d-lg-none">
+                                <button class="btn btn-secondary btn-tn" (click)="onClickPuntos($event,'stopLoss',stopLoss)" data-toggle="tooltip" data-placement="top"
+                                    title="Añadir Punto">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </span>
+                            <span id="btn" class="input-group-btn">
+                                <button class="btn btn-secondary d-none d-sm-none d-md-none d-lg-block" (click)="onClickPuntos($event,'stopLoss',stopLoss)">
+                                    Añadir
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <!-- <div class="row col" style="width:100%">
+                    <h5>Tipo de salido</h5>
+                </div>
+                <div class="row col">
+                    <div class="dropdown" ngbDropdown>
+                        <button class="btn btn-primary" type="button" ngbDropdownToggle>
+                            {{ selectTipoSalida.title }}
+                        </button>
+                        <ul class="dropdown-menu" ngbDropdownMenu>
+                            <li class="dropdown-item" *ngFor="let v of TipoSalida" (click)="this.selectTipoSalida = v">{{ v.title }}</li>
+                        </ul>
+                    </div>
+                </div> -->
+                <div class="row col col-lg-6 col-xl-6" id="tipSal">
+                    <div class="row">
+                        <h5>Puntos de entrada</h5>
+                        <i class="fa fa-info-circle fa-1" [ngbTooltip]="tipContent"></i>
+                    </div>
+                    <div class="row">
+                        <div class="contenedor input-group" id="tipSal-data">
+                            <span class="input-group-addon">Punto {{tipSal}}</span>
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Valor (USD)" (keyup)="keyPress($event)">
+                            <!-- <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="% Capital"> -->
+                            <span id="btn" class="input-group-btn container-btn d-block d-sm-block d-md-block d-lg-none">
+                                <button type="button" class="btn btn-secondary btn-tn" (click)="onClickPuntos($event,'tipSal',tipSal)" data-toggle="tooltip"
+                                    data-placement="top" title="Añadir Punto">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </span>
+                            <span id="btn" class="input-group-btn">
+                                <button class="btn btn-secondary d-none d-sm-none d-md-none d-lg-block" (click)="onClickPuntos($event,'tipSal',tipSal)">
+                                    Añadir
+                                </button>
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- <ng-template #msg>
+                    <div class="row col">
+                        <nb-card>
+                            <nb-card-header>
+                                Tome Nota
+                            </nb-card-header>
+                            <nb-card-body>
+                                Por cada subida de precio, nuestro sistema calculara puntos de salida condicional (stop profit). Enviara al autor una notificacion
+                                de tales puntos, si lo desea puede modificarlos, de lo contrario, el sistema enviara una
+                                notificacion, 5 minutos despues, a los seguidores de la señal
+                            </nb-card-body>
+                        </nb-card>
+                    </div>
+                </ng-template> -->
+            </div>
+        </div>
+    </div>
+</nb-card-body>
+<nb-card-footer>
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-4 col-md-6">
+                <button class="btn btn-hero-secondary btn-demo btn-sm btn-md btn-lg" (click)="open(content)"> Vista Previa </button>
+            </div>
+            <div class="col-5 col-md-3 col-lg-2 col-xl-2">
+                <button class="btn btn-success btn-sm btn-md btn-lg" (click)="onSave()"> Publicar </button>
+            </div>
+        </div>
+    </div>
+</nb-card-footer>
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Modal title</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>One fine body&hellip;</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="c('Close click')">Close</button>
+    </div>
+</ng-template>
+
+<ng-template #tipContent>
+    <b>Datos permitidos</b>
+    <br>
+    <small>
+        <p>Solo se permiten valores de un margen del 30% del precio actual de cada moneda</p>
+    </small>
+</ng-template>

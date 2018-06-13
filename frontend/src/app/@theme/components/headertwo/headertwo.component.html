@@ -1,0 +1,110 @@
+<div class="header-container left">
+    <div class="container-btn d-block d-sm-block d-md-none">
+        <a class="btn btn-secondary btn-tn">
+            <i class="fa fa-edit"></i>
+        </a>
+    </div>
+    <div class="container-btn d-block d-sm-block d-md-none">
+        <a class="btn btn-secondary btn-tn">
+            <i class="fa fa-signal"></i>
+        </a>
+    </div>
+    <div class="container-btn d-block d-sm-block d-md-none">
+        <a class="btn btn-secondary btn-tn">
+            <i class="fa fa-newspaper-o"></i>
+        </a>
+    </div>
+    
+    <div class="container-btn d-block d-sm-block d-md-none">
+        <a class="btn btn-secondary btn-tn">
+            <i class="fa fa-credit-card"></i>
+        </a>
+    </div>
+    <div class="container-btn d-block d-sm-block d-md-none">
+        <a class="btn btn-secondary btn-tn">
+            <i class="fa fa-address-book"></i>
+        </a>
+    </div>
+    <div class="container-btn d-block d-sm-block d-md-none">
+        <a class="btn btn-secondary btn-tn">
+            <i class="fa fa-search"></i>
+        </a>
+    </div>
+    <ul class="nav left">
+        <li class="nav-item">
+            <a class="nav-link d-none d-sm-none d-md-block" (click)="routerLink('/pages/publish')">
+                <span>{{ 'publish' | translate | uppercase }}</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link d-none d-sm-none d-md-block" (click)="routerLink('/pages/signals/signals-list')">
+                <span>{{ 'signals' | translate | uppercase}}</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link d-none d-sm-none d-md-block" (click)="routerLink('/pages/news/news-list')">
+                <span>{{ 'news' | translate | uppercase}}</span>
+            </a>
+        </li>
+        <div class="dropdown ghost-dropdown dropheader" ngbDropdown>
+            <button class="btn btn-primary d-none d-sm-none d-md-block" type="button" ngbDropdownToggle style="border: 0px;cursor: pointer;">
+                {{ 'market' | translate | uppercase }}
+            </button>
+            <ul class="dropdown-menu" ngbDropdownMenu style="width: 150%;">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Buscar">
+                </div>
+                <div class="dropdown-divider"></div>
+                <li class="dropdown-submenu dropdown-item" *ngFor="let market of markets">
+                    <a class="dropdown ghost-dropdown" ngbDropdown>{{market.nombre}}</a>
+                    <ul class="dropdown-menu submenu" style="width: 150%">
+                        <li class="dropdown-item">
+                            <a>Action</a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a href="#">Action</a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a href="#">Action</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <li class="nav-item">
+            <a class="nav-link d-none d-sm-none d-md-block" (click)="routerLink('/pages/chat')">
+                <span>{{ 'advice' | translate | uppercase }}</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<nb-actions size="medium" class="header-container right">
+    <nb-action>
+        <div class="">
+            <a href="#" class="ion ion-social-youtube"></a>
+        </div>
+    </nb-action>
+    <nb-action>
+        <div class="">
+            <a href="#" class="ion ion-social-twitter"></a>
+        </div>
+    </nb-action>
+    <nb-action>
+        <div class="">
+            <a href="#" class="ion ion-social-facebook"></a>
+        </div>
+    </nb-action>
+    <nb-action>
+        <h6 class="text-hint">Siguenos : </h6>
+    </nb-action>
+    <nb-action>
+        <div>
+            <label>
+                {{ 'HOME.SELECT' | translate }}
+                <select #langSelect (change)="translate.use(langSelect.value)">
+                    <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+                </select>
+            </label>
+        </div>
+    </nb-action>
+</nb-actions>

@@ -1,0 +1,149 @@
+<nb-card>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-8">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span *ngIf="reciever.id!=undefined">
+                        <nb-user [picture]="reciever.picture" [name]="reciever.name" [title]="reciever.status"></nb-user>
+                    </span>
+                    <div ngbDropdown placement="left-top" class="d-inline-block pull-right">
+                        <button class="btn btn-outline-primary" [disabled]="reciever.id==undefined" id="dropdownBasic1" ngbDropdownToggle>
+                            <i class="fa fa-cog"></i>
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1" style="right: 0; left: auto;">
+                            <a class="dropdown-item" (click)="open(finish)">finalizar</a>
+                            <a class="dropdown-item" (click)="open(paypop)">iniciar</a>
+                            <a class="dropdown-item" href="#">borrar</a>
+                            <a class="dropdown-item" href="#">eliminar</a>
+                        </div>
+                    </div>
+                </div>
+                <!--end card header-->
+                <div class="card-body overflow-auto">
+                    <span *ngFor="let message of messages" [ngSwitch]="message.senderId">
+                        <div *ngSwitchCase="undefined">
+                            <div class="col text-center">
+                                <span class="badge badge-secondary">{{message.message}}</span>
+                            </div>
+                        </div>
+                        <div *ngSwitchCase="getuserId()" class="row justify-content-end text-right">
+                          <div class="col-auto">
+                                 <div class="card bg-primary text-white">
+                                   <div class="card-body p-2">
+                                         <p class="mb-0">
+                                                {{message.message}}
+                                         </p>
+                                  <div>
+                                     <i class="icon-check text-small"></i>
+                                  <small class="opacity-60">1:07pm</small>
+                                 </div>
+                           </div>
+                         </div>
+                        </div>
+                         </div>
+                        <div *ngSwitchDefault="" class="row justify-content-start">
+                            <div class="col-auto">
+                                <div class="card bg-secondary">
+                                    <div class="card-body p-2">
+                                        <p class="mb-0">
+                                           {{message.message}}
+                                        </p>
+                                    </div>
+                                </div>
+                             </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="card-footer bg-secondary">
+                    <form class="d-flex align-items-center">
+                        <div class="input-group input-group-lg">
+                            <input class="form-control" type="text" [(ngModel)]="msg" required placeholder="Type a message" name="message" />
+                            <div class="input-group-append">
+                                    <button class="btn btn-secondary" type="button" (click)="sendMsg()">
+                                    <i class="fa fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--end of col-->
+            <div class="col-12 col-md-4">
+                <form class="card-header d-none d-lg-block">
+                    <input class="form-control form-control-lg" type="search" placeholder="Search chat" />
+                </form>
+                <div class="list-group list-group-chat list-group-flush overflow-auto">
+                    <span *ngFor="let c of contacts">
+                        <a class="list-group-item list-group-item-action" (click)="openUser(c.id,c.username,'person',c.perfil, paypop)">
+                            <div class="media">
+                                <img alt="Image" src="{{c.perfil}}" class="avatar avatar-sm m-0" />
+                                <div class="media-body d-none d-lg-block ml-2">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h6 class="mb-0">{{c.username}}
+                                        <span class="badge badge-indicator badge-success"></span>
+                                        </h6>
+                                        <div>
+                                            <small class="text-muted">1 hour ago</small>
+                                        </div>
+                                    </div>
+                                    <span class="text-muted text-small col-11 p-0 text-truncate d-block">Let's keep those protoypes 100</span>
+                                </div>
+                            </div>
+                        </a>
+                    </span>
+                </div>
+            </div>
+            <!--end of col-->
+        </div>
+        <!--end of row-->
+    </div>
+    <!-- popover de chat paga  -->
+    <ng-template #paypop let-c="close" let-d="dismiss">
+            <div class="modal-header">
+                  <h4 class="modal-title">chat de paga</h4>
+                  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+            </div>
+            <div class="modal-body">
+                <p>este chat se cobrar por mensaje que envie</p>
+                <button class="btn btn-primary" (click)="setType('pay'); c('close click')"> continuar </button>
+                <p>tambien puede solicitar un chat gratuito</p>
+                <div class="offset-sm-3 col-sm-9">
+                        <button class="btn btn-primary" (click)="setType('free');sendRequest();c('close click')" >solicitar</button>
+                        <button class="btn btn-primary" (click)="c('close click')">cancelar</button>
+                </div>
+            </div>
+    </ng-template>
+    <!-- popover de finalizacion -->
+    <ng-template #finish let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title">finalizar chat</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>esta seguro que desea finalizar su chat</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" (click)="c('close click');open(qualify);finishchat()">SI</button>
+            <button type="button" class="btn btn-danger" (click)="c('Close click')">NO</button>
+        </div>
+        </ng-template>
+        <ng-template #qualify let-c="close" let-d="dismiss">
+            <div class="modal-header">
+                <h4>califique la experiencia</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ha sido util la experiencia
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" (click)="c('close click')">SI</button>
+                <button type="button" class="btn btn-danger" (click)="c('Close click')">NO</button>
+            </div>
+        </ng-template>
+</nb-card>

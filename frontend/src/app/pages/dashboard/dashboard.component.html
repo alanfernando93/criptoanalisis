@@ -1,0 +1,113 @@
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <ngb-carousel>
+          <ng-template ngbSlide *ngFor="let noticia of news">
+            <a [routerLink]="['/pages/news/news-view', noticia.id]">
+              <div class="carousel-caption" *ngFor="let content of noticia.contentUser">
+                <h6 class="titlenews" [innerHTML]="noticia.titulo"></h6>
+                <p class="font-w-light user">{{content.username}}</p>
+                <p class="badge badge-primary font-w-light user">{{content.precision}} P</p>
+                <p class="badge badge-success font-w-light user" *ngFor="let famaUser of content.fama.firstTwo">{{famaUser.valor}} {{famaUser.symbol}}</p>
+              </div>
+              <img src="{{noticia?.perfilLink}}" alt="Random first slide" width="500" height="450">
+            </a>
+          </ng-template>
+        </ngb-carousel>
+      </div>
+      <div class="col-12 col-md-6" *ngIf="signals ; else otroTexto">
+        <div class="list-group" *ngFor="let signals of signals">
+          <div class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+              <a [routerLink]="['/pages/signals/signals-view', signals.id]" class="flex-column align-items-start">
+                <div *ngIf="signals.tipo == true; else otro">
+                  <h6 class="text-success">
+                    Comprar
+                  </h6>
+                </div>
+                <ng-template #otro>
+                  <h6 class="text-danger">
+                    Vender
+                  </h6>
+                </ng-template>
+              </a>
+              <small class="text-muted">{{signals.FechaCreate | amTimeAgo}}</small>
+            </div>
+            <div *ngFor="let content of signals.contentUser">
+              <small class="text-muted">{{content.username}}</small>
+              <p class="badge badge-primary font-w-light user">{{content.puntos}} P</p>
+              <p class="badge badge-success font-w-light user" *ngFor="let famaUser of content.fama.firstTwo">{{famaUser.valor}} {{famaUser.symbol}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row block-level-buttons">
+          <div class="col-md-12">
+            <a class="btn btn-outline-primary btn-block" [routerLink]="['/pages/signals/list']">ver mas</a>
+          </div>
+        </div>
+      </div>
+      <ng-template #otroTexto>
+        <div class="col-12 col-md-6">
+          <div class="list-group">
+            <div class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between">
+                <a class="flex-column align-items-start">
+                  <h6 class="mb-4 signal_user">titulo</h6>
+                </a>
+                <small class="text-muted">fecha</small>
+              </div>
+              <small class="text-muted">Juan Jose Perez Perez</small>
+              <p class="badge badge-primary font-w-light user">97 P</p>
+              <p class="badge badge-success font-w-light user">51 F</p>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-12">
+        <div class="card-group">
+          <div class="card">
+            <img class="card-img-top" src="../../../assets/images/camera2.jpg" alt="Card image cap">
+            <div class="card-block">
+              <h4 class="card-title btn-hero-primary">Noticias</h4>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is
+                a little bit longer.</p>
+              <a href="#" class="btn btn-primary btn-tn">Button</a>
+              <p class="card-text">
+                <small class="text-muted">Last updated 3 mins ago</small>
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <img class="card-img-top" src="../../../assets/images/camera4.jpg" alt="Card image cap">
+            <div class="card-block">
+              <h4 class="card-title">Card title</h4>
+              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="btn btn-primary btn-tn">Button</a>
+              <p class="card-text">
+                <small class="text-muted">Last updated 3 mins ago</small>
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <img class="card-img-top" src="../../../assets/images/camera3.jpg" alt="Card image cap">
+            <div class="card-block">
+              <h4 class="card-title">Card title</h4>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even
+                longer content than the first to show that equal height action.</p>
+              <a href="#" class="btn btn-primary btn-tn">Button</a>
+              <p class="card-text">
+                <small class="text-muted">Last updated 3 mins ago</small>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

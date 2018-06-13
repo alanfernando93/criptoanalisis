@@ -1,0 +1,43 @@
+<div class="row" *ngFor="let comment of coment let i = index">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="panel-body">
+                    <div class="chat">
+                        <div class="com">
+                            <h5 class="text-body">Comentario</h5>
+                            <li class="left clearfix" *ngIf="comment.user">
+                                <ngx-userDesign dataCommUser="comment.user" dataUserPerfil="comment.user.perfil" dataUserSymbol="comment.user.username" [dataUserName]="comment.user.username"
+                                    [dataUserPuntos]="comment.user.puntos" [dataUserFama]="comment.user.fama.firsttwo" [dataUserImage]="comment.user.perfil" [dataUserId]="comment.userId"></ngx-userDesign>
+                                <div class="chat-body clearfix mar-top">
+                                    <p>{{comment.contenido}}</p>
+                                    <p class="text-hint">{{comment.fecha_registro | amTimeAgo}}</p>
+                                </div>
+                            </li>
+                        </div>
+                        <div class="res">
+                            <h5 class="text-body">Respuesta</h5>
+                            <div *ngFor="let answer of comment.res">
+                                <li class="left clearfix" *ngIf="answer.user">
+                                    <ngx-userDesign dataCommUser="answer.user" dataUserPerfil="answer.user.perfil" [dataUserSymbol]="answer.user.username" [dataUserName]="answer.user.username"
+                                        [dataUserPuntos]="answer.user.puntos" [dataUserFama]="answer.user.fama.firsttwo" [dataUserImage]="answer.user.perfil" [dataUserId]="answer.userId"></ngx-userDesign>
+                                    <div class="chat-body clearfix mar-top">
+                                        <p>{{answer.contenido}}</p>
+                                        <p class="text-hint">{{answer.fecha_registro | amTimeAgo}}</p>
+                                    </div>
+                                </li>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control resinput" name="{{i}}" placeholder="Escribe tu respuesta aqui"
+                                    minlength="4" required="required"/>
+                                </div>
+                                <button type="submit" [disabled]="submitted" [class.btn-pulse]="submitted"  class="btn btn-primary btn-tn resbotton" id="btn-chat" (click)="onAnswer($event)">Responder</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

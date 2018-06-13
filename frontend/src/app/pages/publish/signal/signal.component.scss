@@ -1,0 +1,80 @@
+@import '../../../@theme/styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/bootstrap/breakpoints';
+
+@include nb-install-component() {
+    .inputgroup {
+        padding-top: 15px;
+        width: 100%;
+        padding-bottom: 15px;
+        label{
+            width: 100%;
+        }
+    }
+
+    .contenedor{
+        width: 75%;
+        height: 40px;
+        span{
+            font-size: 11px;
+            button{
+                font-size: 11px;
+                padding: 10px;                
+            }
+        }
+        input{
+            width: 80px;
+            font-size: 11px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }	
+        /* all */
+        ::-webkit-input-placeholder { 
+            font-size: 10px;
+        }
+        ::-moz-placeholder { 
+            font-size: 10px;
+        } /* firefox 19+ */
+        :-ms-input-placeholder { 
+            font-size: 10px;
+        } /* ie */
+        input:-moz-placeholder { 
+            font-size: 10px;
+        }
+    }
+
+    @include media-breakpoint-down(xs) {
+        .contenedor{
+            height: 35px;
+            span[class="input-group-addon"]{
+                font-size: 11px;
+                padding: 6px;
+            }
+            input{
+                width: 73px;
+                font-size: 11px;
+                padding-left: 10px;
+                padding-right: 10px;
+            }	
+        }
+        div[class="row justify-content-between"]{
+            button{
+                padding: 10px;
+            }
+        }
+        
+    }
+
+    @include media-breakpoint-down(md){
+        span[id="btn"]{
+            button{
+                font-size: 9px;
+                padding: 4px;  
+                height: 100%;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;              
+            }
+        }
+    }
+    
+}

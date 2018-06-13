@@ -1,0 +1,85 @@
+// themes - our custom or/and out of the box themes
+@import 'themes';
+
+// framework component themes (styles tied to theme variables)
+@import '~@nebular/theme/styles/globals';
+@import '~@nebular/auth/styles/all';
+@import '../components/layout/layout.component';
+
+// loading progress bar theme
+@import './pace.theme';
+
+// install the framework and custom global styles
+@include nb-install() {
+
+  // framework global styles
+  @include nb-theme-global();
+  @include nb-auth-global();
+
+  // loading progress bar
+  @include ngx-pace-theme();
+};
+
+a{
+  text-decoration: none !important;
+}
+
+.caro1{
+  .carousel-control-prev {
+    top: -130px;
+  }
+  .carousel-control-next {
+    top: -130px;
+  }
+}
+.caro2{
+  .carousel-control-prev {
+    top: -25px;
+  }
+  .carousel-control-next {
+    top: -25px;
+  }
+}
+.caro3{
+  .carousel-control-prev {
+    top: -70px;
+  }
+  .carousel-control-next {
+    top: -70px;
+  }
+}
+.caro4{
+  .carousel-control-prev {
+    top: 65px;
+  }
+  .carousel-control-next {
+    top: 65px;
+  }
+}
+.carousel-control-next-icon{
+  background-color: black;
+}
+.carousel-control-next {
+  width: 5%;
+}
+.carousel-control-prev-icon{
+  background-color: black;
+}
+.carousel-control-prev {
+  width: 5%;
+}
+
+.carousel-indicators .active {
+  background-color: transparent;
+}
+
+.popover{
+  max-width: 370px !important;
+}
+
+.info-container {
+  color: #777777;
+  &:hover{
+    color: #B3A9A9;
+  }
+}

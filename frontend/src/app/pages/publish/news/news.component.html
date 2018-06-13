@@ -1,0 +1,115 @@
+<div *ngIf="isPreload" >
+  <ngx-preload></ngx-preload>
+</div>
+<form [formGroup]="Form">
+  <nb-card-body>
+    <div class="container">
+      <div class="row col">
+        <div class="col-md-6">
+          <div class="row inputgroup">
+            <input type="text" placeholder="Titulo de la noticia" [(ngModel)]="newsPublish.titulo" class="form-control" formControlName="title">
+            <p class="text-danger">
+              <span *ngIf="Form.controls['title'].touched && !Form.controls['title'].valid">
+                titulo es requerido
+              </span>
+            </p>
+          </div>
+          <div class="row input-group">
+            <div class="dropdown" ngbDropdown>
+              <button class="btn btn-outline-primary" type="button" ngbDropdownToggle> {{selectedView.name}} </button>
+              <ul class="dropdown-menu scroll-list" ngbDropdownMenu>
+                <li class="dropdown-item" *ngFor="let coin of coins" (click)="this.selectedView = coin">{{coin.name}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <ngx-image (onImageSelected)="myFile = $event"></ngx-image>
+        </div>
+      </div>
+
+      <div class="row col inputgroup">
+        <label for="inputContenNews">Contenido de la noticia</label>
+        <ngx-tiny-mce [height]="150" (onEditorKeyup)="content1 = $event" [serviceFolder]="'news'">
+        </ngx-tiny-mce>
+      </div>
+      <div class="row col inputgroup">
+        <label>Conjeturas sobre el precio</label>
+        <ngx-tiny-mce [height]="90" (onEditorKeyup)="content2 = $event" [serviceFolder]="'news'">
+        </ngx-tiny-mce>
+      </div>
+      <div class="row col inputgroup">
+        <label>Conjeturas sobre otras monedas (* Opcional)</label>
+        <ngx-tiny-mce [height]="90" (onEditorKeyup)="content3 = $event" [serviceFolder]="'news'">
+        </ngx-tiny-mce>
+      </div>
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="row justify-content-between">
+      <div class="col-md-6">
+        <button class="btn btn-hero-secondary btn-demo"> Cancelar </button>
+        <button class="btn btn-lg btn-primary" (click)="open(content)"> Vista Previa </button>
+      </div>
+      <div class="col-md-3">
+        <button class="btn btn-success" id="submit" [disabled]="!Form.valid && !myFile" (click)="onSave($event)"> Publicar </button>
+      </div>
+    
+    </div>
+  </nb-card-footer>
+</form>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Preview News</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <nb-card>
+      <nb-card-header>
+        <div class="row col">
+          <div class="col-12 col-md-10">
+            <h4 [innerHTML]="newsPublish.titulo"></h4>
+          </div>
+          <div class="col-6 col-md-2">
+            <h1>
+              <span class="badge badge-secondary">{{selectedView.name}}</span>
+            </h1>
+          </div>
+          <div class="col-6 col-md-12">
+            <!-- <span class=" text-primary date">{{news.fecha_create | amTimeAgo}}</span> -->
+          </div>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <div class="row col">
+          <div class="col-12 col-md-12 text-body" [innerHTML]="content1"></div>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <div class="row col">
+          <!-- <p class="col-md-6">Fuente : {{news.fuentes}}</p> -->
+        </div>
+      </nb-card-footer>
+    </nb-card>
+    <nb-card>
+      <nb-card-body>
+        <div class="row col">
+          <div class="col-12 col-md-6">
+            <h2>Conjetura de precio :</h2>
+            <span [innerHTML]="content2"></span>
+          </div>
+          <div class="col-12 col-md-6">
+            <h2>Confetura a otra Moneda :</h2>
+            <span [innerHTML]="content3"></span>
+          </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
