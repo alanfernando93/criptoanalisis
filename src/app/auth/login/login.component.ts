@@ -4,7 +4,7 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
 import { Component, OnInit } from '@angular/core';
-import { NbLoginComponent, NbAuthService } from '@nebular/auth';
+import { NbLoginComponent, NbAuthService, defaultSettings } from '@nebular/auth';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 
 @Component({
@@ -92,4 +92,10 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
   `,
 })
 export class NgxLoginComponent extends NbLoginComponent {
+  constructor(
+    router: Router,
+    service: NbAuthService
+  ){
+    super(service, defaultSettings, router);
+  }
 }
