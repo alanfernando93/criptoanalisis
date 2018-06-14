@@ -1,21 +1,5 @@
 # Dependencias
 -[Angular Cli](https://github.com/angular/angular-cli/blob/master/packages/angular/cli/README.md#installation)
--[Nodejs](https://nodejs.org/es/download)
--[Yarn](https://yarnpkg.com/es-ES/docs/install#debian-stable)
-
-# Pasos para la instalacion del frontend
- - Paso 1: Instale Node js, minimamente desde la version 8.9.4 , encuentra el 
-   codigo fuente en el link oficial [Nodejs.org](https://nodejs.org/es/download)
- - Paso 2: Instalar NPM de forma global minimamente desde la version 6.0.0: npm install -g
- - Paso 3: Instale el @angular cli de forma global: npm install -g @angular/cli
- - Paso 4: Haga un git clone del repositorio
- - Paso 5: Cambie a la rama develop, para tener la version mas actual
- - Paso 6: Haga un "npm install" para tener los modulos instalados
- - Paso 8: Haga npm start, para iniciar el frontend y backend
-
-
-# Dependencias
--[Angular Cli](https://github.com/angular/angular-cli/blob/master/packages/angular/cli/README.md#installation)
 -[Nodejs 8.9.4](https://nodejs.org/es/download)
   - Npm < version 6.0.0
 -[Yarn](https://yarnpkg.com/es-ES/docs/install#debian-stable)
@@ -44,7 +28,9 @@ Desde terminal
 $ ./init
 ```
 
-# 
+Ingresar por el navegador a 
+ -localhost:5000 **Backend**
+ -loaclhost:5100 **Frontend**
 
 # My Application
 
