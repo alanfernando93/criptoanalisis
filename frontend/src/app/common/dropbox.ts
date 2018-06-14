@@ -12,23 +12,6 @@ export class DropboxCripto {
   constructor() {
     this.dbx = new Dropbox({ accessToken: dBox.token });
     this.dbx.setClientId(dBox.key);
-    // this.dbx.file
-    // this.dbx.filesDownload({ path: '/alan.png' }).then(resp => {
-      // let image = new Image();
-      // let img = document.getElementById('image');
-      // console.log(document.getElementById('image'));
-      // image.src = resp.link;
-      // var canvas = document.createElement("canvas");
-      // canvas.width = image.width;
-      // canvas.height = image.height;
-      // var ctx = canvas.getContext("2d");
-      // ctx.drawImage(image, 0, 0);
-      // var dataURL = canvas.toDataURL();
-      // console.log(dataURL)
-      // console.log(resp);
-    // })
-
-    // console.log(this.dropbox.getAuthenticationUrl('/'));
   }
 
   getFileListForlder() {

@@ -1,12 +1,9 @@
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
  
-
-
 const routes: Routes = [
   { 
     path: 'pages', 
-    //canActivate: [AuthGuard], // here we tell Angular to check the access with our AuthGuard
     loadChildren: 'app/pages/pages.module#PagesModule'
   },{
     path: 'user',

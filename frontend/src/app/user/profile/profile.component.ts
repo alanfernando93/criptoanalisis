@@ -1,10 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Session } from '../../@core/data/session';
 import { UserService } from "../../@core/data/users.service";
 import { profileService } from '../profile.service';
-import { forEach } from "@angular/router/src/utils/collection";
 
 @Component({
   selector: "ngx-profile",

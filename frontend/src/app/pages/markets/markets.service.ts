@@ -7,22 +7,22 @@ import { environment } from '../../../environments/environment';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class MarketsService extends Session{
+export class MarketsService extends Session {
 
     private baseUrl = this.getApiRest();
 
-    constructor(private http: Http){
+    constructor(private http: Http) {
         super()
     }
 
-    getMarkets(){
+    getMarkets() {
         return this.http.get(this.baseUrl + 'mercados' + this.getAuth())
-                        .map((res: Response) => res.json())
+            .map((res: Response) => res.json())
     }
 
-    getMarketId(id){
+    getMarketId(id) {
         return this.http.get(this.baseUrl + 'mercados/' + id + this.getAuth())
-                        .map((res: Response) => res.json());
+            .map((res: Response) => res.json());
     }
 
     getAuth() {

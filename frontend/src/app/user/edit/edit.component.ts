@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { UserService } from "../../@core/data/users.service";
 
@@ -56,10 +55,8 @@ export class EditComponent implements OnInit {
     this.myFile = files[0];
     if (files && files[0]) {
       var reader = new FileReader();
-
-      reader.readAsDataURL(files[0]); // read file as data url
-
-      reader.onload = (event: any) => { // called once readAsDataURL is completed
+      reader.readAsDataURL(files[0]);
+      reader.onload = (event: any) => {
       console.log(event.target);
         this.url = event.target.result;
       }

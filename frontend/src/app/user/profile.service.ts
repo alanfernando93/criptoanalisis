@@ -1,8 +1,6 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
 import {Http} from '@angular/http';
 import {Session} from '../@core/data/session';
-import { environment } from "../../environments/environment";
 
 @Injectable()
 export class profileService extends Session{
