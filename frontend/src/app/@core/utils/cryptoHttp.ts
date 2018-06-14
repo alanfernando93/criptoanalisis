@@ -1,32 +1,56 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { _GLOBAL } from '../../common/ConfigSettings';
+import { Session } from '../data/session';
 
-export class CryptoHttp {
+interface Params {
+    body: Object;
+    filter?: Filter;
+    token?: Boolean;
+}
+
+interface Filter {
+    where?: any;
+    fields?: any;
+}
+
+export class CryptoHttp extends Session {
 
     private baseUrl = _GLOBAL.apiUrl;
 
     constructor(
         private http: HttpClient
-    ) { }
+    ) { super(); }
 
-    get(model: string) {
-        return this.http.get(`${this.baseUrl}${model}`).toPromise().catch(this.handleError);
+    model(model: string) {
+        return {
+            get: (query) => {
+                return this.request(model, 'get', query);
+            },
+
+            post: (body: any) => {
+                return this.request(model, 'post', body);
+            },
+
+            put: (body: any) => {
+                return this.request(model, 'put', body);
+            },
+
+            delete: () => {
+                return this.request(model, 'delete');
+            }
+        }
     }
 
-    post(model: string, body: any) {
-        return this.http.post(`${this.baseUrl}${model}`, body).toPromise().catch(this.handleError);
-    }
-
-    put(model: string, body: any) {
-        return this.http.put(`${this.baseUrl}${model}`, body).toPromise().catch(this.handleError);
-    }
-
-    delete(model: string) {
-        return this.http.delete(`${this.baseUrl}${model}`).toPromise().catch(this.handleError);
+    private request = (url, method, params?: Params) => {
+        return this.http[method](`${this.baseUrl}${url}`, params).toPromise().catch(this.handleError);
     }
 
     private handleError = (err: HttpErrorResponse) => {
+
+    }
+
+    private Filter = (types: any) => {
 
     }
 
