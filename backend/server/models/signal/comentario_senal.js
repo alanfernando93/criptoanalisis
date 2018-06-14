@@ -1,5 +1,5 @@
 'use strict';
-var _variable = require('../variable');
+var _variable = require('../../variable');
 
 module.exports = (Comentariosenal) => {
   Comentariosenal.afterRemote('create', (ctx, user, next) => {
