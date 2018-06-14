@@ -22,9 +22,6 @@
             <ng-template #elseBlock>
                 <i class="fa fa-2x fa-male"></i>
             </ng-template>
-            <!-- <ng-template #thenBlock>
-                <i class="fa fa-user-graduate"></i>
-            </ng-template> -->
         </div>
     </nb-card-header>
 </nb-card>
@@ -122,60 +119,4 @@
         <button type="submit" [disabled]="submitted || !contenido.valid || contenido.required" [class.btn-pulse]="submitted" class="btn btn-success pull-right btn-sm"
             (click)="sendComment()">Comentar</button>
     </nb-card-footer>
-</nb-card>
-<nb-card>
-    <nb-card-header>
-        <div class="row">
-            <div class="col-12 col-md-6">
-                <div class="dropdown" ngbDropdown>
-                    <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
-                        Mas Noticias
-                    </button>
-                    <ul class="dropdown-menu" ngbDropdownMenu>
-                        <li class="dropdown-item">
-                            <a href="">Icon Button 4</a>
-                        </li>
-                        <li class="dropdown-item">Hero Button</li>
-                        <li class="dropdown-item">Default</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-12 col-md-6">
-                <div class="dropdown" ngbDropdown>
-                    <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
-                        Señales
-                    </button>
-                    <ul class="dropdown-menu" ngbDropdownMenu>
-                        <li class="dropdown-item">Icon Button 4</li>
-                        <li class="dropdown-item">Hero Button</li>
-                        <li class="dropdown-item">Default</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-12 col-md-6">
-                <div class="dropdown" ngbDropdown>
-                    <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
-                        Tutoriales
-                    </button>
-                    <ul class="dropdown-menu" ngbDropdownMenu>
-                        <li class="dropdown-item">Icon Button 4</li>
-                        <li class="dropdown-item">Hero Button</li>
-                        <li class="dropdown-item">Default</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-12 col-md-6">
-                <div class="dropdown" ngbDropdown>
-                    <button class="btn btn-outline-primary" type="button" ngbDropdownToggle>
-                        Dropdown
-                    </button>
-                    <ul class="dropdown-menu" ngbDropdownMenu>
-                        <li class="dropdown-item">Icon Button 4</li>
-                        <li class="dropdown-item">Hero Button</li>
-                        <li class="dropdown-item">Default</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nb-card-header>
 </nb-card>
