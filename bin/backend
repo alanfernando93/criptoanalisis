@@ -1,5 +1,7 @@
 #! /bin/bash
 cd backend/
+node dboptions/create-fakedata.js
+node dboptions/create-proddata.js
 if [ ! -e $HOME/loop/ ];then
     mkdir $HOME/loop/
 fi
