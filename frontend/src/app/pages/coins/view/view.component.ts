@@ -18,14 +18,5 @@ export class ViewComponent implements OnInit {
     }
 
     ngOnInit(){
-        //this.getCoins();
     }
-    /*
-
-    getCoins() {
-        this.coinsService.getAll().subscribe(data => {
-            data ? this.coins = data : {};
-        });
-    }
-    */
 }

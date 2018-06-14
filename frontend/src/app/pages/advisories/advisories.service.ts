@@ -10,11 +10,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
  export class AdvisoriesService extends Session{
     private baseUrl = this.getApiRest()
-    //private token = environment.usertoken;
     private userId = this.getUserId();
-    
-    
-    
     
     constructor(private http: Http){
       super()

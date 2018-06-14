@@ -81,10 +81,6 @@ export class SignalComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.idSignal != null) {
-      // this.newsService.getById(this.idNew).then(resp => {
-      //   this.newsPublish = resp;
-      //   this.contenido = this.newsPublish.contenido;
-      // });
     }
     this.coinsService.getAll().subscribe(resp => {
       this.coins = resp;
@@ -230,10 +226,9 @@ export class SignalComponent implements OnInit, OnDestroy {
 
     var data = {
       valor: data1.value,
-      // porcentajeCapital: data2.value,
       puntoId: 0
     };
-    if (!data1.value /*|| !data2.value*/) {
+    if (!data1.value) {
       showToast(this.toasterService, 'info', '!!!Campo vacio');
       return
     }
@@ -255,7 +250,6 @@ export class SignalComponent implements OnInit, OnDestroy {
     const content = this.renderer.createElement('div');
     this.renderer.addClass(content, "contenedor");
     this.renderer.addClass(content, "input-group");
-    // this.renderer.setProperty(content, "id", option + "-data");
 
     const span = this.renderer.createElement('span');
     this.renderer.addClass(span, "input-group-addon");
@@ -280,27 +274,6 @@ export class SignalComponent implements OnInit, OnDestroy {
       }
       input.disabled = true;
     });
-
-    // const d2 = this.renderer.createElement('input');
-    // this.renderer.addClass(d2, "form-control");
-    // this.renderer.setProperty(d2, 'aria-label', "Amount (to the nearest dollar)");
-    // this.renderer.setProperty(d2, 'type', "text");
-    // this.renderer.setProperty(d2, 'value', data2.value + " %");
-    // this.renderer.setAttribute(d2, 'disabled', 'true');
-    // this.renderer.setProperty(d2, "id", ptn - 1);
-    // this.renderer.listen(d2, 'change', $events => {
-    //   console.log(this.posEntrada)
-    //   var input = $events.target;
-    //   switch (option) {
-    //     case 'entryPoint': this.posEntrada[input.id].porcentajeCapital = input.value.split(' ')[0];
-    //       break;
-    //     case 'tipoSalida': this.posSalida[input.id].porcentajeCapital = input.value.split(' ')[0];
-    //       break;
-    //     case 'stopLoss': this.posLoss[input.id].porcentajeCapital = input.value.split(' ')[0];
-    //       break;
-    //   }
-    //   input.disabled = true;
-    // });
 
     const edit = this.renderer.createElement('span');
     this.renderer.addClass(edit, "input-group-btn");
@@ -337,7 +310,6 @@ export class SignalComponent implements OnInit, OnDestroy {
       const oldBody = $event.target.closest('.row');
       const content = $event.target.closest('#' + option)
       content.removeChild(oldBody);
-      // this.renderer.removeChild(content, oldBody);
       this.refresh(option, id);
     });
     this.renderer.appendChild(remove, bremove);
@@ -348,7 +320,6 @@ export class SignalComponent implements OnInit, OnDestroy {
 
     this.renderer.appendChild(content, span);
     this.renderer.appendChild(content, d1);
-    // this.renderer.appendChild(content, d2);
     this.renderer.appendChild(content, edit);
     this.renderer.appendChild(content, remove);
 
@@ -358,7 +329,6 @@ export class SignalComponent implements OnInit, OnDestroy {
     this.renderer.insertBefore(container, _body, container.children[lenght - 1]);
 
     data1.value = '';
-    // data2.value = '';
 
     switch (option) {
       case 'entryPoint': this.entryPoint += 1;
@@ -372,7 +342,6 @@ export class SignalComponent implements OnInit, OnDestroy {
         break;
     }
     $events.target.closest(`#${option}-data`).children[1].disabled = true;
-    // $events.target.closest(`#${option}-data`).children[2].disabled = true;
     $events.target.closest(`#${option}-data`).children[2].children[0].disabled = true;
     $events.target.closest(`#${option}-data`).children[3].children[0].disabled = true;
   }
@@ -394,8 +363,7 @@ export class SignalComponent implements OnInit, OnDestroy {
     }
 
     (<HTMLInputElement>document.getElementById(`${opc}-data`).children[1]).disabled = false;
-    // (<HTMLInputElement>document.getElementById(`${opc}-data`).children[2]).disabled = false;
-    (<HTMLInputElement>document.getElementById(`${opc}-data`).children[2].children[0]).disabled = false;
+   (<HTMLInputElement>document.getElementById(`${opc}-data`).children[2].children[0]).disabled = false;
     (<HTMLInputElement>document.getElementById(`${opc}-data`).children[3].children[0]).disabled = false;
   }
 

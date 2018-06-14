@@ -11,17 +11,6 @@ import { DOCUMENT } from '@angular/common';
   providers:[ ChatService ]
 })
 export class ChatComponent implements OnInit {
-  /**
-   * variables
-   * contactos : variables para los contactos
-   * msg : el mensaje que se emitira
-   * connection: variable de conexion para el socket
-   * chatType: pay o free dependiendo de la configuracion
-   * rooms : variable para guardar las salas de chat de monedas
-   * closeResult: cerrar popovers
-   * reciever : es el sujeto del chat
-   * freechat : id del la solicitud de chat gratuito
-   */
   modalRef: NgbModalRef;
   contacts = [];
   msg : string;
@@ -55,9 +44,7 @@ export class ChatComponent implements OnInit {
       this.contacts = data;
     });
   };
-  // se conecta al usuario y deja la anterios sala
   openUser(id, name, type, picture, content){
-    //dejamos la sala anterior y nos unimos a la nueva
     if((this.reciever.id== id && this.reciever.type != type) || (this.reciever.id!= id && this.reciever.type == type) || this.reciever.id == undefined) {
       if(this.reciever) {
         if(this.reciever.type == 'person')
@@ -81,14 +68,12 @@ export class ChatComponent implements OnInit {
             this.chatType = 'free';
             this.freechat = data.requests[0].id;
           } else {
-            // abrir popover para preguntar tipo
             this.open(content);    
             this.chatType = undefined;
           }
         });
         this.getoldMessages(id);
       } else {
-        // flujo de sala de chat
         this.chatService.joinRoom(name);
         this.getoldMessages(name);
       };
@@ -137,21 +122,18 @@ export class ChatComponent implements OnInit {
       return  `with: ${reason}`;
     }
   }
-  // finalizacion de un chat
   finishchat(content){
     switch (this.chatType) {
       case 'free': {
         this.chatType = undefined;
         this.chatService.finishFreeChat(this.reciever.id).subscribe(data=>{
         });
-        // poner consulta de finalizacion
         break;
       }
       case 'pay': {
         this.chatType = undefined;
         this.chatService.finishPayChat(this.reciever.id).subscribe(data=>{
         });
-        // poner consulta de finalizacion
         break;
       };
       default :{

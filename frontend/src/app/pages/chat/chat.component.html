@@ -18,7 +18,6 @@
                         </div>
                     </div>
                 </div>
-                <!--end card header-->
                 <div class="card-body overflow-auto">
                     <span *ngFor="let message of messages" [ngSwitch]="message.senderId">
                         <div *ngSwitchCase="undefined">
@@ -93,11 +92,8 @@
                     </span>
                 </div>
             </div>
-            <!--end of col-->
         </div>
-        <!--end of row-->
     </div>
-    <!-- popover de chat paga  -->
     <ng-template #paypop let-c="close" let-d="dismiss">
             <div class="modal-header">
                   <h4 class="modal-title">chat de paga</h4>
@@ -115,7 +111,6 @@
                 </div>
             </div>
     </ng-template>
-    <!-- popover de finalizacion -->
     <ng-template #finish let-c="close" let-d="dismiss">
         <div class="modal-header">
             <h4 class="modal-title">finalizar chat</h4>
