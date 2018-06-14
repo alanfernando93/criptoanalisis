@@ -7,7 +7,7 @@ var _assign = require('babel-runtime/core-js/object/assign');
 var _assign2 = _interopRequireDefault(_assign);
 var _async = require('async');
 var _async2 = _interopRequireDefault(_async);
-var _variable = require('../variable');
+var _variable = require('../../variable');
 var Dropbox = require('dropbox').Dropbox;
 var dbx = new Dropbox({accessToken: _variable.token});
 dbx.setClientId(_variable.key);

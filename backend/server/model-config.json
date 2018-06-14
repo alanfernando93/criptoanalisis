@@ -4,6 +4,16 @@
       "loopback/common/models",
       "loopback/server/models",
       "../common/models",
+      "./models/user",
+      "./models/storage",
+      "./models/notification",
+      "./models/suscripcion",
+      "./models/transaction",
+      "./models/asesoria",
+      "./models/news",
+      "./models/signal",
+      "./models/coin",
+      "./models/chat",
       "./models"
     ],
     "mixins": [
