@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'ngx-preload',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   <div class="preload">
     <img src="../../../../assets/images/preload.gif" alt="">
   </div>`,
-  styleUrls: ['./preload.component.scss']
+  styleUrls: ['./preload.component.scss'],
 })
 export class PreloadComponent {
 

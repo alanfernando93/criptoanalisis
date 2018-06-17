@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { _GLOBAL } from '../../common/ConfigSettings';
 import { Session } from '../data/session';
@@ -19,7 +18,7 @@ export class CryptoHttp extends Session {
     private baseUrl = _GLOBAL.apiUrl;
 
     constructor(
-        private http: HttpClient
+        private http: HttpClient,
     ) { super(); }
 
     model(model: string) {
@@ -38,7 +37,7 @@ export class CryptoHttp extends Session {
 
             delete: () => {
                 return this.request(model, 'delete');
-            }
+            },
         }
     }
 
@@ -50,7 +49,7 @@ export class CryptoHttp extends Session {
 
     }
 
-    private Filter = (types: any) => {
+    private filter = (types: any) => {
 
     }
 

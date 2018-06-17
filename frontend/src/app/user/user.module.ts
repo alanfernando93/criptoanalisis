@@ -8,6 +8,7 @@ import { MomentModule } from 'angular2-moment';
 import { EditComponent } from './edit/edit.component';
 import { NewsModule } from '../pages/news/news.module';
 import { SignalsModule } from '../pages/signals/signals.module';
+import { ProfileService } from './profile.service';
 
 const USER_COMPONENTS = [
     UserComponent,
@@ -21,13 +22,13 @@ const USER_COMPONENTS = [
         ThemeModule,
         MomentModule,
         NewsModule,
-        SignalsModule
+        SignalsModule,
     ],
     exports: [
     ],
     declarations: [
         ...USER_COMPONENTS,
     ],
-    providers: [],
+    providers: [ProfileService],
 })
 export class UserModule { }

@@ -48,13 +48,13 @@ const routes: Routes = [{
     {
         path: 'view/:advisoryId/disputa' ,
        component: DisputaComponent,
-    }
-    
-    ]
+    },
+
+    ],
 }];
 @NgModule({
     imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 
 export class AdvisoryRoutingModule {}

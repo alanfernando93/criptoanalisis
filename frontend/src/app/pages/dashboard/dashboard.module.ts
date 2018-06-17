@@ -8,12 +8,12 @@ import { MomentModule } from 'angular2-moment';
   imports: [
     ThemeModule,
     DashboardRoutingModule,
-    MomentModule
+    MomentModule,
   ],
   declarations: [
     DashboardComponent,
-    ...routedComponents
+    ...routedComponents,
   ],
-  
+
 })
 export class DashboardModule { }

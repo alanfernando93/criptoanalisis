@@ -3,9 +3,9 @@
  * Copyright Akveo. All Rights Reserved.
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NbLoginComponent, NbAuthService, defaultSettings } from '@nebular/auth';
-import { ActivatedRoute, Router, Params } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-login',
@@ -14,8 +14,8 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 export class NgxLoginComponent extends NbLoginComponent {
   constructor(
     router: Router,
-    service: NbAuthService
-  ){
+    service: NbAuthService,
+  ) {
     super(service, defaultSettings, router);
   }
 }

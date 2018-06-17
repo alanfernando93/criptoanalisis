@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
 import { Session } from '../../@core/data/session';
-import { environment } from '../../../environments/environment';
 
 import 'rxjs/add/operator/map';
 
@@ -10,7 +8,7 @@ import 'rxjs/add/operator/map';
 export class CoinsService extends Session {
 
     private baseUrl = this.getApiRest();
-    private table = "monedas";
+    private table = 'monedas';
 
     constructor(private http: Http) {
         super()
@@ -22,7 +20,7 @@ export class CoinsService extends Session {
     }
 
     getById(id) {
-        return this.http.get(this.baseUrl + this.table + "/" + id + this.getAuth())
+        return this.http.get(this.baseUrl + this.table + '/' + id + this.getAuth())
             .map((res: Response) => res.json());
     }
 
@@ -31,12 +29,12 @@ export class CoinsService extends Session {
             .map((res: Response) => res.json());
     }
 
-    getAuth(filter:any = "") {
+    getAuth(filter: any = '') {
         return `?${filter}access_token=${this.getToken()}`
       }
 
     getTitle() {
-        return this.http.get(this.baseUrl + "titulos" + this.getAuth())
+        return this.http.get(this.baseUrl + 'titulos' + this.getAuth())
             .map(resp => resp.json())
     }
 
@@ -46,19 +44,19 @@ export class CoinsService extends Session {
     }
 
     getTextForm(file) {
-        return this.http.get(this.baseUrl + "containers/forms/download/" + file)
+        return this.http.get(this.baseUrl + 'containers/forms/download/' + file)
             .map(resp => resp)
     }
 
     setCoinContent(coin, id) {
         coin.usuarioId = this.getUserId();
-        if (id === "undefined")
-            return this.http.post(this.baseUrl + "contenidoMonedas" + this.getAuth(), coin).map(resp => resp.json());
+        if (id === 'undefined')
+            return this.http.post(this.baseUrl + 'contenidoMonedas' + this.getAuth(), coin).map(resp => resp.json());
         else
             return this.http.put(`${this.baseUrl}contenidoMonedas/${id}${this.getAuth()}`, coin).map(resp => resp.json());
     }
 
-    getTitleConclusion(id, filter:any = "") {
+    getTitleConclusion(id, filter: any = '') {
         return this.http.get(`${this.baseUrl}titulos/${id}/contenido${this.getAuth(filter)}`).map(resp => resp.json())
     }
 }

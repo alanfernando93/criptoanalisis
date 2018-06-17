@@ -1,16 +1,16 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ImageCropperComponent, CropperSettings, Bounds } from 'ng2-img-cropper';
-import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
+import { Component, Input, ViewChild } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
+import { ToasterService, ToasterConfig } from 'angular2-toaster';
 
 import { parseToFile, showToast } from '../../../common/functions';
 import { configImage } from '../../../common/ConfigSettings';
 
 @Component({
-  selector: 'ngbd-modal-content',
-  templateUrl: './croppermodal.component.html'
+  selector: 'ngx-cropper',
+  templateUrl: './cropper.component.html',
 })
-export class CropperModalComponent {
+export class CropperComponent {
   config: ToasterConfig;
   @Input() name;
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
@@ -20,7 +20,7 @@ export class CropperModalComponent {
 
   constructor(
     public activeModal: NgbActiveModal,
-    private toasterService: ToasterService
+    private toasterService: ToasterService,
   ) {
     this.cropperSettings = new CropperSettings();
     this.cropperSettings.noFileInput = true;
@@ -42,12 +42,12 @@ export class CropperModalComponent {
   }
 
   fileChangeListener($event) {
-    var maximo = 1000000; //4.8 Mb esto es para probar 
-    //max y min 
-    var image: any = new Image();
-    var file: File = $event.target.files[0];
-    var myReader: FileReader = new FileReader();
-    let format = configImage.type.find(element => element === file.type)
+    const maximo = 1000000; // 4.8 Mb esto es para probar
+    // max y min
+    const image: any = new Image();
+    const file: File = $event.target.files[0];
+    const myReader: FileReader = new FileReader();
+    const format = configImage.type.find(element => element === file.type)
     // console.log(`${format} == ${file.type}`);
     if (format === undefined) {
       showToast(this.toasterService, 'warning', configImage.message.warning);
@@ -55,12 +55,12 @@ export class CropperModalComponent {
     };
 
     myReader.onloadend = (loadEvent: any) => {
-      if (loadEvent.target.result == "") {
+      if (loadEvent.target.result === '') {
         showToast(this.toasterService, 'error', configImage.message.error);
         return;
       }
       image.src = loadEvent.target.result;
-      console.log(image.height + 'px X ' + image.width + "px");
+
       this.cropper.setImage(image);
       showToast(this.toasterService, 'success', configImage.message.success);
     };

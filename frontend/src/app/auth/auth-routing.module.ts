@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { NgxAuthComponent } from "./auth.component";
-import { NgxAuthBlockComponent } from "./auth-block/auth-block.component";
-import { NgxLoginComponent } from "./login/login.component";
-import { NgxRegisterComponent } from "./register/register.component";
-import { NgxLogoutComponent } from "./logout/logout.component";
-import { NgxRequestPasswordComponent } from "./request-password/request-password.component";
-import { NgxResetPasswordComponent } from "./reset-password/reset-password.component";
+import { NgxAuthComponent } from './auth.component';
+import { NgxLoginComponent } from './login/login.component';
+import { NgxRegisterComponent } from './register/register.component';
+import { NgxLogoutComponent } from './logout/logout.component';
+import { NgxRequestPasswordComponent } from './request-password/request-password.component';
+import { NgxResetPasswordComponent } from './reset-password/reset-password.component';
 
-const routes: Routes = [{ 
+const routes: Routes = [{
     path: '',
     component: NgxAuthComponent,
     children: [
@@ -37,7 +36,7 @@ const routes: Routes = [{
         path: 'reset-password',
         component: NgxResetPasswordComponent,
       },
-    ], 
+    ],
 },
 ];
 

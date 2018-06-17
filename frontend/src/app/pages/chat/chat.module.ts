@@ -7,12 +7,12 @@ import { ChatService } from './chat.service';
 @NgModule({
   imports: [
     ThemeModule,
-    HttpModule
+    HttpModule,
   ],
-  declarations:[
+  declarations: [
     ChatComponent,
   ],
-  providers:[ChatService]
+  providers: [ChatService],
 })
 
 export class ChatModule {}

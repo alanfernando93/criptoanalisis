@@ -3,7 +3,7 @@ import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular
 @Component({
   selector: 'ngx-search-input',
   templateUrl: './search-input.component.html',
-  styleUrls: ['./search-input.component.scss']
+  styleUrls: ['./search-input.component.scss'],
 })
 export class SearchInputComponent {
   @ViewChild('input') input: ElementRef;

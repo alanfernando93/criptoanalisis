@@ -1,39 +1,26 @@
-import { Component, OnDestroy, OnInit, Input } from '@angular/core';
-import { Router } from "@angular/router";
-import {
-  NbMediaBreakpoint,
-  NbMediaBreakpointsService,
-  NbMenuItem,
-  NbMenuService,
-  NbSidebarService,
-  NbThemeService
-} from "@nebular/theme";
-import { NbAuthJWTToken, NbAuthService } from "@nebular/auth";
+import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { UserService } from "../../../@core/data/users.service";
+import { UserService } from '../../../@core/data/users.service';
 
-import { Subscription } from "rxjs/Subscription";
-import "rxjs/add/operator/withLatestFrom";
-import "rxjs/add/operator/delay";
+import 'rxjs/add/operator/withLatestFrom';
+import 'rxjs/add/operator/delay';
 import { MENU_ITEMS } from '../../../pages/pages-menu';
 import { TranslateService } from '@ngx-translate/core';
 import { LangChangeEvent } from '@ngx-translate/core';
-import { MenuItem } from '../../../pages/menu-item';
+import { MenuItem } from '../../../common/menu-item';
 
-// import { MENU_ITEMS } from "../../../pages/pages-menu";
-
-// TODO: move layouts into the framework
 @Component({
-  selector: "nb-sample-layout",
-  styleUrls: ["./sample.layout.scss"],
+  selector: 'ngx-sample-layout',
+  styleUrls: ['./sample.layout.scss'],
   template: `
-  <nb-layout windowMode>    
+  <nb-layout windowMode>
     <nb-layout-header>
-      <ngx-header [position]="'right'"></ngx-header>    
+      <ngx-header [position]="'right'"></ngx-header>
     </nb-layout-header>
     <nb-layout-header>
-        <ngx-headertwo [position]="'right'"></ngx-headertwo>    
-    </nb-layout-header>      
+        <ngx-headertwo [position]="'right'"></ngx-headertwo>
+    </nb-layout-header>
     <nb-sidebar class="menu-sidebar" tag="menu-sidebar"
      responsive
      [right]="true">
@@ -80,7 +67,7 @@ import { MenuItem } from '../../../pages/menu-item';
       <ngx-footer></ngx-footer>
     </nb-layout-footer>
   </nb-layout>
-  `
+  `,
 })
 export class SampleLayoutComponent implements OnInit {
   @Input() menu: any = [];
@@ -89,15 +76,14 @@ export class SampleLayoutComponent implements OnInit {
   constructor(
     protected userService: UserService,
     protected router: Router,
-    private authService: NbAuthService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
   }
 
   ngOnInit() {
     this.menu = MENU_ITEMS;
     this.translateMenu();
-    this.translate.onLangChange.subscribe((event: LangChangeEvent) => { //Live reload
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
       this.translateMenu();
     });
     if (!this.userService.isAuth()) return;
@@ -121,9 +107,8 @@ export class SampleLayoutComponent implements OnInit {
       key = (prefix !== '')
         ? SampleLayoutComponent.getMenuItemKey(menuItem, prefix)
         : SampleLayoutComponent.getMenuItemKey(menuItem);
-    }
-    catch (e) {
-      //Key not found, don't change the menu item
+    } catch (e) {
+      // Key not found, don't change the menu item
       return;
     }
 
@@ -131,9 +116,9 @@ export class SampleLayoutComponent implements OnInit {
       menuItem.title = translation;
     });
     if (menuItem.children != null) {
-      //apply same on every child
+      // apply same on every child
       menuItem.children.forEach((childMenuItem: MenuItem) => {
-        //We remove the nested key and then use it as prefix for every child
+        // We remove the nested key and then use it as prefix for every child
         this.translateMenuTitle(childMenuItem, SampleLayoutComponent.trimLastSelector(key));
       });
     }
@@ -152,7 +137,7 @@ export class SampleLayoutComponent implements OnInit {
 
     const key = menuItem.key.toLowerCase();
     if (menuItem.children != null) {
-      return prefix + '.' + key + '.' + key; //Translation is nested
+      return prefix + '.' + key + '.' + key; // Translation is nested
     }
     return prefix + '.' + key;
   }
@@ -169,17 +154,17 @@ export class SampleLayoutComponent implements OnInit {
   }
 
   signin() {
-    this.router.navigate(["/auth/login"]);
+    this.router.navigate(['/auth/login']);
   }
 
   signup() {
-    this.router.navigate(["/auth/register"]);
+    this.router.navigate(['/auth/register']);
   }
   logout() {
     localStorage.clear();
-    this.router.navigate(["/"]);
+    this.router.navigate(['/']);
   }
   profile() {
-    this.router.navigate(["/user/profile"]);
+    this.router.navigate(['/user/profile']);
   }
 }

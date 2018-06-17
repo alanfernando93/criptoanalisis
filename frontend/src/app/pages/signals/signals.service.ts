@@ -3,7 +3,6 @@ import { Socket } from 'ng-socket-io';
 import { Http, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { environment } from '../../../environments/environment';
 import { Session } from '../../@core/data/session';
 
 import 'rxjs/add/operator/map';
@@ -24,7 +23,7 @@ export class SignalsService extends Session {
     }
 
     getSignals() {
-        let observable = new Observable(observer => {
+        const observable = new Observable(observer => {
             this.socket.on('insertSig', (data) => {
                 observer.next(data);
             });
@@ -36,7 +35,7 @@ export class SignalsService extends Session {
     }
 
     getSignalsCommen() {
-        let observable = new Observable(observer => {
+        const observable = new Observable(observer => {
             this.socket.on('signalCom', (data) => {
                 observer.next(data);
             });
@@ -48,7 +47,7 @@ export class SignalsService extends Session {
     }
 
     getSignalsAns() {
-        let observable = new Observable(observer => {
+        const observable = new Observable(observer => {
             this.socket.on('signalAns', (data) => {
                 observer.next(data);
             });
@@ -101,7 +100,7 @@ export class SignalsService extends Session {
 
     postSignalsComment(comments) {
         if (!this.isAuth()) {
-            return new Observable<any>(() => { this.router.navigate(["/auth/login"]) });
+            return new Observable<any>(() => { this.router.navigate(['/auth/login']) });
         }
         comments.userId = this.getUserId();
         return this.http.post(this.baseUrl + '/comentario_senals' + '?access_token=' + this.getToken(), comments)
@@ -140,7 +139,7 @@ export class SignalsService extends Session {
     }
 
     JoinComm(id) {
-        this.socket.emit("join", 'signals' + id);
+        this.socket.emit('join', 'signals' + id);
     }
 
 }

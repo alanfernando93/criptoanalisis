@@ -1,16 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Component, OnInit } from '@angular/core';
 
-import { NewsService } from "../news.service";
-import { UserService } from "../../../@core/data/users.service";
+import { NewsService } from '../news.service';
 import { orderData } from '../../../common/array';
 
 @Component({
-  selector: 'ngx-newsList',
-  templateUrl: './newsList.component.html',
-  styleUrls: ['./newsList.component.scss']
+  selector: 'ngx-news-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
 })
-export class newsListComponent implements OnInit {
+export class ListComponent implements OnInit {
 
   news: any;
   contentUser: any;
@@ -19,12 +17,12 @@ export class newsListComponent implements OnInit {
   increment: number = 0;
   connection;
 
-  
+
   constructor(
-    private http: Http,
-    private newsService: NewsService
-  ) { 
-    
+
+    private newsService: NewsService,
+  ) {
+
     this.getNews();
     this.newsSocket();
     this.getCount();
@@ -37,16 +35,16 @@ export class newsListComponent implements OnInit {
     this.newsService.getAllLimit(this.limit, this.increment).subscribe(data => {
       data ? this.news = data : {};
       this.news.forEach((element, index) => {
-        let newsId = this.news[index].id;
+        const newsId = this.news[index].id;
         this.userByNews(newsId, index);
       });
       this.increment += this.limit;
     });
   }
 
-  newsSocket(){
-    this.connection = this.newsService.getNews().subscribe(data=> {
-      let datos: any = data;
+  newsSocket() {
+    this.connection = this.newsService.getNews().subscribe(data => {
+      const datos: any = data;
       this.news.unshift(data);
       this.news.forEach((element, index) => {
         this.userByNews(datos.usuarioId, index);
@@ -54,7 +52,7 @@ export class newsListComponent implements OnInit {
     });
   }
 
-  userByNews(newsId, index){
+  userByNews(newsId, index) {
     this.newsService.getUserByNews(newsId).subscribe(data => {
       this.contentUser = data;
       orderData(this.contentUser);
@@ -64,20 +62,20 @@ export class newsListComponent implements OnInit {
       this.contentUser.fama.last = this.contentUser.fama.splice(0, this.contentUser.fama.length);
       this.news[index].contentUser = [];
       this.news[index].contentUser.push(data);
-      this.newsService.getNewsCommentCount(newsId).subscribe(data => {
+      this.newsService.getNewsCommentCount(newsId).subscribe(count => {
         this.news[index].count = [];
-        this.news[index].count.push(data);
+        this.news[index].count.push(count);
       });
     });
   }
 
   Upload() {
-    this.newsService.getAllLimit(this.limit, this.increment).subscribe(data => {
-      data.forEach(element => {
-        let idNews = element.id;
-        this.newsService.getUserByNews(idNews).subscribe(data => {
+    this.newsService.getAllLimit(this.limit, this.increment).subscribe(newsAll => {
+      newsAll.forEach(element => {
+        const idNews = element.id;
+        this.newsService.getUserByNews(idNews).subscribe(user => {
           element.contentUser = [];
-          element.contentUser.push(data);
+          element.contentUser.push(user);
           orderData(element.contentUser[0]);
           element.contentUser[0].fama.firstTwo = [];
           element.contentUser[0].fama.last = [];
@@ -94,7 +92,7 @@ export class newsListComponent implements OnInit {
     });
   }
 
-  getCount(){
+  getCount() {
     this.newsService.getNewsCount().subscribe(data => {
       this.count = data.count;
     });
