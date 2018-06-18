@@ -8,7 +8,6 @@
   "scripts": {
     "lint": "eslint .",
     "start": "node .",
-    "dev": "gulp serve",
     "posttest": "npm run lint && nsp check"
   },
   "dependencies": {
@@ -36,10 +35,6 @@
     "babel-register": "^6.26.0",
     "eslint": "^3.17.1",
     "eslint-config-loopback": "^8.0.0",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^5.0.0",
-    "gulp-babel": "^7.0.1",
-    "gulp-sourcemaps": "^2.6.4",
     "nsp": "^2.1.0"
   },
   "repository": {

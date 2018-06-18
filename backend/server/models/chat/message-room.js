@@ -1,7 +1,5 @@
-'use strict';
-
-module.exports = function(Messageroom) {
-  Messageroom.RoomMessage = function(room, cb) {
+export default function(Messageroom) {
+  Messageroom.RoomMessage = (room, cb) => {
     Messageroom.find({where: {RoomId: room}}, cb);
   };
   Messageroom.remoteMethod('RoomMessage', {

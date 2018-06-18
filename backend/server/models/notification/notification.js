@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function(Notification) {
+export default (Notification) => {
   Notification.changeStatus = function(req, res, cb) {
     Notification.updateAll({
       id: req.params.id,

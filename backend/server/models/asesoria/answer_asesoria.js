@@ -1,5 +1,3 @@
-'use strict';
-
-module.exports = function(Answer_asesoria) {
+export default (Answer_asesoria)=> {
 
 };

@@ -1,14 +1,14 @@
-'use strict';
 // tipo: true comprar false: vender;
-var io = require('socket.io-client');
-var _promise = require('babel-runtime/core-js/promise');
-var _promise2 = _interopRequireDefault(_promise);
-var _assign = require('babel-runtime/core-js/object/assign');
-var _assign2 = _interopRequireDefault(_assign);
-var _async = require('async');
-var _async2 = _interopRequireDefault(_async);
-var _variable = require('../../variable');
+import io from 'socket.io-client';
+import _promise from 'babel-runtime/core-js/promise';
+import _assign from 'babel-runtime/core-js/object/assign';
+import _async from 'async';
+import _variable from '../../variable';
+
 var Dropbox = require('dropbox').Dropbox;
+var _async2 = _interopRequireDefault(_async);
+var _assign2 = _interopRequireDefault(_assign);
+var _promise2 = _interopRequireDefault(_promise);
 var dbx = new Dropbox({accessToken: _variable.token});
 dbx.setClientId(_variable.key);
 function _interopRequireDefault(obj) {

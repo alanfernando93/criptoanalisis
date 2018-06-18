@@ -1,7 +1,6 @@
-'use strict';
-var _variable = require('../../variable');
+import _variable from '../../variable';
 
-module.exports = (Comentarionoticia) => {
+export default (Comentarionoticia) => {
   Comentarionoticia.afterRemote('create', (ctx, user, next) => {
     var io = Comentarionoticia.app.io;
     var news =  'news' + ctx.result.noticiaId;
