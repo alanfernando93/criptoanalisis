@@ -21,10 +21,5 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.analytics.trackPageViews();
-
-    // this.translate.addLangs(['en', 'fr', 'es']);
-    // this.translate.setDefaultLang('en');
-    // const browserLang = this.translate.getBrowserLang();
-    // this.translate.use(browserLang.match(/en|fr|es/) ? browserLang : 'en');
   }
 }

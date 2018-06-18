@@ -8,8 +8,6 @@
 
       </div>
     </nb-card>
-
-
     <div class="row" style="padding-bottom:15px">
       <div class="col-6">
         <div class="dropdown" ngbDropdown>
@@ -34,24 +32,11 @@
             <li class="dropdown-item">Default</li>
           </ul>
         </div>
-
-
       </div>
     </div>
-
-   
-    <ngx-advisoriesAll [listAdvisories]="advisories" ></ngx-advisoriesAll>
-
-  
-    
+    <ngx-advisoriesAll [listAdvisories]="advisories"></ngx-advisoriesAll>
   </nb-tab>
   <nb-tab tabTitle="mis Asesorias" *ngIf="user">
-    
-
-    <ngx-advisoriesAll [listAdvisories]="advisoriesbyid" ></ngx-advisoriesAll>
-    
-
+    <ngx-advisoriesAll [listAdvisories]="advisoriesbyid"></ngx-advisoriesAll>
   </nb-tab>
-
 </nb-tabset>
-

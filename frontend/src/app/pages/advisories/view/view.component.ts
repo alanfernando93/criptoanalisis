@@ -92,8 +92,7 @@ export class ViewComponent extends Session implements OnInit {
                 this.slots2[this.advisory.horarios[i].dia][this.advisory.horarios[i].hora]=1;
                     
                   }
-                   //this.onGetHorario.slots= this.advisory.horarios;
-             console.log(this.advisory.horarios+"estos son los horarios")
+             console.log(this.advisory.horarios+"estos son los horarios");
              console.log(this.tab);         
       });
     });

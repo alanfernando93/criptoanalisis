@@ -3,13 +3,9 @@
         <div class="col-12">
             <button type="button" class="btn btn-info btn-lg btn-block">Asesoria Personal Couching</button>
         </div>
-
     </div>
 </nb-card>
-
-<nb-card *ngIf="advisory">
-  
-    
+<nb-card *ngIf="advisory">  
     <div class="card-block" style="background-color:skyblue">
         <h4 class="card-title" style="padding:5px 5px 5px 15px">
             <strong>{{advisory.titulo}}</strong>
@@ -20,18 +16,9 @@
             <span *ngIf="advisory.mod1" class="badge badge-pill badge-primary small">virtual</span>&nbsp;&nbsp;
               <span *ngIf="advisory.mod2" class="badge badge-pill badge-danger small">presencial</span>
         </p>
-
-        
-            
-              
-            
-          
     </div>
-
-
 </nb-card>
 <nb-card *ngIf="advisory">
-
     <div class="row pad-top  mar-top" style="padding-left:10px;padding-right:20px">
         <div class="col-6">
             <small class="text-muted">
@@ -78,7 +65,6 @@
             Lunes a Viernes: 18:00 - 22:00
         </div>
     </div>
-
 </nb-card>
 <nb-card>
     <div class="row  pad-top" style="padding-left:10px;padding-right:20px">

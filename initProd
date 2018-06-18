@@ -1,6 +1,6 @@
 #! /bin/bash
 
-node backend/dboptions/create-fakedata.js
+node backend/dboptions/create-proddata.js
 if [ "$OS" == "Windows_NT" ] || [ "$OSTYPE" == "win32" ]; then
 	forego start -f Procfile.windows
 else

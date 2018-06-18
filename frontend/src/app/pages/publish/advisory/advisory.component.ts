@@ -3,8 +3,6 @@ import { Router } from "@angular/router";
 import { Http, Response } from "@angular/http";
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-// import { NewsService } from "../../../services/news.service";
-// import { CoinsService } from "../../../services/coins.service";
 import { AdvisoriesService } from "../../advisories/advisories.service";
 import { AdvisoriesComponent } from "../../advisories/advisories.component";
 import { scheduleComponent } from "../../../@theme/components/schedule/schedule.component";

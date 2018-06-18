@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
-
 import { AdvisoriesService } from '../advisories.service';
-
 
 @Component({
   selector: 'ngx-instruccion',
@@ -26,7 +24,6 @@ export class InstruccionComponent implements OnInit {
   getAdvisoryinstruccionById() {
     this.route.params.forEach((params: Params) => {
       this.id = params['advisoryId'];
-      ///let idview =params['idView'];
       this.advisoriesService.getAdvisoriesIntruccion(this.id).subscribe((advisories) => {
         this.advisory = advisories;
       });
