@@ -52,7 +52,7 @@
 *.swo
 *.swp
 *.tgz
-*.xml
+/backend/*.xml
 /backend/.DS_Store
 /backend/.idea
 /backend/.project
