@@ -107,11 +107,16 @@ module.exports = (Signal, ctx, ctx2) => {
       var d = ctx.result.dislikes;
       ctx.method.ctor.dislike(idn, idUser);
     }
+    next();
+  });
+  // enviar notificaciones
+  Signal.afterRemote('like', (ctx, signal, next)=>{
+    var idn = ctx.req.params.id;
+    var idUser = ctx.req.query.userId;
     var index2 = ctx.result.likes.users.indexOf(idUser);
     if (index2 > -1) {
       likenotif(idn, idUser, ctx.result.usuarioId);
     }
-    Signal.app.models.usuario.famaUser(idUser, _variable.rpl, coinSignal);
     next();
   });
 
@@ -444,6 +449,7 @@ module.exports = (Signal, ctx, ctx2) => {
   });
   function likenotif(signalId, userId, owner) {
     var io = Signal.app.io;
+    console.log('app object', Signal.app.io);
     Signal.app.models.notification.create({
       'tipo': 'likeSig',
       'senderId': signalId,
