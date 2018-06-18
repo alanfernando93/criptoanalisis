@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { Http } from '@angular/http';
 import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { AdvisoriesService } from '../../advisories/advisories.service';
@@ -62,7 +61,6 @@ export class AdvisoryComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    private http: Http,
     private advisoriesService: AdvisoriesService,
     private toasterService: ToasterService,
     private router: Router,
@@ -96,23 +94,32 @@ export class AdvisoryComponent implements OnInit {
     this.showToast(this.type, this.title, this.content);
     this.advisoriesPublish.tematica = this.tipoSignal.title;
     this.advisoriesPublish.ubicacion = 'lapaz';
+
     for (let i = 0; i < this.words2.length; i++) {
       this.temas.push(this.words2[i].value);
+
+
+
+
     }
 
 
     this.advisoriesPublish.temas_asesoria = this.temas;
     if (this.id1) {
       this.idiomas.push('español');
+
     }
     if (this.id2) {
       this.idiomas.push('ingles');
+
     }
     if (this.id3) {
       this.idiomas.push('aleman');
+
     }
     if (this.id4) {
       this.idiomas.push('frances');
+
     }
     if (this.mod1) {
       this.modalidad.push('virtual');
@@ -121,13 +128,19 @@ export class AdvisoryComponent implements OnInit {
       this.modalidad.push('presencial');
     }
 
+
+
     this.advisoriesPublish.idiomas = this.idiomas
     this.advisoriesPublish.modalidad = this.modalidad;
-    const body = new FormData();
+
+
     this.advisoriesService.insert(this.advisoriesPublish).subscribe(resp => {
       this.router.navigate(['/pages/advisories/list']);
     });
+
+
   }
+
   open(content) {
     this.modalService.open(content, { size: 'lg' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;

@@ -27,15 +27,16 @@ import {
   HeaderComponent,
   HeaderTwoComponent,
   ImageModalComponent,
+  CropperComponent,
   SearchInputComponent,
   TinyMCEComponent,
-  SignalAllComponent,
-  NewsAllComponent,
-  UserDesignComponent,
+  SignalBodyComponent,
+  NewsBodyComponent,
+  UserBodyComponent,
   CommentComponent,
   ComplaintComponent,
   ShareComponent,
-  AdvisoriesAllComponent,
+  AdvisoriesBodyComponent,
   PreloadComponent,
 } from './components';
 import { CapitalizePipe, PluralPipe, RoundPipe } from './pipes';
@@ -64,6 +65,7 @@ const NB_MODULES = [
 
 const COMPONENTS = [
   ImageCropperComponent,
+  CropperComponent,
   HeaderComponent,
   HeaderTwoComponent,
   ImageModalComponent,
@@ -72,13 +74,13 @@ const COMPONENTS = [
   TinyMCEComponent,
   SampleLayoutComponent,
   ScheduleComponent,
-  AdvisoriesAllComponent,
-  UserDesignComponent,
+  AdvisoriesBodyComponent,
+  UserBodyComponent,
   CommentComponent,
   ComplaintComponent,
   ShareComponent,
-  NewsAllComponent,
-  SignalAllComponent,
+  NewsBodyComponent,
+  SignalBodyComponent,
   PreloadComponent,
 ];
 

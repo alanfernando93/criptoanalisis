@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import * as moment from 'moment';
 
 @Component({
-    selector: 'ngx-newsAll',
-    templateUrl: './newsAll.component.html',
-    styleUrls: ['./newsAll.component.scss'],
+    selector: 'ngx-news-body',
+    templateUrl: './news-body.component.html',
+    styleUrls: ['./news-body.component.scss'],
 })
-export class NewsAllComponent {
+export class NewsBodyComponent {
 
     @Input() listNews: any;
     @Input() design: any;
@@ -16,12 +16,12 @@ export class NewsAllComponent {
     pagado: number = 50;
 
     constructor(
-      private router: Router,
+        private router: Router,
     ) {
         moment.locale('es');
     }
 
     routerLink(url, params?) {
-      this.router.navigate([url, params]);
+        this.router.navigate([url, params]);
     }
 }

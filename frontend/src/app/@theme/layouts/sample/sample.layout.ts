@@ -1,18 +1,73 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { NbAuthService } from '@nebular/auth';
+
 import { UserService } from '../../../@core/data/users.service';
+
 import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/delay';
 import { MENU_ITEMS } from '../../../pages/pages-menu';
 import { TranslateService } from '@ngx-translate/core';
 import { LangChangeEvent } from '@ngx-translate/core';
-import { MenuItem } from '../../../pages/menu-item';
+import { MenuItem } from '../../../common/menu-item';
 
 @Component({
-  selector: 'nb-sample-layout',
+  selector: 'ngx-sample-layout',
   styleUrls: ['./sample.layout.scss'],
-  templateUrl: './sample.layout.html',
+  template: `
+  <nb-layout windowMode>
+    <nb-layout-header>
+      <ngx-header [position]="'right'"></ngx-header>
+    </nb-layout-header>
+    <nb-layout-header>
+        <ngx-headertwo [position]="'right'"></ngx-headertwo>
+    </nb-layout-header>
+    <nb-sidebar class="menu-sidebar" tag="menu-sidebar"
+     responsive
+     [right]="true">
+      <nb-sidebar-header class="d-block d-sm-none" *ngIf="user">
+        <nb-user [menu]="" [name]="user?.username" [picture]="user?.perfil" ></nb-user>
+        <nb-action>
+          <span class="badge badge-secondary">2 $CA</span>
+        </nb-action>
+        <nb-action>
+          <span class="badge badge-secondary">17 F</span>
+        </nb-action>
+        <nb-action>
+          <span class="badge badge-secondary">25 P</span>
+        </nb-action>
+        <hr>
+        <div>
+          <nb-action>
+            <a class="btn btn-primary btn-tn" (click)="profile()">Profile</a>
+          </nb-action>
+          <nb-action>
+            <a class="btn btn-primary btn-tn" (click)="logout()">Log out</a>
+          </nb-action>
+        </div>
+      </nb-sidebar-header>
+
+      <nb-sidebar-header *ngIf="!user" class="d-block d-sm-none">
+        <nb-action>
+          <a class="btn btn-primary btn-tn" (click)="signup()">Sign Up</a>
+        </nb-action>
+        <nb-action>
+          <a class="btn btn-primary btn-tn" (click)="signin()" >Log In</a>
+        </nb-action>
+      </nb-sidebar-header>
+
+        <!-- <ng-content select="nb-menu"></ng-content> -->
+      <nb-menu [items]="menu" [autoCollapse]="true"></nb-menu>
+    </nb-sidebar>
+
+    <nb-layout-column class="main-content">
+      <ng-content select="router-outlet"></ng-content>
+    </nb-layout-column>
+
+    <nb-layout-footer fixed>
+      <ngx-footer></ngx-footer>
+    </nb-layout-footer>
+  </nb-layout>
+  `,
 })
 export class SampleLayoutComponent implements OnInit {
   @Input() menu: any = [];
@@ -21,7 +76,6 @@ export class SampleLayoutComponent implements OnInit {
   constructor(
     protected userService: UserService,
     protected router: Router,
-    private authService: NbAuthService,
     private translate: TranslateService,
   ) {
   }
@@ -29,7 +83,7 @@ export class SampleLayoutComponent implements OnInit {
   ngOnInit() {
     this.menu = MENU_ITEMS;
     this.translateMenu();
-    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => { // Live reload
       this.translateMenu();
     });
     if (!this.userService.isAuth()) return;
@@ -53,14 +107,17 @@ export class SampleLayoutComponent implements OnInit {
       key = (prefix !== '')
         ? SampleLayoutComponent.getMenuItemKey(menuItem, prefix)
         : SampleLayoutComponent.getMenuItemKey(menuItem);
-    }catch (e) {
+    } catch (e) {
+      // Key not found, don't change the menu item
       return;
     }
     this.translate.get(key).subscribe((translation: string) => {
       menuItem.title = translation;
     });
     if (menuItem.children != null) {
+      // apply same on every child
       menuItem.children.forEach((childMenuItem: MenuItem) => {
+        // We remove the nested key and then use it as prefix for every child
         this.translateMenuTitle(childMenuItem, SampleLayoutComponent.trimLastSelector(key));
       });
     }
@@ -79,7 +136,7 @@ export class SampleLayoutComponent implements OnInit {
 
     const key = menuItem.key.toLowerCase();
     if (menuItem.children != null) {
-      return prefix + '.' + key + '.' + key;
+      return prefix + '.' + key + '.' + key; // Translation is nested
     }
     return prefix + '.' + key;
   }

@@ -1,4 +1,4 @@
-import { MenuItem } from './menu-item';
+import { MenuItem } from '../common/menu-item';
 
 export const MENU_ITEMS: MenuItem[] = [{
   title: 'Dashboard',

@@ -1,5 +1,3 @@
-'use strict';
-
-module.exports = function(Mercado) {
+export default (Mercado) => {
 
 };

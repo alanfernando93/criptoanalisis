@@ -7,10 +7,10 @@ import { parseToFile, showToast } from '../../../common/functions';
 import { configImage } from '../../../common/ConfigSettings';
 
 @Component({
-  selector: 'ngbd-modal-content',
-  templateUrl: './croppermodal.component.html',
+  selector: 'ngx-cropper',
+  templateUrl: './cropper.component.html',
 })
-export class CropperModalComponent {
+export class CropperComponent {
   config: ToasterConfig;
   @Input() name;
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
@@ -42,7 +42,7 @@ export class CropperModalComponent {
   }
 
   fileChangeListener($event) {
-    const maximo = 1000000;
+    // max y min
     const image: any = new Image();
     const file: File = $event.target.files[0];
     const myReader: FileReader = new FileReader();

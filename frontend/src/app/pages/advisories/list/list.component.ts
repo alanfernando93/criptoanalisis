@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
 import { AdvisoriesService } from '../advisories.service';
 import { Session } from '../../../@core/data/session';
 import { UserService } from '../../../@core/data/users.service';
 import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
+
+
 
 @Component({
     selector: 'ngx-list-coach',
@@ -22,8 +23,8 @@ export class ListComponent extends Session implements OnInit {
     constructor(
         private userService: UserService,
         private authService: NbAuthService,
-        private AdvisoriesService: AdvisoriesService,
-        private http: Http,
+        private advisoriesService: AdvisoriesService,
+
     ) {
         super()
         this.authService.onTokenChange().subscribe((token: NbAuthJWTToken) => {
@@ -40,13 +41,13 @@ export class ListComponent extends Session implements OnInit {
         this.getadvisoriesbyid();
     }
     getAdvisories() {
-        this.AdvisoriesService.getAdvisories().subscribe(data => {
-            this.advisories = data;
+        this.advisoriesService.getAdvisories().subscribe(advisorie => {
+            this.advisories = advisorie;
             this.advisories.forEach((element, index) => {
                 const newsId = this.advisories[index].id;
-                this.AdvisoriesService.getUserByNews(newsId).subscribe(advisory => {
+                this.advisoriesService.getUserByNews(newsId).subscribe(user => {
                     this.advisories[index].contentUser = [];
-                    this.advisories[index].contentUser.push(advisory);
+                    this.advisories[index].contentUser.push(user);
                     this.advisories[index].mod1 = ' ';
                     this.advisories[index].mod2 = ' ';
                     this.advisories[index].mod1 = this.advisories[index].modalidad[0];
@@ -55,10 +56,12 @@ export class ListComponent extends Session implements OnInit {
 
                 });
             });
+
+
         });
     }
     getadvisoriesbyid() {
-        this.AdvisoriesService.getadvisoriesbyuserid(this.userId).subscribe(data => {
+        this.advisoriesService.getadvisoriesbyuserid(this.userId).subscribe(data => {
             this.advisoriesbyid = data;
         });
     }

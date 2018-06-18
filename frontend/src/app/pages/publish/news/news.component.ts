@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { ToasterService } from 'angular2-toaster';
 
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NewsService } from '../../news/news.service';
 import { CoinsService } from '../../coins/coins.service';
 
@@ -19,7 +19,7 @@ declare var tinymce: any;
   styleUrls: ['./news.component.scss'],
   templateUrl: 'news.component.html',
 })
-export class PublishNewsComponent implements OnInit {
+export class NewsComponent implements OnInit {
   @Input() idNew: String = null;
 
   myFile: any;
@@ -90,12 +90,12 @@ export class PublishNewsComponent implements OnInit {
     });
     Promise.all([this.editor1, this.editor2, this.editor3]).then(values => {
       this.newsPublish.tipo_moneda = this.selectedView.name;
-      this.newsService.insert(this.newsPublish).subscribe(resp => {
-        this.dropbox.imageUploadDropbox(this.myFile, this.newsService.getUserId(), 'news', 'perfil-' + resp.id).then(resp => {
+      this.newsService.insert(this.newsPublish).subscribe(news => {
+        this.dropbox.imageUploadDropbox(this.myFile, this.newsService.getUserId(), 'news', 'perfil-' + news.id).then(image => {
           this.isPreload = false;
           this.content = configCrud.message.success + ' noticias';
           showToast(this.toasterService, 'success', this.content);
-          this.router.navigate(['/pages/news/news-list']);
+          this.router.navigate(['/pages/news/list']);
         });
       }, error => {
         this.isPreload = false;
@@ -110,13 +110,4 @@ export class PublishNewsComponent implements OnInit {
     this.modalService.open(content, { size: 'lg' }).result.then((result) => { }, (reason) => { });
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
 }

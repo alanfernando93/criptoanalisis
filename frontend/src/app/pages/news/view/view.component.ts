@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { NewsService } from '../news.service';
 import { UserService } from '../../../@core/data/users.service';
 import { orderData } from '../../../common/array';
 
 @Component({
-  selector: 'ngx-newsView',
-  templateUrl: './newsView.component.html',
-  styleUrls: ['./newsView.component.scss'],
+  selector: 'ngx-news-view',
+  templateUrl: './view.component.html',
+  styleUrls: ['./view.component.scss'],
 })
-export class NewsViewComponent implements OnInit {
+export class ViewComponent implements OnInit {
 
   news: any;
   idNews: any;
@@ -28,12 +27,11 @@ export class NewsViewComponent implements OnInit {
   siExUser = this.newsService.siExisteUser();
 
   constructor(
-    private http: Http,
+
     private route: ActivatedRoute,
-    private router: Router,
     private newsService: NewsService,
     private userService: UserService) {
-    route.params.subscribe(val => {
+    this.route.params.subscribe(val => {
       this.idNews = val.newsId;
       this.getNewsCommentById();
       this.getCommentWithUser();

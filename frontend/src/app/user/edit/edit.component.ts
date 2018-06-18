@@ -25,10 +25,10 @@ export class EditComponent implements OnInit {
 
   ngOnInit() {
     if (localStorage.length !== 0) {
-      const id = localStorage.getItem('userId')
       this.userService.getCurrentUser().subscribe(resp => {
         this.user = resp;
         this.url = this.user.perfil;
+
       });
     }
   }
@@ -37,9 +37,9 @@ export class EditComponent implements OnInit {
     const body = new FormData();
     body.append('Key', this.user.username);
     body.append('Value', this.myFile);
-    this.userService.update(this.user).subscribe(resp => {
+    this.userService.update(this.user).subscribe(user => {
       if (this.myFile !== undefined && this.myFile !== this.user.perfil) {
-        this.userService.imageFileUpload(body).subscribe((resp) => {
+        this.userService.imageFileUpload(body).subscribe((image) => {
           this.router.navigate(['/' + this.userService.getUserId()]);
         });
       } else {

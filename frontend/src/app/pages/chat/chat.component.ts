@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ChatService} from './chat.service';
-import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import { ChatService } from './chat.service';
+import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-chat',
+  selector: 'ngx-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
-  providers: [ ChatService ],
+  providers: [ChatService],
 })
 export class ChatComponent implements OnInit, OnDestroy {
   modalRef: NgbModalRef;
@@ -20,7 +20,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   closeResult: string;
   reciever: any;
   freechat: number;
-  constructor(private chatService: ChatService, private modalService: NgbModal) {}
+  constructor(private chatService: ChatService, private modalService: NgbModal) { }
 
   ngOnInit() {
     this.reciever = {
@@ -52,11 +52,11 @@ export class ChatComponent implements OnInit, OnDestroy {
       }
       this.messages = [];
       this.reciever = {
-          id: id,
-          name: name,
-          picture: picture,
-          type: type,
-        }
+        id: id,
+        name: name,
+        picture: picture,
+        type: type,
+      }
       if (type === 'person') {
         // flujo de chat personal
         this.chatService.joinRoom(id);
@@ -78,7 +78,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
   };
   sendMsg() {
-    if (this.reciever.type === 'person' ) {
+    if (this.reciever.type === 'person') {
       this.chatService.sendMessage(this.msg, this.reciever.id, this.chatType);
     } else {
       this.chatService.sendMessage(this.msg, this.reciever.name, this.chatType);
@@ -86,7 +86,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.msg = '';
   }
   setType(type: string) {
-      this.chatType = type;
+    this.chatType = type;
   }
   getoldMessages(room: any) {
     this.chatService.getoldMessages(room).subscribe(data => {
@@ -117,7 +117,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       return 'by clicking on a backdrop';
     } else {
-      return  `with: ${reason}`;
+      return `with: ${reason}`;
     }
   }
   finishchat(content) {
@@ -134,7 +134,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         });
         break;
       };
-      default : {
+      default: {
         this.modalRef.close();
         break;
       }

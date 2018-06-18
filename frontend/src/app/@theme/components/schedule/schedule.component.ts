@@ -1,7 +1,5 @@
 
 import { Component, Output, Input, EventEmitter, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngx-schedule',
@@ -37,8 +35,9 @@ export class ScheduleComponent implements OnInit {
     hora: '',
   };
 
-  constructor(private route: ActivatedRoute) {
+  constructor( ) {
   }
+
   ngOnInit() {
     if (this.onGetHorario !== '') {
       this.slots = [];
@@ -83,6 +82,8 @@ export class ScheduleComponent implements OnInit {
           } else {
             this.slots[i][hour] = 0;
           }
+
+
         }
         break;
 
@@ -119,6 +120,9 @@ export class ScheduleComponent implements OnInit {
       }
       this.objsel.dia = day;
       this.objsel.hora = hour;
+
+
+
     }
     this.onGetObject.emit(this.vhorario);
   }

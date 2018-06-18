@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { CoinsService } from '../../coins/coins.service'
 import { MarketsService } from '../../markets/markets.service'
@@ -138,15 +138,6 @@ export class CoinComponent implements OnInit {
       else
         this.forms[enlace][tag.name] = tag.value;
     }
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC)
-      return 'by pressing ESC';
-    else if (reason === ModalDismissReasons.BACKDROP_CLICK)
-      return 'by clicking on a backdrop';
-    else
-      return `with: ${reason}`;
   }
 
   formatter = (x) => {

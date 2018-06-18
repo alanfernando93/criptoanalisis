@@ -6,13 +6,13 @@ import * as moment from 'moment';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'undefined-viewtwo',
+  selector: 'ngx-viewtwo',
   templateUrl: './viewtwo.component.html',
   styleUrls: ['./viewtwo.component.scss'],
 })
 export class ViewtwoComponent implements OnInit, OnDestroy {
   @ViewChild('content') content: TemplateRef<any>
-  select: Number = parseInt(Session.getStorage('select'));
+  select: Number = parseInt(Session.getStorage('select'), 10);
   titleContent: any;
 
   titleSelected: any;

@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
 
 import { Session } from '../../@core/data/session';
 
@@ -11,11 +10,10 @@ import { Session } from '../../@core/data/session';
 })
 
 export class PublishComponent implements OnInit, OnDestroy {
-    select: Number = parseInt(Session.getStorage('select'));
+    select: Number = parseInt(Session.getStorage('select'), 10);
     idNews: String;
 
     constructor(
-        private router: Router,
         private route: ActivatedRoute,
     ) {
         this.route.params.subscribe((param) => {

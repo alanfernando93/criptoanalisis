@@ -17,9 +17,12 @@ export class DropboxCripto {
       .then(response => {
 
         this.dbx.filesGetTemporaryLink({ path: response.entries[0].path_display }).then(resp => {
-        });
+
+        })
+
       })
       .catch(function (error) {
+
       });
   }
 
@@ -71,6 +74,7 @@ export class DropboxCripto {
   deleteImagesPublish(userId: any, folder: string, publishId: any) {
     folder = '/' + userId + '-' + folder + '-' + publishId;
     this.dbx.filesDelete({ path: folder }).then(response => {
-    });
+
+    })
   }
 }

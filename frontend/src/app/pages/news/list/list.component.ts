@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
 
 import { NewsService } from '../news.service';
 import { orderData } from '../../../common/array';
 
 @Component({
-  selector: 'ngx-newsList',
-  templateUrl: './newsList.component.html',
-  styleUrls: ['./newsList.component.scss'],
+  selector: 'ngx-news-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
 })
-export class NewsListComponent implements OnInit {
+export class ListComponent implements OnInit {
 
   news: any;
   contentUser: any;
@@ -18,9 +17,8 @@ export class NewsListComponent implements OnInit {
   increment: number = 0;
   connection: any;
 
-
   constructor(
-    private http: Http,
+
     private newsService: NewsService,
   ) {
 
@@ -63,20 +61,20 @@ export class NewsListComponent implements OnInit {
       this.contentUser.fama.last = this.contentUser.fama.splice(0, this.contentUser.fama.length);
       this.news[index].contentUser = [];
       this.news[index].contentUser.push(data);
-      this.newsService.getNewsCommentCount(newsId).subscribe(news => {
+      this.newsService.getNewsCommentCount(newsId).subscribe(count => {
         this.news[index].count = [];
-        this.news[index].count.push(news);
+        this.news[index].count.push(count);
       });
     });
   }
 
   Upload() {
-    this.newsService.getAllLimit(this.limit, this.increment).subscribe(data => {
-      data.forEach(element => {
+    this.newsService.getAllLimit(this.limit, this.increment).subscribe(newsAll => {
+      newsAll.forEach(element => {
         const idNews = element.id;
-        this.newsService.getUserByNews(idNews).subscribe(news => {
+        this.newsService.getUserByNews(idNews).subscribe(user => {
           element.contentUser = [];
-          element.contentUser.push(data);
+          element.contentUser.push(user);
           orderData(element.contentUser[0]);
           element.contentUser[0].fama.firstTwo = [];
           element.contentUser[0].fama.last = [];

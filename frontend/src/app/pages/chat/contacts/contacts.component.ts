@@ -49,20 +49,21 @@ export class ContactsComponent implements OnInit, OnDestroy {
     this.themeSubscription.unsubscribe();
   }
   getStatus(id: number) {
-    if (id === parseInt(localStorage.getItem('userId'))) {
+    if (id === parseInt(localStorage.getItem('userId'), 10))
       return 'pendiente'
-    } else {
+    else
       return 'solicitado'
-    }
   }
   ReqResponse(id: number, state: boolean) {
     this.requests.forEach((element, index) => {
       if (id === element.id) {
         if (state) {
           this.chatService.AcceptRequest(element.id).subscribe(data => {
+
           });
         } else {
           this.chatService.RejectRequest(element.id).subscribe(data => {
+
           });
         }
         this.requests.splice(index, 1);

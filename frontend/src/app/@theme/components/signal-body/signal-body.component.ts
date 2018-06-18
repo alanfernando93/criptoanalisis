@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import * as moment from 'moment';
 
 @Component({
-    selector: 'ngx-signalAll',
-    templateUrl: './signalAll.component.html',
-    styleUrls: ['./signalAll.component.scss'],
+    selector: 'ngx-signal-body',
+    templateUrl: './signal-body.component.html',
+    styleUrls: ['./signal-body.component.scss'],
 })
-export class SignalAllComponent {
+export class SignalBodyComponent {
 
     @Input() listSignal: any;
     @Input() design: any;

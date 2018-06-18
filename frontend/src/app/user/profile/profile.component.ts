@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../@core/data/users.service';
 import { ProfileService } from '../profile.service';
 
@@ -7,7 +7,6 @@ import { ProfileService } from '../profile.service';
   selector: 'ngx-profile',
   styleUrls: ['./profile.component.scss'],
   templateUrl: './profile.component.html',
-  providers: [ ProfileService ],
 })
 export class ProfileComponent implements OnInit {
   user: any = {};
@@ -19,16 +18,16 @@ export class ProfileComponent implements OnInit {
   name: string;
   show: number = 0;
   following: boolean = false;
-  Me: boolean= false;
+  Me: boolean = false;
 
   constructor(
     private userService: UserService,
     private profileService: ProfileService,
-    private router: Router,
     private route: ActivatedRoute,
+  ) { }
 
-  ) {
-    route.params.subscribe(val => {
+  ngOnInit() {
+    this.route.params.subscribe(val => {
       this.userService.getTotalInfo(val.id).subscribe(user => {
         this.user = user;
         this.getnews();
@@ -42,11 +41,10 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-  }
-
   getNewsByUser() {
     this.userService.getNewsByUser(this.user.id).subscribe(data => {
+
+
       return this.newsUser = data;
     });
   }
@@ -70,9 +68,9 @@ export class ProfileComponent implements OnInit {
   }
   getTipo(id) {
     if (id) {
-      return 'compra de señal';
+      return 'compra de señal'
     } else {
-      return 'venta de señal';
+      return 'venta de señal'
     }
   }
   getTransaccions() {
@@ -81,34 +79,34 @@ export class ProfileComponent implements OnInit {
       this.transaction.forEach((element, index) => {
         const nameId = (element.senderId === this.user.id) ? element.recieverId : element.senderId;
         this.profileService.getsimpleuser(nameId)
-        .subscribe(user => {
-          this.transaction[index].username = user.username;
-        });
-      });
-    });
+          .subscribe(user => {
+            this.transaction[index].username = user.username;
+          })
+      })
+    })
   }
   IsMe() {
-    if ( this.user.id === this.userService.getUserId())
+    if (this.user.id === this.userService.getUserId())
       this.Me = true;
     else
-     this.Me = false;
+      this.Me = false;
   }
   seguir() {
     this.userService.followUser(this.user.id)
-    .subscribe(data => {
-      if (data.follow.count !== undefined)
-        this.following = false;
-      else
-        this.following = true;
-    });
+      .subscribe(data => {
+        if (data.follow.count !== undefined)
+          this.following = false;
+        else
+          this.following = true;
+      });
   }
   isFollow() {
     this.userService.isfollow(this.user.id)
-    .subscribe(data => {
-      if (data.length > 0)
-        this.following = true;
-      else
-        this.following = false;
-    });
+      .subscribe(data => {
+        if (data.length > 0)
+          this.following = true;
+        else
+          this.following = false;
+      })
   }
 }

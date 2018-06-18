@@ -13,14 +13,15 @@ export class UserService extends Session {
   constructor(
     private http: Http,
     private socket: Socket,
-  ) {
-    super();
-  }
+  ) { super() }
 
   getById(id) {
-    return this.http.get(
-      this.baseUrl + 'usuarios/' + id + '?filter[fields][nombre]=true&filter[fields][apellido]=true&filter[fields][puntos]=true&filter[fields][fiabilidad]=true&filter[fields][precision]=true&filter[fields][fama]=true&filter[fields][username]=true&filter[fields][perfil]=true&filter[fields][id]=true'
-    )
+    const filter = '?filter[fields][nombre]=true&' +
+      'filter[fields][apellido]=true&filter[fields][puntos]=true&' +
+      'filter[fields][fiabilidad]=true&filter[fields][precision]=true&' +
+      'filter[fields][fama]=true&filter[fields][username]=true&' +
+      'filter[fields][perfil]=true&filter[fields][id]=true';
+    return this.http.get(this.baseUrl + 'usuarios/' + id + filter)
       .map(resp => resp.json());
   }
 

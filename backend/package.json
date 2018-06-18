@@ -30,6 +30,9 @@
     "strong-globalize": "^2.10.0"
   },
   "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
     "eslint": "^3.17.1",
     "eslint-config-loopback": "^8.0.0",
     "nsp": "^2.1.0"

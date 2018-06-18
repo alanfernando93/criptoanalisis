@@ -12,8 +12,8 @@ export class NewsService extends Session {
   private baseUrl = this.getApiRest();
 
   constructor(private http: Http,
-              private socket: Socket,
-              private router: Router) {
+    private socket: Socket,
+    private router: Router) {
     super();
   }
 
@@ -64,7 +64,7 @@ export class NewsService extends Session {
 
   getAllLimit(count, inc) {
     return this.http.get(this.baseUrl + 'noticias' + '?filter[order]=fecha_create%20DESC&filter[limit]=' + count + '&filter[skip]=' + inc)
-        .map((res: Response) => res.json());
+      .map((res: Response) => res.json());
   }
 
   getById(id) {
@@ -94,7 +94,7 @@ export class NewsService extends Session {
 
   getNewsCount() {
     return this.http.get(this.baseUrl + 'noticias/' + 'count')
-        .map(resp => resp.json());
+      .map(resp => resp.json());
   }
 
   getUserById(id) {
@@ -104,7 +104,7 @@ export class NewsService extends Session {
 
   postNewsComment(comment) {
     if (!this.isAuth()) {
-      return new Observable<any>(() => {this.router.navigate(['/auth/login'])});
+      return new Observable<any>(() => { this.router.navigate(['/auth/login']) });
     }
     comment.userId = this.getUserId();
     return this.http.post(this.baseUrl + '/comentario_noticia', comment)
@@ -113,7 +113,7 @@ export class NewsService extends Session {
 
   postNewsAnswer(answers) {
     if (!this.isAuth()) {
-      return new Observable<any>(() => {this.router.navigate(['/auth/login'])});
+      return new Observable<any>(() => { this.router.navigate(['/auth/login']) });
     }
     answers.userId = this.getUserId();
     return this.http.post(this.baseUrl + 'answer_noticia', answers)
@@ -153,19 +153,19 @@ export class NewsService extends Session {
       followerId: this.getUserId(),
       posterId: id,
     })
-    .map(resp => resp.json())
+      .map(resp => resp.json())
   }
 
   insert(body) {
     body.usuarioId = this.getUserId();
     return this.http.post(this.baseUrl + 'noticias', body)
-    .map((res: Response) => res.json());
+      .map((res: Response) => res.json());
   }
 
   postDenuncias(denuncia) {
     denuncia.denunciaId = this.getUserId();
     return this.http.post(this.baseUrl + 'denuncias', denuncia)
-    .map(res => res.json());
-}
+      .map(res => res.json());
+  }
 
 }

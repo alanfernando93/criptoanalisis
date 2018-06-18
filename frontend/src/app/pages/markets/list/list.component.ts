@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
 
 import { MarketsService } from '../markets.service';
 
@@ -13,7 +12,6 @@ export class ListComponent implements OnInit {
     market: any;
 
     constructor(
-        private http: Http,
         private marketsService: MarketsService,
     ) {
     }

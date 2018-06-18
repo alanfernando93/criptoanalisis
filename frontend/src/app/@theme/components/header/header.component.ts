@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NbAuthService } from '@nebular/auth';
 
 import { NbMenuService, NbSidebarService } from '@nebular/theme';
 import { UserService } from '../../../@core/data/users.service';
@@ -39,16 +38,15 @@ export class HeaderComponent implements OnInit {
     private userService: UserService,
     private analyticsService: AnalyticsService,
     private router: Router,
-    private authService: NbAuthService,
     private toasterService: ToasterService,
     private headerService: HeaderService,
   ) {
     if (!this.userService.isAuth()) return;
-    this.userService.getCurrentUser().subscribe(data => {
-      this.user = data;
-      this.user.totalFama = 0;
-      this.user.fama.forEach(element => this.user.totalFama += element.valor);
-    })
+      this.userService.getCurrentUser().subscribe(data => {
+        this.user = data;
+        this.user.totalFama = 0;
+        this.user.fama.forEach(element => this.user.totalFama += element.valor);
+      })
   }
 
   ngOnInit() {
@@ -134,21 +132,23 @@ export class HeaderComponent implements OnInit {
   };
 
   setnotification(id: number, tipo: string) {
+
+
     this.headerService.findnotif(tipo, id).subscribe(notif => {
       switch (tipo) {
-        case 'request': {
+        case 'request':
           this.showToast('solicitud de chat', this.req.sender + this.msgReq);
           this.headerService.getUser(id).subscribe(user => {
             this.setnewContent('request', this.msgReq, user.username, user.id, user.perfil, notif[0].id);
           });
           break;
-        }
-        case 'news': {
+
+        case 'news':
           this.showToast(this.req.coin, this.req.title);
           this.setnewContent('news', this.req.title, this.req.coin, id, null, notif[0].id);
           break;
-        }
-        case 'signal': {
+
+        case 'signal':
           this.headerService.findsignal(this.req.senderId).subscribe(sig => {
             const stat = (sig.signal.tipo) ? 'compra de señal' : 'publico una nueva señal'
             this.showToast(sig.signal.usuario.username, stat);
@@ -156,47 +156,45 @@ export class HeaderComponent implements OnInit {
               sig.signal.usuario.perfil, notif[0].id);
           });
           break;
-        }
-        case 'follow': {
+
+        case 'follow':
           this.headerService.getUser(this.req.senderId).subscribe(user => {
             this.showToast(user.username, 'empezo a seguirte');
             this.setnewContent('follow', 'empezo a seguirte', user.username, user.id,
               user.perfil, notif[0].id);
           });
           break;
-        }
-        case 'likeNews': {
+
+        case 'likeNews':
           this.headerService.getUser(this.req.emmiterId).subscribe(user => {
             this.showToast(user.username, 'le gusto tu noticia');
             this.setnewContent('likeNews', 'le gusto tu noticia', user.username, this.req.senderId,
               user.perfil, notif[0].id);
           })
           break;
-        }
-        case 'likeSig': {
+        case 'likeSig':
           this.headerService.getUser(this.req.emmiterId).subscribe(user => {
             this.showToast(user.username, 'le gusto tu Señal');
             this.setnewContent('likeSig', 'le gusto tu señal', user.username, this.req.senderId,
               user.perfil, notif[0].id);
           });
           break;
-        }
-        case 'comNews': {
+        case 'comNews':
           this.headerService.getUser(this.req.emmiterId).subscribe(user => {
             this.showToast(user.username, 'comento tu noticia');
             this.setnewContent('comNews', 'comento tu noticia', user.username, this.req.senderId,
               user.perfil, notif[0].id);
           });
           break;
-        }
-        case 'comSig': {
+
+        case 'comSig':
           this.headerService.getUser(this.req.emmiterId).subscribe(user => {
             this.showToast(user.username, 'comento tu Señal');
             this.setnewContent('comSig', 'comento tu señal', user.username, this.req.senderId,
               user.perfil, notif[0].id);
           });
           break;
-        }
+
       }
     }, error => { });
     this.notNum++;
@@ -223,11 +221,11 @@ export class HeaderComponent implements OnInit {
         break;
       }
       case 'news': {
-        this.router.navigate(['/pages/news/news-view/', notif.senderId])
+        this.router.navigate(['/pages/news/view/', notif.senderId])
         break;
       }
       case 'signal': {
-        this.router.navigate(['/pages/signals/signals-view/', notif.senderId])
+        this.router.navigate(['/pages/signals/view/', notif.senderId])
         break;
       }
       case 'follow': {
@@ -235,19 +233,19 @@ export class HeaderComponent implements OnInit {
         break;
       }
       case 'likeNews': {
-        this.router.navigate(['/pages/news/news-view/', notif.senderId])
+        this.router.navigate(['/pages/news/view/', notif.senderId])
         break;
       }
       case 'likeSig': {
-        this.router.navigate(['/pages/signals/signals-view/', notif.senderId])
+        this.router.navigate(['/pages/signals/view/', notif.senderId])
         break;
       }
       case 'comNews': {
-        this.router.navigate(['/pages/news/news-view/', notif.senderId])
+        this.router.navigate(['/pages/news/view/', notif.senderId])
         break;
       }
       case 'comSig': {
-        this.router.navigate(['/pages/signals/signals-view/', notif.senderId])
+        this.router.navigate(['/pages/signals/view/', notif.senderId])
         break;
       }
     }

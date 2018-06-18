@@ -2,23 +2,23 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { SignalsComponent } from './signals.component';
-import { SignalsListComponent } from './list/signalsList.component';
-import { SignalsViewComponent } from './view/signalsView.component';
+import { ListComponent } from './list/list.component';
+import { ViewComponent } from './view/view.component';
 
 const routes: Routes = [{
   path: '',
-  component: SignalsComponent,
+  component: ListComponent,
   children: [{
-    path: 'signals-list',
-    component: SignalsListComponent,
+    path: 'list',
+    component: ListComponent,
   },
   {
-    path: 'signals-view',
-    component: SignalsViewComponent,
+    path: 'view',
+    component: ViewComponent,
   },
   {
-    path: 'signals-view/:signalId',
-    component: SignalsViewComponent,
+    path: 'view/:signalId',
+    component: ViewComponent,
   },
   ],
 }];
@@ -32,6 +32,6 @@ export class SignalsRoutingModule { }
 
 export const routedComponents = [
   SignalsComponent,
-  SignalsListComponent,
-  SignalsViewComponent,
+  ListComponent,
+  ViewComponent,
 ];

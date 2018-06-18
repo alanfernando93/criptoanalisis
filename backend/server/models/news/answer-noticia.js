@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function(Answernoticia) {
+export default (Answernoticia) =>{
   Answernoticia.afterRemote('create', (ctx, user, next) => {
     var io = Answernoticia.app.io;
     var answer = 'news' + ctx.result.noticiaId;

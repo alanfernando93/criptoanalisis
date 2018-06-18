@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Http } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { AdvisoriesService } from '../advisories.service';
@@ -49,7 +48,7 @@ export class ViewComponent extends Session implements OnInit {
   advisoriesbyid: any;
 
   constructor(
-    private http: Http,
+
     private route: ActivatedRoute,
     private advisoriesService: AdvisoriesService,
 
@@ -79,10 +78,14 @@ export class ViewComponent extends Session implements OnInit {
         this.advisory.mod2 = ' ';
         this.advisory.mod1 = this.advisory.modalidad[0];
         this.advisory.mod2 = this.advisory.modalidad[1];
+
         for (let i = 0; i <= this.advisory.horarios.length; i++) {
+
           this.slots2[this.advisory.horarios[i].dia][this.advisory.horarios[i].hora] = 1;
 
         }
+
+
       });
     });
   }
@@ -113,8 +116,10 @@ export class ViewComponent extends Session implements OnInit {
       this.advisoriesService.getAdvisoriesComentarios(id).subscribe((advisories) => {
         this.coment = advisories;
         this.coment.forEach((element, index) => {
+
           const commentId = this.coment[index].id;
           this.advisoriesService.getAdvisoriesComentariosRespuestas(commentId).subscribe(data => {
+
             this.position = index;
             this.ans = data;
             this.coment[index].res = [];
@@ -134,9 +139,10 @@ export class ViewComponent extends Session implements OnInit {
     });
   }
 
+
   getAdvisoriesWithUser() {
     this.route.params.forEach((params: Params) => {
-      const id = params['advisoryId'];
+
       this.advisoriesService.getUserByAdvisories(this.id).subscribe((advisories) => {
         this.contentuser = advisories;
       });
@@ -144,30 +150,35 @@ export class ViewComponent extends Session implements OnInit {
   }
   sendComent2() {
     this.route.params.forEach((params: Params) => {
-      const id = params['advisoryId'];
+
 
       this.advisoriesService.postAdvisoriesComment(this.id, this.comment2).subscribe(data => {
-        this.coment.push(data);
+        this.coment.push(data)
+
+
       });
     });
   }
 
   sendAnswer(event) {
     this.route.params.forEach((params: Params) => {
-      const id = params['advisoryId'];
+
       const commentIds = event.target.parentNode.parentNode.childNodes[3].id;
       const index = event.target.parentNode.parentNode.childNodes[3].name;
+
       this.contentAnswer = event.target.parentNode.parentNode.childNodes[3].value;
       this.answered.userId = this.idUser;
       this.answered.contenido = this.contentAnswer;
       this.advisoriesService.postAdvisoriesAnswer(commentIds, this.answered).subscribe(data => {
+
         this.coment[index].res.push(data);
       });
     });
+
   }
   getusername() {
     this.route.params.forEach((params: Params) => {
-      const id = this.idUser;
+
       this.advisoriesService.getUserById(this.id).subscribe((advisories) => {
         this.infouser = advisories;
       });

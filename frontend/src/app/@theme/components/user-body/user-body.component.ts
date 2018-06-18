@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'ngx-userDesign',
-    templateUrl: './userDesign.component.html',
-    styleUrls: ['./userDesign.component.scss'],
+    selector: 'ngx-user-body',
+    templateUrl: './user-body.component.html',
+    styleUrls: ['./user-body.component.scss'],
 })
-export class UserDesignComponent {
+export class UserBodyComponent {
 
     @Input() dataCommUser: any = [];
     @Input() dataUserPerfil: any;

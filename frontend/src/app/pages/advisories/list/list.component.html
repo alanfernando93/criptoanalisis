@@ -34,9 +34,9 @@
         </div>
       </div>
     </div>
-    <ngx-advisoriesAll [listAdvisories]="advisories"></ngx-advisoriesAll>
+    <ngx-advisories-body [listAdvisories]="advisories"></ngx-advisories-body>
   </nb-tab>
   <nb-tab tabTitle="mis Asesorias" *ngIf="user">
-    <ngx-advisoriesAll [listAdvisories]="advisoriesbyid"></ngx-advisoriesAll>
+    <ngx-advisories-body [listAdvisories]="advisoriesbyid"></ngx-advisories-body>
   </nb-tab>
 </nb-tabset>

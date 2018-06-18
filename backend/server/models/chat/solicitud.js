@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function(Solicitud) {
+export default (Solicitud) => {
   Solicitud.Pendientes = function(id, cb) {
     Solicitud.find({where:
     {and: [{or: [{senderId: id}, {recieverId: id}]},

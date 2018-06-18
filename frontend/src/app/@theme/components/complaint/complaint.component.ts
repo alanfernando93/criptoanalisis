@@ -25,8 +25,8 @@ export class ComplaintComponent {
         this.denuncia.lugarId = this.newsId;
         this.denuncia.denunciadoId = this.userIdNews;
         this.newsService.postDenuncias(this.denuncia).subscribe(data => {
-          this.denuncia = {};
+            this.denuncia = {};
         });
-      }
+    }
 
 }

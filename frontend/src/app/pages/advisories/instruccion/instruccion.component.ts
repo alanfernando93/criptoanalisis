@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
 import { AdvisoriesService } from '../advisories.service';
 
@@ -13,7 +12,7 @@ export class InstruccionComponent implements OnInit {
   advisory: any;
   id: any;
 
-  constructor(private http: Http, private route: ActivatedRoute, private advisoriesService: AdvisoriesService) {
+  constructor(private route: ActivatedRoute, private advisoriesService: AdvisoriesService) {
 
   }
 

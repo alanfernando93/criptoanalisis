@@ -1,13 +1,21 @@
 # Dependencias
 - [Angular Cli](https://github.com/angular/angular-cli/blob/master/packages/angular/cli/README.md#installation)
+  - version <= 1.6.7
 - [Nodejs 8.9.4](https://nodejs.org/es/download)
   - Npm < version 6.0.0
 - [Yarn](https://yarnpkg.com/es-ES/docs/install#debian-stable)
 
 # Instalacion
+
 ## Instalar los modulos respectivos para frontend y backend
 - [/frontend](https://github.com/huascarm/criptoanalisis/tree/develop/frontend)
 - [/backend](https://github.com/huascarm/criptoanalisis/tree/develop/backend)
+
+## Intalacion previa 
+Añadir angular cli a yarn 
+```
+$ yarn global add @angular/cli@1.6.7
+```
 
 ### Comandos
 ```

@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { SignalsService } from '../signals.service';
 import { UserService } from '../../../@core/data/users.service';
 import { orderData } from '../../../common/array';
 
 @Component({
-  selector: 'ngx-signalsView',
-  templateUrl: './signalsView.component.html',
-  styleUrls: ['./signalsView.component.scss'],
+  selector: 'ngx-signals-view',
+  templateUrl: './view.component.html',
+  styleUrls: ['./view.component.scss'],
 })
-export class SignalsViewComponent implements OnInit {
+export class ViewComponent implements OnInit {
 
   signal: any;
   idSignal: any;
@@ -26,18 +25,18 @@ export class SignalsViewComponent implements OnInit {
   connectionAns;
 
   constructor(
-    private http: Http,
+
     private route: ActivatedRoute,
-    private router: Router,
+
     private signalsService: SignalsService,
     private userService: UserService) {
-      route.params.subscribe(val => {
-        this.idSignal = val.signalId;
-        this.getSignalCommentById();
-        this.getSignalWithUser();
-        this.getSignalCommentCount();
-        this.getCommentWithUser();
-      });
+    this.route.params.subscribe(val => {
+      this.idSignal = val.signalId;
+      this.getSignalCommentById();
+      this.getSignalWithUser();
+      this.getSignalCommentCount();
+      this.getCommentWithUser();
+    });
   }
 
   ngOnInit() {
@@ -127,12 +126,12 @@ export class SignalsViewComponent implements OnInit {
   getUserAnswer(index) {
     this.commentById[index].res.forEach((element, index1) => {
       const userByAnswer = this.commentById[index].res[index1].userId;
-    this.userService.getById(userByAnswer).subscribe(data => {
-      this.commentById[index].res[index1].user = data;
-      orderData(this.commentById[index].res[index1].user);
-      this.commentById[index].res[index1].user.fama.firsttwo = [];
-      this.commentById[index].res[index1].user.fama.firsttwo = this.commentById[index].res[index1].user.fama.splice(0, 2);
-     });
+      this.userService.getById(userByAnswer).subscribe(data => {
+        this.commentById[index].res[index1].user = data;
+        orderData(this.commentById[index].res[index1].user);
+        this.commentById[index].res[index1].user.fama.firsttwo = [];
+        this.commentById[index].res[index1].user.fama.firsttwo = this.commentById[index].res[index1].user.fama.splice(0, 2);
+      });
     });
   }
 

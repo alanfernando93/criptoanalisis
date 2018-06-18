@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
 
 import { SignalsService } from '../signals.service';
 
 @Component({
-  selector: 'ngx-signalsList',
-  templateUrl: './signalsList.component.html',
-  styleUrls: ['./signalsList.component.scss'],
+  selector: 'ngx-signals-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
 })
-export class SignalsListComponent implements OnInit {
+export class ListComponent implements OnInit {
 
   signals: any;
   connection: any;
@@ -19,7 +18,7 @@ export class SignalsListComponent implements OnInit {
   count: any;
 
   constructor(
-    private http: Http,
+
     private signalsService: SignalsService) {
   }
 
@@ -52,8 +51,8 @@ export class SignalsListComponent implements OnInit {
   }
 
   userBySignals(signalId, index) {
-    this.signalsService.getUserBySignal(signalId).subscribe(data => {
-      this.contentUser = data;
+    this.signalsService.getUserBySignal(signalId).subscribe(user => {
+      this.contentUser = user;
       this.contentUser.totalFama = 0;
       this.contentUser.fama.forEach(element => {
         this.contentUser.totalFama += element.valor;
@@ -66,10 +65,10 @@ export class SignalsListComponent implements OnInit {
       this.contentUser.fama.firstTwo = this.contentUser.fama.splice(0, 2);
       this.contentUser.fama.last = this.contentUser.fama.splice(0, this.contentUser.fama.length);
       this.signals[index].contentUser = [];
-      this.signals[index].contentUser.push(data);
-      this.signalsService.getSignalsCommentCount(signalId).subscribe(signal => {
+      this.signals[index].contentUser.push(user);
+      this.signalsService.getSignalsCommentCount(signalId).subscribe(count => {
         this.signals[index].count = [];
-        this.signals[index].count.push(signal);
+        this.signals[index].count.push(count);
       });
     });
   }
@@ -88,12 +87,12 @@ export class SignalsListComponent implements OnInit {
   }
 
   Upload() {
-    this.signalsService.getAllLimit(this.limit, this.increment).subscribe(signal => {
-      signal.forEach(element => {
+    this.signalsService.getAllLimit(this.limit, this.increment).subscribe(signalsAll => {
+      signalsAll.forEach(element => {
         const idSignal = element.id;
-        this.signalsService.getUserBySignal(idSignal).subscribe(data => {
+        this.signalsService.getUserBySignal(idSignal).subscribe(user => {
           element.contentUser = [];
-          element.contentUser.push(data);
+          element.contentUser.push(user);
           element.contentUser[0].fama.sort(function (a, b) {
             return a.valor < b.valor;
           });
@@ -101,9 +100,9 @@ export class SignalsListComponent implements OnInit {
           element.contentUser[0].fama.last = [];
           element.contentUser[0].fama.firstTwo = element.contentUser[0].fama.splice(0, 2);
           element.contentUser[0].fama.last = element.contentUser[0].fama.splice(0, element.contentUser[0].fama.length);
-          this.signalsService.getSignalsCommentCount(idSignal).subscribe(upload => {
+          this.signalsService.getSignalsCommentCount(idSignal).subscribe(count => {
             element.count = [];
-            element.count.push(upload);
+            element.count.push(count);
           });
         });
         this.signals.push(element);

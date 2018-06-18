@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CropperModalComponent } from '../cropper/croppermodal.component';
+import { CropperComponent } from '../cropper/cropper.component';
 
 @Component({
   selector: 'ngx-image',
@@ -15,7 +15,7 @@ export class ImageModalComponent {
   constructor(private modalService: NgbModal) { }
 
   openCropper() {
-    const modalRef = this.modalService.open(CropperModalComponent);
+    const modalRef = this.modalService.open(CropperComponent);
     const instance = modalRef.componentInstance;
     modalRef.result.then(result => {
       if (instance.getImageResize()) {

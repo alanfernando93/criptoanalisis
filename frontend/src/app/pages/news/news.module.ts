@@ -4,8 +4,8 @@ import { ThemeModule } from './../../@theme/theme.module';
 import { NewsRoutingModule, routedComponents } from './news-routing.module';
 import { FormsModule } from '@angular/forms';
 
-import { NewsListComponent } from './list/newsList.component';
-import { NewsViewComponent } from './view/newsView.component';
+import { ListComponent } from './list/list.component';
+import { ViewComponent } from './view/view.component';
 import { NewsService } from './news.service';
 
 @NgModule({
@@ -16,13 +16,13 @@ import { NewsService } from './news.service';
 
   ],
   exports: [
-    NewsListComponent,
-    NewsViewComponent,
+    ListComponent,
+    ViewComponent,
   ],
   declarations: [
     ...routedComponents,
-    NewsListComponent,
-    NewsViewComponent,
+    ListComponent,
+    ViewComponent,
   ],
   providers: [NewsService],
 })

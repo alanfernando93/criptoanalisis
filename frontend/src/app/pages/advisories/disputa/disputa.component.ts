@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
 import { AdvisoriesService } from '../advisories.service';
 
@@ -11,25 +10,23 @@ import { AdvisoriesService } from '../advisories.service';
 export class DisputaComponent implements OnInit {
 
   advisory: any;
-  id: number;
+  id;
 
-  constructor(
-    private http: Http,
-    private route: ActivatedRoute,
-    private advisoriesService: AdvisoriesService) {
+
+  constructor(private route: ActivatedRoute, private advisoriesService: AdvisoriesService) {
 
   }
 
-    ngOnInit() {
-      this.getAdvisorydisputaById()
-    }
+  ngOnInit() {
+    this.getAdvisorydisputaById()
+  }
 
-    getAdvisorydisputaById() {
-      this.route.params.forEach((params: Params) => {
-        this.id = params['advisoryId'];
-        this.advisoriesService.getAdvisoriesDisputa(this.id).subscribe((advisories) => {
-          this.advisory = advisories;
-        });
+  getAdvisorydisputaById() {
+    this.route.params.forEach((params: Params) => {
+      this.id = params['advisoryId'];
+      this.advisoriesService.getAdvisoriesDisputa(this.id).subscribe((advisories) => {
+        this.advisory = advisories;
       });
-    }
+    });
+  }
 }

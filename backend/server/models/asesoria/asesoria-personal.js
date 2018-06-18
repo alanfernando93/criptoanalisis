@@ -1,7 +1,6 @@
-'use strict';
 var _promise = require('babel-runtime/core-js/promise');
 
-var _promise2 = _interopRequireDefault(_promise);
+let _promise2 = _interopRequireDefault(_promise);
 
 var _assign = require('babel-runtime/core-js/object/assign');
 

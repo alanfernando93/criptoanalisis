@@ -4,7 +4,7 @@
       <div class="col-12 col-md-6">
         <ngb-carousel>
           <ng-template ngbSlide *ngFor="let noticia of news">
-            <a [routerLink]="['/pages/news/news-view', noticia.id]">
+            <a [routerLink]="['/pages/news/view', noticia.id]">
               <div class="carousel-caption" *ngFor="let content of noticia.contentUser">
                 <h6 class="titlenews" [innerHTML]="noticia.titulo"></h6>
                 <p class="font-w-light user">{{content.username}}</p>
@@ -20,7 +20,7 @@
         <div class="list-group" *ngFor="let signals of signals">
           <div class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
-              <a [routerLink]="['/pages/signals/signals-view', signals.id]" class="flex-column align-items-start">
+              <a [routerLink]="['/pages/signals/view', signals.id]" class="flex-column align-items-start">
                 <div *ngIf="signals.tipo == true; else otro">
                   <h6 class="text-success">
                     Comprar

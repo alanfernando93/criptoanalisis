@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Renderer2, OnDestroy } from '@angular/core';
 import { ToasterService } from 'angular2-toaster';
 import { Router } from '@angular/router';
 
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { SignalsService } from '../../signals/signals.service';
 import { CoinsService } from '../../coins/coins.service';
@@ -109,18 +109,18 @@ export class SignalComponent implements OnInit, OnDestroy {
     this.signal.moneda2 = this.moneda2;
     const positions = (this.posEntrada.concat(this.posSalida).concat(this.posLoss));
     Promise.all([this.editor1, this.editor2]).then(() => {
-      this.signalsService.add(this.signal).subscribe(resp => {
-        this.dropbox.imageUploadDropbox(this.myFile, this.signalsService.getUserId(), 'signals', 'perfil-' + resp.id).then(resp => {
+      this.signalsService.add(this.signal).subscribe(signal => {
+        this.dropbox.imageUploadDropbox(this.myFile, this.signalsService.getUserId(), 'signals', 'perfil-' + signal.id).then(image => {
           this.type = 'success'
           this.isPreload = false;
           this.content = configCrud.message.success + ' señales';
           showToast(this.toasterService, this.type, this.content);
           this.router.navigate(['/pages/signals/list']);
         });
-        const id = resp.id;
+        const id = signal.id;
         positions.forEach((value, key) => {
           positions[key].signalId = id
-          this.signalsService.setPosition(positions[key]).subscribe(respo => { })
+          this.signalsService.setPosition(positions[key]).subscribe(position => { })
           this.type = 'success'
           this.content = configCrud.message.success;
         }, erro => {
@@ -219,10 +219,9 @@ export class SignalComponent implements OnInit, OnDestroy {
     }
   }
 
-  onClickPuntos($events, option, ptn) {
-    const container = $events.target.closest(`#${option}`);
-    const data1 = $events.target.closest(`#${option}-data`).children[1];
-    const data2 = $events.target.closest(`#${option}-data`).children[2];
+  onClickPuntos($event, option, ptn) {
+    const container = $event.target.closest(`#${option}`);
+    const data1 = $event.target.closest(`#${option}-data`).children[1];
 
     const data = {
       valor: data1.value,
@@ -262,8 +261,8 @@ export class SignalComponent implements OnInit, OnDestroy {
     this.renderer.setProperty(d1, 'value', data1.value + ' ' + this.moneda2);
     this.renderer.setAttribute(d1, 'disabled', 'true');
     this.renderer.setProperty(d1, 'id', ptn - 1);
-    this.renderer.listen(d1, 'change', $events => {
-      const input = $events.target;
+    this.renderer.listen(d1, 'change', $eventIn => {
+      const input = $eventIn.target;
       switch (option) {
         case 'entryPoint': this.posEntrada[input.id].valor = input.value.split(' ')[0];
           break;
@@ -282,8 +281,8 @@ export class SignalComponent implements OnInit, OnDestroy {
     this.renderer.addClass(bedit, 'btn-secondary');
     this.renderer.setProperty(bedit, 'type', 'button');
     this.renderer.setProperty(bedit, 'id', 'false');
-    this.renderer.listen(bedit, 'click', ($event) => {
-      const oldBody = $event.target.closest('.row').children[0];
+    this.renderer.listen(bedit, 'click', $eventBtnEdit => {
+      const oldBody = $eventBtnEdit.target.closest('.row').children[0];
       const input1 = oldBody.children[1];
       const input2 = oldBody.children[2];
       this.renderer.removeAttribute(input1, 'disabled');
@@ -305,11 +304,11 @@ export class SignalComponent implements OnInit, OnDestroy {
     this.renderer.addClass(bremove, 'btn-secondary');
     this.renderer.setProperty(bremove, 'type', 'button');
     this.renderer.setProperty(bremove, 'id', ptn - 1);
-    this.renderer.listen(bremove, 'click', ($event) => {
-      const id = $event.target.id;
+    this.renderer.listen(bremove, 'click', $eventBtnRemove => {
+      const id = $eventBtnRemove.target.id;
       const oldBody = $event.target.closest('.row');
-      const content = $event.target.closest('#' + option)
-      content.removeChild(oldBody);
+      const contentBody = $event.target.closest('#' + option)
+      contentBody.removeChild(oldBody);
       this.refresh(option, id);
     });
     this.renderer.appendChild(remove, bremove);
@@ -341,9 +340,9 @@ export class SignalComponent implements OnInit, OnDestroy {
         if (this.stopLoss < 2) return;
         break;
     }
-    $events.target.closest(`#${option}-data`).children[1].disabled = true;
-    $events.target.closest(`#${option}-data`).children[2].children[0].disabled = true;
-    $events.target.closest(`#${option}-data`).children[3].children[0].disabled = true;
+    $event.target.closest(`#${option}-data`).children[1].disabled = true;
+    $event.target.closest(`#${option}-data`).children[2].children[0].disabled = true;
+    $event.target.closest(`#${option}-data`).children[3].children[0].disabled = true;
   }
 
   refresh(opc, id) {
@@ -363,7 +362,7 @@ export class SignalComponent implements OnInit, OnDestroy {
     }
 
     (<HTMLInputElement>document.getElementById(`${opc}-data`).children[1]).disabled = false;
-   (<HTMLInputElement>document.getElementById(`${opc}-data`).children[2].children[0]).disabled = false;
+    (<HTMLInputElement>document.getElementById(`${opc}-data`).children[2].children[0]).disabled = false;
     (<HTMLInputElement>document.getElementById(`${opc}-data`).children[3].children[0]).disabled = false;
   }
 
@@ -373,18 +372,9 @@ export class SignalComponent implements OnInit, OnDestroy {
     });
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-
   ngOnDestroy() {
     this.bitcoin.close().subscribe(msg => {
-    });
+
+    })
   }
 }
