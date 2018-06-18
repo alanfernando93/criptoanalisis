@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, Response } from '@angular/http';
 
 import { MarketsService } from '../markets.service';
 
 @Component({
     selector: 'ngx-list',
     templateUrl: './list.component.html',
-    styleUrls: ['./list.component.scss']
+    styleUrls: ['./list.component.scss'],
 })
-export class ListComponent {
+export class ListComponent implements OnInit {
 
     market: any;
 
     constructor(
-        private http: Http,
-        private marketsService: MarketsService
+
+        private marketsService: MarketsService,
     ) {
     }
 
@@ -32,8 +31,8 @@ export class ListComponent {
                 }
             },
             error => {
-                console.log("no pudo cargar los mercados");
-            }
+
+            },
         );
     }
 }

@@ -24,18 +24,78 @@ module.exports = {
       'username': 'ironman',
       'password': 'ironman',
       'email': 'ironman@test.com',
+      'fama': [{
+        "id": 1,
+        "valor": 84,
+        "symbol": "BTC"
+      },
+      {
+        "id": 3,
+        "valor": 100,
+        "symbol": "XRP"
+      },
+      {
+        "id": 2,
+        "valor": 2,
+        "symbol": "ETH"
+      },
+      {
+        "id": 4,
+        "valor": 2,
+        "symbol": 'BCH'
+      }],
     }, {
       'nombre': 'Peter',
       'apellido': 'Parker',
       'username': 'spiderman',
       'password': 'spiderman',
       'email': 'spiderman@test.com',
+      'fama': [{
+        "id": 1,
+        "valor": 84,
+        "symbol": "BTC"
+      },
+      {
+        "id": 3,
+        "valor": 100,
+        "symbol": "XRP"
+      },
+      {
+        "id": 2,
+        "valor": 2,
+        "symbol": "ETH"
+      },
+      {
+        "id": 4,
+        "valor": 2,
+        "symbol": 'BCH'
+      }],
     }, {
       'nombre': 'Bruce',
       'apellido': 'Banner',
       'username': 'hulk',
       'password': 'hulk',
       'email': 'hulk@test.com',
+      'fama': [{
+        "id": 1,
+        "valor": 84,
+        "symbol": "BTC"
+      },
+      {
+        "id": 3,
+        "valor": 100,
+        "symbol": "XRP"
+      },
+      {
+        "id": 2,
+        "valor": 2,
+        "symbol": "ETH"
+      },
+      {
+        "id": 4,
+        "valor": 2,
+        "symbol": 'BCH'
+      }],
     },
   ],
   moneda: [

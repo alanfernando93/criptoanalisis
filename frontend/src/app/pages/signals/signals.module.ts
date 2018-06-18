@@ -4,26 +4,26 @@ import { ThemeModule } from './../../@theme/theme.module';
 import { SignalsRoutingModule, routedComponents } from './signals-routing.module';
 import { FormsModule } from '@angular/forms';
 
-import { signalsListComponent } from './list/signalsList.component';
-import { signalsViewComponent } from './view/signalsView.component';
+import { ListComponent } from './list/list.component';
+import { ViewComponent } from './view/view.component';
 import { SignalsService } from './signals.service';
 
 @NgModule({
     imports: [
       ThemeModule,
       SignalsRoutingModule,
-      FormsModule
+      FormsModule,
     ],
-    exports:[
-      signalsListComponent,
-      signalsViewComponent,
+    exports: [
+      ListComponent,
+      ViewComponent,
      ],
-    declarations:[
+    declarations: [
       ...routedComponents,
-      signalsListComponent,
-      signalsViewComponent
+      ListComponent,
+      ViewComponent,
     ],
-    providers:[SignalsService]
+    providers: [SignalsService],
   })
-  
+
   export class SignalsModule {}

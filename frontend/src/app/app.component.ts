@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     public translate: TranslateService,
-    private analytics: AnalyticsService
+    private analytics: AnalyticsService,
   ) { }
 
   ngOnInit(): void {

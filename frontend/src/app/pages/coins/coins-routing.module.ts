@@ -27,5 +27,5 @@ export class CoinsRoutingModule { }
 export const routedComponents = [
     CoinsComponent,
     ViewComponent,
-    ViewtwoComponent
+    ViewtwoComponent,
 ];

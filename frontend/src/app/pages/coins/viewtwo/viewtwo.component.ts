@@ -1,19 +1,18 @@
-import { Component, OnInit, OnDestroy, ViewChild, TemplateRef, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, TemplateRef } from '@angular/core';
 import { Session } from '../../../@core/data/session';
 import { CoinsService } from '../coins.service';
 import { UserService } from '../../../@core/data/users.service';
 import * as moment from 'moment';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { HtmlParser } from '@angular/compiler';
 
 @Component({
-  selector: 'undefined-viewtwo',
+  selector: 'ngx-viewtwo',
   templateUrl: './viewtwo.component.html',
-  styleUrls: ['./viewtwo.component.scss']
+  styleUrls: ['./viewtwo.component.scss'],
 })
 export class ViewtwoComponent implements OnInit, OnDestroy {
   @ViewChild('content') content: TemplateRef<any>
-  select: Number = parseInt(Session.getStorage('select'));
+  select: Number = parseInt(Session.getStorage('select'), 10);
   titleContent: any;
 
   titleSelected: any;
@@ -28,8 +27,8 @@ export class ViewtwoComponent implements OnInit, OnDestroy {
   ) { moment.locale('es'); }
 
   ngOnInit() {
-    let filter = [
-      "filter[where][monedaId]=" + this.monedaId
+    const filter = [
+      'filter[where][monedaId]=' + this.monedaId,
     ]
     this.coinsService.getTitleConclusion(35, filter.join('&')).subscribe(data => {
       data.forEach((element, value) => {
@@ -40,32 +39,32 @@ export class ViewtwoComponent implements OnInit, OnDestroy {
   }
 
   SelectAccordion(selected) {
-    let collectionButtons: any = document.getElementById(selected.panelId + '-header').closest('ngb-accordion').querySelectorAll('input');
+    const collectionButtons: any = document.getElementById(selected.panelId + '-header').closest('ngb-accordion').querySelectorAll('input');
     collectionButtons.forEach(element => element.remove());
-    let btn1 = document.createElement('input');
+    const btn1 = document.createElement('input');
     btn1.setAttribute('class', 'btn btn-primary btn-tn');
     btn1.setAttribute('type', 'button');
 
-    btn1.value = "Nuevo";
-    let btn2 = document.createElement('input');
+    btn1.value = 'Nuevo';
+    const btn2 = document.createElement('input');
     btn2.setAttribute('class', 'btn btn-primary btn-tn');
     btn2.setAttribute('type', 'button');
     btn2.onclick = (btn) => {
-      let bt = <HTMLInputElement>btn.target;
-      let content = <Element>bt.closest('.card').querySelector('div[id="' + selected.panelId + '"]').firstElementChild;
-      if (bt.value == "Editar") {
-        bt.value = "Sugerir";
+      const bt = <HTMLInputElement>btn.target;
+      const content = <Element>bt.closest('.card').querySelector('div[id="' + selected.panelId + '"]').firstElementChild;
+      if (bt.value === 'Editar') {
+        bt.value = 'Sugerir';
         content.setAttribute('style', 'background-color: bisque;')
-        content.setAttribute('contenteditable', "true");
+        content.setAttribute('contenteditable', 'true');
       } else {
-        bt.value = "Editar";
+        bt.value = 'Editar';
         content.removeAttribute('style');
-        content.setAttribute('contenteditable', "false");
+        content.setAttribute('contenteditable', 'false');
       }
     }
-    btn2.value = "Editar";
+    btn2.value = 'Editar';
     if (selected.nextState === true) {
-      let div = document.createElement('div');
+      const div = document.createElement('div');
       div.setAttribute('class', 'btn-group btn-group-toggle pull-right');
       div.appendChild(btn1);
       div.appendChild(btn2);
@@ -83,9 +82,9 @@ export class ViewtwoComponent implements OnInit, OnDestroy {
   }
 
   open(userId) {
-    let filter = [
-      "filter[where][monedaId]=" + this.monedaId,
-      "filter[where][usuarioId]=" + userId
+    const filter = [
+      'filter[where][monedaId]=' + this.monedaId,
+      'filter[where][usuarioId]=' + userId,
     ]
     this.titleSelected = userId;
     this.coinsService.getTitle().subscribe(data => {
@@ -95,9 +94,9 @@ export class ViewtwoComponent implements OnInit, OnDestroy {
         delete element.enlace;
         delete element.pregunta;
         element.subtitles = data.filter(obj => {
-          if (obj.correspondencia == element.id) {
+          if (obj.correspondencia === element.id) {
             this.coinsService.getTitleConclusion(obj.id, filter.join('&')).subscribe(resp => {
-              obj.contenido = resp.length > 0 ? resp[0].contenido : "";
+              obj.contenido = resp.length > 0 ? resp[0].contenido : '';
             });
             delete obj.correspondencia;
             return obj;

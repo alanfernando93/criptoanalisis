@@ -8,16 +8,16 @@ import { Session } from '../../@core/data/session';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class NewsService extends Session{
+export class NewsService extends Session {
   private baseUrl = this.getApiRest();
 
-  constructor(private http: Http, 
-              private socket: Socket, 
-              private router: Router) {
+  constructor(private http: Http,
+    private socket: Socket,
+    private router: Router) {
     super();
   }
 
-  siExisteUser(){
+  siExisteUser() {
     return this.getToken();
   }
 
@@ -26,32 +26,32 @@ export class NewsService extends Session{
       .map((res: Response) => res.json());
   }
 
-  getNews(){
-    let observable = new Observable(observer => {
+  getNews() {
+    const observable = new Observable(observer => {
       this.socket.on('insertNoti', (data) => {
         observer.next(data);
       });
       return () => {
         this.socket.disconnect();
-      } 
+      }
     });
     return observable;
   }
 
-  getNewsComen(){
-    let observable = new Observable(observer => {
+  getNewsComen() {
+    const observable = new Observable(observer => {
       this.socket.on('newCom', (data) => {
         observer.next(data);
       });
       return () => {
         this.socket.disconnect();
-      } 
+      }
     });
     return observable;
   }
 
-  getNewsAns(){
-    let observable = new Observable(observer => {
+  getNewsAns() {
+    const observable = new Observable(observer => {
       this.socket.on('newAns', (data) => {
         observer.next(data);
       });
@@ -63,20 +63,20 @@ export class NewsService extends Session{
   }
 
   getAllLimit(count, inc) {
-    return this.http.get(this.baseUrl + 'noticias' + '?filter[order]=fecha_create%20DESC&filter[limit]=' + count +'&filter[skip]='+ inc)
-        .map((res: Response) => res.json());
+    return this.http.get(this.baseUrl + 'noticias' + '?filter[order]=fecha_create%20DESC&filter[limit]=' + count + '&filter[skip]=' + inc)
+      .map((res: Response) => res.json());
   }
 
   getById(id) {
     return this.http.get(this.baseUrl + 'noticias/' + id)
       .map((res: Response) => res.json());
   }
-  
+
   getNewsComment(id) {
     return this.http.get(this.baseUrl + 'noticias/' + id + '/comentarioNoticia')
       .map((res: Response) => res.json());
   }
-  
+
   getNewsAnswer(commentId) {
     return this.http.get(this.baseUrl + 'comentario_noticia/' + commentId + '/answerNoticia')
       .map((res: Response) => res.json());
@@ -92,19 +92,19 @@ export class NewsService extends Session{
       .map((res: Response) => res.json());
   }
 
-  getNewsCount(){
+  getNewsCount() {
     return this.http.get(this.baseUrl + 'noticias/' + 'count')
-        .map(resp => resp.json());
+      .map(resp => resp.json());
   }
-  
+
   getUserById(id) {
     return this.http.get(this.baseUrl + 'usuarios/' + id)
       .map((res: Response) => res.json());
   }
 
   postNewsComment(comment) {
-    if(!this.isAuth()){
-      return new Observable<any>(()=>{this.router.navigate(["/auth/login"])});
+    if (!this.isAuth()) {
+      return new Observable<any>(() => { this.router.navigate(['/auth/login']) });
     }
     comment.userId = this.getUserId();
     return this.http.post(this.baseUrl + '/comentario_noticia', comment)
@@ -112,8 +112,8 @@ export class NewsService extends Session{
   }
 
   postNewsAnswer(answers) {
-    if(!this.isAuth()){
-      return new Observable<any>(()=>{this.router.navigate(["/auth/login"])});
+    if (!this.isAuth()) {
+      return new Observable<any>(() => { this.router.navigate(['/auth/login']) });
     }
     answers.userId = this.getUserId();
     return this.http.post(this.baseUrl + 'answer_noticia', answers)
@@ -134,38 +134,38 @@ export class NewsService extends Session{
       .map((res: Response) => res.json());
   }
 
-  imageFileUpload(idNews,file){
-    return this.http.post(this.baseUrl + 'noticias/' + idNews + '/upload',file)
+  imageFileUpload(idNews, file) {
+    return this.http.post(this.baseUrl + 'noticias/' + idNews + '/upload', file)
       .map(resp => resp.json())
   }
 
-  fullUploadFileImage(file){
+  fullUploadFileImage(file) {
     return this.http.post(this.baseUrl + 'Containers/galery/upload', file)
       .map(resp => resp.json())
   }
-  
-  JoinComm(id){
-    this.socket.emit("join", 'news'+id);
+
+  JoinComm(id) {
+    this.socket.emit('join', 'news' + id);
   }
-  
-  followUser(id){
-    return this.http.post(this.baseUrl + 'followUsers/follow',{
+
+  followUser(id) {
+    return this.http.post(this.baseUrl + 'followUsers/follow', {
       followerId: this.getUserId(),
-      posterId: id
+      posterId: id,
     })
-    .map(resp => resp.json())
+      .map(resp => resp.json())
   }
 
   insert(body) {
     body.usuarioId = this.getUserId();
     return this.http.post(this.baseUrl + 'noticias', body)
-    .map((res: Response) => res.json());
+      .map((res: Response) => res.json());
   }
-  
-  postDenuncias(denuncia){
+
+  postDenuncias(denuncia) {
     denuncia.denunciaId = this.getUserId();
     return this.http.post(this.baseUrl + 'denuncias', denuncia)
-    .map(res => res.json());
-}
+      .map(res => res.json());
+  }
 
 }

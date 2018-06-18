@@ -7,8 +7,8 @@
                         <div class="com">
                             <h5 class="text-body">Comentario</h5>
                             <li class="left clearfix" *ngIf="comment.user">
-                                <ngx-userDesign dataCommUser="comment.user" dataUserPerfil="comment.user.perfil" dataUserSymbol="comment.user.username" [dataUserName]="comment.user.username"
-                                    [dataUserPuntos]="comment.user.puntos" [dataUserFama]="comment.user.fama.firsttwo" [dataUserImage]="comment.user.perfil" [dataUserId]="comment.userId"></ngx-userDesign>
+                                <ngx-user-body dataCommUser="comment.user" dataUserPerfil="comment.user.perfil" dataUserSymbol="comment.user.username" [dataUserName]="comment.user.username"
+                                    [dataUserPuntos]="comment.user.puntos" [dataUserFama]="comment.user.fama.firsttwo" [dataUserImage]="comment.user.perfil" [dataUserId]="comment.userId"></ngx-user-body>
                                 <div class="chat-body clearfix mar-top">
                                     <p>{{comment.contenido}}</p>
                                     <p class="text-hint">{{comment.fecha_registro | amTimeAgo}}</p>
@@ -19,8 +19,8 @@
                             <h5 class="text-body">Respuesta</h5>
                             <div *ngFor="let answer of comment.res">
                                 <li class="left clearfix" *ngIf="answer.user">
-                                    <ngx-userDesign dataCommUser="answer.user" dataUserPerfil="answer.user.perfil" [dataUserSymbol]="answer.user.username" [dataUserName]="answer.user.username"
-                                        [dataUserPuntos]="answer.user.puntos" [dataUserFama]="answer.user.fama.firsttwo" [dataUserImage]="answer.user.perfil" [dataUserId]="answer.userId"></ngx-userDesign>
+                                    <ngx-user-body dataCommUser="answer.user" dataUserPerfil="answer.user.perfil" [dataUserSymbol]="answer.user.username" [dataUserName]="answer.user.username"
+                                        [dataUserPuntos]="answer.user.puntos" [dataUserFama]="answer.user.fama.firsttwo" [dataUserImage]="answer.user.perfil" [dataUserId]="answer.userId"></ngx-user-body>
                                     <div class="chat-body clearfix mar-top">
                                         <p>{{answer.contenido}}</p>
                                         <p class="text-hint">{{answer.fecha_registro | amTimeAgo}}</p>

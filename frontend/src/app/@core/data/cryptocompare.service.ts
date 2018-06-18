@@ -1,4 +1,4 @@
-import { Injectable, NgModule } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http } from '@angular/http'
 import { Socket } from 'ng-socket-io';
 import { Observable } from 'rxjs/Observable';
@@ -20,7 +20,7 @@ export class CryptoCompareService extends Socket {
             this.on('m', function (data) {
                 object = data.split('~');
                 observer.next(object[8]);
-                console.log(`${object[2]} - ${object[3]} - ${object[8]}`);
+
             });
             // return () => this.disconnect();
         })
@@ -29,11 +29,11 @@ export class CryptoCompareService extends Socket {
     close() {
         return new Observable(observer => {
             this.disconnect();
-            observer.next("End Connection")
+            observer.next('End Connection')
         })
     }
 
     getTrades() {
-        return this.http.get("https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR").map(data => data.json());
+        return this.http.get('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR').map(data => data.json());
     }
 }

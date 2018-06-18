@@ -1,14 +1,15 @@
 export const _GLOBAL = {
-    apiUrl: 'https://backend.criptoanalisis.org/api/',
-    Url: 'https://backend.criptoanalisis.org',
+    apiUrl: 'http://localhost:5000/api/',
+    Url: 'http://localhost:5000',
 }
 
 export const configCrud = {
     message: {
-        success: "Se guardo con exito!!!",
-        error: "Se produjo un error con",
-    }
+        success: 'Se guardo con exito!!!',
+        error: 'Se produjo un error con',
+    },
 };
+
 export const configImage = {
     maxSize: 1000000,
     pixele: {
@@ -18,30 +19,30 @@ export const configImage = {
         minHeigth: 100,
     },
     type: new Array(
-        "image/jpeg",
-        "image/jpg",
-        "image/png",
-        "image/bmp"
+        'image/jpeg',
+        'image/jpg',
+        'image/png',
+        'image/bmp',
     ),
     message: {
-        success: "La imagen se cargo exitosamente",
-        warning: "Las imagenes permitidas son: png,jpg,jpeg,bmp",
-        error: "Vuelva a intertarlo",
-    }
+        success: 'La imagen se cargo exitosamente',
+        warning: 'Las imagenes permitidas son: png,jpg,jpeg,bmp',
+        error: 'Vuelva a intertarlo',
+    },
 };
 
 export const dBox = {
     token: 'NirdHiRLreAAAAAAAAAAWz7lcT2HvMv-XoyOD7wF7dHE4l0f1lMkL6aXd-kv-V_w',
     key: 'zn0kbmrq6ed8rme',
-    secret: 'vrm42gw40yjlaa4'
+    secret: 'vrm42gw40yjlaa4',
 }
 
 export const typeCoinByDefault = [{
-    id: 'USD'
+    id: 'USD',
 }, {
-    id: 'BTC'
+    id: 'BTC',
 }, {
-    id: 'ETH'
+    id: 'ETH',
 }]
 
 export const typeOfOffer = [{

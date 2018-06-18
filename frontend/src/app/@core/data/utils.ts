@@ -1,4 +1,4 @@
-import { ToasterConfig, Toast, ToasterService, BodyOutputType } from 'angular2-toaster';
+import { ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
 
 export abstract class Utils {
 

@@ -34,7 +34,7 @@
     <div class="{{design}}" *ngFor="let signal of listSignal">
         <nb-card>
             <div class="card card-inverse card-info">
-                <a (click)="routerLink('/pages/signals/signals-view', signal.id)">
+                <a (click)="routerLink('/pages/signals/view', signal.id)">
                     <img class="card-img-top d-none d-sm-block" src="{{signal.perfilLink}}">
                     <div class="card-block" *ngFor="let content of signal.contentUser">
                         <div class="row">

@@ -5,9 +5,9 @@ import * as moment from 'moment';
 @Component({
   selector: 'ngx-comment',
   templateUrl: './comment.component.html',
-  styleUrls: ['./comment.component.scss']
+  styleUrls: ['./comment.component.scss'],
 })
-export class commentComponent {
+export class CommentComponent {
 
   @Output() onObject = new EventEmitter<any>();
 
@@ -16,23 +16,23 @@ export class commentComponent {
   @Input() answer: any;
 
   constructor(
-    private router: Router
+    private router: Router,
   ) {
     moment.locale('es');
   }
   onAnswer($event) {
-    var input = $event.target.closest(".panel-footer").firstElementChild.firstElementChild;
-    let data = {
+    const input = $event.target.closest('.panel-footer').firstElementChild.firstElementChild;
+    const data = {
       id: input.id,
       name: input.name,
-      value: input.value
+      value: input.value,
     };
-    input.value = "";
+    input.value = '';
     this.onObject.emit(data);
   }
 
   signin() {
-    this.router.navigate(["/auth/login"]);
+    this.router.navigate(['/auth/login']);
   }
 
 }
