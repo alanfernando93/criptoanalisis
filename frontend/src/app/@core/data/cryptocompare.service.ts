@@ -20,9 +20,7 @@ export class CryptoCompareService extends Socket {
             this.on('m', function (data) {
                 object = data.split('~');
                 observer.next(object[8]);
-
             });
-            // return () => this.disconnect();
         })
     }
 

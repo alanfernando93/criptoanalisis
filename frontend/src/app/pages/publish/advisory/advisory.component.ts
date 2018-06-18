@@ -61,7 +61,6 @@ export class AdvisoryComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-
     private advisoriesService: AdvisoriesService,
     private toasterService: ToasterService,
     private router: Router,

@@ -111,7 +111,6 @@ export class SampleLayoutComponent implements OnInit {
       // Key not found, don't change the menu item
       return;
     }
-
     this.translate.get(key).subscribe((translation: string) => {
       menuItem.title = translation;
     });

@@ -28,9 +28,9 @@ export class SignalComponent implements OnInit, OnDestroy {
   isPreload: boolean = false;
 
   myFile: File;
-  entryPoint = 1;
-  tipoSalida = 1;
-  stopLoss = 1;
+  entryPoint: number = 1;
+  tipoSalida: number = 1;
+  stopLoss: number = 1;
 
   signal: any = {};
 

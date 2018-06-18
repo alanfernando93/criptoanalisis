@@ -10,9 +10,14 @@ const routes: Routes = [
     loadChildren: 'app/user/user.module#UserModule',
   },
   {
+    path: 'pages',
+    loadChildren: 'app/pages/pages.module#PagesModule',
+  }, {
+    path: 'user',
+    loadChildren: 'app/user/user.module#UserModule',
+  }, {
     path: 'auth',
     loadChildren: 'app/auth/auth.module#AuthModule',
-
 },
   { path: '', redirectTo: 'pages', pathMatch: 'full' },
   { path: '**', redirectTo: 'pages' },

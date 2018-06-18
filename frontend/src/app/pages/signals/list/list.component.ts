@@ -10,7 +10,7 @@ import { SignalsService } from '../signals.service';
 export class ListComponent implements OnInit {
 
   signals: any;
-  connection;
+  connection: any;
   limit: number = 12;
   increment: number = 0;
   contentUser: any;

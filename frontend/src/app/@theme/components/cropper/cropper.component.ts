@@ -59,7 +59,6 @@ export class CropperComponent {
         return;
       }
       image.src = loadEvent.target.result;
-
       this.cropper.setImage(image);
       showToast(this.toasterService, 'success', configImage.message.success);
     };

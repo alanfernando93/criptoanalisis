@@ -27,10 +27,8 @@ export class CoinComponent implements OnInit {
   coin: any = {};
   markets: any = []
   market: any;
-
   titles: any = [];
   newsCoins: any = {};
-
   formHtml: any;
   forms: any = {};
 
@@ -151,7 +149,6 @@ export class CoinComponent implements OnInit {
         this.forms = {};
         data.forEach(element => {
           this.coinsService.getTitleById(element.tituloId).subscribe(title => {
-
             this.forms[title.enlace] = {};
             this.forms[title.enlace].conclusion = element.contenido;
             this.forms[title.enlace].id = element.id;

@@ -15,8 +15,7 @@ export class ListComponent implements OnInit {
   count: any;
   limit: number = 6;
   increment: number = 0;
-  connection;
-
+  connection: any;
 
   constructor(
 
@@ -81,9 +80,9 @@ export class ListComponent implements OnInit {
           element.contentUser[0].fama.last = [];
           element.contentUser[0].fama.firstTwo = element.contentUser[0].fama.splice(0, 2);
           element.contentUser[0].fama.last = element.contentUser[0].fama.splice(0, element.contentUser[0].fama.length);
-          this.newsService.getNewsCommentCount(idNews).subscribe(data => {
+          this.newsService.getNewsCommentCount(idNews).subscribe(upload => {
             element.count = [];
-            element.count.push(data);
+            element.count.push(upload);
           });
         });
         this.news.push(element);

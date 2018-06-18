@@ -59,9 +59,6 @@ export class TinyMCEComponent extends Session implements OnDestroy, AfterViewIni
       theme: 'modern',
       setup: editor => {
         this.editor = editor;
-        // editor.on('init', cont => {
-        //   if (this.content) cont.target.setContent(this.content);
-        // });
         editor.on('change', () => {
           this.onEditorKeyup.emit(editor.getContent());
         })
@@ -85,8 +82,6 @@ export class TinyMCEComponent extends Session implements OnDestroy, AfterViewIni
         this.dropbox.imageUploadDropbox(blobInfo.blob(), this.getUserId(), this.serviceFolder, id).then(resp => {
           success('dropbox:' + resp + ':');
         });
-        // console.log("Uploading image");
-        // success("/some/path.jpg");
       },
     });
   }

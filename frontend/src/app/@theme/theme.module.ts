@@ -109,7 +109,7 @@ const NB_THEME_PROVIDERS = [
   ).providers,
   ...NbSidebarModule.forRoot().providers,
   ...NbMenuModule.forRoot().providers,
-     ShareButtonsModule.forRoot().providers,
+  ShareButtonsModule.forRoot().providers,
 ];
 
 @NgModule({

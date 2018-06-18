@@ -10,7 +10,6 @@ import { UserService } from '../../@core/data/users.service';
 })
 export class EditComponent implements OnInit {
   user: any = {};
-
   url: string;
   myFile: File;
   swname: boolean = true;
@@ -47,7 +46,6 @@ export class EditComponent implements OnInit {
         this.router.navigate(['/' + this.userService.getUserId()]);
       }
     });
-
   }
 
   fileChangeEvent(files: any) {
@@ -56,7 +54,6 @@ export class EditComponent implements OnInit {
       const reader = new FileReader();
       reader.readAsDataURL(files[0]);
       reader.onload = (event: any) => {
-
         this.url = event.target.result;
       }
     }

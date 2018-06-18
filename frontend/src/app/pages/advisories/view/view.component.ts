@@ -100,7 +100,6 @@ export class ViewComponent extends Session implements OnInit {
     });
   }
 
-
   sendLike() {
     this.route.params.forEach((params: Params) => {
       const id = params['advisoryId'];
@@ -158,7 +157,6 @@ export class ViewComponent extends Session implements OnInit {
 
 
       });
-
     });
   }
 
@@ -185,10 +183,7 @@ export class ViewComponent extends Session implements OnInit {
         this.infouser = advisories;
       });
     });
-
   }
-
-
 }
 
 

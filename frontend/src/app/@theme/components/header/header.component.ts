@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
   @Input() position;
 
   user: any = null;
-  connection;
+  connection: any;
   config: ToasterConfig;
   req: any;
   notifications: any;

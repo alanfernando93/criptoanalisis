@@ -12,7 +12,6 @@ export class ListComponent implements OnInit {
     market: any;
 
     constructor(
-
         private marketsService: MarketsService,
     ) {
     }
@@ -31,7 +30,6 @@ export class ListComponent implements OnInit {
                 }
             },
             error => {
-
             },
         );
     }

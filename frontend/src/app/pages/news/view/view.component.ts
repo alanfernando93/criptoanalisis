@@ -22,8 +22,8 @@ export class ViewComponent implements OnInit {
   denuncia: any = {};
   answer: any = {};
   commentById: any = [];
-  connectionCom;
-  connectionAns;
+  connectionCom: any;
+  connectionAns: any;
   siExUser = this.newsService.siExisteUser();
 
   constructor(
