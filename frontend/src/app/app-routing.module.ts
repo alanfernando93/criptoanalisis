@@ -1,25 +1,22 @@
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
- 
 const routes: Routes = [
-  { 
-    path: 'pages', 
-    loadChildren: 'app/pages/pages.module#PagesModule'
-  },{
-    path: 'user',
-    loadChildren: 'app/user/user.module#UserModule'
-  },
   {
+    path: 'pages',
+    loadChildren: 'app/pages/pages.module#PagesModule',
+  }, {
+    path: 'user',
+    loadChildren: 'app/user/user.module#UserModule',
+  }, {
     path: 'auth',
-    loadChildren: 'app/auth/auth.module#AuthModule'
-     
+    loadChildren: 'app/auth/auth.module#AuthModule',
 },
   { path: '', redirectTo: 'pages', pathMatch: 'full' },
   { path: '**', redirectTo: 'pages' },
 ];
 
 const config: ExtraOptions = {
-  useHash: true
+  useHash: true,
 };
 
 @NgModule({

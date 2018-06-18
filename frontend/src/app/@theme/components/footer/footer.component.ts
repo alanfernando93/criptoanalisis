@@ -1,4 +1,4 @@
-import { Component, Input, Pipe, PipeTransform } from '@angular/core';
+import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -7,5 +7,5 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './footer.component.html',
 })
 export class FooterComponent {
-  constructor(private translate: TranslateService){ }
+  constructor(private translate: TranslateService) { }
 }

@@ -4,7 +4,6 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
 import { Component, OnDestroy } from '@angular/core';
-import { NbThemeService } from '@nebular/theme';
 import { NbAuthComponent } from '@nebular/auth';
 
 @Component({

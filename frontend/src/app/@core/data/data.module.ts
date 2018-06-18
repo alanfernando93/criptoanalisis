@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { UserService } from './users.service';
 
 const SERVICES = [
-  UserService
+  UserService,
 ];
 
 @NgModule({

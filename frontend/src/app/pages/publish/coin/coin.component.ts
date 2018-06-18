@@ -9,18 +9,14 @@ import { MarketsService } from '../../markets/markets.service'
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import { isNumber } from '@ng-bootstrap/ng-bootstrap/util/util';
 import { showToast } from '../../../common/functions';
 import { ToasterService } from 'angular2-toaster';
-import { isString, isNull } from 'util';
-import { filter } from 'rxjs/operators/filter';
-import { forEach } from '@angular/router/src/utils/collection';
 import { UserService } from '../../../@core/data/users.service';
 
 @Component({
   selector: 'ngx-publish-coin',
   templateUrl: './coin.component.html',
-  styleUrls: ['./coin.component.scss']
+  styleUrls: ['./coin.component.scss'],
 })
 export class CoinComponent implements OnInit {
   @ViewChild('content') content: TemplateRef<any>
@@ -31,10 +27,8 @@ export class CoinComponent implements OnInit {
   coin: any = {};
   markets: any = []
   market: any;
-
   titles: any = [];
   newsCoins: any = {};
-
   formHtml: any;
   forms: any = {};
 
@@ -43,7 +37,7 @@ export class CoinComponent implements OnInit {
     private coinsService: CoinsService,
     private marketService: MarketsService,
     private toastService: ToasterService,
-    private userService: UserService
+    private userService: UserService,
   ) { }
 
   ngOnInit() {
@@ -53,7 +47,7 @@ export class CoinComponent implements OnInit {
       this.titles = data.filter(item => item.correspondencia == null);
       this.titles.forEach(element => {
         element.subtitles = data.filter(obj => {
-          if (obj.correspondencia == element.id) {
+          if (obj.correspondencia === element.id) {
             delete obj.correspondencia;
             return obj;
           }
@@ -63,15 +57,15 @@ export class CoinComponent implements OnInit {
     })
   }
 
-  keyUp(event){
-    if(event.target.value == ""){
+  keyUp(event) {
+    if (event.target.value === '') {
       Array.from(document.getElementsByClassName('sub')).forEach(element => element.setAttribute('class', 'rounded sub btn btn-secondary'));
       this.isCoin = false;
       this.coin = {};
     }
   }
 
-  open(enlace, id, nombre) {    
+  open(enlace, id, nombre) {
     if (!this.isCoin) {
       showToast(this.toastService, 'info', 'Seleccione una moneda');
       Array.from(document.getElementsByClassName('sub')).forEach(element => element.setAttribute('disabled', 'true'));
@@ -86,18 +80,18 @@ export class CoinComponent implements OnInit {
       div = document.getElementById('body');
       div.innerHTML = data['_body'];
       this.formHtml = document.getElementById('form');
-      this.formHtml.setAttribute('class', enlace + " " + id + " " + nombre);
-      modalTitle = document.getElementsByClassName("modal-title")[0]
+      this.formHtml.setAttribute('class', enlace + ' ' + id + ' ' + nombre);
+      modalTitle = document.getElementsByClassName('modal-title')[0]
       modalTitle.innerHTML = nombre;
       if (this.forms[enlace]) {
-        if (this.forms[enlace]["id"] !== undefined) {
+        if (this.forms[enlace]['id'] !== undefined) {
           divModal = document.getElementsByClassName('modal-footer')[0];
-          modalTitle = document.getElementsByClassName("modal-title")[0]
-          divModal.firstElementChild.innerText = "Modificar";
-          modalTitle.innerHTML = "Editar " + nombre;
+          modalTitle = document.getElementsByClassName('modal-title')[0]
+          divModal.firstElementChild.innerText = 'Modificar';
+          modalTitle.innerHTML = 'Editar ' + nombre;
         }
         length = this.formHtml.length;
-        for (let item of this.formHtml) {
+        for (const item of this.formHtml) {
           if (item.type === 'checkbox' || item.type === 'radio')
             item.checked = this.forms[enlace][item.id]
           else
@@ -112,8 +106,8 @@ export class CoinComponent implements OnInit {
   }
 
   submit(callback) {
-    let data: any = document.getElementById('form');
-    let clas = data.className.split(" ");
+    const data: any = document.getElementById('form');
+    const clas = data.className.split(' ');
     this.newsCoins.tituloId = clas[1];
     this.newsCoins.estado = true;
     this.newsCoins.monedaId = this.coin.id;
@@ -124,21 +118,21 @@ export class CoinComponent implements OnInit {
       } else
         this.newsCoins.contenido = data[i].value;
     }
-    this.coinsService.setCoinContent(this.newsCoins, this.forms[clas[0]] == undefined ? "undefined" : this.forms[clas[0]].id).subscribe(res => {
-      let button = document.getElementById(clas[0]);
+    this.coinsService.setCoinContent(this.newsCoins, this.forms[clas[0]] === undefined ? 'undefined' : this.forms[clas[0]].id).subscribe(res => {
+      const button = document.getElementById(clas[0]);
       button.setAttribute('class', 'rounded sub btn btn-success');
 
       callback('Close click');
-      if (this.forms[clas[0]] == undefined) this.getParamsForm(clas[0])
+      if (this.forms[clas[0]] === undefined) this.getParamsForm(clas[0])
       this.forms[clas[0]].id = res.id;
-      showToast(this.toastService, 'success', clas[2] + " insertada con exito");
+      showToast(this.toastService, 'success', clas[2] + ' insertada con exito');
     })
   }
 
   getParamsForm(enlace) {
-    if (this.forms[enlace] == undefined) this.forms[enlace] = {};
+    if (this.forms[enlace] === undefined) this.forms[enlace] = {};
     length = this.formHtml.length;
-    for (let tag of this.formHtml) {
+    for (const tag of this.formHtml) {
       if (tag.type === 'checkbox' || tag.type === 'radio')
         this.forms[enlace][tag.id] = tag.checked;
       else
@@ -157,19 +151,18 @@ export class CoinComponent implements OnInit {
 
   formatter = (x) => {
     this.isCoin = false;
-    if (x.name != undefined) {
+    if (x.name !== undefined) {
       this.isCoin = true;
       this.userService.getCoinContent(x.id).subscribe(data => {
         Array.from(document.getElementsByClassName('sub')).forEach(element => element.setAttribute('class', 'rounded sub btn btn-secondary'));
         this.forms = {};
         data.forEach(element => {
           this.coinsService.getTitleById(element.tituloId).subscribe(title => {
-            console.log(title);            
             this.forms[title.enlace] = {};
             this.forms[title.enlace].conclusion = element.contenido;
             this.forms[title.enlace].id = element.id;
-            this.forms[title.enlace]["customRadio" + element.calificacion] = true;
-            let button = document.getElementById(title.enlace);
+            this.forms[title.enlace]['customRadio' + element.calificacion] = true;
+            const button = document.getElementById(title.enlace);
             button.setAttribute('class', 'rounded sub btn btn-success');
           })
         });

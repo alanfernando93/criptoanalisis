@@ -56,7 +56,7 @@ export const MENU_ITEMS: MenuItem[] = [{
       title: 'Asesor de Pestañas',
       link: '/pages/advisories/tab',
       key: 'tab',
-    }
+    },
   ],
 }, {
   title: 'Mercados',
@@ -80,5 +80,5 @@ export const MENU_ITEMS: MenuItem[] = [{
       key: 'view',
     },
   ],
-}
+},
 ];

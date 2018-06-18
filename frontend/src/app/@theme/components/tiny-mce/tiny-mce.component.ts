@@ -1,7 +1,6 @@
-import { Component, OnDestroy, AfterViewInit, Output, Input, OnChanges, EventEmitter, ElementRef, } from '@angular/core';
+import { Component, OnDestroy, AfterViewInit, Output, Input, EventEmitter, ElementRef } from '@angular/core';
 
-import { DropboxCripto } from "../../../common/dropbox";
-import { parseToFile } from '../../../common/functions'
+import { DropboxCripto } from '../../../common/dropbox';
 
 // A theme is also required
 import 'tinymce/themes/modern/theme';
@@ -16,7 +15,6 @@ import 'tinymce/plugins/contextmenu';
 
 import '../../../../assets/plugins/tradingview';
 
-import { environment } from '../../../../environments/environment'
 import { Session } from '../../../@core/data/session';
 
 declare var tinymce: any;
@@ -35,7 +33,7 @@ export class TinyMCEComponent extends Session implements OnDestroy, AfterViewIni
 
   style = [
     '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
-    '//www.tinymce.com/css/codepen.min.css'
+    '//www.tinymce.com/css/codepen.min.css',
   ];
 
   imageCollection: any = [];
@@ -45,7 +43,7 @@ export class TinyMCEComponent extends Session implements OnDestroy, AfterViewIni
 
   constructor(
     private host: ElementRef,
-    private dropbox: DropboxCripto
+    private dropbox: DropboxCripto,
   ) {
     super();
   }
@@ -61,9 +59,6 @@ export class TinyMCEComponent extends Session implements OnDestroy, AfterViewIni
       theme: 'modern',
       setup: editor => {
         this.editor = editor;
-        // editor.on('init', cont => {
-        //   if (this.content) cont.target.setContent(this.content);
-        // });
         editor.on('change', () => {
           this.onEditorKeyup.emit(editor.getContent());
         })
@@ -78,33 +73,26 @@ export class TinyMCEComponent extends Session implements OnDestroy, AfterViewIni
       content_css: this.style,
       file_picker_callback: this.file_picker,
       images_upload_handler: (blobInfo, success, failure) => {
-        var id = new Date().getTime();
-        // let body = new FormData();
-        // body.append('file', blobInfo.blob(), id + "." + (blobInfo.filename()).split(".")[1]);
-        // this.newsService.fullUploadFileImage(body).subscribe(r => {
-        //   success(this.baseUrl + "containers/galery/download/" + id + "." + (blobInfo.filename()).split(".")[1]);
-        // })
+        const id = new Date().getTime();
         this.dropbox.imageUploadDropbox(blobInfo.blob(), this.getUserId(), this.serviceFolder, id).then(resp => {
           success('dropbox:' + resp + ':');
         });
-        // console.log("Uploading image");
-        // success("/some/path.jpg");
       },
     });
   }
 
   file_picker = (cb, value, meta) => {
-    let input = document.createElement('input');
+    const input = document.createElement('input');
     input.setAttribute('type', 'file');
     input.setAttribute('accept', 'image/*');
     input.onchange = event => {
-      let myFile = event['target']['files'][0];
-      let reader = new FileReader();
+      const myFile = event['target']['files'][0];
+      const reader = new FileReader();
       reader.onload = () => {
-        var id = 'blobid' + new Date().getTime();
-        var blobCache = tinymce.activeEditor.editorUpload.blobCache;
-        var base64 = reader.result.split(',')[1];
-        var blobInfo = blobCache.create(id, myFile, base64);
+        const id = 'blobid' + new Date().getTime();
+        const blobCache = tinymce.activeEditor.editorUpload.blobCache;
+        const base64 = reader.result.split(',')[1];
+        const blobInfo = blobCache.create(id, myFile, base64);
         blobCache.add(blobInfo);
         cb(blobInfo.blobUri(), { title: myFile.name });
       };

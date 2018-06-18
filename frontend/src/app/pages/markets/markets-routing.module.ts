@@ -10,17 +10,17 @@ const routes: Routes = [{
     children: [{
         path: 'list',
         component: ListComponent,
-    }
+    },
     ],
 }];
 @NgModule({
     imports : [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 
 export class MarketsRoutingModule {}
 
 export const routedComponents = [
     MarketsComponent,
-    ListComponent
+    ListComponent,
 ];

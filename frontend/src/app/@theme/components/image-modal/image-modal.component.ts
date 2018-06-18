@@ -1,17 +1,17 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CropperModalComponent } from '../cropper/croppermodal.component';
 
 @Component({
   selector: 'ngx-image',
   templateUrl: './image-modal.component.html',
-  styleUrls: ['./image-modal.component.scss']
+  styleUrls: ['./image-modal.component.scss'],
 })
 export class ImageModalComponent {
   @Output() onImageSelected = new EventEmitter<any>();
 
   myFile: any;
-  url: any = "https://mdbootstrap.com/img/Photos/Others/placeholder.jpg";
+  url: any = 'https://mdbootstrap.com/img/Photos/Others/placeholder.jpg';
   constructor(private modalService: NgbModal) { }
 
   openCropper() {

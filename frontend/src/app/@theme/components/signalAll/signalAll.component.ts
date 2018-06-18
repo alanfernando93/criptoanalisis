@@ -5,22 +5,22 @@ import * as moment from 'moment';
 @Component({
     selector: 'ngx-signalAll',
     templateUrl: './signalAll.component.html',
-    styleUrls: ['./signalAll.component.scss']
+    styleUrls: ['./signalAll.component.scss'],
 })
-export class signalAllComponent {
+export class SignalAllComponent {
 
     @Input() listSignal: any;
     @Input() design: any;
 
-    pagado: number = 50; 
+    pagado: number = 50;
 
     constructor(
-        private router: Router
-    ){
+        private router: Router,
+    ) {
         moment.locale('es');
     }
-    
-    routerLink(url, params?){
+
+    routerLink(url, params?) {
         this.router.navigate([url, params]);
     }
 }

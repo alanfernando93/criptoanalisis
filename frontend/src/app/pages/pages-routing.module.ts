@@ -20,7 +20,7 @@ const routes: Routes = [{
   }, {
     path: 'publish',
     component: PublishComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   }, {
     path: 'advisories',
     loadChildren: './advisories/advisories.module#AdvisoryModule',

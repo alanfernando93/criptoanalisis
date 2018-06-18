@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
 
 import { ThemeModule } from '../../@theme/theme.module';
 import { ToasterModule } from 'angular2-toaster';
@@ -12,7 +11,7 @@ import { AdvisoryComponent } from './advisory/advisory.component';
 
 import { NewsService } from '../news/news.service';
 import { CoinsService } from '../coins/coins.service';
-import { MarketsService } from "../markets/markets.service";
+import { MarketsService } from '../markets/markets.service';
 import { SignalsService } from '../signals/signals.service';
 import { AdvisoriesService } from '../advisories/advisories.service';
 
@@ -25,13 +24,13 @@ const Services = [
     SignalsService,
     MarketsService,
     AdvisoriesService,
-    CryptoCompareService
+    CryptoCompareService,
 ]
 
 @NgModule({
     imports: [
         ThemeModule,
-        ToasterModule
+        ToasterModule,
     ],
     declarations: [
         PublishComponent,
@@ -39,9 +38,9 @@ const Services = [
         SignalComponent,
         CoinComponent,
         AdvisoryComponent,
-        CropperModalComponent
+        CropperModalComponent,
     ],
     entryComponents: [CropperModalComponent],
-    providers: Services
+    providers: Services,
 })
 export class PublishModule { }

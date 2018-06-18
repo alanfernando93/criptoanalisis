@@ -21,7 +21,7 @@ const USER_COMPONENTS = [
         ThemeModule,
         MomentModule,
         NewsModule,
-        SignalsModule
+        SignalsModule,
     ],
     exports: [
     ],

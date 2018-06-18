@@ -10,9 +10,9 @@ import { MarketsService } from './markets.service';
         ThemeModule,
         MarketsRoutingModule,
     ],
-    declarations:[
+    declarations: [
         ...routedComponents,
     ],
-    providers: [MarketsService]
+    providers: [MarketsService],
 })
 export class MarketsModule {}

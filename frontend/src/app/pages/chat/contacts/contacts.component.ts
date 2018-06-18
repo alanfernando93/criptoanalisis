@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
 import { NbThemeService, NbMediaBreakpoint, NbMediaBreakpointsService } from '@nebular/theme';
 import { ChatService } from '../chat.service';
-import { forEach } from '@angular/router/src/utils/collection';
 @Component({
   selector: 'ngx-contacts',
 })
@@ -17,7 +16,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
 
   constructor(private themeService: NbThemeService,
               private breakpointService: NbMediaBreakpointsService,
-              private chatService : ChatService) {
+              private chatService: ChatService) {
 
     this.breakpoints = this.breakpointService.getBreakpointsMap();
     this.themeSubscription = this.themeService.onMediaQueryChange()
@@ -30,44 +29,44 @@ export class ContactsComponent implements OnInit, OnDestroy {
     this.getChats();
   }
   getChats(){
-    this.chatService.getrooms().subscribe(data =>{
+    this.chatService.getrooms().subscribe(data => {
       this.rooms = data;
     });
-    this.chatService.getUsers().subscribe(data =>{
+    this.chatService.getUsers().subscribe(data => {
       this.contacts = data;
     });
-    this.chatService.getrequests().subscribe(data =>{
+    this.chatService.getrequests().subscribe(data => {
       this.requests = data.requests;
     });
   }
-  chatRoom(Name: string,id:number){
+  chatRoom(Name: string, id: number){
     this.onChat.emit({
-      nombre:Name,
-      id: id
+      nombre: Name,
+      id: id,
     });
   }
   ngOnDestroy() {
     this.themeSubscription.unsubscribe();
   }
   getStatus(id: number){
-    if(id == parseInt(localStorage.getItem('userId')))
+    if (id == parseInt(localStorage.getItem('userId')))
       return 'pendiente'
     else
     return 'solicitado'
   }
   ReqResponse(id: number, state: boolean){
-    this.requests.forEach((element,index)=>{
-      if(id == element.id){
-        if(state){
-          this.chatService.AcceptRequest(element.id).subscribe(data =>{
+    this.requests.forEach((element, index) => {
+      if (id == element.id){
+        if (state){
+          this.chatService.AcceptRequest(element.id).subscribe(data => {
             console.log(data);
           });
         } else {
-          this.chatService.RejectRequest(element.id).subscribe(data =>{
+          this.chatService.RejectRequest(element.id).subscribe(data => {
             console.log(data);
           });
         }
-        this.requests.splice(index,1);
+        this.requests.splice(index, 1);
       }
     });
   }

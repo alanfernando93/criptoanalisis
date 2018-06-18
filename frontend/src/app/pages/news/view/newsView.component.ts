@@ -1,18 +1,16 @@
-import { Component, OnInit, Output } from '@angular/core';
-import { EventEmitter } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Http } from '@angular/http';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NewsService } from '../news.service';
 import { UserService } from '../../../@core/data/users.service';
-import * as nbUser from '@nebular/theme/components/user/user.component';
 import { orderData } from '../../../common/array';
 
 @Component({
   selector: 'ngx-newsView',
   templateUrl: './newsView.component.html',
-  styleUrls: ['./newsView.component.scss']
+  styleUrls: ['./newsView.component.scss'],
 })
-export class newsViewComponent implements OnInit {
+export class NewsViewComponent implements OnInit {
 
   news: any;
   idNews: any;
@@ -25,8 +23,8 @@ export class newsViewComponent implements OnInit {
   denuncia: any = {};
   answer: any = {};
   commentById: any = [];
-  connectionCom;
-  connectionAns;
+  connectionCom: any;
+  connectionAns: any;
   siExUser = this.newsService.siExisteUser();
 
   constructor(
@@ -48,13 +46,13 @@ export class newsViewComponent implements OnInit {
     this.ansNews();
   }
 
-  userLogin(){
+  userLogin() {
     return this.newsService.getUserId();
   }
 
   getNewsById(event) {
     this.newsService.getById(this.idNews).subscribe(data => {
-      event.target.closest("nb-card").remove();
+      event.target.closest('nb-card').remove();
       data ? this.news = data : {};
     });
   }
@@ -73,7 +71,7 @@ export class newsViewComponent implements OnInit {
   connNews() {
     this.newsService.JoinComm(this.idNews);
     this.connectionCom = this.newsService.getNewsComen().subscribe(data => {
-      let commData: any = data;
+      const commData: any = data;
       this.commentById.push(data);
       this.getNewsCommentCount();
       this.getUserComm(commData.userId, this.commentById.length - 1);
@@ -82,9 +80,9 @@ export class newsViewComponent implements OnInit {
 
   ansNews() {
     this.connectionAns = this.newsService.getNewsAns().subscribe(data => {
-      let ComPosition = data["positionComment"];
+      const ComPosition = data['positionComment'];
       this.newsAnswer = data;
-      if (this.commentById[ComPosition].res == undefined) {
+      if (this.commentById[ComPosition].res === undefined) {
         this.commentById[ComPosition].res = [];
       }
       this.commentById[ComPosition].res.push(data);
@@ -96,7 +94,7 @@ export class newsViewComponent implements OnInit {
     this.newsService.getNewsComment(this.idNews).subscribe(data => {
       data ? this.commentById = data : {};
       this.commentById.forEach((element, index) => {
-        let commentId = this.commentById[index].id;
+        const commentId = this.commentById[index].id;
         this.getAnswer(commentId, index);
       });
     });
@@ -106,7 +104,7 @@ export class newsViewComponent implements OnInit {
     this.newsService.getNewsComment(this.idNews).subscribe(data => {
       data ? this.commentById = data : {};
       this.commentById.forEach((element, index) => {
-        let userByComment = this.commentById[index].userId;
+        const userByComment = this.commentById[index].userId;
         this.getUserComm(userByComment, index);
       });
     });
@@ -133,7 +131,7 @@ export class newsViewComponent implements OnInit {
 
   getUserAnswer(index) {
     this.commentById[index].res.forEach((element, index1) => {
-      let userByAnswer = this.commentById[index].res[index1].userId;
+      const userByAnswer = this.commentById[index].res[index1].userId;
       this.userService.getById(userByAnswer).subscribe(data => {
         this.commentById[index].res[index1].user = data;
         orderData(this.commentById[index].res[index1].user);

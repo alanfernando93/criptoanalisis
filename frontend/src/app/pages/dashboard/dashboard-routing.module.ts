@@ -4,19 +4,19 @@ import { DashboardComponent } from './dashboard.component';
 
 const routes: Routes = [
     {
-        path: 'view/:newsId' 
+        path: 'view/:newsId',
     },
     {
-        path: 'view/:signalId'
-    }   
+        path: 'view/:signalId',
+    },
 ];
 @NgModule({
     imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 
 export class DashboardRoutingModule {}
 
 export const routedComponents = [
-    DashboardComponent
+    DashboardComponent,
 ];

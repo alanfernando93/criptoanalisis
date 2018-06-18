@@ -1,8 +1,7 @@
-import { Component, OnInit, OnDestroy, DoCheck } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Router } from "@angular/router";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
-import { environment } from '../../../environments/environment'
 import { Session } from '../../@core/data/session';
 
 @Component({
@@ -11,14 +10,14 @@ import { Session } from '../../@core/data/session';
     templateUrl: './publish.component.html',
 })
 
-export class PublishComponent implements OnInit {
-    select:Number = parseInt(Session.getStorage('select'));
-    idNews:String;
+export class PublishComponent implements OnInit, OnDestroy{
+    select: Number = parseInt(Session.getStorage('select'));
+    idNews: String;
 
-    constructor(        
+    constructor(
         private router: Router,
-        private route: ActivatedRoute
-    ) {        
+        private route: ActivatedRoute,
+    ) {
         this.route.params.subscribe((param) => {
             this.idNews = param['idNews'];
         });
@@ -31,7 +30,7 @@ export class PublishComponent implements OnInit {
         Session.removeStorage('select');
     }
 
-    Select($event){
-        Session.setStorage('select',$event.nextId)
+    Select($event) {
+        Session.setStorage('select', $event.nextId)
     }
 }

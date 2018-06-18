@@ -1,24 +1,23 @@
 import { Component, Input } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { NewsService } from '../../../pages/news/news.service';
 
 @Component({
     selector: 'ngx-complaint',
-    templateUrl: './complaint.component.html'
+    templateUrl: './complaint.component.html',
 })
-export class complaintComponent {
+export class ComplaintComponent {
 
     @Input() Design: any;
     @Input() tipCom: any;
     @Input() Content: any;
-    @Input() userIdNews: any; 
+    @Input() userIdNews: any;
     @Input() newsId: any;
     @Input() nalugar: any;
     denuncia: any = {};
-    
+
     constructor(
-        private newsService: NewsService
-    ){
+        private newsService: NewsService,
+    ) {
     }
 
     sendDenuncia() {
@@ -29,5 +28,5 @@ export class complaintComponent {
           this.denuncia = {};
         });
       }
-    
+
 }

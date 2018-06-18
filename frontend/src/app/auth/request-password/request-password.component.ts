@@ -11,6 +11,6 @@ import { NbRequestPasswordComponent } from '@nebular/auth';
   templateUrl: './request-password.component.html',
   styleUrls: ['./request-password.component.scss'],
 })
-export class NgxRequestPasswordComponent extends NbRequestPasswordComponent{
+export class NgxRequestPasswordComponent extends NbRequestPasswordComponent {
 
 }

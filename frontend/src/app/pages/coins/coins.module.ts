@@ -9,12 +9,12 @@ import { CoinsService } from './coins.service';
   imports: [
     ThemeModule,
     CoinsRoutingModule,
-    HttpModule
+    HttpModule,
   ],
-  declarations:[
+  declarations: [
     ...routedComponents,
 ],
-  providers:[CoinsService]
+  providers: [CoinsService],
 })
 
 export class CoinsModule {}

@@ -1,74 +1,72 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { NgModel } from '@angular/forms';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ChatService} from './chat.service';
 import {NgbModal, ModalDismissReasons, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
-  providers:[ ChatService ]
+  providers: [ ChatService ],
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnDestroy {
   modalRef: NgbModalRef;
   contacts = [];
-  msg : string;
+  msg: string;
   messages = [];
   connection;
   chatType: string;
-  payMsg : boolean = false;
-  rooms : any;
+  payMsg: boolean = false;
+  rooms: any;
   closeResult: string;
   reciever: any;
-  freechat : number;
-  constructor(private chatService : ChatService, private modalService: NgbModal) {}
+  freechat: number;
+  constructor(private chatService: ChatService, private modalService: NgbModal) {}
 
   ngOnInit() {
     this.reciever = {
       id: undefined,
       name: undefined,
       type: undefined,
-      picture: undefined
+      picture: undefined,
     };
     this.getchats();
-    this.connection = this.chatService.getMessages().subscribe(message =>{
+    this.connection = this.chatService.getMessages().subscribe(message => {
       this.messages.push(message);
     });
-    this.connection=this.chatService.getErrors().subscribe(message=>{
+    this.connection = this.chatService.getErrors().subscribe(message => {
       this.messages.push(message);
     })
   }
-  getchats(){
-    this.chatService.getUsers().subscribe(data =>{
+  getchats() {
+    this.chatService.getUsers().subscribe(data => {
       this.contacts = data;
     });
   };
-  openUser(id, name, type, picture, content){
-    if((this.reciever.id== id && this.reciever.type != type) || (this.reciever.id!= id && this.reciever.type == type) || this.reciever.id == undefined) {
-      if(this.reciever) {
-        if(this.reciever.type == 'person')
+  openUser(id, name, type, picture, content) {
+    if ((this.reciever.id === id && this.reciever.type !== type) || (this.reciever.id !== id && this.reciever.type === type) || this.reciever.id === undefined) {
+      if (this.reciever) {
+        if (this.reciever.type === 'person')
           this.chatService.leave(id)
         else
           this.chatService.leave(name)
       }
-      this.messages=[];
+      this.messages = [];
       this.reciever = {
           id: id,
           name: name,
           picture: picture,
-          type: type
+          type: type,
         }
-      if(type == 'person') {
+      if (type === 'person') {
         // flujo de chat personal
         this.chatService.joinRoom(id);
-        this.chatService.findRequest(id).subscribe(data=>{
-          if(data.requests.length>0) {
-            this.reciever.status = "gratuito"
+        this.chatService.findRequest(id).subscribe(data => {
+          if (data.requests.length > 0) {
+            this.reciever.status = 'gratuito'
             this.chatType = 'free';
             this.freechat = data.requests[0].id;
           } else {
-            this.open(content);    
+            this.open(content);
             this.chatType = undefined;
           }
         });
@@ -79,30 +77,30 @@ export class ChatComponent implements OnInit {
       };
     }
   };
-  sendMsg(){
-    if(this.reciever.type == 'person' ){
-      this.chatService.sendMessage(this.msg,this.reciever.id,this.chatType);
+  sendMsg() {
+    if (this.reciever.type === 'person' ) {
+      this.chatService.sendMessage(this.msg, this.reciever.id, this.chatType);
     } else {
-      this.chatService.sendMessage(this.msg,this.reciever.name,this.chatType);
+      this.chatService.sendMessage(this.msg, this.reciever.name, this.chatType);
     }
-    this.msg ='';
+    this.msg = '';
   }
-  setType(type: string){
-      this.chatType= type; 
+  setType(type: string) {
+      this.chatType = type;
   }
-  getoldMessages(room: any){
-    this.chatService.getoldMessages(room).subscribe(data =>{
-      if(data.room != undefined)
+  getoldMessages(room: any) {
+    this.chatService.getoldMessages(room).subscribe(data => {
+      if (data.room !== undefined)
         this.messages = data.room;
       else
         this.messages = data.messages;
     })
   }
-  getuserId(){
+  getuserId() {
     return this.chatService.getUserId();
   }
-  sendRequest(){
-    this.chatService.CreateRequest(this.reciever.id).subscribe(data=>{
+  sendRequest() {
+    this.chatService.CreateRequest(this.reciever.id).subscribe(data => {
     });
   }
   open(content) {
@@ -122,27 +120,27 @@ export class ChatComponent implements OnInit {
       return  `with: ${reason}`;
     }
   }
-  finishchat(content){
+  finishchat(content) {
     switch (this.chatType) {
       case 'free': {
         this.chatType = undefined;
-        this.chatService.finishFreeChat(this.reciever.id).subscribe(data=>{
+        this.chatService.finishFreeChat(this.reciever.id).subscribe(data => {
         });
         break;
       }
       case 'pay': {
         this.chatType = undefined;
-        this.chatService.finishPayChat(this.reciever.id).subscribe(data=>{
+        this.chatService.finishPayChat(this.reciever.id).subscribe(data => {
         });
         break;
       };
-      default :{
+      default : {
         this.modalRef.close();
         break;
       }
     }
   };
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.connection.unsubscribe();
   }
 

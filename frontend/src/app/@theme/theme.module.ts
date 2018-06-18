@@ -6,7 +6,6 @@ import { ToasterModule } from 'angular2-toaster';
 import { ImageCropperComponent } from 'ng2-img-cropper';
 import { MomentModule } from 'angular2-moment';
 import { ShareButtonsModule } from 'ngx-sharebuttons';
-import * as moment from 'moment';
 
 import {
   NbActionsModule,
@@ -23,26 +22,25 @@ import {
 } from '@nebular/theme';
 
 import {
-  CropperModalComponent,
   FooterComponent,
-  scheduleComponent,
+  ScheduleComponent,
   HeaderComponent,
   HeaderTwoComponent,
   ImageModalComponent,
   SearchInputComponent,
   TinyMCEComponent,
-  signalAllComponent,
-  newsAllComponent,
-  userDesignComponent,
-  commentComponent,
-  complaintComponent,
-  shareComponent,
-  advisoriesAllComponent,
-  PreloadComponent
+  SignalAllComponent,
+  NewsAllComponent,
+  UserDesignComponent,
+  CommentComponent,
+  ComplaintComponent,
+  ShareComponent,
+  AdvisoriesAllComponent,
+  PreloadComponent,
 } from './components';
-import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe } from './pipes';
+import { CapitalizePipe, PluralPipe, RoundPipe } from './pipes';
 import {
-  SampleLayoutComponent
+  SampleLayoutComponent,
 } from './layouts';
 import { DEFAULT_THEME } from './styles/theme.default';
 
@@ -61,7 +59,7 @@ const NB_MODULES = [
   NbCheckboxModule,
   NgbModule,
   MomentModule,
-  ShareButtonsModule
+  ShareButtonsModule,
 ];
 
 const COMPONENTS = [
@@ -73,15 +71,15 @@ const COMPONENTS = [
   SearchInputComponent,
   TinyMCEComponent,
   SampleLayoutComponent,
-  scheduleComponent,
-  advisoriesAllComponent,
-  userDesignComponent,
-  commentComponent,
-  complaintComponent,
-  shareComponent,
-  newsAllComponent,
-  signalAllComponent,
-  PreloadComponent
+  ScheduleComponent,
+  AdvisoriesAllComponent,
+  UserDesignComponent,
+  CommentComponent,
+  ComplaintComponent,
+  ShareComponent,
+  NewsAllComponent,
+  SignalAllComponent,
+  PreloadComponent,
 ];
 
 const PIPES = [
@@ -109,19 +107,19 @@ const NB_THEME_PROVIDERS = [
   ).providers,
   ...NbSidebarModule.forRoot().providers,
   ...NbMenuModule.forRoot().providers,
-     ShareButtonsModule.forRoot().providers,
+  ShareButtonsModule.forRoot().providers,
 ];
 
 @NgModule({
-  imports: [...BASE_MODULES, ...NB_MODULES,TranslateModule.forRoot({
+  imports: [...BASE_MODULES, ...NB_MODULES, TranslateModule.forRoot({
     loader: {
       provide: TranslateLoader,
       useFactory: HttpLoaderFactory,
-      deps: [HttpClient]
-    }
-  }),],
+      deps: [HttpClient],
+    },
+  })],
   exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES],
-  declarations: [...COMPONENTS, ...PIPES]
+  declarations: [...COMPONENTS, ...PIPES],
 })
 export class ThemeModule {
   static forRoot(): ModuleWithProviders {

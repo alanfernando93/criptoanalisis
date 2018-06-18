@@ -1,30 +1,29 @@
-import { Component, OnInit, Input, ViewChild, TemplateRef } from "@angular/core";
-import { Router } from "@angular/router";
-import { Response } from "@angular/http";
+import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { ToasterService, ToasterConfig, Toast, BodyOutputType } from 'angular2-toaster';
+import { ToasterService } from 'angular2-toaster';
 
-import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { NewsService } from "../../news/news.service";
-import { CoinsService } from "../../coins/coins.service";
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NewsService } from '../../news/news.service';
+import { CoinsService } from '../../coins/coins.service';
 
-import { showToast } from "../../../common/functions";
-import { configCrud } from "../../../common/ConfigSettings";
-import { DropboxCripto } from "../../../common/dropbox";
-import { Validators, FormGroup, FormBuilder } from "@angular/forms";
+import { showToast } from '../../../common/functions';
+import { configCrud } from '../../../common/ConfigSettings';
+import { DropboxCripto } from '../../../common/dropbox';
+import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 
 declare var tinymce: any;
 
 @Component({
-  selector: "ngx-publish-news",
-  styleUrls: ["./news.component.scss"],
-  templateUrl: "news.component.html"
+  selector: 'ngx-publish-news',
+  styleUrls: ['./news.component.scss'],
+  templateUrl: 'news.component.html',
 })
 export class PublishNewsComponent implements OnInit {
   @Input() idNew: String = null;
 
   myFile: any;
-  
+
   newsPublish: any = {};
   coins: any = [];
   Form: FormGroup
@@ -32,7 +31,7 @@ export class PublishNewsComponent implements OnInit {
   isPreload: boolean = false;
 
   selectedView = {
-    name: "Seleccione Moneda"
+    name: 'Seleccione Moneda',
   };
 
   content = `I'm cool toaster!`;
@@ -49,10 +48,10 @@ export class PublishNewsComponent implements OnInit {
     private router: Router,
     private toasterService: ToasterService,
     private dropbox: DropboxCripto,
-    private fb: FormBuilder
+    private fb: FormBuilder,
   ) {
     this.Form = this.fb.group({
-      title: ['', Validators.compose([Validators.required, Validators.minLength(4)])]
+      title: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
     })
   }
 
@@ -72,7 +71,7 @@ export class PublishNewsComponent implements OnInit {
     this.editor1 = new Promise(resolve => {
       tinymce.editors[0].uploadImages(() => {
         this.newsPublish.contenido = tinymce.editors[0].getContent()
-        resolve("get edito 1");
+        resolve('get edito 1');
       })
     });
 
@@ -86,7 +85,7 @@ export class PublishNewsComponent implements OnInit {
     this.editor3 = new Promise(resolve => {
       tinymce.editors[2].uploadImages(() => {
         this.newsPublish.conj_moneda = tinymce.editors[2].getContent()
-        resolve("get edito 3");
+        resolve('get edito 3');
       })
     });
     Promise.all([this.editor1, this.editor2, this.editor3]).then(values => {
@@ -96,7 +95,7 @@ export class PublishNewsComponent implements OnInit {
           this.isPreload = false;
           this.content = configCrud.message.success + ' noticias';
           showToast(this.toasterService, 'success', this.content);
-          this.router.navigate(["/pages/news/news-list"]);
+          this.router.navigate(['/pages/news/news-list']);
         });
       }, error => {
         this.isPreload = false;

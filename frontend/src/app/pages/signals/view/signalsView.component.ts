@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { EventEmitter } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Http } from '@angular/http';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SignalsService } from '../signals.service';
 import { UserService } from '../../../@core/data/users.service';
-import * as nbUser from '@nebular/theme/components/user/user.component'
 import { orderData } from '../../../common/array';
 
 @Component({
   selector: 'ngx-signalsView',
   templateUrl: './signalsView.component.html',
-  styleUrls: ['./signalsView.component.scss']
+  styleUrls: ['./signalsView.component.scss'],
 })
-export class signalsViewComponent implements OnInit {
+export class SignalsViewComponent implements OnInit {
 
   signal: any;
   idSignal: any;
@@ -33,7 +31,7 @@ export class signalsViewComponent implements OnInit {
     private router: Router,
     private signalsService: SignalsService,
     private userService: UserService) {
-      route.params.subscribe(val=>{
+      route.params.subscribe(val => {
         this.idSignal = val.signalId;
         this.getSignalCommentById();
         this.getSignalWithUser();
@@ -46,10 +44,10 @@ export class signalsViewComponent implements OnInit {
     this.connSignals();
     this.anSignals();
   }
-  
+
   getSignalById(event) {
     this.signalsService.getById(this.idSignal).subscribe(data => {
-      event.target.closest("nb-card").remove();
+      event.target.closest('nb-card').remove();
       data ? this.signal = data : {};
     });
   }
@@ -68,18 +66,18 @@ export class signalsViewComponent implements OnInit {
   connSignals() {
     this.signalsService.JoinComm(this.idSignal);
     this.connectionCom = this.signalsService.getSignalsCommen().subscribe(data => {
-      let commData: any = data;
+      const commData: any = data;
       this.commentById.push(data);
       this.getSignalCommentCount();
-      this.getUserComm(commData.userId, this.commentById.length -1);
+      this.getUserComm(commData.userId, this.commentById.length - 1);
     });
   }
 
-  anSignals(){
+  anSignals() {
     this.connectionAns = this.signalsService.getSignalsAns().subscribe(data => {
-      let comPosition = data["positionComment"];
+      const comPosition = data['positionComment'];
       this.signalsAnswer = data;
-      if (this.commentById[comPosition].res == undefined) {
+      if (this.commentById[comPosition].res === undefined) {
         this.commentById[comPosition].res = [];
       }
       this.commentById[comPosition].res.push(data);
@@ -91,7 +89,7 @@ export class signalsViewComponent implements OnInit {
     this.signalsService.getSignalsComment(this.idSignal).subscribe(data => {
       data ? this.commentById = data : {};
       this.commentById.forEach((element, index) => {
-        let commentId = this.commentById[index].id;
+        const commentId = this.commentById[index].id;
         this.getSignalsAnwer(commentId, index);
       });
     });
@@ -101,7 +99,7 @@ export class signalsViewComponent implements OnInit {
     this.signalsService.getSignalsComment(this.idSignal).subscribe(data => {
       data ? this.commentById = data : {};
       this.commentById.forEach((element, index) => {
-        let userByComment = this.commentById[index].userId;
+        const userByComment = this.commentById[index].userId;
         this.getUserComm(userByComment, index);
       });
     });
@@ -126,9 +124,9 @@ export class signalsViewComponent implements OnInit {
     });
   }
 
-  getUserAnswer(index){
+  getUserAnswer(index) {
     this.commentById[index].res.forEach((element, index1) => {
-      let userByAnswer = this.commentById[index].res[index1].userId;
+      const userByAnswer = this.commentById[index].res[index1].userId;
     this.userService.getById(userByAnswer).subscribe(data => {
       this.commentById[index].res[index1].user = data;
       orderData(this.commentById[index].res[index1].user);
@@ -153,7 +151,7 @@ export class signalsViewComponent implements OnInit {
     this.signalsService.postSignalsAnswer(this.answer).subscribe(data => {
     });
   }
-  
+
   getSignalCommentCount() {
     this.signalsService.getSignalsCommentCount(this.idSignal).subscribe(data => {
       this.count = data;
