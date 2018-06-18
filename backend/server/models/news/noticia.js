@@ -1,19 +1,19 @@
-'use strict';
+import _promise from 'babel-runtime/core-js/promise';
+import _assign from 'babel-runtime/core-js/object/assign';
+import _async from 'async';
+import _variable from '../../variable';
 
-var _promise = require('babel-runtime/core-js/promise');
-var _promise2 = _interopRequireDefault(_promise);
-var _assign = require('babel-runtime/core-js/object/assign');
-var _assign2 = _interopRequireDefault(_assign);
-var _async = require('async');
-var _async2 = _interopRequireDefault(_async);
-var _variable = require('../../variable');
 var Dropbox = require('dropbox').Dropbox;
-var dbx = new Dropbox({ accessToken: _variable.token });
+var _async2 = _interopRequireDefault(_async);
+var _assign2 = _interopRequireDefault(_assign);
+var _promise2 = _interopRequireDefault(_promise);
+var dbx = new Dropbox({accessToken: _variable.token});
 dbx.setClientId(_variable.key);
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
-module.exports = (Noticia, ctx, ctx2) => {
+export default (Noticia, ctx, ctx2) => {
   Noticia.upload = (req, res, cb) => {
     var Container = Noticia.app.models.Container;
     var id = req.params.id;

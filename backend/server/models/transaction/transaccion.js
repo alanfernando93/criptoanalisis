@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function(Transaccion) {
+export default(Transaccion) => {
   Transaccion.closeChat = function(req, res, cb) {
     console.log(req.body.sender);
     Transaccion.find({

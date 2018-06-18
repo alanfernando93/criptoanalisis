@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function(Followuser) {
+export default (Followuser) => {
   Followuser.follow = function(req, res, cb) {
     Followuser.findOne({
       where: {
