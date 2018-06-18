@@ -11,6 +11,6 @@ import { NbRegisterComponent } from '@nebular/auth';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class NgxRegisterComponent extends NbRegisterComponent{
+export class NgxRegisterComponent extends NbRegisterComponent {
 
 }

@@ -7,5 +7,5 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './footer.component.html',
 })
 export class FooterComponent {
-  constructor(private translate: TranslateService) { }
+  constructor() { }
 }

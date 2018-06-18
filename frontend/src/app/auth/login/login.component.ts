@@ -15,7 +15,7 @@ export class NgxLoginComponent extends NbLoginComponent {
   constructor(
     router: Router,
     service: NbAuthService,
-  ){
+  ) {
     super(service, defaultSettings, router);
   }
 }

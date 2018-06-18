@@ -10,7 +10,7 @@ import { Session } from '../../@core/data/session';
     templateUrl: './publish.component.html',
 })
 
-export class PublishComponent implements OnInit, OnDestroy{
+export class PublishComponent implements OnInit, OnDestroy {
     select: Number = parseInt(Session.getStorage('select'));
     idNews: String;
 

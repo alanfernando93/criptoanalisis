@@ -37,7 +37,7 @@ export class ScheduleComponent implements OnInit {
     hora: '',
   };
 
-  constructor(private http: Http, private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute) {
   }
   ngOnInit() {
     if (this.onGetHorario !== '') {

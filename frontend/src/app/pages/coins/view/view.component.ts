@@ -11,10 +11,10 @@ export class ViewComponent implements OnInit {
 
     coins: any;
 
-    constructor(private coinsService: CoinsService){
+    constructor(private coinsService: CoinsService) {
 
     }
 
-    ngOnInit(){
+    ngOnInit() {
     }
 }

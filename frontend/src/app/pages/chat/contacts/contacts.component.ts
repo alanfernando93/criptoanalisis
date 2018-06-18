@@ -15,8 +15,8 @@ export class ContactsComponent implements OnInit, OnDestroy {
   @Output() onChat = new EventEmitter();
 
   constructor(private themeService: NbThemeService,
-              private breakpointService: NbMediaBreakpointsService,
-              private chatService: ChatService) {
+    private breakpointService: NbMediaBreakpointsService,
+    private chatService: ChatService) {
 
     this.breakpoints = this.breakpointService.getBreakpointsMap();
     this.themeSubscription = this.themeService.onMediaQueryChange()
@@ -28,7 +28,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getChats();
   }
-  getChats(){
+  getChats() {
     this.chatService.getrooms().subscribe(data => {
       this.rooms = data;
     });
@@ -39,7 +39,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
       this.requests = data.requests;
     });
   }
-  chatRoom(Name: string, id: number){
+  chatRoom(Name: string, id: number) {
     this.onChat.emit({
       nombre: Name,
       id: id,
@@ -48,22 +48,21 @@ export class ContactsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.themeSubscription.unsubscribe();
   }
-  getStatus(id: number){
-    if (id == parseInt(localStorage.getItem('userId')))
+  getStatus(id: number) {
+    if (id === parseInt(localStorage.getItem('userId'))) {
       return 'pendiente'
-    else
-    return 'solicitado'
+    } else {
+      return 'solicitado'
+    }
   }
-  ReqResponse(id: number, state: boolean){
+  ReqResponse(id: number, state: boolean) {
     this.requests.forEach((element, index) => {
-      if (id == element.id){
-        if (state){
+      if (id === element.id) {
+        if (state) {
           this.chatService.AcceptRequest(element.id).subscribe(data => {
-            console.log(data);
           });
         } else {
           this.chatService.RejectRequest(element.id).subscribe(data => {
-            console.log(data);
           });
         }
         this.requests.splice(index, 1);
