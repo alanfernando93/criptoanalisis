@@ -9,6 +9,7 @@ export const configCrud = {
         error: 'Se produjo un error con',
     },
 };
+
 export const configImage = {
     maxSize: 1000000,
     pixele: {

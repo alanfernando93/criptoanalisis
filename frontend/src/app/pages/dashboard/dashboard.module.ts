@@ -17,6 +17,6 @@ import { SignalsService } from '../signals/signals.service';
     DashboardComponent,
     ...routedComponents,
   ],
-  providers: [NewsService, SignalsService]
+  providers: [NewsService, SignalsService],
 })
 export class DashboardModule { }

@@ -15,7 +15,8 @@ export class ProfileService extends Session {
             .map(res => res.json());
     }
     getmySignal(id) {
-        return this.http.get(this.baseUrl + 'signals?[filter][where][usuarioId]=' + id + '&[filter][fields][id]=true&[filter][fields][tipo]=true&[filter][fields][FechaCreate]=true&access_token=' + this.getToken())
+        const filter = '?[filter][where][usuarioId]=' + id + '&[filter][fields][id]=true&[filter][fields][tipo]=true&[filter][fields][FechaCreate]=true&access_token=' + this.getToken();
+        return this.http.get(this.baseUrl + 'signals' + filter)
             .map(res => res.json());
     }
     getmyTransaccions(id) {

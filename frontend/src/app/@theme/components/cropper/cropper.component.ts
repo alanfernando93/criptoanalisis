@@ -42,7 +42,6 @@ export class CropperComponent {
   }
 
   fileChangeListener($event) {
-    const maximo = 1000000; // 4.8 Mb esto es para probar
     // max y min
     const image: any = new Image();
     const file: File = $event.target.files[0];

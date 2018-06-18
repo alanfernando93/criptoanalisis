@@ -42,7 +42,7 @@ export class CryptoHttp extends Session {
     }
 
     private request = (table, method, params: Params) => {
-        let url = `${this.baseUrl}${table}`;
+        const url = `${this.baseUrl}${table}`;
         return this.http[method](url,
             params.body ? params.body : {})
             .toPromise()
@@ -54,16 +54,14 @@ export class CryptoHttp extends Session {
     }
 
     private filter = (filter: Filter) => {
-        let array = [];
-        let url = "[filter]";
-        Object.entries(filter).forEach(([key, value]) => {
-            let filter = `[${key}]`;
-            Object.entries(value).forEach(([key, value]) => {
-                console.log(`${url}${filter}[${key}]=${value}`);
+        const array = [];
+        const url = '[filter]';
+        Object.entries(filter).forEach(([key1, value2]) => {
+            const indice = `[${key1}]`;
+            Object.entries(indice).forEach(([key, value]) => {
                 array.push(`${url}${filter}[${key}]=${value}`);
             });
         });
-        console.log(array.join('&'));
     }
 
 }
