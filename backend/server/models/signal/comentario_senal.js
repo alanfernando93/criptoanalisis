@@ -1,7 +1,7 @@
-'use strict';
-var _variable = require('../../variable');
 
-module.exports = (Comentariosenal) => {
+import _variable from '../../variable';
+
+export default (Comentariosenal) => {
   Comentariosenal.afterRemote('create', (ctx, user, next) => {
     var io = Comentariosenal.app.io;
     var signals = 'signals' + ctx.result.signalId;

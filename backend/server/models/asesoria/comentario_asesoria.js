@@ -1,7 +1,2 @@
-'use strict';
-
-module.exports = function(Comentario_asesoria) {
-
-
-    
+export default function(Comentario_asesoria) {
 };

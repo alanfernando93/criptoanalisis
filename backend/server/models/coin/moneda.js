@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function(Moneda) {
+export default (Moneda) => {
   Moneda.afterRemote('findById', function(ctx, moneda, next) {
     var title = Moneda.app.models.titulo;
     title.find({

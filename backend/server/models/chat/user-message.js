@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function(Usermessage) {
+export default (Usermessage) => {
   Usermessage.PersonalMessage = function(pair, cb) {
     Usermessage.find({where: {idProper: pair}}, cb);
   };

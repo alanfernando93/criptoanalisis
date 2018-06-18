@@ -11,7 +11,8 @@
       "type": "string"
     },
     "fechaCreacion": {
-      "type": "date"
+      "type": "date",
+      "default": "$now"
     },
     "estado": {
       "type": "boolean"

@@ -1,7 +1,7 @@
-'use strict';
-var loopback = require('loopback');
-var base64Img = require('base64-img');
-module.exports = (Usuario) => {
+
+import loopback from 'loopback';
+import base64Img from 'base64-img';
+export default (Usuario) => {
   Usuario.validatesLengthOf('password', {
     min: 5, message:
       {min: 'el password debe de contener por lo menos 5 caracteres'},

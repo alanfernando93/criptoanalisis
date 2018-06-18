@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function(Answersenal) {
+export default (Answersenal) => {
   Answersenal.afterRemote('create', (ctx, user, next) => {
     var io = Answersenal.app.io;
     var answer = 'signals' + ctx.result.signalId;
