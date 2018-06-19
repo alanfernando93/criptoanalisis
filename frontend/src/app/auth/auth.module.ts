@@ -9,6 +9,8 @@ import { NgxLogoutComponent } from './logout/logout.component';
 import { NgxRequestPasswordComponent } from './request-password/request-password.component';
 import { NgxResetPasswordComponent } from './reset-password/reset-password.component';
 
+import {RecaptchaModule, RECAPTCHA_SETTINGS, RecaptchaSettings, RECAPTCHA_LANGUAGE} from 'ng-recaptcha';
+
 import { AuthRoutingModule } from './auth-routing.module';
 
 const AUTH_COMPONENTS = [
@@ -25,10 +27,19 @@ const AUTH_COMPONENTS = [
   imports: [
       AuthRoutingModule,
       ThemeModule,
+      RecaptchaModule.forRoot(),
   ],
   declarations: [
       ...AUTH_COMPONENTS,
   ],
-  providers: [],
+  providers: [{
+    provide: RECAPTCHA_SETTINGS,
+    useValue: { 
+      siteKey: '6LfvpF8UAAAAAFS3pSyuffnkYLJqkF2zVr2l9GFL',
+    } as RecaptchaSettings,
+  },{
+    provide: RECAPTCHA_LANGUAGE,
+    useValue: 'es',
+  }],
 })
 export class AuthModule {}
