@@ -1,5 +1,7 @@
 import { ToasterConfig, Toast, BodyOutputType, ToasterService } from 'angular2-toaster';
 
+let config: ToasterConfig;
+
 export function stringLimit(text, limit) {
   return (text.length < limit) ? text : text.substr(0, limit);
 }
@@ -32,7 +34,7 @@ export function parseToFile(dataURI): File {
 }
 
 export function showToast(service: ToasterService, type: string, msg: string, title: string = null) {
-  const config = new ToasterConfig({
+  config = new ToasterConfig({
     positionClass: 'toast-top-right',
     timeout: 5000,
     newestOnTop: true,

@@ -3,7 +3,7 @@
  * Copyright Akveo. All Rights Reserved.
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NbRegisterComponent } from '@nebular/auth';
 
 @Component({
@@ -17,7 +17,6 @@ export class NgxRegisterComponent extends NbRegisterComponent {
 
   public resolved(captchaResponse: string) {
     this.valid = true;
-    console.log(`Resolved captcha with response ${captchaResponse}:`);
   }
 
   ngxRegister() {
@@ -28,7 +27,7 @@ export class NgxRegisterComponent extends NbRegisterComponent {
       }, 1000);
       return;
     }
-    this.user.username = this.user.email.split("@")[0];
+    this.user.username = this.user.email.split('@')[0];
     super.register();
   }
 }
