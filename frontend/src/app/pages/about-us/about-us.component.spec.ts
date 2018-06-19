@@ -11,7 +11,7 @@ describe('AboutUsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AboutUsComponent ]
+      declarations: [ AboutUsComponent ],
     })
     .compileComponents();
   }));

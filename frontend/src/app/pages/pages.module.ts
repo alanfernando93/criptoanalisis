@@ -12,7 +12,7 @@ import { TutorialComponent } from './tutorial/tutorial.component';
 const PAGES_COMPONENTS = [
   PagesComponent,
   AboutUsComponent,
-  TutorialComponent
+  TutorialComponent,
 ];
 
 @NgModule({
