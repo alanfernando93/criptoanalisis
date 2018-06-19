@@ -14,7 +14,7 @@
     "conventional-changelog": "conventional-changelog",
     "start": "ng serve",
     "build": "ng build",
-    "build:prod": "npm run build -- --prod --aot",
+    "build:prod": "npm run build -- --prod --aot=false",
     "lint": "ng lint --type-check",
     "lint:fix": "ng lint --fix",
     "lint:styles": "stylelint ./src/**/*.scss",
