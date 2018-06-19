@@ -34,10 +34,10 @@ const AUTH_COMPONENTS = [
   ],
   providers: [{
     provide: RECAPTCHA_SETTINGS,
-    useValue: { 
+    useValue: {
       siteKey: '6LfvpF8UAAAAAFS3pSyuffnkYLJqkF2zVr2l9GFL',
     } as RecaptchaSettings,
-  },{
+  }, {
     provide: RECAPTCHA_LANGUAGE,
     useValue: 'es',
   }],

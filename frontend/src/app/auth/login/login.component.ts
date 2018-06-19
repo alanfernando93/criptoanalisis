@@ -45,7 +45,7 @@ export class NgxLoginComponent extends NbLoginComponent {
       }
     });
   }
-  
+
   getConfigValue(key: string): any {
     return getDeepFromObject(this.config, key, null);
   }

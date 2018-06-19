@@ -42,7 +42,8 @@ export class CryptoHttp extends Session {
     }
 
     private request = (table, method, params: Params) => {
-        const url = `${this.baseUrl}${table}`;
+        let url = `${this.baseUrl}${table}`;
+        url += this.filter(params.filter);
         return this.http[method](url,
             params.body ? params.body : {})
             .toPromise()
@@ -62,6 +63,7 @@ export class CryptoHttp extends Session {
                 array.push(`${url}${filter}[${key}]=${value}`);
             });
         });
+        return array.join('&');
     }
 
 }
