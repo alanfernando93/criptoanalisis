@@ -35,7 +35,7 @@ const AUTH_COMPONENTS = [
   providers: [{
     provide: RECAPTCHA_SETTINGS,
     useValue: { 
-      siteKey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI',
+      siteKey: '6LfvpF8UAAAAAFS3pSyuffnkYLJqkF2zVr2l9GFL',
     } as RecaptchaSettings,
   },{
     provide: RECAPTCHA_LANGUAGE,
