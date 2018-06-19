@@ -2,7 +2,7 @@
   <nb-card-header>
     <div class="row">
       <div class="col-12 col-md-6">
-        <ngb-carousel>
+        <!-- <ngb-carousel>
           <ng-template ngbSlide *ngFor="let noticia of news">
             <a [routerLink]="['/pages/news/view', noticia.id]">
               <div class="carousel-caption" *ngFor="let content of noticia.contentUser">
@@ -14,7 +14,7 @@
               <img src="{{noticia?.perfilLink}}" alt="Random first slide" width="500" height="450">
             </a>
           </ng-template>
-        </ngb-carousel>
+        </ngb-carousel> -->
       </div>
       <div class="col-12 col-md-6" *ngIf="signals ; else otroTexto">
         <div class="list-group" *ngFor="let signals of signals">
@@ -34,11 +34,11 @@
               </a>
               <small class="text-muted">{{signals.FechaCreate | amTimeAgo}}</small>
             </div>
-            <div *ngFor="let content of signals.contentUser">
+            <!-- <div *ngFor="let content of signals.contentUser">
               <small class="text-muted">{{content.username}}</small>
               <p class="badge badge-primary font-w-light user">{{content.puntos}} P</p>
               <p class="badge badge-success font-w-light user" *ngFor="let famaUser of content.fama.firstTwo">{{famaUser.valor}} {{famaUser.symbol}}</p>
-            </div>
+            </div> -->
           </div>
         </div>
 
