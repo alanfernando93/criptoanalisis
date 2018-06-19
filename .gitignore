@@ -7,7 +7,6 @@
 # dependencies
 /frontend/node_modules
 /frontend/package-lock.json
-/frontend/package.json
 /frontend/yarn.lock
 
 # IDEs and editors
