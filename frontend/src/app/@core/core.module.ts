@@ -22,10 +22,6 @@ const NB_CORE_PROVIDERS = [
             rememberMe: true,
             endpoint: 'usuarios/login',
             method: 'post',
-            redirect: {
-              success: '/pages/dashboard',
-              failure: null,
-            },
             defaultErrors: ['Login/Email combination is not correct, please try again.'],
             defaultMessages: ['You have been successfully logged in.'],
           },
