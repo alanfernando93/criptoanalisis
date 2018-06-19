@@ -6,9 +6,13 @@ import { PublishModule } from './publish/publish.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { ThemeModule } from '../@theme/theme.module';
 import { ChatModule } from './chat/chat.module';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { TutorialComponent } from './tutorial/tutorial.component';
 
 const PAGES_COMPONENTS = [
   PagesComponent,
+  AboutUsComponent,
+  TutorialComponent
 ];
 
 @NgModule({
@@ -21,8 +25,8 @@ const PAGES_COMPONENTS = [
   ],
   declarations: [
     ...PAGES_COMPONENTS,
-],
-providers: [],
+  ],
+  providers: [],
 })
 export class PagesModule {
 }

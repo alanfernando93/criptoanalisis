@@ -7,6 +7,8 @@ import { ChatComponent } from './chat/chat.component';
 import { PublishComponent } from './publish/publish.component';
 
 import { AuthGuard } from '../auth-guard.service';
+import { TutorialComponent } from './tutorial/tutorial.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 const routes: Routes = [{
   path: '',
@@ -17,6 +19,12 @@ const routes: Routes = [{
   }, {
     path: 'dashboard',
     component: DashboardComponent,
+  }, {
+    path: 'tutorial',
+    component: TutorialComponent,
+  }, {
+    path: 'about-us',
+    component: AboutUsComponent,
   }, {
     path: 'publish',
     component: PublishComponent,

@@ -15,15 +15,15 @@
     "tutorials": "Tutoriales",
     "events": "Eventos",
     "win": "Gane $CA tokens",
-    "us": "Nosotros",
-    "group" : "FUNCIONES",
-    "feature" : {
-      "feature":"UI Funciones",
+    "us": "¿Sobre Nosotros?",
+    "group": "FUNCIONES",
+    "feature": {
+      "feature": "UI Funciones",
       "button": "Butones",
       "typography": "Tipografia",
       "animated": "Búsquedas animadas"
     },
-    "advisory" : {
+    "advisory": {
       "advisory": "Consultivo",
       "list": "Lista Consultas",
       "tab": "Asesor de Pestañas"
@@ -32,14 +32,14 @@
       "market": "Mercados",
       "list": "Lista de Mercados"
     },
-    "coin" : {
+    "coin": {
       "coin": "Moneda",
       "view": "Vista"
     }
   },
-  "footer":{
+  "footer": {
     "create": "Creado con ♥ por",
     "company": "Akveo",
-    "year" : "2017"
+    "year": "2017"
   }
 }
