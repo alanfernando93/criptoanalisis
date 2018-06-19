@@ -1,6 +1,6 @@
 <ngx-auth-block>
     <h2 class="title">Sign Up</h2>
-    <form (ngSubmit)="register()" #form="ngForm">
+    <form (ngSubmit)="ngxRegister()" #form="ngForm">
 
         <div *ngIf="showMessages.error && errors && errors.length > 0 && !submitted" class="alert alert-danger" role="alert">
             <div>
@@ -16,7 +16,7 @@
         </div>
 
         <div class="form-group">
-            <input type="text" name="firstName" [(ngModel)]="user.nombre" #firstName="ngModel" class="form-control fullname" placeholder="First Name"
+            <input type="text" name="firstName" [(ngModel)]="user.nombre" #firstName="ngModel" class="form-control firstname" placeholder="First Name"
                 [class.form-control-danger]="firstName.invalid && firstName.touched" [required]="getConfigValue('forms.validation.firstName.required')"
                 [minlength]="getConfigValue('forms.validation.firstName.minLength')" [maxlength]="getConfigValue('forms.validation.firstName.maxLength')"
                 autofocus>
@@ -27,8 +27,10 @@
                 First name should contains from {{getConfigValue('forms.validation.password.minLength')}} to {{getConfigValue('forms.validation.password.maxLength')}}
                 characters
             </small>
+        </div>
 
-            <input type="text" name="lastName" [(ngModel)]="user.apellido" #lastName="ngModel" class="form-control fullname" placeholder="Last Name"
+        <div class="form-group">
+            <input type="text" name="lastName" [(ngModel)]="user.apellido" #lastName="ngModel" class="form-control lastname" placeholder="Last Name"
                 [class.form-control-danger]="lastName.invalid && lastName.touched" [required]="getConfigValue('forms.validation.lastName.required')"
                 [minlength]="getConfigValue('forms.validation.lastName.minLength')" [maxlength]="getConfigValue('forms.validation.lastName.maxLength')"
                 autofocus>
@@ -37,21 +39,6 @@
             </small>
             <small class="form-text error" *ngIf="lastName.invalid && lastName.touched && (lastName.errors?.minlength || lastName.errors?.maxlength)">
                 Last name should contains from {{getConfigValue('forms.validation.password.minLength')}} to {{getConfigValue('forms.validation.password.maxLength')}}
-                characters
-            </small>
-        </div>
-
-        <div class="form-group">
-            <label for="input-name" class="sr-only">Full name</label>
-            <input name="userName" [(ngModel)]="user.username" id="input-name" #userName="ngModel" class="form-control" placeholder="UserName"
-                [class.form-control-danger]="userName.invalid && userName.touched" [required]="getConfigValue('forms.validation.username.required')"
-                [minlength]="getConfigValue('forms.validation.username.minLength')" [maxlength]="getConfigValue('forms.validation.username.maxLength')"
-                autofocus>
-            <small class="form-text error" *ngIf="userName.invalid && userName.touched && userName.errors?.required">
-                Full name is required!
-            </small>
-            <small class="form-text error" *ngIf="userName.invalid && userName.touched && (userName.errors?.minlength || userName.errors?.maxlength)">
-                Full name should contains from {{getConfigValue('forms.validation.password.minLength')}} to {{getConfigValue('forms.validation.password.maxLength')}}
                 characters
             </small>
         </div>
@@ -94,7 +81,11 @@
                 Password does not match the confirm password.
             </small>
         </div>
-
+        <div class="center-block">
+            <label for="input-re-password" class="sr-only">CAPTCHA</label>
+            <re-captcha (resolved)="resolved($event)"></re-captcha>
+            <div [hidden]="!validCaptcah" class="form-text error">Captcha must be solved</div>
+        </div>
         <div class="form-group accept-group col-sm-12" *ngIf="getConfigValue('forms.register.terms')">
             <nb-checkbox name="terms" [(ngModel)]="user.terms" [required]="getConfigValue('forms.register.terms')">
                 Agree to
