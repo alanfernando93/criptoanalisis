@@ -16,7 +16,7 @@ export const MENU_ITEMS: MenuItem[] = [{
 }, {
   title: 'Tutoriales',
   icon: 'nb-home',
-  link: '/pages/dashboard',
+  link: '/pages/tutorial',
   home: true,
   key: 'tutorials',
 }, {
@@ -32,9 +32,9 @@ export const MENU_ITEMS: MenuItem[] = [{
   home: true,
   key: 'win',
 }, {
-  title: 'Nosotros',
+  title: '¿Sobre Nosotros?',
   icon: 'nb-grid-a',
-  link: '/pages/dashboard',
+  link: '/pages/about-us',
   home: true,
   key: 'us',
 }, {
