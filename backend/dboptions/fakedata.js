@@ -192,6 +192,7 @@ module.exports = {
       'EstrategiaSalida': 'string',
       'moneda1': 'BTC',
       'moneda2': 'USD',
+      'usuarioId': 1,
     }, {
       'tipo': false,
       'tipoInversion': 'POW',
@@ -200,6 +201,7 @@ module.exports = {
       'EstrategiaSalida': 'string',
       'moneda1': 'ETH',
       'moneda2': 'USD',
+      'usuarioId': 1,
     },
   ],
   punto: [
@@ -236,7 +238,7 @@ module.exports = {
       'puntoId': 2,
     },
   ],
-  Suscripcion: [],
+  buySignal: [],
   'comentario_senal': [],
   'answer-senal': [],
   transaccion: [],

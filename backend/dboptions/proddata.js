@@ -28,7 +28,7 @@ module.exports = {
   signal: [],
   punto: [],
   position: [],
-  Suscripcion: [],
+  buySignal: [],
   'comentario_senal': [],
   'answer-senal': [],
   transaccion: [],

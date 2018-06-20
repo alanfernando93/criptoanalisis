@@ -7,7 +7,6 @@
       "./models/user",
       "./models/storage",
       "./models/notification",
-      "./models/suscripcion",
       "./models/transaction",
       "./models/asesoria",
       "./models/news",
@@ -59,10 +58,6 @@
     "public": true
   },
   "punto": {
-    "dataSource": "db",
-    "public": true
-  },
-  "Suscripcion": {
     "dataSource": "db",
     "public": true
   },
@@ -147,6 +142,10 @@
     "public": true
   },
   "followUser": {
+    "dataSource": "db",
+    "public": true
+  },
+  "buySignal": {
     "dataSource": "db",
     "public": true
   }

@@ -24,14 +24,33 @@ export default(Transaccion) => {
     ],
     returns: {arg: '', type: 'object'},
   });
-  Transaccion.modPuntos = function(id, monto) {
-    console.log(id);
-    Transaccion.app.models.usuario.findById(id)
+  Transaccion.modPuntos = function(userId, monto) {
+    Transaccion.app.models.usuario.findById(userId)
     .then(data=>{
-      Transaccion.app.models.usuario.updateAll({id: id}, {puntos: data.puntos + monto})
-      .then(data=>{
-        console.log('cambiado');
+      Transaccion.app.models.usuario.updateAll({id: userId}, {puntos: data.puntos + monto})
+      .catch(err=>{
+        console.log('error durante la transaccion');
       });
+    });
+  };
+  Transaccion.makeTransaction = (sellerId, buyerId, monto, razon)=> {
+    let usuario = Transaccion.app.models.usuario;
+    return usuario.haveEnoughFounds(buyerId, monto)
+    .then(result=>{
+      if (result) {
+        Transaccion.modPuntos(buyerId, -monto);
+        Transaccion.modPuntos(sellerId, monto);
+        Transaccion.create({
+          'senderId': buyerId,
+          'recieverId': sellerId,
+          'monto': monto,
+          'razon': razon,
+          'activo': false,
+        });
+        return true;
+      } else {
+        return false;
+      }
     });
   };
 };

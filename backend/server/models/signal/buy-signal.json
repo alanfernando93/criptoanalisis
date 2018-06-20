@@ -1,29 +1,27 @@
 {
-  "name": "Suscripcion",
+  "name": "buySignal",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "fechaCreacion": {
-      "type": "date"
-    },
-    "fechaFin": {
-      "type": "date"
+    "createDate": {
+      "type": "date",
+      "default": "$now"
     }
   },
   "validations": [],
   "relations": {
-    "seguidor": {
+    "usuario":{
       "type": "belongsTo",
       "model": "usuario",
-      "foreignkey": "SeguidorId"
+      "foreignkey":""
     },
-    "trader": {
+    "signal": {
       "type": "belongsTo",
-      "model": "usuario",
-      "foreignkey": "TraderId"
+      "model": "signal",
+      "foreignkey": ""
     }
   },
   "acls": [],
