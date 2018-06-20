@@ -14,3 +14,4 @@ export * from './complaint/complaint.component';
 export * from './share/share.component';
 export * from './advisories-body/advisories-body.component';
 export * from './preload/preload.component';
+export * from './welcome/welcome.component';

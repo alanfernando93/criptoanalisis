@@ -38,6 +38,7 @@ import {
   ShareComponent,
   AdvisoriesBodyComponent,
   PreloadComponent,
+  WelcomeComponent,
 } from './components';
 import { CapitalizePipe, PluralPipe, RoundPipe } from './pipes';
 import {
@@ -82,6 +83,7 @@ const COMPONENTS = [
   NewsBodyComponent,
   SignalBodyComponent,
   PreloadComponent,
+  WelcomeComponent
 ];
 
 const PIPES = [
