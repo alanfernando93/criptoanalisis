@@ -119,34 +119,6 @@ export default (Usuario) => {
     }
     next();
   });
-  Usuario.verPagaSignal = (id, cb) => {
-    var suscrito = Usuario.app.models.Suscripcion;
-    var signalPaga = Usuario.app.models.Signal;
-    var iterable = [];
-    suscrito.find({where: {seguidorId: id}})
-      .then(traders => {
-        traders.forEach(trader => {
-          var x = signalPaga.find({
-            where: {usuarioId: trader.TraderId},
-          });
-          iterable.push(x);
-        });
-        Promise.all(iterable).then(values => {
-          cb(null, values);
-        });
-      });
-  };
-  Usuario.remoteMethod('verPagaSignal',
-    {
-      accepts: {arg: 'id', type: 'number', required: true},
-      http: {path: '/:id/verPagaSignal', verb: 'get'},
-      returns: {arg: 'signal', type: 'Object'},
-    });
-  Usuario.updateInfo = (req, res, cb) => {
-    Usuario.updateAll({
-      id: req.params.id,
-    }, req.body, cb);
-  };
   Usuario.remoteMethod('updateInfo', {
     http: {path: '/:id/updateInfo', verb: 'put'},
     accepts: [
@@ -221,6 +193,17 @@ export default (Usuario) => {
           precision: precision,
         });
       });
+    });
+  };
+  Usuario.haveEnoughFounds = (userId, monto)=>{
+    return Usuario.findById(userId)
+    .then(user=>{
+      if (user.puntos >= monto)
+        return true;
+      return false;
+    })
+    .catch(err=>{
+      return false;
     });
   };
 };

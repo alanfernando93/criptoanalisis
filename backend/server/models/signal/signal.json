@@ -46,8 +46,12 @@
       "type": "string",
       "default": "pasivo"
     },
-    "visible": {
+    "comprable": {
       "type": "Boolean"
+    },
+    "precio": {
+      "type": "number",
+      "default": 0
     },
     "precision": {
       "type": "number",
@@ -89,6 +93,11 @@
       "type": "hasMany",
       "model": "answer-senal",
       "foreignKey": ""
+    },
+    "buysignal":{
+      "type": "hasMany",
+      "model": "buysignal",
+      "foreignkey": ""
     }
   },
   "acls": [

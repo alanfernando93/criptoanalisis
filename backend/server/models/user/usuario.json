@@ -30,7 +30,7 @@
     },
     "puntos": {
       "type": "number",
-      "required": false
+      "default":0
     },
     "precision": {
       "type": "object",
@@ -56,18 +56,6 @@
       "type": "hasMany",
       "model": "signal",
       "foreignKey": ""
-    },
-    "seguidor": {
-      "type": "hasMany",
-      "model": "usuario",
-      "foreignKey": "SeguidorId",
-      "through": "Suscripcion"
-    },
-    "trader": {
-      "type": "hasMany",
-      "model": "usuario",
-      "foreignKey": "TraderId",
-      "through": "Suscripcion"
     },
     "Noticia": {
       "type": "hasMany",
@@ -142,6 +130,11 @@
       "model": "usuario",
       "foreignKey": "posterId",
       "through": "posterId"
+    },
+    "butSignal":{
+      "type": "hasMany",
+      "model": "buySignal",
+      "foreignkey": ""
     }
   },
   "acls": [
