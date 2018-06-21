@@ -2,10 +2,14 @@
 require('babel-core/register')();
 var boot = require('loopback-boot');
 var socket = require('socket.io');
+var path = require('path');
 //var app = require('./app.js');
 
 var loopback = require('loopback');
 var app = module.exports = loopback();
+
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 app.start = () => {
   // start the web server

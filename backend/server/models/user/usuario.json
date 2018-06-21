@@ -6,6 +6,8 @@
   "options": {
     "validateUpsert": true
   },
+  "restrictResetPasswordTokenScope": true,
+  "emailVerificationRequired": true,
   "properties": {
     "nombre": {
       "type": "string",

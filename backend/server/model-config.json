@@ -45,6 +45,9 @@
     "dataSource": "db",
     "public": false
   },
+  "Email": {
+    "dataSource": "emailDs"
+  },
   "usuario": {
     "dataSource": "db",
     "public": true

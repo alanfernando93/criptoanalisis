@@ -5,6 +5,7 @@
  */
 import { Component } from '@angular/core';
 import { NbRegisterComponent } from '@nebular/auth';
+import { getDeepFromObject } from '@nebular/auth/helpers';
 
 @Component({
   selector: 'ngx-register',
@@ -28,6 +29,33 @@ export class NgxRegisterComponent extends NbRegisterComponent {
       return;
     }
     this.user.username = this.user.email.split('@')[0];
-    super.register();
+    this.register();
+  }
+
+  register() {
+    var _this = this;
+    this.errors = this.messages = [];
+    this.submitted = true;
+    this.service.register(this.provider, this.user).subscribe(function (result) {
+      console.log(result);
+      _this.submitted = false;
+      if (result.isSuccess()) {
+        _this.messages = result.getMessages();
+      }
+      else {
+        _this.errors = result.getErrors();
+      }
+      var redirect = result.getRedirect();
+      if (redirect) {
+        setTimeout(function () {
+          return _this.router.navigateByUrl(redirect);
+        }, _this.redirectDelay);
+      }
+    }, error => console.log(error),
+    () => console.log("---aqui"));
+  }
+
+  getConfigValue(key) {
+    return getDeepFromObject(this.config, key, null);
   }
 }

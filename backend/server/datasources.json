@@ -9,5 +9,24 @@
     "user": "test",
     "connector": "mysql",
     "connectionLimit": 100
+  },
+  "emailDs": {
+    "name": "emailDs",
+    "connector": "mail",
+    "transports": [
+      {
+        "type": "smtp",
+        "host": "smtp.gmail.com",
+        "secure": true,
+        "port": 465,
+        "tls": {
+          "rejectUnauthorized": false
+        },
+        "auth": {
+          "user": "alanfernando93.am@gmail.com",
+          "pass": "alanmamanihuayllani"
+        }
+      }
+    ]
   }
 }
