@@ -1,3 +1,0 @@
-backend: backend.sh
-frontend:
- ./frontend.sh

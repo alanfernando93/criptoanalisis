@@ -1,10 +1,16 @@
 #! /bin/bash
 
-
-if [ ! $1 ]; then
-	node backend/dboptions/create-fakedata.js
-else
-	node backend/dboptions/create-proddata.js
+input=$1
+if [ -z $1 ]; then
+	input="develop"
 fi
+
+cd backend
+if [ $input = "--prod" ]; then
+	node dboptions/create-proddata.js
+else
+	node dboptions/create-fakedata.js
+fi
+cd ..
 
 forego start
