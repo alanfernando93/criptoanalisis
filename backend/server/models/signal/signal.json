@@ -47,11 +47,11 @@
       "default": "pasivo"
     },
     "comprable": {
-      "type": "Boolean"
+      "type": "Boolean",
+      "default": false
     },
     "precio": {
-      "type": "number",
-      "default": 0
+      "type": "number"
     },
     "precision": {
       "type": "number",

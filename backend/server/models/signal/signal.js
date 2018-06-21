@@ -4,7 +4,7 @@ import _promise from 'babel-runtime/core-js/promise';
 import _assign from 'babel-runtime/core-js/object/assign';
 import _async from 'async';
 import _variable from '../../variable';
-
+import {CalculatePrice} from '../../../calculateFunctions/signalFunctions';
 var Dropbox = require('dropbox').Dropbox;
 var _async2 = _interopRequireDefault(_async);
 var _assign2 = _interopRequireDefault(_assign);
@@ -149,40 +149,6 @@ module.exports = (Signal, ctx, ctx2) => {
       next();
     });
   });
-
-  Signal.verGratis = (cb) => {
-    Signal.find({
-      where: {
-        visible: 'gratuito',
-      },
-      include: ['puntos'],
-    }, cb);
-  };
-
-  Signal.remoteMethod('verGratis', {
-    returns: {arg: 'señales', type: 'array'},
-    http: {path: '/ver_Gratis', verb: 'get'},
-  });
-
-  Signal.upload = function(req, res, cb) {
-    var Container = Signal.app.models.Container;
-    var id = req.params.id;
-    Container.createContainer({name: 'signal' + id}, function(err, c) {
-      Container.upload(req, res, {container: 'signal' + id}, cb);
-    });
-  };
-
-  Signal.remoteMethod(
-       'upload',
-    {
-      http: {path: '/:id/upload', verb: 'post'},
-      accepts: [
-           {arg: 'req', type: 'object', 'http': {source: 'req'}},
-           {arg: 'res', type: 'object', 'http': {source: 'res'}},
-      ],
-      returns: {arg: 'status', type: 'string'},
-    }
-  );
   // hook que envia notificacion cuando postea señal
   Signal.afterRemote('create', (ctx, signal, next)=>{
     var io = Signal.app.io;
@@ -464,5 +430,29 @@ module.exports = (Signal, ctx, ctx2) => {
       emmiterId: userId,
     });
   }
+  // verifica si es tiene un precio por defecto
+  Signal.afterRemote('create', (ctx, news, next)=>{
+    if (ctx.result.precio == null) {
+      Signal.setPrice(ctx.result.id, ctx.result.usuarioId)
+      .then(price=>{
+        ctx.result.precio = price;
+        next();
+      });
+    } else {
+      next();
+    }
+  });
+  Signal.setPrice = (signalId, userId)=>{
+    let usuarioModel = Signal.app.models.usuario;
+    return usuarioModel.findById(userId)
+      .then(usuario =>{
+        return Signal.count({usuarioId: userId})
+        .then(val=>{
+          let price = CalculatePrice(usuario.precision.valor, val);
+          Signal.updateAll({id: signalId}, {precio: price, comprable: true});
+          return price;
+        });
+      });
+  };
 };
 

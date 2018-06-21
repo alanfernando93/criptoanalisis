@@ -19,6 +19,13 @@
     },
     "calificacion": {
       "type": "number"
+    },
+    "precio": {
+      "type": "number"
+    },
+    "comprable": {
+      "type": "boolean",
+      "default": false
     }
   },
   "validations": [],

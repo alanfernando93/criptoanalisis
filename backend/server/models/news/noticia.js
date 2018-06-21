@@ -2,6 +2,7 @@ import _promise from 'babel-runtime/core-js/promise';
 import _assign from 'babel-runtime/core-js/object/assign';
 import _async from 'async';
 import _variable from '../../variable';
+import {CalculatePrice} from '../../../calculateFunctions/newsFunctions';
 
 var Dropbox = require('dropbox').Dropbox;
 var _async2 = _interopRequireDefault(_async);
@@ -14,25 +15,30 @@ function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
 export default (Noticia, ctx, ctx2) => {
-  Noticia.upload = (req, res, cb) => {
-    var Container = Noticia.app.models.Container;
-    var id = req.params.id;
-    Container.createContainer({name: 'news' + id}, (err, c) => {
-      Container.upload(req, res, {container: 'news' + id}, cb);
-    });
-  };
-  Noticia.remoteMethod(
-    'upload',
-    {
-      http: { path: '/:id/upload', verb: 'post' },
-      accepts: [
-        { arg: 'req', type: 'object', 'http': { source: 'req' } },
-        { arg: 'res', type: 'object', 'http': { source: 'res' } },
-      ],
-      returns: { arg: 'status', type: 'string' },
+  // verifica si es tiene un precio por defecto
+  Noticia.afterRemote('create', (ctx, news, next)=>{
+    if (ctx.result.precio == null) {
+      Noticia.setPrice(ctx.result.id, ctx.result.usuarioId)
+      .then(price=>{
+        ctx.result.precio = price;
+        next();
+      });
+    } else {
+      next();
     }
-  );
-
+  });
+  Noticia.setPrice = (newsId, userId)=>{
+    let usuarioModel = Noticia.app.models.usuario;
+    return usuarioModel.findById(userId)
+      .then(usuario =>{
+        return Noticia.count({usuarioId: userId})
+        .then(val=>{
+          let price = CalculatePrice(usuario.precision.valor, val);
+          Noticia.updateAll({id: newsId}, {precio: price, comprable: true});
+          return price;
+        });
+      });
+  };
   const HttpErrors = require('http-errors');
   // ctx para dislike
   ctx = (0, _assign2.default)({
@@ -158,6 +164,7 @@ export default (Noticia, ctx, ctx2) => {
   Noticia.observe('before save', (context, next) => {
     var tit = context.instance.titulo;
     var cont = context.instance.contenido;
+    console.log(tit);
     if (tit.length > 90) {
       return next(
         new HttpErrors.BadRequest('Titulo debe tener como maximo 90 caracteres')

@@ -45,6 +45,13 @@
     "fuentes": {
       "type": "string",
       "required": false
+    },
+    "comprable": {
+      "type": "Boolean",
+      "default": false
+    },
+    "precio": {
+      "type": "number"
     }
   },
   "validations": [],
